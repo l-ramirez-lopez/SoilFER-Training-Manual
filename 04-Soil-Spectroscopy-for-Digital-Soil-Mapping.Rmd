@@ -260,7 +260,12 @@ Spectral variables are then separated from the rest of the soil dataset and stor
 # -----------------------------------------------------------
 
 # Load data (keep original column names unchanged)
-dat <- read.csv("./data/MIR_KANSAS_data.csv", check.names = FALSE)
+library(readxl)
+
+dat <- read_excel(
+  "01_data/module1/training_data/data/MIR_KANSAS_data.xlsx",
+  .name_repair = "minimal"
+)
 
 # -----------------------------------------------------------
 # Average replicate measurements by sample ID
@@ -719,7 +724,9 @@ library(terra)
 # Load environmental covariates
 # -----------------------------------------------------------
 
-covs <- rast("data/Environmental_Covariates_250m_KANSAS.tif")
+covs <- rast(
+  "01_data/module1/training_data/data/Environmental_Covariates_250m_KANSAS.tif"
+)
 cov_names <- names(covs)
 
 # -----------------------------------------------------------
