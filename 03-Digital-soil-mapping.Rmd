@@ -1,6 +1,19 @@
 # Digital Soil Mapping
 
-```{r child="../SoilFER-Training-Resources/02_scripts/module3/_setup_chunk_ch3.Rmd"}
+```{r setup-ch3, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE,
+                      fig.width = 10, fig.height = 7)
+
+RESOURCES_ROOT <- normalizePath(file.path(here::here(), "../SoilFER-Training-Resources"))
+OUTPUTS_DIR    <- file.path(RESOURCES_ROOT, "03_outputs", "module3")
+FIGURES_DIR    <- "images/module3"
+
+TERRA_TMPDIR <- file.path(tempdir(), "terra_module3")
+dir.create(TERRA_TMPDIR, showWarnings = FALSE, recursive = TRUE)
+if (requireNamespace("terra", quietly = TRUE))
+  terra::terraOptions(tempdir = TERRA_TMPDIR)
+
+set.seed(2024)
 ```
 
 ## Part I: Theoretical Foundations {-}
