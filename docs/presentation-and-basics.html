@@ -54,9 +54,8 @@
 
 
 <style type="text/css">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +65,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -440,89 +439,100 @@ div.csl-indent {
 <li class="chapter" data-level="3.1.6" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#nonlinearity-and-uncertainty"><i class="fa fa-check"></i><b>3.1.6</b> Nonlinearity and Uncertainty</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#part-ii-practical-application"><i class="fa fa-check"></i>Part II: Practical Application</a></li>
-<li class="chapter" data-level="3.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#workflow-overview"><i class="fa fa-check"></i><b>3.2</b> Workflow Overview</a></li>
-<li class="chapter" data-level="3.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#continuous-modelling-ph"><i class="fa fa-check"></i><b>3.3</b> Continuous Modelling (pH)</a>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#overview"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#session-1-data-preparation-feature-selection-modelling-and-accuracy-assessment"><i class="fa fa-check"></i>SESSION 1: Data Preparation, Feature Selection, Modelling, and Accuracy Assessment</a></li>
+<li class="chapter" data-level="3.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#setup-and-packages"><i class="fa fa-check"></i><b>3.2</b> 1. Setup and Packages</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-2-load-covariates"><i class="fa fa-check"></i>Section 2 — Load covariates</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-3-load-and-transform-soil-data"><i class="fa fa-check"></i>Section 3 — Load and transform soil data</a>
 <ul>
-<li class="chapter" data-level="3.3.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#nature-of-the-variable"><i class="fa fa-check"></i><b>3.3.1</b> Nature of the Variable</a></li>
-<li class="chapter" data-level="3.3.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#data-and-covariates"><i class="fa fa-check"></i><b>3.3.2</b> Data and Covariates</a></li>
-<li class="chapter" data-level="3.3.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#feature-selection-boruta"><i class="fa fa-check"></i><b>3.3.3</b> Feature Selection (Boruta)</a></li>
-<li class="chapter" data-level="3.3.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#model-training"><i class="fa fa-check"></i><b>3.3.4</b> Model Training</a></li>
-<li class="chapter" data-level="3.3.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#variable-importance"><i class="fa fa-check"></i><b>3.3.5</b> Variable Importance</a></li>
-<li class="chapter" data-level="3.3.6" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#validation-metrics"><i class="fa fa-check"></i><b>3.3.6</b> Validation Metrics</a></li>
-<li class="chapter" data-level="3.3.7" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-maps"><i class="fa fa-check"></i><b>3.3.7</b> Prediction Maps</a>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#estimate-bulk-density-with-a-pedotransfer-function"><i class="fa fa-check"></i>3.1 Estimate bulk density with a pedotransfer function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-4-merge-soil-data-and-covariate-values"><i class="fa fa-check"></i>Section 4 — Merge soil data and covariate values</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-5-feature-selection-with-boruta"><i class="fa fa-check"></i>Section 5 — Feature selection with Boruta</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-6-train-the-quantile-regression-forest-model"><i class="fa fa-check"></i>Section 6 — Train the Quantile Regression Forest model</a>
 <ul>
-<li class="chapter" data-level="3.3.7.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#mean-ph-map"><i class="fa fa-check"></i><b>3.3.7.1</b> Mean pH Map</a></li>
-<li class="chapter" data-level="3.3.7.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#uncertainty-map-standard-deviation"><i class="fa fa-check"></i><b>3.3.7.2</b> Uncertainty Map (Standard Deviation)</a></li>
-<li class="chapter" data-level="3.3.7.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#coefficient-of-variation-map"><i class="fa fa-check"></i><b>3.3.7.3</b> Coefficient of Variation Map</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#from-random-forest-to-quantile-regression-forest"><i class="fa fa-check"></i>6.1 From Random Forest to Quantile Regression Forest</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#cross-validation-setup"><i class="fa fa-check"></i>6.2 Cross-validation setup</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#hyperparameter-grid"><i class="fa fa-check"></i>6.3 Hyperparameter grid</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#train-the-model"><i class="fa fa-check"></i>6.4 Train the model</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#nominal-classification-clay_ph_class"><i class="fa fa-check"></i><b>3.4</b> Nominal Classification (Clay_pH_Class)</a>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-7-accuracy-assessment"><i class="fa fa-check"></i>Section 7 — Accuracy assessment</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#nature-of-the-variable-1"><i class="fa fa-check"></i><b>3.4.1</b> Nature of the Variable</a></li>
-<li class="chapter" data-level="3.4.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#feature-selection"><i class="fa fa-check"></i><b>3.4.2</b> Feature Selection</a></li>
-<li class="chapter" data-level="3.4.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#model-training-1"><i class="fa fa-check"></i><b>3.4.3</b> Model Training</a></li>
-<li class="chapter" data-level="3.4.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#validation"><i class="fa fa-check"></i><b>3.4.4</b> Validation</a></li>
-<li class="chapter" data-level="3.4.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-maps-1"><i class="fa fa-check"></i><b>3.4.5</b> Prediction Maps</a>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#observed-vs-predicted-plot"><i class="fa fa-check"></i>Observed vs predicted plot</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#save-outputs"><i class="fa fa-check"></i>Save outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#session-2-spatial-prediction-and-final-maps"><i class="fa fa-check"></i>SESSION 2: Spatial Prediction and Final Maps</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#reload-the-workspace"><i class="fa fa-check"></i>Reload the workspace</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-8-spatial-prediction-tiled"><i class="fa fa-check"></i>Section 8 — Spatial prediction (tiled)</a>
 <ul>
-<li class="chapter" data-level="3.4.5.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#predicted-class-map"><i class="fa fa-check"></i><b>3.4.5.1</b> Predicted Class Map</a></li>
-<li class="chapter" data-level="3.4.5.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#maximum-probability-map"><i class="fa fa-check"></i><b>3.4.5.2</b> Maximum Probability Map</a></li>
-<li class="chapter" data-level="3.4.5.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#uncertainty-map"><i class="fa fa-check"></i><b>3.4.5.3</b> Uncertainty Map</a></li>
-<li class="chapter" data-level="3.4.5.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#confident-predictions-map"><i class="fa fa-check"></i><b>3.4.5.4</b> Confident Predictions Map</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#create-tile-grid"><i class="fa fa-check"></i>8.1 Create tile grid</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prepare-model-for-prediction"><i class="fa fa-check"></i>8.2 Prepare model for prediction</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-for-one-tile"><i class="fa fa-check"></i>8.3 Prediction for one tile</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-at-all-tiles"><i class="fa fa-check"></i>8.4 Prediction at all tiles</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#ordinal-modelling-ph_class"><i class="fa fa-check"></i><b>3.5</b> Ordinal Modelling (pH_Class)</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#nature-of-the-variable-2"><i class="fa fa-check"></i><b>3.5.1</b> Nature of the Variable</a></li>
-<li class="chapter" data-level="3.5.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#ordinal-encoding"><i class="fa fa-check"></i><b>3.5.2</b> Ordinal Encoding</a></li>
-<li class="chapter" data-level="3.5.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#feature-selection-1"><i class="fa fa-check"></i><b>3.5.3</b> Feature Selection</a></li>
-<li class="chapter" data-level="3.5.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#model-training-2"><i class="fa fa-check"></i><b>3.5.4</b> Model Training</a></li>
-<li class="chapter" data-level="3.5.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#validation-1"><i class="fa fa-check"></i><b>3.5.5</b> Validation</a></li>
-<li class="chapter" data-level="3.5.6" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-maps-2"><i class="fa fa-check"></i><b>3.5.6</b> Prediction Maps</a>
-<ul>
-<li class="chapter" data-level="3.5.6.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#latent-values-map"><i class="fa fa-check"></i><b>3.5.6.1</b> Latent Values Map</a></li>
-<li class="chapter" data-level="3.5.6.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#reclassified-ordinal-class-map"><i class="fa fa-check"></i><b>3.5.6.2</b> Reclassified Ordinal Class Map</a></li>
-<li class="chapter" data-level="3.5.6.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#standard-deviation-map"><i class="fa fa-check"></i><b>3.5.6.3</b> Standard Deviation Map</a></li>
-<li class="chapter" data-level="3.5.6.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#class-instability-map"><i class="fa fa-check"></i><b>3.5.6.4</b> Class Instability Map</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="3.6" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#area-of-applicability-aoa"><i class="fa fa-check"></i><b>3.6</b> Area of Applicability (AOA)</a>
-<ul>
-<li class="chapter" data-level="3.6.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#why-aoa-is-necessary"><i class="fa fa-check"></i><b>3.6.1</b> Why AOA is Necessary</a></li>
-<li class="chapter" data-level="3.6.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#dissimilarity-index-di"><i class="fa fa-check"></i><b>3.6.2</b> Dissimilarity Index (DI)</a></li>
-<li class="chapter" data-level="3.6.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#aoa-binary-mask"><i class="fa fa-check"></i><b>3.6.3</b> AOA Binary Mask</a></li>
-<li class="chapter" data-level="3.6.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#local-point-density-lpd"><i class="fa fa-check"></i><b>3.6.4</b> Local Point Density (LPD)</a></li>
-<li class="chapter" data-level="3.6.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#predictions-masked-to-aoa"><i class="fa fa-check"></i><b>3.6.5</b> Predictions Masked to AOA</a></li>
-</ul></li>
-<li class="chapter" data-level="3.7" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#summary"><i class="fa fa-check"></i><b>3.7</b> Summary</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-9-mosaic-tiles-into-final-maps"><i class="fa fa-check"></i>Section 9 — Mosaic tiles into final maps</a></li>
 <li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#references-3"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="soil-spectroscopy-for-digital-soil-mapping.html"><a href="soil-spectroscopy-for-digital-soil-mapping.html"><i class="fa fa-check"></i><b>4</b> Soil Spectroscopy for Digital Soil Mapping</a></li>
-<li class="chapter" data-level="5" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html"><i class="fa fa-check"></i><b>5</b> Soil Data Harmonization, Sharing &amp; Dissemination</a>
+<li class="chapter" data-level="5" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html"><i class="fa fa-check"></i><b>5</b> Part I - Digital soil mapping with spectroscopy</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#glosis-soil-data-preparation"><i class="fa fa-check"></i><b>5.1</b> GloSIS Soil Data Preparation</a>
+<li class="chapter" data-level="5.1" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html#rational"><i class="fa fa-check"></i><b>5.2</b> Rational</a></li>
+<li class="chapter" data-level="5.3" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html#including-spectroscopic-prediction-in-digital-soil-mapping"><i class="fa fa-check"></i><b>5.3</b> Including spectroscopic prediction in digital soil mapping</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html"><i class="fa fa-check"></i><b>6</b> Part II – Practical application</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#introduction-1"><i class="fa fa-check"></i><b>5.1.1</b> Introduction</a></li>
-<li class="chapter" data-level="5.1.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#the-glosis-iso-28258-database"><i class="fa fa-check"></i><b>5.1.2</b> The GloSIS ISO 28258 database</a>
+<li class="chapter" data-level="6.1" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#workflow-overview"><i class="fa fa-check"></i><b>6.1</b> Workflow overview</a></li>
+<li class="chapter" data-level="6.2" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#making-spectroscopic-data-ready-for-inclusion-in-dsm"><i class="fa fa-check"></i><b>6.2</b> Making spectroscopic data ready for inclusion in DSM</a>
 <ul>
-<li class="chapter" data-level="5.1.2.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#plot-data-sheet"><i class="fa fa-check"></i><b>5.1.2.1</b> Plot Data Sheet</a></li>
-<li class="chapter" data-level="5.1.2.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#profile-data-sheet"><i class="fa fa-check"></i><b>5.1.2.2</b> Profile Data Sheet</a></li>
-<li class="chapter" data-level="5.1.2.3" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#element-data-sheet"><i class="fa fa-check"></i><b>5.1.2.3</b> Element Data Sheet</a></li>
-<li class="chapter" data-level="5.1.2.4" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#specimen-data-sheet"><i class="fa fa-check"></i><b>5.1.2.4</b> Specimen Data Sheet</a></li>
-<li class="chapter" data-level="5.1.2.5" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#procedures-sheet"><i class="fa fa-check"></i><b>5.1.2.5</b> Procedures Sheet</a></li>
-<li class="chapter" data-level="5.1.2.6" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#metadata-sheet"><i class="fa fa-check"></i><b>5.1.2.6</b> Metadata Sheet</a></li>
-<li class="chapter" data-level="5.1.2.7" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#original-data-sheet"><i class="fa fa-check"></i><b>5.1.2.7</b> Original Data Sheet</a></li>
-<li class="chapter" data-level="5.1.2.8" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#glosis-methods-sheet"><i class="fa fa-check"></i><b>5.1.2.8</b> GloSIS Methods sheet</a></li>
-<li class="chapter" data-level="5.1.2.9" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#installation-and-setup-of-the-glosis-etl-js"><i class="fa fa-check"></i><b>5.1.2.9</b> Installation and Setup of the glosis-etl-js</a></li>
-<li class="chapter" data-level="5.1.2.10" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#verify-installation"><i class="fa fa-check"></i><b>5.1.2.10</b> Verify Installation</a></li>
-<li class="chapter" data-level="5.1.2.11" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#pgadmin"><i class="fa fa-check"></i><b>5.1.2.11</b> Optional: pgAdmin Web Interface</a></li>
-<li class="chapter" data-level="5.1.2.12" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-harmonization"><i class="fa fa-check"></i><b>5.1.2.12</b> Data Harmonization</a></li>
-<li class="chapter" data-level="5.1.2.13" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-standardization"><i class="fa fa-check"></i><b>5.1.2.13</b> Data Standardization</a></li>
-<li class="chapter" data-level="5.1.2.14" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-viewer"><i class="fa fa-check"></i><b>5.1.2.14</b> Data Viewer</a></li>
+<li class="chapter" data-level="6.2.1" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#load-and-plot-the-spectrscopic-data"><i class="fa fa-check"></i><b>6.2.1</b> Load and plot the spectrscopic data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#preprocessing-of-spectra"><i class="fa fa-check"></i><b>6.2.2</b> Preprocessing of spectra</a></li>
+<li class="chapter" data-level="6.2.3" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#spectroscopic-modelling-with-uncertainty"><i class="fa fa-check"></i><b>6.2.3</b> Spectroscopic modelling with uncertainty</a></li>
+<li class="chapter" data-level="6.2.4" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#laboratory-measurement-uncertainty"><i class="fa fa-check"></i><b>6.2.4</b> Laboratory measurement uncertainty</a></li>
+<li class="chapter" data-level="6.2.5" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#depth-harmonisation-of-predictions-and-uncertainties"><i class="fa fa-check"></i><b>6.2.5</b> Depth harmonisation of predictions and uncertainties</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#preparation-of-the-covariates"><i class="fa fa-check"></i><b>6.3</b> Preparation of the covariates</a></li>
+<li class="chapter" data-level="6.4" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#dsm-model-training-with-spectroscopic-data"><i class="fa fa-check"></i><b>6.4</b> DSM model training with spectroscopic data</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#deriving-observation-weights"><i class="fa fa-check"></i><b>6.4.1</b> Deriving observation weights</a></li>
+<li class="chapter" data-level="6.4.2" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#baseline-dsm-model-using-laboratory-data"><i class="fa fa-check"></i><b>6.4.2</b> Baseline DSM model using laboratory data</a></li>
+<li class="chapter" data-level="6.4.3" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#dsm-model-training-integrating-spectroscopic-predictions"><i class="fa fa-check"></i><b>6.4.3</b> DSM model training integrating spectroscopic predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#model-validation"><i class="fa fa-check"></i><b>6.5</b> Model validation</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#validation-statistics"><i class="fa fa-check"></i><b>6.5.1</b> Validation statistics</a></li>
+<li class="chapter" data-level="6.5.2" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#cross-validating-the-models"><i class="fa fa-check"></i><b>6.5.2</b> Cross-validating the models</a></li>
+<li class="chapter" data-level="6.5.3" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#comparing-maps-produced-with-different-proportions-of-spectroscopic-data"><i class="fa fa-check"></i><b>6.5.3</b> Comparing maps produced with different proportions of spectroscopic data</a></li>
+<li class="chapter" data-level="6.5.4" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#testing-different-ratios-of-spectroscopic-and-laboratory-data"><i class="fa fa-check"></i><b>6.5.4</b> Testing different ratios of spectroscopic and laboratory data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-sharing-and-export-formats"><i class="fa fa-check"></i><b>5.2</b> Data sharing and export formats</a></li>
-<li class="chapter" data-level="5.3" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#metadata-1"><i class="fa fa-check"></i><b>5.3</b> Metadata</a></li>
-<li class="chapter" data-level="5.4" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#web-services"><i class="fa fa-check"></i><b>5.4</b> Web Services</a></li>
+<li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> Summary</a></li>
+<li class="chapter" data-level="8" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html"><i class="fa fa-check"></i><b>8</b> Soil Data Harmonization, Sharing &amp; Dissemination</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#glosis-soil-data-preparation"><i class="fa fa-check"></i><b>8.1</b> GloSIS Soil Data Preparation</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#introduction-2"><i class="fa fa-check"></i><b>8.1.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.1.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#the-glosis-iso-28258-database"><i class="fa fa-check"></i><b>8.1.2</b> The GloSIS ISO 28258 database</a>
+<ul>
+<li class="chapter" data-level="8.1.2.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#plot-data-sheet"><i class="fa fa-check"></i><b>8.1.2.1</b> Plot Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#profile-data-sheet"><i class="fa fa-check"></i><b>8.1.2.2</b> Profile Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.3" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#element-data-sheet"><i class="fa fa-check"></i><b>8.1.2.3</b> Element Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.4" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#specimen-data-sheet"><i class="fa fa-check"></i><b>8.1.2.4</b> Specimen Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.5" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#procedures-sheet"><i class="fa fa-check"></i><b>8.1.2.5</b> Procedures Sheet</a></li>
+<li class="chapter" data-level="8.1.2.6" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#metadata-sheet"><i class="fa fa-check"></i><b>8.1.2.6</b> Metadata Sheet</a></li>
+<li class="chapter" data-level="8.1.2.7" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#original-data-sheet"><i class="fa fa-check"></i><b>8.1.2.7</b> Original Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.8" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#glosis-methods-sheet"><i class="fa fa-check"></i><b>8.1.2.8</b> GloSIS Methods sheet</a></li>
+<li class="chapter" data-level="8.1.2.9" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#installation-and-setup-of-the-glosis-etl-js"><i class="fa fa-check"></i><b>8.1.2.9</b> Installation and Setup of the glosis-etl-js</a></li>
+<li class="chapter" data-level="8.1.2.10" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#verify-installation"><i class="fa fa-check"></i><b>8.1.2.10</b> Verify Installation</a></li>
+<li class="chapter" data-level="8.1.2.11" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#pgadmin"><i class="fa fa-check"></i><b>8.1.2.11</b> Optional: pgAdmin Web Interface</a></li>
+<li class="chapter" data-level="8.1.2.12" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-harmonization"><i class="fa fa-check"></i><b>8.1.2.12</b> Data Harmonization</a></li>
+<li class="chapter" data-level="8.1.2.13" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-standardization"><i class="fa fa-check"></i><b>8.1.2.13</b> Data Standardization</a></li>
+<li class="chapter" data-level="8.1.2.14" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-viewer"><i class="fa fa-check"></i><b>8.1.2.14</b> Data Viewer</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-sharing-and-export-formats"><i class="fa fa-check"></i><b>8.2</b> Data sharing and export formats</a></li>
+<li class="chapter" data-level="8.3" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#metadata-1"><i class="fa fa-check"></i><b>8.3</b> Metadata</a></li>
+<li class="chapter" data-level="8.4" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#web-services"><i class="fa fa-check"></i><b>8.4</b> Web Services</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references-4.html"><a href="references-4.html"><i class="fa fa-check"></i>References</a></li>
 </ul>

@@ -54,9 +54,8 @@
 
 
 <style type="text/css">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -66,7 +65,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -440,89 +439,100 @@ div.csl-indent {
 <li class="chapter" data-level="3.1.6" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#nonlinearity-and-uncertainty"><i class="fa fa-check"></i><b>3.1.6</b> Nonlinearity and Uncertainty</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#part-ii-practical-application"><i class="fa fa-check"></i>Part II: Practical Application</a></li>
-<li class="chapter" data-level="3.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#workflow-overview"><i class="fa fa-check"></i><b>3.2</b> Workflow Overview</a></li>
-<li class="chapter" data-level="3.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#continuous-modelling-ph"><i class="fa fa-check"></i><b>3.3</b> Continuous Modelling (pH)</a>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#overview"><i class="fa fa-check"></i>Overview</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#session-1-data-preparation-feature-selection-modelling-and-accuracy-assessment"><i class="fa fa-check"></i>SESSION 1: Data Preparation, Feature Selection, Modelling, and Accuracy Assessment</a></li>
+<li class="chapter" data-level="3.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#setup-and-packages"><i class="fa fa-check"></i><b>3.2</b> 1. Setup and Packages</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-2-load-covariates"><i class="fa fa-check"></i>Section 2 — Load covariates</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-3-load-and-transform-soil-data"><i class="fa fa-check"></i>Section 3 — Load and transform soil data</a>
 <ul>
-<li class="chapter" data-level="3.3.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#nature-of-the-variable"><i class="fa fa-check"></i><b>3.3.1</b> Nature of the Variable</a></li>
-<li class="chapter" data-level="3.3.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#data-and-covariates"><i class="fa fa-check"></i><b>3.3.2</b> Data and Covariates</a></li>
-<li class="chapter" data-level="3.3.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#feature-selection-boruta"><i class="fa fa-check"></i><b>3.3.3</b> Feature Selection (Boruta)</a></li>
-<li class="chapter" data-level="3.3.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#model-training"><i class="fa fa-check"></i><b>3.3.4</b> Model Training</a></li>
-<li class="chapter" data-level="3.3.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#variable-importance"><i class="fa fa-check"></i><b>3.3.5</b> Variable Importance</a></li>
-<li class="chapter" data-level="3.3.6" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#validation-metrics"><i class="fa fa-check"></i><b>3.3.6</b> Validation Metrics</a></li>
-<li class="chapter" data-level="3.3.7" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-maps"><i class="fa fa-check"></i><b>3.3.7</b> Prediction Maps</a>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#estimate-bulk-density-with-a-pedotransfer-function"><i class="fa fa-check"></i>3.1 Estimate bulk density with a pedotransfer function</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-4-merge-soil-data-and-covariate-values"><i class="fa fa-check"></i>Section 4 — Merge soil data and covariate values</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-5-feature-selection-with-boruta"><i class="fa fa-check"></i>Section 5 — Feature selection with Boruta</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-6-train-the-quantile-regression-forest-model"><i class="fa fa-check"></i>Section 6 — Train the Quantile Regression Forest model</a>
 <ul>
-<li class="chapter" data-level="3.3.7.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#mean-ph-map"><i class="fa fa-check"></i><b>3.3.7.1</b> Mean pH Map</a></li>
-<li class="chapter" data-level="3.3.7.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#uncertainty-map-standard-deviation"><i class="fa fa-check"></i><b>3.3.7.2</b> Uncertainty Map (Standard Deviation)</a></li>
-<li class="chapter" data-level="3.3.7.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#coefficient-of-variation-map"><i class="fa fa-check"></i><b>3.3.7.3</b> Coefficient of Variation Map</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#from-random-forest-to-quantile-regression-forest"><i class="fa fa-check"></i>6.1 From Random Forest to Quantile Regression Forest</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#cross-validation-setup"><i class="fa fa-check"></i>6.2 Cross-validation setup</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#hyperparameter-grid"><i class="fa fa-check"></i>6.3 Hyperparameter grid</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#train-the-model"><i class="fa fa-check"></i>6.4 Train the model</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#nominal-classification-clay_ph_class"><i class="fa fa-check"></i><b>3.4</b> Nominal Classification (Clay_pH_Class)</a>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-7-accuracy-assessment"><i class="fa fa-check"></i>Section 7 — Accuracy assessment</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#nature-of-the-variable-1"><i class="fa fa-check"></i><b>3.4.1</b> Nature of the Variable</a></li>
-<li class="chapter" data-level="3.4.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#feature-selection"><i class="fa fa-check"></i><b>3.4.2</b> Feature Selection</a></li>
-<li class="chapter" data-level="3.4.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#model-training-1"><i class="fa fa-check"></i><b>3.4.3</b> Model Training</a></li>
-<li class="chapter" data-level="3.4.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#validation"><i class="fa fa-check"></i><b>3.4.4</b> Validation</a></li>
-<li class="chapter" data-level="3.4.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-maps-1"><i class="fa fa-check"></i><b>3.4.5</b> Prediction Maps</a>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#observed-vs-predicted-plot"><i class="fa fa-check"></i>Observed vs predicted plot</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#save-outputs"><i class="fa fa-check"></i>Save outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#session-2-spatial-prediction-and-final-maps"><i class="fa fa-check"></i>SESSION 2: Spatial Prediction and Final Maps</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#reload-the-workspace"><i class="fa fa-check"></i>Reload the workspace</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-8-spatial-prediction-tiled"><i class="fa fa-check"></i>Section 8 — Spatial prediction (tiled)</a>
 <ul>
-<li class="chapter" data-level="3.4.5.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#predicted-class-map"><i class="fa fa-check"></i><b>3.4.5.1</b> Predicted Class Map</a></li>
-<li class="chapter" data-level="3.4.5.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#maximum-probability-map"><i class="fa fa-check"></i><b>3.4.5.2</b> Maximum Probability Map</a></li>
-<li class="chapter" data-level="3.4.5.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#uncertainty-map"><i class="fa fa-check"></i><b>3.4.5.3</b> Uncertainty Map</a></li>
-<li class="chapter" data-level="3.4.5.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#confident-predictions-map"><i class="fa fa-check"></i><b>3.4.5.4</b> Confident Predictions Map</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#create-tile-grid"><i class="fa fa-check"></i>8.1 Create tile grid</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prepare-model-for-prediction"><i class="fa fa-check"></i>8.2 Prepare model for prediction</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-for-one-tile"><i class="fa fa-check"></i>8.3 Prediction for one tile</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-at-all-tiles"><i class="fa fa-check"></i>8.4 Prediction at all tiles</a></li>
 </ul></li>
-</ul></li>
-<li class="chapter" data-level="3.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#ordinal-modelling-ph_class"><i class="fa fa-check"></i><b>3.5</b> Ordinal Modelling (pH_Class)</a>
-<ul>
-<li class="chapter" data-level="3.5.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#nature-of-the-variable-2"><i class="fa fa-check"></i><b>3.5.1</b> Nature of the Variable</a></li>
-<li class="chapter" data-level="3.5.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#ordinal-encoding"><i class="fa fa-check"></i><b>3.5.2</b> Ordinal Encoding</a></li>
-<li class="chapter" data-level="3.5.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#feature-selection-1"><i class="fa fa-check"></i><b>3.5.3</b> Feature Selection</a></li>
-<li class="chapter" data-level="3.5.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#model-training-2"><i class="fa fa-check"></i><b>3.5.4</b> Model Training</a></li>
-<li class="chapter" data-level="3.5.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#validation-1"><i class="fa fa-check"></i><b>3.5.5</b> Validation</a></li>
-<li class="chapter" data-level="3.5.6" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-maps-2"><i class="fa fa-check"></i><b>3.5.6</b> Prediction Maps</a>
-<ul>
-<li class="chapter" data-level="3.5.6.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#latent-values-map"><i class="fa fa-check"></i><b>3.5.6.1</b> Latent Values Map</a></li>
-<li class="chapter" data-level="3.5.6.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#reclassified-ordinal-class-map"><i class="fa fa-check"></i><b>3.5.6.2</b> Reclassified Ordinal Class Map</a></li>
-<li class="chapter" data-level="3.5.6.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#standard-deviation-map"><i class="fa fa-check"></i><b>3.5.6.3</b> Standard Deviation Map</a></li>
-<li class="chapter" data-level="3.5.6.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#class-instability-map"><i class="fa fa-check"></i><b>3.5.6.4</b> Class Instability Map</a></li>
-</ul></li>
-</ul></li>
-<li class="chapter" data-level="3.6" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#area-of-applicability-aoa"><i class="fa fa-check"></i><b>3.6</b> Area of Applicability (AOA)</a>
-<ul>
-<li class="chapter" data-level="3.6.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#why-aoa-is-necessary"><i class="fa fa-check"></i><b>3.6.1</b> Why AOA is Necessary</a></li>
-<li class="chapter" data-level="3.6.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#dissimilarity-index-di"><i class="fa fa-check"></i><b>3.6.2</b> Dissimilarity Index (DI)</a></li>
-<li class="chapter" data-level="3.6.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#aoa-binary-mask"><i class="fa fa-check"></i><b>3.6.3</b> AOA Binary Mask</a></li>
-<li class="chapter" data-level="3.6.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#local-point-density-lpd"><i class="fa fa-check"></i><b>3.6.4</b> Local Point Density (LPD)</a></li>
-<li class="chapter" data-level="3.6.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#predictions-masked-to-aoa"><i class="fa fa-check"></i><b>3.6.5</b> Predictions Masked to AOA</a></li>
-</ul></li>
-<li class="chapter" data-level="3.7" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#summary"><i class="fa fa-check"></i><b>3.7</b> Summary</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-9-mosaic-tiles-into-final-maps"><i class="fa fa-check"></i>Section 9 — Mosaic tiles into final maps</a></li>
 <li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#references-3"><i class="fa fa-check"></i>References</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="soil-spectroscopy-for-digital-soil-mapping.html"><a href="soil-spectroscopy-for-digital-soil-mapping.html"><i class="fa fa-check"></i><b>4</b> Soil Spectroscopy for Digital Soil Mapping</a></li>
-<li class="chapter" data-level="5" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html"><i class="fa fa-check"></i><b>5</b> Soil Data Harmonization, Sharing &amp; Dissemination</a>
+<li class="chapter" data-level="5" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html"><i class="fa fa-check"></i><b>5</b> Part I - Digital soil mapping with spectroscopy</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#glosis-soil-data-preparation"><i class="fa fa-check"></i><b>5.1</b> GloSIS Soil Data Preparation</a>
+<li class="chapter" data-level="5.1" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html#rational"><i class="fa fa-check"></i><b>5.2</b> Rational</a></li>
+<li class="chapter" data-level="5.3" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html#including-spectroscopic-prediction-in-digital-soil-mapping"><i class="fa fa-check"></i><b>5.3</b> Including spectroscopic prediction in digital soil mapping</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html"><i class="fa fa-check"></i><b>6</b> Part II – Practical application</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#introduction-1"><i class="fa fa-check"></i><b>5.1.1</b> Introduction</a></li>
-<li class="chapter" data-level="5.1.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#the-glosis-iso-28258-database"><i class="fa fa-check"></i><b>5.1.2</b> The GloSIS ISO 28258 database</a>
+<li class="chapter" data-level="6.1" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#workflow-overview"><i class="fa fa-check"></i><b>6.1</b> Workflow overview</a></li>
+<li class="chapter" data-level="6.2" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#making-spectroscopic-data-ready-for-inclusion-in-dsm"><i class="fa fa-check"></i><b>6.2</b> Making spectroscopic data ready for inclusion in DSM</a>
 <ul>
-<li class="chapter" data-level="5.1.2.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#plot-data-sheet"><i class="fa fa-check"></i><b>5.1.2.1</b> Plot Data Sheet</a></li>
-<li class="chapter" data-level="5.1.2.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#profile-data-sheet"><i class="fa fa-check"></i><b>5.1.2.2</b> Profile Data Sheet</a></li>
-<li class="chapter" data-level="5.1.2.3" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#element-data-sheet"><i class="fa fa-check"></i><b>5.1.2.3</b> Element Data Sheet</a></li>
-<li class="chapter" data-level="5.1.2.4" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#specimen-data-sheet"><i class="fa fa-check"></i><b>5.1.2.4</b> Specimen Data Sheet</a></li>
-<li class="chapter" data-level="5.1.2.5" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#procedures-sheet"><i class="fa fa-check"></i><b>5.1.2.5</b> Procedures Sheet</a></li>
-<li class="chapter" data-level="5.1.2.6" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#metadata-sheet"><i class="fa fa-check"></i><b>5.1.2.6</b> Metadata Sheet</a></li>
-<li class="chapter" data-level="5.1.2.7" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#original-data-sheet"><i class="fa fa-check"></i><b>5.1.2.7</b> Original Data Sheet</a></li>
-<li class="chapter" data-level="5.1.2.8" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#glosis-methods-sheet"><i class="fa fa-check"></i><b>5.1.2.8</b> GloSIS Methods sheet</a></li>
-<li class="chapter" data-level="5.1.2.9" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#installation-and-setup-of-the-glosis-etl-js"><i class="fa fa-check"></i><b>5.1.2.9</b> Installation and Setup of the glosis-etl-js</a></li>
-<li class="chapter" data-level="5.1.2.10" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#verify-installation"><i class="fa fa-check"></i><b>5.1.2.10</b> Verify Installation</a></li>
-<li class="chapter" data-level="5.1.2.11" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#pgadmin"><i class="fa fa-check"></i><b>5.1.2.11</b> Optional: pgAdmin Web Interface</a></li>
-<li class="chapter" data-level="5.1.2.12" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-harmonization"><i class="fa fa-check"></i><b>5.1.2.12</b> Data Harmonization</a></li>
-<li class="chapter" data-level="5.1.2.13" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-standardization"><i class="fa fa-check"></i><b>5.1.2.13</b> Data Standardization</a></li>
-<li class="chapter" data-level="5.1.2.14" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-viewer"><i class="fa fa-check"></i><b>5.1.2.14</b> Data Viewer</a></li>
+<li class="chapter" data-level="6.2.1" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#load-and-plot-the-spectrscopic-data"><i class="fa fa-check"></i><b>6.2.1</b> Load and plot the spectrscopic data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#preprocessing-of-spectra"><i class="fa fa-check"></i><b>6.2.2</b> Preprocessing of spectra</a></li>
+<li class="chapter" data-level="6.2.3" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#spectroscopic-modelling-with-uncertainty"><i class="fa fa-check"></i><b>6.2.3</b> Spectroscopic modelling with uncertainty</a></li>
+<li class="chapter" data-level="6.2.4" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#laboratory-measurement-uncertainty"><i class="fa fa-check"></i><b>6.2.4</b> Laboratory measurement uncertainty</a></li>
+<li class="chapter" data-level="6.2.5" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#depth-harmonisation-of-predictions-and-uncertainties"><i class="fa fa-check"></i><b>6.2.5</b> Depth harmonisation of predictions and uncertainties</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#preparation-of-the-covariates"><i class="fa fa-check"></i><b>6.3</b> Preparation of the covariates</a></li>
+<li class="chapter" data-level="6.4" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#dsm-model-training-with-spectroscopic-data"><i class="fa fa-check"></i><b>6.4</b> DSM model training with spectroscopic data</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#deriving-observation-weights"><i class="fa fa-check"></i><b>6.4.1</b> Deriving observation weights</a></li>
+<li class="chapter" data-level="6.4.2" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#baseline-dsm-model-using-laboratory-data"><i class="fa fa-check"></i><b>6.4.2</b> Baseline DSM model using laboratory data</a></li>
+<li class="chapter" data-level="6.4.3" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#dsm-model-training-integrating-spectroscopic-predictions"><i class="fa fa-check"></i><b>6.4.3</b> DSM model training integrating spectroscopic predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#model-validation"><i class="fa fa-check"></i><b>6.5</b> Model validation</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#validation-statistics"><i class="fa fa-check"></i><b>6.5.1</b> Validation statistics</a></li>
+<li class="chapter" data-level="6.5.2" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#cross-validating-the-models"><i class="fa fa-check"></i><b>6.5.2</b> Cross-validating the models</a></li>
+<li class="chapter" data-level="6.5.3" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#comparing-maps-produced-with-different-proportions-of-spectroscopic-data"><i class="fa fa-check"></i><b>6.5.3</b> Comparing maps produced with different proportions of spectroscopic data</a></li>
+<li class="chapter" data-level="6.5.4" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#testing-different-ratios-of-spectroscopic-and-laboratory-data"><i class="fa fa-check"></i><b>6.5.4</b> Testing different ratios of spectroscopic and laboratory data</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-sharing-and-export-formats"><i class="fa fa-check"></i><b>5.2</b> Data sharing and export formats</a></li>
-<li class="chapter" data-level="5.3" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#metadata-1"><i class="fa fa-check"></i><b>5.3</b> Metadata</a></li>
-<li class="chapter" data-level="5.4" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#web-services"><i class="fa fa-check"></i><b>5.4</b> Web Services</a></li>
+<li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> Summary</a></li>
+<li class="chapter" data-level="8" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html"><i class="fa fa-check"></i><b>8</b> Soil Data Harmonization, Sharing &amp; Dissemination</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#glosis-soil-data-preparation"><i class="fa fa-check"></i><b>8.1</b> GloSIS Soil Data Preparation</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#introduction-2"><i class="fa fa-check"></i><b>8.1.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.1.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#the-glosis-iso-28258-database"><i class="fa fa-check"></i><b>8.1.2</b> The GloSIS ISO 28258 database</a>
+<ul>
+<li class="chapter" data-level="8.1.2.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#plot-data-sheet"><i class="fa fa-check"></i><b>8.1.2.1</b> Plot Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#profile-data-sheet"><i class="fa fa-check"></i><b>8.1.2.2</b> Profile Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.3" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#element-data-sheet"><i class="fa fa-check"></i><b>8.1.2.3</b> Element Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.4" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#specimen-data-sheet"><i class="fa fa-check"></i><b>8.1.2.4</b> Specimen Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.5" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#procedures-sheet"><i class="fa fa-check"></i><b>8.1.2.5</b> Procedures Sheet</a></li>
+<li class="chapter" data-level="8.1.2.6" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#metadata-sheet"><i class="fa fa-check"></i><b>8.1.2.6</b> Metadata Sheet</a></li>
+<li class="chapter" data-level="8.1.2.7" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#original-data-sheet"><i class="fa fa-check"></i><b>8.1.2.7</b> Original Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.8" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#glosis-methods-sheet"><i class="fa fa-check"></i><b>8.1.2.8</b> GloSIS Methods sheet</a></li>
+<li class="chapter" data-level="8.1.2.9" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#installation-and-setup-of-the-glosis-etl-js"><i class="fa fa-check"></i><b>8.1.2.9</b> Installation and Setup of the glosis-etl-js</a></li>
+<li class="chapter" data-level="8.1.2.10" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#verify-installation"><i class="fa fa-check"></i><b>8.1.2.10</b> Verify Installation</a></li>
+<li class="chapter" data-level="8.1.2.11" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#pgadmin"><i class="fa fa-check"></i><b>8.1.2.11</b> Optional: pgAdmin Web Interface</a></li>
+<li class="chapter" data-level="8.1.2.12" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-harmonization"><i class="fa fa-check"></i><b>8.1.2.12</b> Data Harmonization</a></li>
+<li class="chapter" data-level="8.1.2.13" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-standardization"><i class="fa fa-check"></i><b>8.1.2.13</b> Data Standardization</a></li>
+<li class="chapter" data-level="8.1.2.14" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-viewer"><i class="fa fa-check"></i><b>8.1.2.14</b> Data Viewer</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-sharing-and-export-formats"><i class="fa fa-check"></i><b>8.2</b> Data sharing and export formats</a></li>
+<li class="chapter" data-level="8.3" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#metadata-1"><i class="fa fa-check"></i><b>8.3</b> Metadata</a></li>
+<li class="chapter" data-level="8.4" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#web-services"><i class="fa fa-check"></i><b>8.4</b> Web Services</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references-4.html"><a href="references-4.html"><i class="fa fa-check"></i>References</a></li>
 </ul>
@@ -680,832 +690,707 @@ A classic example of the need for spatio-temporal modelling is <strong>soil mois
 <h2>Part II: Practical Application<a href="digital-soil-mapping.html#part-ii-practical-application" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <hr />
 </div>
-<div id="workflow-overview" class="section level2 hasAnchor" number="3.2">
-<h2><span class="header-section-number">3.2</span> Workflow Overview<a href="digital-soil-mapping.html#workflow-overview" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This section guides you through the interpretation of results from the Digital Soil Mapping workflow. We apply the theoretical concepts from Part I to predict three types of soil variables in Kansas, USA, each requiring a different modelling approach:</p>
+<div id="overview" class="section level2 unnumbered hasAnchor">
+<h2>Overview<a href="digital-soil-mapping.html#overview" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This section is a step-by-step companion to the script
+<code>modelling_&amp;_mapping_v2.R</code>. Its goal is to bridge the transition from
+the soil data and environmental covariates explored in the preceding
+chapters to the full prediction workflow: a map of the target soil
+property and a map of its associated uncertainty.</p>
+<p>The script focuses on <strong>continuous soil variables</strong> — the most common
+case in DSM, covering properties such as soil organic carbon (SOC), clay
+content, and bulk density. The workflow is divided into two
+sessions:</p>
+<ul>
+<li><strong>Session 1</strong>: data preparation, covariate selection, model training,
+and cross-validation accuracy assessment.</li>
+<li><strong>Session 2</strong>: spatial prediction across the study area and generation
+of the final maps.</li>
+</ul>
+<blockquote>
+<p><strong>How to use this guide.</strong> Open the R script alongside this chapter.
+Read each section here <em>before</em> running the corresponding block in the
+script. Section numbers match the numbered comments in the script.
+Code blocks are shown for reference — run them from the script in
+RStudio, not from this document.</p>
+</blockquote>
+</div>
+<div id="session-1-data-preparation-feature-selection-modelling-and-accuracy-assessment" class="section level2 unnumbered hasAnchor">
+<h2>SESSION 1: Data Preparation, Feature Selection, Modelling, and Accuracy Assessment<a href="digital-soil-mapping.html#session-1-data-preparation-feature-selection-modelling-and-accuracy-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+</div>
+<div id="setup-and-packages" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> 1. Setup and Packages<a href="digital-soil-mapping.html#setup-and-packages" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="digital-soil-mapping.html#cb237-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb237-2"><a href="digital-soil-mapping.html#cb237-2" tabindex="-1"></a><span class="fu">gc</span>()</span>
+<span id="cb237-3"><a href="digital-soil-mapping.html#cb237-3" tabindex="-1"></a></span>
+<span id="cb237-4"><a href="digital-soil-mapping.html#cb237-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb237-5"><a href="digital-soil-mapping.html#cb237-5" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb237-6"><a href="digital-soil-mapping.html#cb237-6" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb237-7"><a href="digital-soil-mapping.html#cb237-7" tabindex="-1"></a><span class="fu">library</span>(Boruta)</span>
+<span id="cb237-8"><a href="digital-soil-mapping.html#cb237-8" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
+<span id="cb237-9"><a href="digital-soil-mapping.html#cb237-9" tabindex="-1"></a><span class="fu">library</span>(mapview)</span>
+<span id="cb237-10"><a href="digital-soil-mapping.html#cb237-10" tabindex="-1"></a></span>
+<span id="cb237-11"><a href="digital-soil-mapping.html#cb237-11" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PROJ_LIB =</span> <span class="st">&quot;&quot;</span>)  </span>
+<span id="cb237-12"><a href="digital-soil-mapping.html#cb237-12" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PROJ_DATA =</span> <span class="fu">system.file</span>(<span class="st">&quot;proj&quot;</span>, <span class="at">package =</span> <span class="st">&quot;terra&quot;</span>))</span></code></pre></div>
+<p><code>rm(list = ls())</code> removes every object from memory; <code>gc()</code> releases unused RAM. Starting clean prevents objects from a previous session from silently affecting results.</p>
+<p>Each package has a specific role:</p>
 <table>
 <colgroup>
-<col width="28%" />
-<col width="16%" />
-<col width="18%" />
-<col width="35%" />
+<col width="60%" />
+<col width="40%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th>Variable type</th>
-<th>Example</th>
-<th>Approach</th>
-<th>What the map shows</th>
+<th>Package</th>
+<th>Role</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><strong>Continuous</strong></td>
-<td>pH (numeric scale)</td>
-<td>Quantile Regression Forest</td>
-<td>Predicted value + uncertainty at each pixel</td>
+<td><strong>tidyverse</strong></td>
+<td>Reading CSV files, manipulating tables, plotting</td>
 </tr>
 <tr class="even">
-<td><strong>Nominal</strong></td>
-<td>Clay_pH_Class (unordered categories)</td>
-<td>Classification Random Forest</td>
-<td>Most likely class + class probabilities</td>
+<td><strong>terra</strong></td>
+<td>Reading and writing raster and vector spatial data</td>
 </tr>
 <tr class="odd">
-<td><strong>Ordinal</strong></td>
-<td>pH_Class (ordered categories)</td>
-<td>Integer-encoded Regression</td>
-<td>Predicted class + instability near boundaries</td>
+<td><strong>caret</strong></td>
+<td>Model training, cross-validation, hyperparameter tuning</td>
+</tr>
+<tr class="even">
+<td><strong>ranger</strong></td>
+<td>Fast Random Forest implementation used by caret internally</td>
+</tr>
+<tr class="odd">
+<td><strong>Boruta</strong></td>
+<td>Feature selection: identifies which covariates genuinely help</td>
+</tr>
+<tr class="even">
+<td><strong>mapview</strong></td>
+<td>Quick interactive maps for visual quality checks in RStudio</td>
 </tr>
 </tbody>
 </table>
-<p>The type of soil variable determines model choice, validation metrics, and how we interpret uncertainty. The workflow also demonstrates the <strong>Area of Applicability (AOA)</strong> analysis to identify where predictions can be trusted.</p>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="digital-soil-mapping.html#cb237-1" tabindex="-1"></a><span class="co"># ── Check and load required packages ──</span></span>
-<span id="cb237-2"><a href="digital-soil-mapping.html#cb237-2" tabindex="-1"></a>required_pkgs <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;tidyverse&quot;</span>, <span class="st">&quot;caret&quot;</span>, <span class="st">&quot;knitr&quot;</span>)</span>
-<span id="cb237-3"><a href="digital-soil-mapping.html#cb237-3" tabindex="-1"></a>missing_pkgs  <span class="ot">&lt;-</span> required_pkgs[<span class="sc">!</span><span class="fu">sapply</span>(required_pkgs, requireNamespace, <span class="at">quietly =</span> <span class="cn">TRUE</span>)]</span>
-<span id="cb237-4"><a href="digital-soil-mapping.html#cb237-4" tabindex="-1"></a></span>
-<span id="cb237-5"><a href="digital-soil-mapping.html#cb237-5" tabindex="-1"></a><span class="cf">if</span> (<span class="fu">length</span>(missing_pkgs) <span class="sc">&gt;</span> <span class="dv">0</span>) {</span>
-<span id="cb237-6"><a href="digital-soil-mapping.html#cb237-6" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">&quot;Installing missing packages: &quot;</span>, <span class="fu">paste</span>(missing_pkgs, <span class="at">collapse =</span> <span class="st">&quot;, &quot;</span>))</span>
-<span id="cb237-7"><a href="digital-soil-mapping.html#cb237-7" tabindex="-1"></a>  <span class="fu">install.packages</span>(missing_pkgs, <span class="at">repos =</span> <span class="st">&quot;https://cloud.r-project.org&quot;</span>)</span>
-<span id="cb237-8"><a href="digital-soil-mapping.html#cb237-8" tabindex="-1"></a>}</span>
-<span id="cb237-9"><a href="digital-soil-mapping.html#cb237-9" tabindex="-1"></a></span>
-<span id="cb237-10"><a href="digital-soil-mapping.html#cb237-10" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb237-11"><a href="digital-soil-mapping.html#cb237-11" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb237-12"><a href="digital-soil-mapping.html#cb237-12" tabindex="-1"></a><span class="fu">library</span>(knitr)</span></code></pre></div>
+<p>The two <code>Sys.setenv()</code> lines reset the PROJ database path to terra’s bundled copy. PROJ defines coordinate reference systems; conflicting paths left by other packages cause cryptic reprojection errors.</p>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="digital-soil-mapping.html#cb238-1" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">dirname</span>(rstudioapi<span class="sc">::</span><span class="fu">getActiveDocumentContext</span>()<span class="sc">$</span>path))</span>
+<span id="cb238-2"><a href="digital-soil-mapping.html#cb238-2" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;../../&quot;</span>)</span>
+<span id="cb238-3"><a href="digital-soil-mapping.html#cb238-3" tabindex="-1"></a></span>
+<span id="cb238-4"><a href="digital-soil-mapping.html#cb238-4" tabindex="-1"></a><span class="cf">for</span> (d <span class="cf">in</span> <span class="fu">c</span>(<span class="st">&quot;03_outputs/module3/models/&quot;</span>, </span>
+<span id="cb238-5"><a href="digital-soil-mapping.html#cb238-5" tabindex="-1"></a>            <span class="st">&quot;03_outputs/module3/validation/&quot;</span>, </span>
+<span id="cb238-6"><a href="digital-soil-mapping.html#cb238-6" tabindex="-1"></a>            <span class="st">&quot;03_outputs/module3/tiles/&quot;</span>,</span>
+<span id="cb238-7"><a href="digital-soil-mapping.html#cb238-7" tabindex="-1"></a>            <span class="st">&quot;03_outputs/module3/maps/&quot;</span>,</span>
+<span id="cb238-8"><a href="digital-soil-mapping.html#cb238-8" tabindex="-1"></a>            <span class="st">&quot;03_outputs/module3/maps/aoa/&quot;</span>,</span>
+<span id="cb238-9"><a href="digital-soil-mapping.html#cb238-9" tabindex="-1"></a>            <span class="st">&quot;terra_tmp&quot;</span>)) {</span>
+<span id="cb238-10"><a href="digital-soil-mapping.html#cb238-10" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(d)) <span class="fu">dir.create</span>(d, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb238-11"><a href="digital-soil-mapping.html#cb238-11" tabindex="-1"></a>}</span>
+<span id="cb238-12"><a href="digital-soil-mapping.html#cb238-12" tabindex="-1"></a></span>
+<span id="cb238-13"><a href="digital-soil-mapping.html#cb238-13" tabindex="-1"></a><span class="fu">terraOptions</span>(<span class="at">progress =</span> <span class="dv">1</span>, <span class="at">memfrac =</span> <span class="fl">0.6</span>, <span class="at">tempdir =</span> <span class="fu">file.path</span>(<span class="fu">getwd</span>(), <span class="st">&quot;terra_tmp&quot;</span>))</span></code></pre></div>
+<p><code>setwd()</code> navigates from the script folder up two levels to the project root, making all subsequent file paths relative and portable. The <code>for</code> loop pre-creates every output folder needed by the workflow. <code>terraOptions()</code> enables a progress bar, allows terra to use 60% of available RAM before spilling to disk, and redirects large temporary raster files to a known folder inside the project.</p>
+<p>Let me check the Excel file for the official descriptions:</p>
+<p>Here is the complete Section 2 ready to copy-paste:</p>
 <hr />
 </div>
-<div id="continuous-modelling-ph" class="section level2 hasAnchor" number="3.3">
-<h2><span class="header-section-number">3.3</span> Continuous Modelling (pH)<a href="digital-soil-mapping.html#continuous-modelling-ph" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="nature-of-the-variable" class="section level3 hasAnchor" number="3.3.1">
-<h3><span class="header-section-number">3.3.1</span> Nature of the Variable<a href="digital-soil-mapping.html#nature-of-the-variable" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Soil pH is a <strong>continuous variable</strong>: it takes numeric values on a scale (typically 4–9 in mineral soils). We predict the actual pH value at each location rather than placing observations into categories.</p>
-<p>Following the <em>scorpan</em> framework, we model pH as a function of environmental covariates that represent climate, organisms, relief, and other soil-forming factors. The relationship is empirical—we do not simulate the chemical processes that determine pH, but rather exploit correlations between pH and measurable environmental variables.</p>
-<p><strong>What this approach produces:</strong></p>
-<ul>
-<li>A map of predicted pH values across the study area</li>
-<li>An uncertainty map (standard deviation) showing where predictions are more or less reliable</li>
-<li>Validation metrics that measure prediction error in pH units</li>
-</ul>
-<p><strong>What this approach cannot do:</strong></p>
-<ul>
-<li>It cannot tell you <em>why</em> pH varies (only which covariates correlate with it)</li>
-<li>It does not guarantee accurate predictions in areas unlike the training data</li>
-<li>It does not account for temporal changes in pH</li>
-</ul>
-</div>
-<div id="data-and-covariates" class="section level3 hasAnchor" number="3.3.2">
-<h3><span class="header-section-number">3.3.2</span> Data and Covariates<a href="digital-soil-mapping.html#data-and-covariates" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The workflow begins by loading environmental covariates representing the <em>scorpan</em> factors: terrain attributes derived from digital elevation models (r), climate variables (c), and remote sensing indices representing vegetation (o).</p>
-<div class="figure"><span style="display:block;" id="fig:example-covariate"></span>
-<img src="images/module3/example_covariate.png" alt="Example environmental covariate layer from the 250m resolution stack."  />
-<p class="caption">
-Figure 3.1: Example environmental covariate layer from the 250m resolution stack.
-</p>
-</div>
-<p>Each covariate layer represents one environmental variable at 100m resolution. These are <strong>proxies</strong> for the true soil-forming factors—they correlate with soil pH but do not directly represent the chemical processes involved. The model learns which covariates best explain pH variation from the training points, then applies that relationship to predict pH across the entire area.</p>
-</div>
-<div id="feature-selection-boruta" class="section level3 hasAnchor" number="3.3.3">
-<h3><span class="header-section-number">3.3.3</span> Feature Selection (Boruta)<a href="digital-soil-mapping.html#feature-selection-boruta" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Not all covariates contribute equally to prediction. Some may be irrelevant, redundant, or introduce noise. <strong>Boruta</strong> is an algorithm that identifies which covariates genuinely help predict pH by comparing each variable’s importance against randomly shuffled “shadow” versions of itself <span class="citation">(<a href="#ref-Kursa2010">Kursa and Rudnicki, 2010</a>)</span>.</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="digital-soil-mapping.html#cb238-1" tabindex="-1"></a>selected_features <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">file.path</span>(OUTPUTS_DIR, <span class="st">&quot;models&quot;</span>, <span class="st">&quot;selected_features_pH.rds&quot;</span>))</span>
-<span id="cb238-2"><a href="digital-soil-mapping.html#cb238-2" tabindex="-1"></a></span>
-<span id="cb238-3"><a href="digital-soil-mapping.html#cb238-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Number of selected features:&quot;</span>, <span class="fu">length</span>(selected_features)))</span></code></pre></div>
-<pre><code>## [1] &quot;Number of selected features: 29&quot;</code></pre>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="digital-soil-mapping.html#cb240-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Selected features:&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Selected features:&quot;</code></pre>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="digital-soil-mapping.html#cb242-1" tabindex="-1"></a><span class="fu">print</span>(selected_features)</span></code></pre></div>
-<pre><code>##  [1] &quot;bio1&quot;                  &quot;bio12&quot;                 &quot;bio13&quot;                
-##  [4] &quot;bio14&quot;                 &quot;bio16&quot;                 &quot;bio17&quot;                
-##  [7] &quot;bio5&quot;                  &quot;bio6&quot;                  &quot;ngd10&quot;                
-## [10] &quot;pet_penman_max&quot;        &quot;pet_penman_mean&quot;       &quot;pet_penman_min&quot;       
-## [13] &quot;pet_penman_range&quot;      &quot;sfcWind_max&quot;           &quot;sfcWind_mean&quot;         
-## [16] &quot;sfcWind_range&quot;         &quot;fpar_030405_500m_mean&quot; &quot;fpar_030405_500m_sd&quot;  
-## [19] &quot;fpar_060708_500m_mean&quot; &quot;fpar_060708_500m_sd&quot;   &quot;fpar_091011_500m_mean&quot;
-## [22] &quot;fpar_091011_500m_sd&quot;   &quot;fpar_120102_500m_mean&quot; &quot;fpar_120102_500m_sd&quot;  
-## [25] &quot;dtm_curvature_250m&quot;    &quot;dtm_elevation_250m&quot;    &quot;dtm_slope_250m&quot;       
-## [28] &quot;dtm_tpi_250m&quot;          &quot;dtm_twi_500m&quot;</code></pre>
-<div class="figure"><span style="display:block;" id="fig:boruta-plot"></span>
-<img src="images/module3/boruta_pH.png" alt="Boruta feature selection results. Green = confirmed important, red = rejected, yellow = tentative."  />
-<p class="caption">
-Figure 3.2: Boruta feature selection results. Green = confirmed important, red = rejected, yellow = tentative.
-</p>
-</div>
-<p><strong>How to read this plot:</strong></p>
-<ul>
-<li><strong>Green boxes</strong>: Variables confirmed as important. Their importance exceeds random noise.</li>
-<li><strong>Red boxes</strong>: Variables rejected. They do not help more than randomly shuffled data.</li>
-<li><strong>Yellow boxes</strong>: Tentative (borderline). We include them to avoid discarding potentially useful information.</li>
-</ul>
-<p>Check if the selected features make pedological sense. For pH, you might expect climate (precipitation, temperature) and terrain (slope position, wetness) to be important because they influence weathering and drainage.</p>
-</div>
-<div id="model-training" class="section level3 hasAnchor" number="3.3.4">
-<h3><span class="header-section-number">3.3.4</span> Model Training<a href="digital-soil-mapping.html#model-training" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>We use <strong>Random Forest</strong> to predict pH. Random Forest is an ensemble method that builds many decision trees, each trained on a random subset of the data, and averages their predictions <span class="citation">(<a href="#ref-Breiman2001">Breiman, 2001</a>)</span>. This approach aligns with the empirical tradition in DSM—we fit the function <span class="math inline">\(f(Q)\)</span> from the <em>scorpan</em> model using data-driven methods rather than process-based equations.</p>
-<p><strong>Why Random Forest for DSM:</strong></p>
-<ul>
-<li>It handles nonlinear relationships between covariates and soil properties automatically</li>
-<li>It captures interactions between covariates without requiring explicit specification</li>
-<li>It does not require the analyst to specify the functional form of relationships</li>
-<li>It provides measures of variable importance for interpretation</li>
-</ul>
-<p><strong>What Random Forest does NOT solve:</strong></p>
-<ul>
-<li>It cannot extrapolate beyond the range of covariate values in training data</li>
-<li>It does not account for spatial autocorrelation in model fitting (the <span class="math inline">\(\varepsilon&#39;(s)\)</span> term from the Universal Model)</li>
-<li>It may underperform if training data are spatially clustered or biased toward certain environments</li>
-</ul>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="digital-soil-mapping.html#cb244-1" tabindex="-1"></a>model_cont <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">file.path</span>(OUTPUTS_DIR, <span class="st">&quot;models&quot;</span>, <span class="st">&quot;ranger_model_pH.rds&quot;</span>))</span>
-<span id="cb244-2"><a href="digital-soil-mapping.html#cb244-2" tabindex="-1"></a></span>
-<span id="cb244-3"><a href="digital-soil-mapping.html#cb244-3" tabindex="-1"></a><span class="co"># Show model summary</span></span>
-<span id="cb244-4"><a href="digital-soil-mapping.html#cb244-4" tabindex="-1"></a><span class="fu">print</span>(model_cont)</span></code></pre></div>
-<pre><code>## Random Forest 
-## 
-## 424 samples
-##  29 predictor
-## 
-## No pre-processing
-## Resampling: Cross-Validated (10 fold, repeated 5 times) 
-## Summary of sample sizes: 381, 382, 380, 383, 381, 381, ... 
-## Resampling results across tuning parameters:
-## 
-##   mtry  splitrule   RMSE       Rsquared   MAE      
-##    5    variance    0.6956261  0.3833561  0.5501236
-##    5    extratrees  0.6884646  0.3947113  0.5477938
-##   10    variance    0.6980853  0.3798045  0.5522413
-##   10    extratrees  0.6883220  0.3947413  0.5471498
-##   15    variance    0.6992832  0.3777471  0.5527784
-##   15    extratrees  0.6909598  0.3901496  0.5481261
-## 
-## Tuning parameter &#39;min.node.size&#39; was held constant at a value of 5
-## RMSE was used to select the optimal model using the smallest value.
-## The final values used for the model were mtry = 10, splitrule = extratrees and min.node.size
-##  = 5.</code></pre>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="digital-soil-mapping.html#cb246-1" tabindex="-1"></a><span class="co"># Best hyperparameters</span></span>
-<span id="cb246-2"><a href="digital-soil-mapping.html#cb246-2" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Best hyperparameters:&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Best hyperparameters:&quot;</code></pre>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="digital-soil-mapping.html#cb248-1" tabindex="-1"></a><span class="fu">print</span>(model_cont<span class="sc">$</span>bestTune)</span></code></pre></div>
-<pre><code>##   mtry  splitrule min.node.size
-## 4   10 extratrees             5</code></pre>
-<p>The model was trained using <strong>10-fold cross-validation repeated 5 times</strong>. The data were split into 10 parts; the model was trained on 9 parts and tested on the held-out part, rotating through all combinations. This process was repeated 5 times with different random splits.</p>
-<p><strong>What cross-validation evaluates:</strong> How well the model predicts pH for observations not used in training.</p>
-<p><strong>What cross-validation does NOT evaluate:</strong> Whether predictions are reliable in geographic areas far from training points. This is a fundamental limitation—cross-validation assumes that held-out observations are representative of prediction locations. If your training points are spatially clustered, the model may perform worse in unsampled regions than cross-validation suggests <span class="citation">(<a href="#ref-Roberts2017">Roberts <em>et al.</em>, 2017</a>)</span>.</p>
-</div>
-<div id="variable-importance" class="section level3 hasAnchor" number="3.3.5">
-<h3><span class="header-section-number">3.3.5</span> Variable Importance<a href="digital-soil-mapping.html#variable-importance" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="figure"><span style="display:block;" id="fig:varimp-plot"></span>
-<img src="images/module3/varimp_pH.png" alt="Variable importance from the trained Random Forest model."  />
-<p class="caption">
-Figure 3.3: Variable importance from the trained Random Forest model.
-</p>
-</div>
-<p>This plot ranks covariates by how much they contribute to predictions. Variables at the top reduce prediction error the most when used in tree splits.</p>
-<p>Variable importance helps link empirical predictions back to pedological understanding. If a climate variable ranks highest, soil pH variation may be driven primarily by regional precipitation or temperature gradients. If a terrain variable ranks highest, local topographic position and drainage may dominate. However, importance does not imply causation—it reflects statistical association, not mechanistic influence.</p>
-</div>
-<div id="validation-metrics" class="section level3 hasAnchor" number="3.3.6">
-<h3><span class="header-section-number">3.3.6</span> Validation Metrics<a href="digital-soil-mapping.html#validation-metrics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="digital-soil-mapping.html#cb250-1" tabindex="-1"></a>metrics <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(OUTPUTS_DIR, <span class="st">&quot;validation&quot;</span>, <span class="st">&quot;metrics_pH.csv&quot;</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb250-2"><a href="digital-soil-mapping.html#cb250-2" tabindex="-1"></a><span class="fu">kable</span>(metrics, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Cross-validation metrics for pH prediction&quot;</span>)</span></code></pre></div>
-<table>
-<caption><span id="tab:validation-metrics">Table 3.1: </span>Cross-validation metrics for pH prediction</caption>
-<thead>
-<tr class="header">
-<th align="left">Variable</th>
-<th align="right">ME</th>
-<th align="right">RMSE</th>
-<th align="right">R2</th>
-<th align="right">NSE</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">pH</td>
-<td align="right">-0.01</td>
-<td align="right">0.691</td>
-<td align="right">0.383</td>
-<td align="right">0.383</td>
-</tr>
-</tbody>
-</table>
-<p><strong>What each metric tells you:</strong></p>
+<div id="section-2-load-covariates" class="section level2 unnumbered hasAnchor">
+<h2>Section 2 — Load covariates<a href="digital-soil-mapping.html#section-2-load-covariates" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The environmental covariates are the <em>predictors</em> in the DSM model — the Q factor in
+the S = f(Q) relationship introduced in Part I. They are stored as a multi-layer raster
+stack (<code>.tif</code>) where each layer represents one spatially continuous variable.</p>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="digital-soil-mapping.html#cb239-1" tabindex="-1"></a>covs <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;01_data/module3/Env_Cov_250m_KANSAS.tif&quot;</span>)</span>
+<span id="cb239-2"><a href="digital-soil-mapping.html#cb239-2" tabindex="-1"></a></span>
+<span id="cb239-3"><a href="digital-soil-mapping.html#cb239-3" tabindex="-1"></a>cov_names <span class="ot">&lt;-</span> <span class="fu">names</span>(covs)</span>
+<span id="cb239-4"><a href="digital-soil-mapping.html#cb239-4" tabindex="-1"></a></span>
+<span id="cb239-5"><a href="digital-soil-mapping.html#cb239-5" tabindex="-1"></a>covs[[<span class="dv">1</span>]]   <span class="co"># resolution, extent, CRS of the first layer</span></span>
+<span id="cb239-6"><a href="digital-soil-mapping.html#cb239-6" tabindex="-1"></a><span class="fu">nlyr</span>(covs)  <span class="co"># total number of layers</span></span>
+<span id="cb239-7"><a href="digital-soil-mapping.html#cb239-7" tabindex="-1"></a><span class="fu">plot</span>(covs[[<span class="dv">1</span>]])</span></code></pre></div>
+<p><code>rast()</code> reads the file as a <code>SpatRaster</code> object (the terra equivalent of a raster
+brick). The double-bracket operator <code>[[i]]</code> extracts a single layer by index or name
+and returns a <code>SpatRaster</code>; the single-bracket <code>[i]</code> returns a subset of the stack
+(still a multi-layer object). Use <code>[[]]</code> when you want to inspect or operate on one
+layer.</p>
+<p>The stack contains <strong>29 covariates</strong> at 250 m resolution, organised into four
+SCORPAN-proxy groups:</p>
 <table>
 <colgroup>
-<col width="24%" />
-<col width="27%" />
-<col width="48%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Metric</th>
-<th>Meaning</th>
-<th>Interpretation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>ME (Mean Error)</strong></td>
-<td>Average difference between predicted and observed.</td>
-<td>Values near 0 indicate no systematic bias. Positive ME = model overpredicts on average.</td>
-</tr>
-<tr class="even">
-<td><strong>RMSE</strong></td>
-<td>Root Mean Square Error—typical size of prediction errors in pH units.</td>
-<td>Compare to the range of pH in your data. RMSE of 0.5 in data ranging 5–8 is different from RMSE of 0.5 in data ranging 6–7.</td>
-</tr>
-<tr class="odd">
-<td><strong>R²</strong></td>
-<td>Proportion of variance explained by the model.</td>
-<td>R² = 0.32 means the model captures about one-third of pH variation. The remainder is unexplained variance (<span class="math inline">\(\varepsilon&#39;\)</span> and <span class="math inline">\(\varepsilon&#39;&#39;\)</span> from the Universal Model).</td>
-</tr>
-<tr class="even">
-<td><strong>NSE</strong></td>
-<td>Nash-Sutcliffe Efficiency.</td>
-<td>Values &gt; 0 mean the model is better than simply predicting the mean everywhere.</td>
-</tr>
-</tbody>
-</table>
-<p>An R² of ~0.32 is modest but not unusual in DSM. This reflects the sources of residual variance discussed in Part I: measurement error, missing covariates, scale mismatches, and fine-scale soil variation that cannot be captured at 100m resolution.</p>
-<div class="figure"><span style="display:block;" id="fig:scatterplot"></span>
-<img src="images/module3/scatterplot_pH.png" alt="Observed vs Predicted pH from cross-validation. The red line shows perfect 1:1 prediction."  />
-<p class="caption">
-Figure 3.4: Observed vs Predicted pH from cross-validation. The red line shows perfect 1:1 prediction.
-</p>
-</div>
-<p><strong>How to read this scatterplot:</strong></p>
-<ul>
-<li>Points on the red line are perfectly predicted.</li>
-<li>Vertical spread around the line shows prediction uncertainty.</li>
-<li>If points curve away from the line at high or low values, the model may be compressing extreme predictions toward the mean. This is a common Random Forest behaviour because predictions are averages of tree outputs and cannot exceed the range of training data.</li>
-</ul>
-</div>
-<div id="prediction-maps" class="section level3 hasAnchor" number="3.3.7">
-<h3><span class="header-section-number">3.3.7</span> Prediction Maps<a href="digital-soil-mapping.html#prediction-maps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="mean-ph-map" class="section level4 hasAnchor" number="3.3.7.1">
-<h4><span class="header-section-number">3.3.7.1</span> Mean pH Map<a href="digital-soil-mapping.html#mean-ph-map" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="figure"><span style="display:block;" id="fig:map-mean"></span>
-<img src="images/module3/map_mean_pH.png" alt="Predicted mean pH across the study area."  />
-<p class="caption">
-Figure 3.5: Predicted mean pH across the study area.
-</p>
-</div>
-<p>This map represents the deterministic component <span class="math inline">\(\hat{m}(s)\)</span> from the Universal Model—the predicted pH value at each 100m pixel based on environmental covariates.</p>
-<p>Look for patterns that match your understanding of soil-landscape relationships. Higher pH in flat, poorly-drained areas may indicate carbonate accumulation. Lower pH on steep slopes may reflect greater leaching. These patterns should be consistent with the <em>scorpan</em> logic: relief influences drainage, which affects weathering and pH.</p>
-<p><strong>Warning signs of artefacts:</strong></p>
-<ul>
-<li>Abrupt straight-line boundaries may indicate covariate artefacts (e.g., satellite image edges, DEM tile boundaries)</li>
-<li>Uniform areas with no variation may indicate limited covariate information in those regions</li>
-</ul>
-</div>
-<div id="uncertainty-map-standard-deviation" class="section level4 hasAnchor" number="3.3.7.2">
-<h4><span class="header-section-number">3.3.7.2</span> Uncertainty Map (Standard Deviation)<a href="digital-soil-mapping.html#uncertainty-map-standard-deviation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="figure"><span style="display:block;" id="fig:map-sd"></span>
-<img src="images/module3/map_sd_pH.png" alt="Prediction uncertainty (SD) - higher values indicate more uncertain predictions."  />
-<p class="caption">
-Figure 3.6: Prediction uncertainty (SD) - higher values indicate more uncertain predictions.
-</p>
-</div>
-<p>For continuous predictions, we express uncertainty as a <strong>standard deviation (SD)</strong>. This comes from Quantile Regression Forest: each of the trees in the forest makes its own prediction. Where trees agree, SD is low. Where trees disagree, SD is high.</p>
-<p>This SD map provides spatially explicit uncertainty—a key advantage of DSM over traditional mapping. High SD areas are where the model is uncertain, often occurring where:</p>
-<ul>
-<li>Covariate combinations are unlike the training data</li>
-<li>Soil patterns are complex or highly variable</li>
-<li>Training data are sparse</li>
-</ul>
-<p>Use this map to prioritise where additional sampling would improve predictions and to communicate confidence to map users.</p>
-</div>
-<div id="coefficient-of-variation-map" class="section level4 hasAnchor" number="3.3.7.3">
-<h4><span class="header-section-number">3.3.7.3</span> Coefficient of Variation Map<a href="digital-soil-mapping.html#coefficient-of-variation-map" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="figure"><span style="display:block;" id="fig:map-cv"></span>
-<img src="images/module3/map_cv_pH.png" alt="Coefficient of Variation (%) - relative uncertainty."  />
-<p class="caption">
-Figure 3.7: Coefficient of Variation (%) - relative uncertainty.
-</p>
-</div>
-<p>CV expresses uncertainty relative to the predicted value: CV = (SD / Mean) × 100.</p>
-<p><strong>Caution:</strong> For pH, CV is meaningful because pH values are never near zero. For variables like soil organic carbon that can approach zero, CV becomes artificially inflated where predicted values are low and should be interpreted carefully.</p>
-<hr />
-</div>
-</div>
-</div>
-<div id="nominal-classification-clay_ph_class" class="section level2 hasAnchor" number="3.4">
-<h2><span class="header-section-number">3.4</span> Nominal Classification (Clay_pH_Class)<a href="digital-soil-mapping.html#nominal-classification-clay_ph_class" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="nature-of-the-variable-1" class="section level3 hasAnchor" number="3.4.1">
-<h3><span class="header-section-number">3.4.1</span> Nature of the Variable<a href="digital-soil-mapping.html#nature-of-the-variable-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>Clay_pH_Class</strong> is a <strong>nominal variable</strong>: it consists of unordered categories created by combining clay content classes (low, medium, high) with pH classes (acid, neutral, alkaline). The result is up to 9 combinations like “low_clay_acid” or “high_clay_alkaline”.</p>
-<p>These categories have no inherent order. “low_clay_acid” is not “less than” “medium_clay_neutral” in any meaningful sense. This distinguishes nominal from ordinal variables and affects both the model and how we evaluate predictions.</p>
-<p><strong>What this approach produces:</strong></p>
-<ul>
-<li>A map showing the most likely class at each pixel</li>
-<li>Probability maps for each class</li>
-<li>An uncertainty map based on classification confidence</li>
-</ul>
-<p><strong>What this approach cannot do:</strong></p>
-<ul>
-<li>It cannot capture gradual transitions (a pixel is assigned to exactly one class)</li>
-<li>It struggles when some classes have few training samples</li>
-<li>Accuracy metrics treat all misclassifications equally, whether the error is “neighbouring” or distant in attribute space</li>
-</ul>
-<p><strong>Important:</strong> Classifying variables that are naturally continuous (like clay content and pH) introduces artificial boundaries. Observations near class thresholds could easily fall into adjacent classes with slightly different measurements—this is the “soil continuum problem” discussed in Part I.</p>
-</div>
-<div id="feature-selection" class="section level3 hasAnchor" number="3.4.2">
-<h3><span class="header-section-number">3.4.2</span> Feature Selection<a href="digital-soil-mapping.html#feature-selection" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="digital-soil-mapping.html#cb251-1" tabindex="-1"></a>selected_features_nom <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">file.path</span>(OUTPUTS_DIR, <span class="st">&quot;models&quot;</span>, <span class="st">&quot;selected_features_Clay_pH_Class.rds&quot;</span>))</span>
-<span id="cb251-2"><a href="digital-soil-mapping.html#cb251-2" tabindex="-1"></a></span>
-<span id="cb251-3"><a href="digital-soil-mapping.html#cb251-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Number of selected features:&quot;</span>, <span class="fu">length</span>(selected_features_nom)))</span></code></pre></div>
-<pre><code>## [1] &quot;Number of selected features: 28&quot;</code></pre>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="digital-soil-mapping.html#cb253-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Selected features:&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Selected features:&quot;</code></pre>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="digital-soil-mapping.html#cb255-1" tabindex="-1"></a><span class="fu">print</span>(selected_features_nom)</span></code></pre></div>
-<pre><code>##  [1] &quot;bio1&quot;                  &quot;bio12&quot;                 &quot;bio13&quot;                
-##  [4] &quot;bio14&quot;                 &quot;bio16&quot;                 &quot;bio17&quot;                
-##  [7] &quot;bio5&quot;                  &quot;bio6&quot;                  &quot;ngd10&quot;                
-## [10] &quot;pet_penman_max&quot;        &quot;pet_penman_mean&quot;       &quot;pet_penman_min&quot;       
-## [13] &quot;pet_penman_range&quot;      &quot;sfcWind_max&quot;           &quot;sfcWind_mean&quot;         
-## [16] &quot;sfcWind_range&quot;         &quot;fpar_030405_500m_mean&quot; &quot;fpar_030405_500m_sd&quot;  
-## [19] &quot;fpar_060708_500m_mean&quot; &quot;fpar_060708_500m_sd&quot;   &quot;fpar_091011_500m_mean&quot;
-## [22] &quot;fpar_091011_500m_sd&quot;   &quot;fpar_120102_500m_mean&quot; &quot;dtm_curvature_250m&quot;   
-## [25] &quot;dtm_elevation_250m&quot;    &quot;dtm_slope_250m&quot;        &quot;dtm_tpi_250m&quot;         
-## [28] &quot;dtm_twi_500m&quot;</code></pre>
-<p>The same Boruta procedure is applied, but now selecting features that help distinguish between soil classes rather than predicting a numeric value.</p>
-</div>
-<div id="model-training-1" class="section level3 hasAnchor" number="3.4.3">
-<h3><span class="header-section-number">3.4.3</span> Model Training<a href="digital-soil-mapping.html#model-training-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="digital-soil-mapping.html#cb257-1" tabindex="-1"></a>model_nom <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">file.path</span>(OUTPUTS_DIR, <span class="st">&quot;models&quot;</span>, <span class="st">&quot;ranger_model_Clay_pH_Class.rds&quot;</span>))</span>
-<span id="cb257-2"><a href="digital-soil-mapping.html#cb257-2" tabindex="-1"></a></span>
-<span id="cb257-3"><a href="digital-soil-mapping.html#cb257-3" tabindex="-1"></a><span class="fu">print</span>(model_nom)</span></code></pre></div>
-<pre><code>## Random Forest 
-## 
-## 424 samples
-##  28 predictor
-##   9 classes: &#39;high_clay_acid&#39;, &#39;high_clay_alkaline&#39;, &#39;high_clay_neutral&#39;, &#39;low_clay_acid&#39;, &#39;low_clay_alkaline&#39;, &#39;low_clay_neutral&#39;, &#39;medium_clay_acid&#39;, &#39;medium_clay_alkaline&#39;, &#39;medium_clay_neutral&#39; 
-## 
-## No pre-processing
-## Resampling: Cross-Validated (10 fold, repeated 5 times) 
-## Summary of sample sizes: 382, 380, 382, 382, 379, 382, ... 
-## Resampling results across tuning parameters:
-## 
-##   mtry  splitrule   Accuracy   Kappa    
-##    5    gini        0.4009844  0.2448634
-##    5    extratrees  0.4167866  0.2618934
-##    9    gini        0.4055288  0.2509430
-##    9    extratrees  0.4179784  0.2639396
-##   13    gini        0.3972352  0.2421422
-##   13    extratrees  0.4065326  0.2513619
-## 
-## Tuning parameter &#39;min.node.size&#39; was held constant at a value of 5
-## Kappa was used to select the optimal model using the largest value.
-## The final values used for the model were mtry = 9, splitrule = extratrees and min.node.size = 5.</code></pre>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="digital-soil-mapping.html#cb259-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Best hyperparameters:&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Best hyperparameters:&quot;</code></pre>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="digital-soil-mapping.html#cb261-1" tabindex="-1"></a><span class="fu">print</span>(model_nom<span class="sc">$</span>bestTune)</span></code></pre></div>
-<pre><code>##   mtry  splitrule min.node.size
-## 4    9 extratrees             5</code></pre>
-<p>For classification, Random Forest assigns each observation to the class that receives the most “votes” from individual trees. Each tree classifies the observation, and the forest aggregates these votes into class probabilities. This provides a form of fuzzy classification—rather than a single hard assignment, we obtain probabilities for each class <span class="citation">(<a href="#ref-McBratney2003">McBratney, Mendonça Santos and Minasny, 2003</a>)</span>.</p>
-</div>
-<div id="validation" class="section level3 hasAnchor" number="3.4.4">
-<h3><span class="header-section-number">3.4.4</span> Validation<a href="digital-soil-mapping.html#validation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="digital-soil-mapping.html#cb263-1" tabindex="-1"></a>metrics_nom <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(OUTPUTS_DIR, <span class="st">&quot;validation&quot;</span>, <span class="st">&quot;metrics_Clay_pH_Class.csv&quot;</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb263-2"><a href="digital-soil-mapping.html#cb263-2" tabindex="-1"></a><span class="fu">kable</span>(metrics_nom, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Classification metrics for Clay_pH_Class&quot;</span>)</span></code></pre></div>
-<table>
-<caption><span id="tab:validation-nominal">Table 3.2: </span>Classification metrics for Clay_pH_Class</caption>
-<thead>
-<tr class="header">
-<th align="left">Variable</th>
-<th align="left">Type</th>
-<th align="right">Accuracy</th>
-<th align="right">Kappa</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Clay_pH_Class</td>
-<td align="left">Nominal</td>
-<td align="right">0.418</td>
-<td align="right">0.264</td>
-</tr>
-</tbody>
-</table>
-<p><strong>What each metric tells you:</strong></p>
-<table>
-<colgroup>
-<col width="24%" />
-<col width="27%" />
-<col width="48%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Metric</th>
-<th>Meaning</th>
-<th>Interpretation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>Accuracy</strong></td>
-<td>Proportion of observations correctly classified.</td>
-<td>With 9 classes, random guessing gives ~11% accuracy. Values above this indicate the model learned meaningful patterns.</td>
-</tr>
-<tr class="even">
-<td><strong>Kappa</strong></td>
-<td>Agreement beyond chance, accounting for class frequencies.</td>
-<td>Kappa 0.2–0.4 is “fair” agreement; 0.4–0.6 is “moderate”.</td>
-</tr>
-</tbody>
-</table>
-<p>Accuracy of ~39% is better than random but limited. This is typical when classifying continuous variables into categories, especially with class imbalance (some classes have many more observations than others).</p>
-<div class="figure"><span style="display:block;" id="fig:confusion-matrix"></span>
-<img src="images/module3/confusion_matrix_Clay_pH_Class.png" alt="Confusion matrix showing predicted vs observed classes. Diagonal cells are correct predictions."  />
-<p class="caption">
-Figure 3.8: Confusion matrix showing predicted vs observed classes. Diagonal cells are correct predictions.
-</p>
-</div>
-<p><strong>How to read the confusion matrix:</strong></p>
-<ul>
-<li><strong>Diagonal cells</strong> (top-left to bottom-right): Correct predictions. Higher numbers = better.</li>
-<li><strong>Off-diagonal cells</strong>: Misclassifications. Look for patterns—which classes are confused with each other?</li>
-<li><strong>Empty rows or columns</strong>: Classes with no correct predictions. This indicates the model ignores minority classes, a common problem with imbalanced data.</li>
-</ul>
-<p>If “high_clay_acid” is often misclassified as “medium_clay_acid”, the model struggles to distinguish clay content but captures pH better. This suggests clay-related covariates may be weaker predictors than pH-related covariates.</p>
-</div>
-<div id="prediction-maps-1" class="section level3 hasAnchor" number="3.4.5">
-<h3><span class="header-section-number">3.4.5</span> Prediction Maps<a href="digital-soil-mapping.html#prediction-maps-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="predicted-class-map" class="section level4 hasAnchor" number="3.4.5.1">
-<h4><span class="header-section-number">3.4.5.1</span> Predicted Class Map<a href="digital-soil-mapping.html#predicted-class-map" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="figure"><span style="display:block;" id="fig:map-class-max"></span>
-<img src="images/module3/map_class_max_prob.png" alt="Predicted class based on maximum probability."  />
-<p class="caption">
-Figure 3.9: Predicted class based on maximum probability.
-</p>
-</div>
-<p>Each pixel is assigned to the class with the highest predicted probability. Check if spatial patterns match landscape expectations: high clay in floodplains? Acid soils in high-rainfall uplands?</p>
-</div>
-<div id="maximum-probability-map" class="section level4 hasAnchor" number="3.4.5.2">
-<h4><span class="header-section-number">3.4.5.2</span> Maximum Probability Map<a href="digital-soil-mapping.html#maximum-probability-map" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="figure"><span style="display:block;" id="fig:map-prob-max"></span>
-<img src="images/module3/map_max_prob_value.png" alt="Maximum class probability - higher values indicate more confident predictions."  />
-<p class="caption">
-Figure 3.10: Maximum class probability - higher values indicate more confident predictions.
-</p>
-</div>
-<p><strong>Why probability is uncertainty for nominal variables:</strong></p>
-<p>For classification, the model outputs a probability for each class. These probabilities reflect the votes from individual trees. If the maximum probability is 0.9, the model is confident—most trees agree. If it is 0.2 (close to 1/9 = 0.11 for random guessing with 9 classes), the model is uncertain—trees disagree about which class applies.</p>
-<p>Low probability areas are “transition zones” where the model cannot confidently assign a single class. These often correspond to gradual soil transitions in the landscape—precisely the areas where the categorical representation is most problematic.</p>
-</div>
-<div id="uncertainty-map" class="section level4 hasAnchor" number="3.4.5.3">
-<h4><span class="header-section-number">3.4.5.3</span> Uncertainty Map<a href="digital-soil-mapping.html#uncertainty-map" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="figure"><span style="display:block;" id="fig:map-uncertainty-nom"></span>
-<img src="images/module3/map_uncertainty_nominal.png" alt="Classification uncertainty (1 - max probability)."  />
-<p class="caption">
-Figure 3.11: Classification uncertainty (1 - max probability).
-</p>
-</div>
-<p>This map shows 1 minus the maximum probability. High values mean the model is uncertain about class assignment.</p>
-</div>
-<div id="confident-predictions-map" class="section level4 hasAnchor" number="3.4.5.4">
-<h4><span class="header-section-number">3.4.5.4</span> Confident Predictions Map<a href="digital-soil-mapping.html#confident-predictions-map" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="figure"><span style="display:block;" id="fig:map-confident"></span>
-<img src="images/module3/map_class_confident.png" alt="Only predictions where max probability &gt;= 0.4 are shown."  />
-<p class="caption">
-Figure 3.12: Only predictions where max probability &gt;= 0.4 are shown.
-</p>
-</div>
-<p>This map applies a confidence threshold: predictions below 40% probability are masked. Areas in white/NA are where the model is not confident enough to assign a class.</p>
-<p>When delivering classification maps to users, consider providing probability maps alongside class maps, or masking uncertain areas to avoid false precision.</p>
-<hr />
-</div>
-</div>
-</div>
-<div id="ordinal-modelling-ph_class" class="section level2 hasAnchor" number="3.5">
-<h2><span class="header-section-number">3.5</span> Ordinal Modelling (pH_Class)<a href="digital-soil-mapping.html#ordinal-modelling-ph_class" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="nature-of-the-variable-2" class="section level3 hasAnchor" number="3.5.1">
-<h3><span class="header-section-number">3.5.1</span> Nature of the Variable<a href="digital-soil-mapping.html#nature-of-the-variable-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p><strong>pH_Class</strong> is an <strong>ordinal variable</strong>: categories with a natural order. The levels are: very_acid &lt; acid &lt; neutral &lt; alkaline &lt; very_alkaline.</p>
-<p>Unlike nominal classes, order matters. Predicting “acid” when the truth is “neutral” (one class away) is a smaller error than predicting “very_acid” (two classes away). This ordering changes how we validate predictions and interpret errors.</p>
-<p><strong>What this approach produces:</strong></p>
-<ul>
-<li>A map of predicted pH classes</li>
-<li>An instability map showing where predictions are near class boundaries</li>
-<li>Validation metrics that account for class order (distance-weighted errors)</li>
-</ul>
-<p><strong>What this approach cannot do:</strong></p>
-<ul>
-<li>It assumes equal spacing between classes (the “distance” from very_acid to acid equals acid to neutral), which may not reflect true chemical differences</li>
-<li>It does not preserve the original continuous pH information</li>
-</ul>
-</div>
-<div id="ordinal-encoding" class="section level3 hasAnchor" number="3.5.2">
-<h3><span class="header-section-number">3.5.2</span> Ordinal Encoding<a href="digital-soil-mapping.html#ordinal-encoding" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="digital-soil-mapping.html#cb264-1" tabindex="-1"></a>ordinal_encoding <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">file.path</span>(OUTPUTS_DIR, <span class="st">&quot;models&quot;</span>, <span class="st">&quot;ordinal_encoding.rds&quot;</span>))</span>
-<span id="cb264-2"><a href="digital-soil-mapping.html#cb264-2" tabindex="-1"></a></span>
-<span id="cb264-3"><a href="digital-soil-mapping.html#cb264-3" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Ordinal level lookup:&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Ordinal level lookup:&quot;</code></pre>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="digital-soil-mapping.html#cb266-1" tabindex="-1"></a><span class="fu">print</span>(ordinal_encoding<span class="sc">$</span>lookup)</span></code></pre></div>
-<pre><code>##           level integer
-## 1     very_acid       1
-## 2          acid       2
-## 3       neutral       3
-## 4      alkaline       4
-## 5 very_alkaline       5</code></pre>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="digital-soil-mapping.html#cb268-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Reclassification thresholds:&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Reclassification thresholds:&quot;</code></pre>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="digital-soil-mapping.html#cb270-1" tabindex="-1"></a><span class="fu">print</span>(ordinal_encoding<span class="sc">$</span>reclassify_matrix)</span></code></pre></div>
-<pre><code>## NULL</code></pre>
-<p><strong>The approach:</strong></p>
-<ol style="list-style-type: decimal">
-<li>Convert ordered classes to integers: very_acid = 1, acid = 2, neutral = 3, alkaline = 4, very_alkaline = 5</li>
-<li>Train a regression model to predict these integers as if they were continuous</li>
-<li>Round predictions back to classes using midpoint thresholds (1.5, 2.5, 3.5, 4.5)</li>
-</ol>
-<p><strong>Limitation:</strong> This assumes equal spacing between classes. In reality, the chemical difference between pH 4 and 5 may not equal the difference between pH 6 and 7. The ordinal approach is a compromise between continuous prediction and nominal classification.</p>
-</div>
-<div id="feature-selection-1" class="section level3 hasAnchor" number="3.5.3">
-<h3><span class="header-section-number">3.5.3</span> Feature Selection<a href="digital-soil-mapping.html#feature-selection-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="digital-soil-mapping.html#cb272-1" tabindex="-1"></a>selected_features_ord <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">file.path</span>(OUTPUTS_DIR, <span class="st">&quot;models&quot;</span>, <span class="st">&quot;selected_features_pH_Class.rds&quot;</span>))</span>
-<span id="cb272-2"><a href="digital-soil-mapping.html#cb272-2" tabindex="-1"></a></span>
-<span id="cb272-3"><a href="digital-soil-mapping.html#cb272-3" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Number of selected features:&quot;</span>, <span class="fu">length</span>(selected_features_ord)))</span></code></pre></div>
-<pre><code>## [1] &quot;Number of selected features: 29&quot;</code></pre>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="digital-soil-mapping.html#cb274-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Selected features:&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Selected features:&quot;</code></pre>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="digital-soil-mapping.html#cb276-1" tabindex="-1"></a><span class="fu">print</span>(selected_features_ord)</span></code></pre></div>
-<pre><code>##  [1] &quot;bio1&quot;                  &quot;bio12&quot;                 &quot;bio13&quot;                
-##  [4] &quot;bio14&quot;                 &quot;bio16&quot;                 &quot;bio17&quot;                
-##  [7] &quot;bio5&quot;                  &quot;bio6&quot;                  &quot;ngd10&quot;                
-## [10] &quot;pet_penman_max&quot;        &quot;pet_penman_mean&quot;       &quot;pet_penman_min&quot;       
-## [13] &quot;pet_penman_range&quot;      &quot;sfcWind_max&quot;           &quot;sfcWind_mean&quot;         
-## [16] &quot;sfcWind_range&quot;         &quot;fpar_030405_500m_mean&quot; &quot;fpar_030405_500m_sd&quot;  
-## [19] &quot;fpar_060708_500m_mean&quot; &quot;fpar_060708_500m_sd&quot;   &quot;fpar_091011_500m_mean&quot;
-## [22] &quot;fpar_091011_500m_sd&quot;   &quot;fpar_120102_500m_mean&quot; &quot;fpar_120102_500m_sd&quot;  
-## [25] &quot;dtm_curvature_250m&quot;    &quot;dtm_elevation_250m&quot;    &quot;dtm_slope_250m&quot;       
-## [28] &quot;dtm_tpi_250m&quot;          &quot;dtm_twi_500m&quot;</code></pre>
-</div>
-<div id="model-training-2" class="section level3 hasAnchor" number="3.5.4">
-<h3><span class="header-section-number">3.5.4</span> Model Training<a href="digital-soil-mapping.html#model-training-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="digital-soil-mapping.html#cb278-1" tabindex="-1"></a>model_ord <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">file.path</span>(OUTPUTS_DIR, <span class="st">&quot;models&quot;</span>, <span class="st">&quot;ranger_model_pH_Class_ordinal.rds&quot;</span>))</span>
-<span id="cb278-2"><a href="digital-soil-mapping.html#cb278-2" tabindex="-1"></a></span>
-<span id="cb278-3"><a href="digital-soil-mapping.html#cb278-3" tabindex="-1"></a><span class="fu">print</span>(model_ord)</span></code></pre></div>
-<pre><code>## Random Forest 
-## 
-## 424 samples
-##  29 predictor
-## 
-## No pre-processing
-## Resampling: Cross-Validated (10 fold, repeated 5 times) 
-## Summary of sample sizes: 382, 382, 380, 382, 382, 380, ... 
-## Resampling results across tuning parameters:
-## 
-##   mtry  splitrule   RMSE       Rsquared   MAE      
-##    5    variance    0.7677947  0.3509020  0.6090019
-##    5    extratrees  0.7595814  0.3613039  0.6040114
-##   10    variance    0.7712644  0.3465458  0.6116310
-##   10    extratrees  0.7595455  0.3619105  0.6033011
-##   15    variance    0.7716605  0.3469278  0.6122184
-##   15    extratrees  0.7631243  0.3569775  0.6059889
-## 
-## Tuning parameter &#39;min.node.size&#39; was held constant at a value of 5
-## RMSE was used to select the optimal model using the smallest value.
-## The final values used for the model were mtry = 10, splitrule = extratrees and min.node.size
-##  = 5.</code></pre>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="digital-soil-mapping.html#cb280-1" tabindex="-1"></a><span class="fu">print</span>(<span class="st">&quot;Best hyperparameters:&quot;</span>)</span></code></pre></div>
-<pre><code>## [1] &quot;Best hyperparameters:&quot;</code></pre>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="digital-soil-mapping.html#cb282-1" tabindex="-1"></a><span class="fu">print</span>(model_ord<span class="sc">$</span>bestTune)</span></code></pre></div>
-<pre><code>##   mtry  splitrule min.node.size
-## 4   10 extratrees             5</code></pre>
-<p>We use Random Forest in regression mode, treating the integer-coded classes as a continuous target. This allows the model to produce predictions like 2.7, which is then rounded to class 3 (neutral). The regression approach respects the ordering of classes—predicting 2.7 is closer to truth=3 than predicting 1.2.</p>
-</div>
-<div id="validation-1" class="section level3 hasAnchor" number="3.5.5">
-<h3><span class="header-section-number">3.5.5</span> Validation<a href="digital-soil-mapping.html#validation-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="digital-soil-mapping.html#cb284-1" tabindex="-1"></a>metrics_ord <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="fu">file.path</span>(OUTPUTS_DIR, <span class="st">&quot;validation&quot;</span>, <span class="st">&quot;metrics_pH_Class_ordinal.csv&quot;</span>), <span class="at">show_col_types =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb284-2"><a href="digital-soil-mapping.html#cb284-2" tabindex="-1"></a><span class="fu">kable</span>(metrics_ord, <span class="at">digits =</span> <span class="dv">3</span>, <span class="at">caption =</span> <span class="st">&quot;Ordinal classification metrics for pH_Class&quot;</span>)</span></code></pre></div>
-<table>
-<caption><span id="tab:validation-ordinal">Table 3.3: </span>Ordinal classification metrics for pH_Class</caption>
-<thead>
-<tr class="header">
-<th align="left">Variable</th>
-<th align="left">Type</th>
-<th align="right">MAE_rank</th>
-<th align="right">Mean_distance</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">pH_Class</td>
-<td align="left">Ordinal</td>
-<td align="right">0.554</td>
-<td align="right">0.554</td>
-</tr>
-</tbody>
-</table>
-<p><strong>What each metric tells you:</strong></p>
-<table>
-<colgroup>
-<col width="24%" />
-<col width="27%" />
-<col width="48%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th>Metric</th>
-<th>Meaning</th>
-<th>Interpretation</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><strong>MAE_rank</strong></td>
-<td>Mean Absolute Error in class units—average distance between observed and predicted class.</td>
-<td>MAE_rank = 0.58 means predictions are typically about half a class off.</td>
-</tr>
-<tr class="even">
-<td><strong>Mean_distance</strong></td>
-<td>Weighted average error accounting for all misclassifications.</td>
-<td>Lower values = predictions closer to truth on the ordinal scale.</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Why ordinal metrics differ from nominal:</strong></p>
-<p>In ordinal validation, not all errors are equal. Predicting class 3 when truth is class 4 (distance = 1) is less severe than predicting class 1 (distance = 3). The metrics weight errors by their distance on the ordinal scale.</p>
-<div class="figure"><span style="display:block;" id="fig:ordinal-confusion"></span>
-<img src="images/module3/ordinal_confusion_pH_Class.png" alt="Ordinal confusion matrix. Errors near the diagonal are minor; errors far from diagonal are severe."  />
-<p class="caption">
-Figure 3.13: Ordinal confusion matrix. Errors near the diagonal are minor; errors far from diagonal are severe.
-</p>
-</div>
-<p><strong>How to read the ordinal confusion matrix:</strong></p>
-<ul>
-<li><strong>Diagonal</strong>: Correct predictions</li>
-<li><strong>Adjacent cells (±1)</strong>: Minor errors, one class off</li>
-<li><strong>Distant cells</strong>: Severe errors, multiple classes off</li>
-<li>Look for systematic patterns: does the model consistently underpredict (errors below diagonal) or overpredict (errors above diagonal)?</li>
-</ul>
-</div>
-<div id="prediction-maps-2" class="section level3 hasAnchor" number="3.5.6">
-<h3><span class="header-section-number">3.5.6</span> Prediction Maps<a href="digital-soil-mapping.html#prediction-maps-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="latent-values-map" class="section level4 hasAnchor" number="3.5.6.1">
-<h4><span class="header-section-number">3.5.6.1</span> Latent Values Map<a href="digital-soil-mapping.html#latent-values-map" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="figure"><span style="display:block;" id="fig:map-latent"></span>
-<img src="images/module3/map_latent_pH_Class.png" alt="Continuous 'latent' predictions before reclassification to ordinal classes."  />
-<p class="caption">
-Figure 3.14: Continuous ‘latent’ predictions before reclassification to ordinal classes.
-</p>
-</div>
-<p>This map shows the raw regression output before rounding to classes. Values range from ~1 to ~5. This reveals continuous spatial gradients that are lost when we assign discrete classes.</p>
-</div>
-<div id="reclassified-ordinal-class-map" class="section level4 hasAnchor" number="3.5.6.2">
-<h4><span class="header-section-number">3.5.6.2</span> Reclassified Ordinal Class Map<a href="digital-soil-mapping.html#reclassified-ordinal-class-map" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="figure"><span style="display:block;" id="fig:map-class-ord"></span>
-<img src="images/module3/map_class_pH_Class.png" alt="Ordinal classes derived from latent predictions using midpoint thresholds."  />
-<p class="caption">
-Figure 3.15: Ordinal classes derived from latent predictions using midpoint thresholds.
-</p>
-</div>
-<p>Classes 1–5 correspond to: very_acid, acid, neutral, alkaline, very_alkaline. Compare this to the continuous pH map—patterns should be similar but expressed as discrete classes.</p>
-</div>
-<div id="standard-deviation-map" class="section level4 hasAnchor" number="3.5.6.3">
-<h4><span class="header-section-number">3.5.6.3</span> Standard Deviation Map<a href="digital-soil-mapping.html#standard-deviation-map" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="figure"><span style="display:block;" id="fig:map-sd-ord"></span>
-<img src="images/module3/map_sd_pH_Class.png" alt="Prediction uncertainty (SD) from the ordinal regression model."  />
-<p class="caption">
-Figure 3.16: Prediction uncertainty (SD) from the ordinal regression model.
-</p>
-</div>
-<p>As with continuous predictions, SD reflects disagreement among trees. High SD means the model is uncertain about the latent value.</p>
-</div>
-<div id="class-instability-map" class="section level4 hasAnchor" number="3.5.6.4">
-<h4><span class="header-section-number">3.5.6.4</span> Class Instability Map<a href="digital-soil-mapping.html#class-instability-map" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="figure"><span style="display:block;" id="fig:map-instability"></span>
-<img src="images/module3/map_instability_pH_Class.png" alt="Class instability - high values where predictions are near class boundaries."  />
-<p class="caption">
-Figure 3.17: Class instability - high values where predictions are near class boundaries.
-</p>
-</div>
-<p><strong>Why ordinal uncertainty is about instability:</strong></p>
-<p>For ordinal variables, a unique source of uncertainty is <strong>class boundary instability</strong>. A prediction of 2.48 is very close to the 2.5 threshold between classes 2 and 3. Small changes in input data or model parameters could flip the assigned class.</p>
-<p>Instability combines prediction uncertainty (SD) with proximity to class boundaries. High instability means: “The model predicts a value near a threshold AND is uncertain about that value.”</p>
-<p>Areas with high instability should be flagged as uncertain classifications, even if they receive a class label in the map. This is a form of uncertainty specific to ordinal classification that does not exist for continuous predictions.</p>
-<hr />
-</div>
-</div>
-</div>
-<div id="area-of-applicability-aoa" class="section level2 hasAnchor" number="3.6">
-<h2><span class="header-section-number">3.6</span> Area of Applicability (AOA)<a href="digital-soil-mapping.html#area-of-applicability-aoa" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div id="why-aoa-is-necessary" class="section level3 hasAnchor" number="3.6.1">
-<h3><span class="header-section-number">3.6.1</span> Why AOA is Necessary<a href="digital-soil-mapping.html#why-aoa-is-necessary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Cross-validation tells us how well the model predicts <strong>where we have training data</strong>. But we apply the model to the entire study area, including locations with covariate combinations unlike any training point.</p>
-<p>This relates to a fundamental limitation of empirical models: they cannot extrapolate reliably beyond the range of training data. The <em>scorpan</em> model <span class="math inline">\(S = f(Q) + \varepsilon\)</span> is fitted using available observations, and predictions outside the training domain are unreliable.</p>
-<p>The <strong>Area of Applicability (AOA)</strong> identifies which parts of the study area have covariate combinations similar to the training data <span class="citation">(<a href="#ref-Meyer2021">Meyer and Pebesma, 2021</a>)</span>. Outside the AOA, the model is extrapolating, and predictions may be unreliable regardless of cross-validation performance.</p>
-</div>
-<div id="dissimilarity-index-di" class="section level3 hasAnchor" number="3.6.2">
-<h3><span class="header-section-number">3.6.2</span> Dissimilarity Index (DI)<a href="digital-soil-mapping.html#dissimilarity-index-di" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="figure"><span style="display:block;" id="fig:map-di"></span>
-<img src="images/module3/map_DI_pH.png" alt="Dissimilarity Index - how different each location is from training data in covariate space."  />
-<p class="caption">
-Figure 3.18: Dissimilarity Index - how different each location is from training data in covariate space.
-</p>
-</div>
-<p>DI measures how different each pixel’s covariate values are from the nearest training point in multivariate covariate space. It is calculated using weighted Euclidean distance, where weights reflect variable importance from the model.</p>
-<p>DI near 0 means the pixel is similar to training data. High DI means the covariate combination was not well represented in training—the model is extrapolating.</p>
-</div>
-<div id="aoa-binary-mask" class="section level3 hasAnchor" number="3.6.3">
-<h3><span class="header-section-number">3.6.3</span> AOA Binary Mask<a href="digital-soil-mapping.html#aoa-binary-mask" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="figure"><span style="display:block;" id="fig:map-aoa-mask"></span>
-<img src="images/module3/map_AOA_pH.png" alt="Area of Applicability mask. Green = within AOA (trustworthy), Grey = outside AOA (unreliable)."  />
-<p class="caption">
-Figure 3.19: Area of Applicability mask. Green = within AOA (trustworthy), Grey = outside AOA (unreliable).
-</p>
-</div>
-<p>Pixels are classified as inside (1) or outside (0) the AOA based on a DI threshold derived from cross-validation.</p>
-<ul>
-<li><strong>Green areas</strong>: Model has seen similar covariate combinations. Predictions are supported by training data.</li>
-<li><strong>Grey areas</strong>: Covariate combinations not represented in training. Predictions are extrapolations and should not be trusted.</li>
-</ul>
-<pre><code>## AOA coverage: 91.5 % of study area</code></pre>
-</div>
-<div id="local-point-density-lpd" class="section level3 hasAnchor" number="3.6.4">
-<h3><span class="header-section-number">3.6.4</span> Local Point Density (LPD)<a href="digital-soil-mapping.html#local-point-density-lpd" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="figure"><span style="display:block;" id="fig:map-lpd"></span>
-<img src="images/module3/map_LPD_pH.png" alt="Local Point Density - number of training points supporting predictions at each location."  />
-<p class="caption">
-Figure 3.20: Local Point Density - number of training points supporting predictions at each location.
-</p>
-</div>
-<p>LPD counts how many training points are “nearby” in covariate space. Even within the AOA, some areas have more training support than others.</p>
-<p>LPD = 0 means no training points are nearby—a strong warning. Higher LPD means multiple training observations support the prediction, increasing confidence.</p>
-</div>
-<div id="predictions-masked-to-aoa" class="section level3 hasAnchor" number="3.6.5">
-<h3><span class="header-section-number">3.6.5</span> Predictions Masked to AOA<a href="digital-soil-mapping.html#predictions-masked-to-aoa" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="figure"><span style="display:block;" id="fig:map-masked-aoa"></span>
-<img src="images/module3/map_mean_pH_masked_AOA.png" alt="pH predictions only shown within the Area of Applicability."  />
-<p class="caption">
-Figure 3.21: pH predictions only shown within the Area of Applicability.
-</p>
-</div>
-<p>This map shows predictions only where the model can be trusted. White/NA areas are outside the AOA.</p>
-<p><strong>Practical recommendations:</strong></p>
-<ol style="list-style-type: decimal">
-<li>Always report AOA coverage alongside prediction maps</li>
-<li>Mask or flag predictions outside AOA when delivering products to users</li>
-<li>Use areas outside AOA to prioritise future sampling—these are gaps in training data coverage</li>
-</ol>
-<hr />
-</div>
-</div>
-<div id="summary" class="section level2 hasAnchor" number="3.7">
-<h2><span class="header-section-number">3.7</span> Summary<a href="digital-soil-mapping.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<table>
-<colgroup>
-<col width="14%" />
-<col width="23%" />
+<col width="25%" />
 <col width="15%" />
-<col width="18%" />
-<col width="28%" />
+<col width="59%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th>Session</th>
-<th>Variable Type</th>
-<th>Approach</th>
-<th>Key Metric</th>
-<th>Uncertainty Type</th>
+<th align="left">Layer name</th>
+<th align="left">SCORPAN group</th>
+<th align="left">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td>1</td>
-<td>Continuous (pH)</td>
-<td>QRF regression</td>
-<td>R², RMSE</td>
-<td>Standard deviation from tree disagreement</td>
+<td align="left">bio1</td>
+<td align="left">Climate (C)</td>
+<td align="left">Annual mean temperature (°C × 10)</td>
 </tr>
 <tr class="even">
-<td>2</td>
-<td>Nominal (Clay_pH_Class)</td>
-<td>Classification RF</td>
-<td>Accuracy, Kappa</td>
-<td>Probability of assigned class</td>
+<td align="left">bio5</td>
+<td align="left">Climate (C)</td>
+<td align="left">Max temperature of warmest month (°C × 10)</td>
 </tr>
 <tr class="odd">
-<td>3</td>
-<td>Ordinal (pH_Class)</td>
-<td>Integer regression</td>
-<td>MAE_rank</td>
-<td>Instability near class boundaries</td>
+<td align="left">bio6</td>
+<td align="left">Climate (C)</td>
+<td align="left">Min temperature of coldest month (°C × 10)</td>
 </tr>
 <tr class="even">
-<td>4</td>
-<td>AOA</td>
-<td>Dissimilarity analysis</td>
-<td>Coverage %</td>
-<td>Inside/outside applicability</td>
+<td align="left">bio12</td>
+<td align="left">Climate (C)</td>
+<td align="left">Annual precipitation (mm)</td>
+</tr>
+<tr class="odd">
+<td align="left">bio13</td>
+<td align="left">Climate (C)</td>
+<td align="left">Precipitation of wettest month (mm)</td>
+</tr>
+<tr class="even">
+<td align="left">bio14</td>
+<td align="left">Climate (C)</td>
+<td align="left">Precipitation of driest month (mm)</td>
+</tr>
+<tr class="odd">
+<td align="left">bio16</td>
+<td align="left">Climate (C)</td>
+<td align="left">Precipitation of wettest quarter (mm)</td>
+</tr>
+<tr class="even">
+<td align="left">bio17</td>
+<td align="left">Climate (C)</td>
+<td align="left">Precipitation of driest quarter (mm)</td>
+</tr>
+<tr class="odd">
+<td align="left">ngd10</td>
+<td align="left">Climate (C)</td>
+<td align="left">Number of growing degree days above 10 °C</td>
+</tr>
+<tr class="even">
+<td align="left">pet_penman_max</td>
+<td align="left">Climate (C)</td>
+<td align="left">Maximum potential evapotranspiration — Penman (mm)</td>
+</tr>
+<tr class="odd">
+<td align="left">pet_penman_mean</td>
+<td align="left">Climate (C)</td>
+<td align="left">Mean potential evapotranspiration — Penman (mm)</td>
+</tr>
+<tr class="even">
+<td align="left">pet_penman_min</td>
+<td align="left">Climate (C)</td>
+<td align="left">Minimum potential evapotranspiration — Penman (mm)</td>
+</tr>
+<tr class="odd">
+<td align="left">pet_penman_range</td>
+<td align="left">Climate (C)</td>
+<td align="left">Range of potential evapotranspiration — Penman (mm)</td>
+</tr>
+<tr class="even">
+<td align="left">sfcWind_max</td>
+<td align="left">Climate (C)</td>
+<td align="left">Maximum surface wind speed (m s⁻¹)</td>
+</tr>
+<tr class="odd">
+<td align="left">sfcWind_mean</td>
+<td align="left">Climate (C)</td>
+<td align="left">Mean surface wind speed (m s⁻¹)</td>
+</tr>
+<tr class="even">
+<td align="left">sfcWind_range</td>
+<td align="left">Climate (C)</td>
+<td align="left">Range of surface wind speed (m s⁻¹)</td>
+</tr>
+<tr class="odd">
+<td align="left">fpar_030405_500m_mean</td>
+<td align="left">Organism (O)</td>
+<td align="left">Mean FPAR — spring (Mar–May), 500 m</td>
+</tr>
+<tr class="even">
+<td align="left">fpar_030405_500m_sd</td>
+<td align="left">Organism (O)</td>
+<td align="left">SD of FPAR — spring (Mar–May), 500 m</td>
+</tr>
+<tr class="odd">
+<td align="left">fpar_060708_500m_mean</td>
+<td align="left">Organism (O)</td>
+<td align="left">Mean FPAR — summer (Jun–Aug), 500 m</td>
+</tr>
+<tr class="even">
+<td align="left">fpar_060708_500m_sd</td>
+<td align="left">Organism (O)</td>
+<td align="left">SD of FPAR — summer (Jun–Aug), 500 m</td>
+</tr>
+<tr class="odd">
+<td align="left">fpar_091011_500m_mean</td>
+<td align="left">Organism (O)</td>
+<td align="left">Mean FPAR — autumn (Sep–Nov), 500 m</td>
+</tr>
+<tr class="even">
+<td align="left">fpar_091011_500m_sd</td>
+<td align="left">Organism (O)</td>
+<td align="left">SD of FPAR — autumn (Sep–Nov), 500 m</td>
+</tr>
+<tr class="odd">
+<td align="left">fpar_120102_500m_mean</td>
+<td align="left">Organism (O)</td>
+<td align="left">Mean FPAR — winter (Dec–Feb), 500 m</td>
+</tr>
+<tr class="even">
+<td align="left">fpar_120102_500m_sd</td>
+<td align="left">Organism (O)</td>
+<td align="left">SD of FPAR — winter (Dec–Feb), 500 m</td>
+</tr>
+<tr class="odd">
+<td align="left">dtm_elevation_250m</td>
+<td align="left">Relief (R)</td>
+<td align="left">Elevation (m asl), 250 m</td>
+</tr>
+<tr class="even">
+<td align="left">dtm_slope_250m</td>
+<td align="left">Relief (R)</td>
+<td align="left">Slope (°), 250 m</td>
+</tr>
+<tr class="odd">
+<td align="left">dtm_curvature_250m</td>
+<td align="left">Relief (R)</td>
+<td align="left">Surface curvature (plan + profile), 250 m</td>
+</tr>
+<tr class="even">
+<td align="left">dtm_tpi_250m</td>
+<td align="left">Relief (R)</td>
+<td align="left">Topographic Position Index (TPI), 250 m</td>
+</tr>
+<tr class="odd">
+<td align="left">dtm_twi_500m</td>
+<td align="left">Relief (R)</td>
+<td align="left">Topographic Wetness Index (TWI), 500 m</td>
 </tr>
 </tbody>
 </table>
-<p><strong>Key points:</strong></p>
-<ol style="list-style-type: decimal">
-<li><p><strong>Match the model to the variable type.</strong> Continuous, nominal, and ordinal variables require different approaches and produce different outputs. The choice follows from the mathematical nature of the variable and how errors should be evaluated.</p></li>
-<li><p><strong>Models are empirical, not mechanistic.</strong> We fit statistical relationships between soil and covariates (<span class="math inline">\(S = f(Q) + \varepsilon\)</span>) rather than simulating physical processes. This is powerful but limited—models cannot explain causation or extrapolate reliably.</p></li>
-<li><p><strong>Cross-validation has limits.</strong> It evaluates prediction at training locations, not in unsampled areas. Spatial clustering of training data can lead to overly optimistic error estimates.</p></li>
-<li><p><strong>Always report uncertainty.</strong> The form of uncertainty depends on variable type: standard deviation for continuous variables, class probabilities for nominal variables, and instability for ordinal variables.</p></li>
-<li><p><strong>Use AOA to identify reliable predictions.</strong> Do not trust predictions in areas with covariate combinations unlike the training data.</p></li>
-</ol>
+<p>FPAR (Fraction of Photosynthetically Active Radiation) captures seasonal vegetation
+dynamics and is a proxy for the <strong>Organism</strong> factor. Terrain derivatives (elevation,
+slope, curvature, TPI, TWI) represent <strong>Relief</strong>, which controls lateral water
+redistribution — a key driver of SOC accumulation.</p>
+<p>Here is Section 3, ready to copy-paste:</p>
+<hr />
+</div>
+<div id="section-3-load-and-transform-soil-data" class="section level2 unnumbered hasAnchor">
+<h2>Section 3 — Load and transform soil data<a href="digital-soil-mapping.html#section-3-load-and-transform-soil-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The soil observations come from the KSSL dataset prepared in Module 1. The file
+contains one row per sample, with columns for coordinates, texture fractions, and SOC.</p>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="digital-soil-mapping.html#cb240-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;03_outputs/module1/KSSL_DSM_0-30.csv&quot;</span>)</span>
+<span id="cb240-2"><a href="digital-soil-mapping.html#cb240-2" tabindex="-1"></a></span>
+<span id="cb240-3"><a href="digital-soil-mapping.html#cb240-3" tabindex="-1"></a>dat</span>
+<span id="cb240-4"><a href="digital-soil-mapping.html#cb240-4" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div>
+<div id="estimate-bulk-density-with-a-pedotransfer-function" class="section level3 unnumbered hasAnchor">
+<h3>3.1 Estimate bulk density with a pedotransfer function<a href="digital-soil-mapping.html#estimate-bulk-density-with-a-pedotransfer-function" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A <strong>pedotransfer function (PTF)</strong> predicts a soil property that is difficult or
+expensive to measure directly from properties that are routinely available. Here we
+use the Saxton equation to derive bulk density (BD, g cm⁻³) from sand, clay, and SOC:</p>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="digital-soil-mapping.html#cb241-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb241-2"><a href="digital-soil-mapping.html#cb241-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BD =</span> <span class="fl">1.35</span> <span class="sc">+</span> <span class="fl">0.0045</span> <span class="sc">*</span> Sand <span class="sc">+</span> <span class="fl">0.0035</span> <span class="sc">*</span> Clay <span class="sc">-</span> <span class="fl">0.06</span> <span class="sc">*</span> <span class="fl">1.72</span> <span class="sc">*</span> SOC)</span></code></pre></div>
+<p>The <code>%&gt;%</code> pipe passes <code>dat</code> as the first argument to <code>mutate()</code>, which adds the new
+column <code>BD</code> without touching the existing columns. This keeps the transformation
+readable and chainable.</p>
+<blockquote>
+<p><strong>Bonus track (commented out in the script):</strong> the same PTF framework can be
+extended to estimate Available Water Capacity (AWC) using the Rawls &amp; Saxton (1982)
+equations. The commented block derives wilting point (WP) and field capacity (FC)
+from sand, clay, and organic matter, then calculates AWC = FC − WP. Uncomment it if
+AWC is a target variable or a covariate in your project.</p>
+</blockquote>
+</div>
+</div>
+<div id="section-4-merge-soil-data-and-covariate-values" class="section level2 unnumbered hasAnchor">
+<h2>Section 4 — Merge soil data and covariate values<a href="digital-soil-mapping.html#section-4-merge-soil-data-and-covariate-values" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To link each soil observation to its environmental context, we convert the dataframe to a spatial object, reproject it to match the covariate CRS, and extract the raster values at each sample location.</p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="digital-soil-mapping.html#cb242-1" tabindex="-1"></a>dat_pts <span class="ot">&lt;-</span> <span class="fu">vect</span>(dat, <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="at">crs =</span> <span class="st">&quot;epsg:4326&quot;</span>)</span>
+<span id="cb242-2"><a href="digital-soil-mapping.html#cb242-2" tabindex="-1"></a>dat_pts <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(dat_pts, covs)</span>
+<span id="cb242-3"><a href="digital-soil-mapping.html#cb242-3" tabindex="-1"></a><span class="fu">mapview</span>(dat_pts, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb242-4"><a href="digital-soil-mapping.html#cb242-4" tabindex="-1"></a></span>
+<span id="cb242-5"><a href="digital-soil-mapping.html#cb242-5" tabindex="-1"></a>extracted_covs <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(<span class="at">x =</span> covs, <span class="at">y =</span> dat_pts, <span class="at">xy =</span> <span class="cn">TRUE</span>, <span class="at">ID =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb242-6"><a href="digital-soil-mapping.html#cb242-6" tabindex="-1"></a><span class="fu">summary</span>(extracted_covs)</span>
+<span id="cb242-7"><a href="digital-soil-mapping.html#cb242-7" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(dat_pts)</span>
+<span id="cb242-8"><a href="digital-soil-mapping.html#cb242-8" tabindex="-1"></a>dat_cov <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(dat, extracted_covs)</span></code></pre></div>
+<p><code>vect()</code> creates a <code>SpatVector</code> (the terra class for vector data) from the longitude and latitude columns, assigning geographic coordinates (EPSG:4326). <code>terra::project()</code> then reprojects the points to the same CRS as <code>covs</code> — this step is essential: if the CRS of the points does not match the raster, <code>extract()</code> will return all <code>NA</code>. <code>mapview()</code> opens an interactive map to visually verify that the points fall within the study area.</p>
+<p><code>terra::extract()</code> samples the raster stack at each point location and returns a dataframe with one row per point and one column per covariate layer. Setting <code>xy = TRUE</code> appends the projected coordinates, and <code>ID = FALSE</code> drops the auto-generated row-index column. Finally, <code>bind_cols()</code> joins the covariate values to the soil data, producing <code>dat_cov</code> — the complete modelling dataset that links S (soil observation) to Q (environmental covariates), as in the S = f(Q) formulation from Part I.</p>
+</div>
+<div id="section-5-feature-selection-with-boruta" class="section level2 unnumbered hasAnchor">
+<h2>Section 5 — Feature selection with Boruta<a href="digital-soil-mapping.html#section-5-feature-selection-with-boruta" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Before training the model, we identify which covariates carry genuine predictive signal for SOC. Including irrelevant predictors inflates model complexity and can reduce accuracy.</p>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="digital-soil-mapping.html#cb243-1" tabindex="-1"></a>target <span class="ot">&lt;-</span> <span class="st">&quot;SOC&quot;</span></span>
+<span id="cb243-2"><a href="digital-soil-mapping.html#cb243-2" tabindex="-1"></a></span>
+<span id="cb243-3"><a href="digital-soil-mapping.html#cb243-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> dat_cov <span class="sc">%&gt;%</span></span>
+<span id="cb243-4"><a href="digital-soil-mapping.html#cb243-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">all_of</span>(target), <span class="fu">all_of</span>(cov_names)) <span class="sc">%&gt;%</span></span>
+<span id="cb243-5"><a href="digital-soil-mapping.html#cb243-5" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb243-6"><a href="digital-soil-mapping.html#cb243-6" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span></code></pre></div>
+<p><code>na.omit()</code> removes rows where any covariate value is missing (e.g. points that fall outside the raster extent). The result <code>d</code> is the clean training table used throughout the modelling workflow.</p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="digital-soil-mapping.html#cb244-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb244-2"><a href="digital-soil-mapping.html#cb244-2" tabindex="-1"></a>boruta_result <span class="ot">&lt;-</span> <span class="fu">Boruta</span>(</span>
+<span id="cb244-3"><a href="digital-soil-mapping.html#cb244-3" tabindex="-1"></a>  <span class="at">y =</span> d[, target],</span>
+<span id="cb244-4"><a href="digital-soil-mapping.html#cb244-4" tabindex="-1"></a>  <span class="at">x =</span> d[, cov_names],</span>
+<span id="cb244-5"><a href="digital-soil-mapping.html#cb244-5" tabindex="-1"></a>  <span class="at">maxRuns =</span> <span class="dv">25</span>,</span>
+<span id="cb244-6"><a href="digital-soil-mapping.html#cb244-6" tabindex="-1"></a>  <span class="at">doTrace =</span> <span class="dv">1</span></span>
+<span id="cb244-7"><a href="digital-soil-mapping.html#cb244-7" tabindex="-1"></a>)</span></code></pre></div>
+<p><strong>How Boruta works.</strong> Boruta is a wrapper around Random Forest that tests each variable against a set of <em>shadow variables</em> — permuted (shuffled) copies of the originals that have no real relationship with the target. In each iteration, a Random Forest is trained on the original predictors plus their shadows. A predictor is classified as:</p>
+<ul>
+<li><strong>Confirmed</strong> (green): its importance is consistently higher than the best shadow variable.</li>
+<li><strong>Rejected</strong> (red): its importance is consistently lower.</li>
+<li><strong>Tentative</strong> (yellow): the test is inconclusive after all runs.</li>
+</ul>
+<p><code>maxRuns = 25</code> sets the number of Random Forest iterations. For a final analysis, increase this to at least 100 to stabilise decisions on tentative variables.</p>
+<div class="figure"><span style="display:block;" id="fig:boruta-plot"></span>
+<img src="images/module3/boruta_SOC.png" alt="Boruta feature selection for SOC. Green = confirmed, red = rejected, yellow = tentative, blue = shadow variables." width="442" />
+<p class="caption">
+Figure 3.1: Boruta feature selection for SOC. Green = confirmed, red = rejected, yellow = tentative, blue = shadow variables.
+</p>
+</div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="digital-soil-mapping.html#cb245-1" tabindex="-1"></a>selected_features <span class="ot">&lt;-</span> <span class="fu">getSelectedAttributes</span>(boruta_result, <span class="at">withTentative =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><code>getSelectedAttributes()</code> returns the names of confirmed predictors. Setting <code>withTentative = TRUE</code> also includes tentative ones — a conservative choice that avoids discarding potentially useful variables.</p>
+<blockquote>
+<p><strong>Feature selection in DSM: two schools of thought.</strong> The field is divided on how to approach predictor selection. One tradition favours <em>expert-guided selection</em>: the practitioner chooses covariates based on known soil-forming processes, keeping the predictor set small, interpretable, and grounded in pedological theory. The opposing view argues for <em>data-driven inclusion</em>: feed all available covariates to the model and let the algorithm determine relevance — a pragmatic position when the environmental drivers of a given soil property are poorly understood or when the goal is purely predictive accuracy. Boruta sits between these extremes: it is automated and data-driven, but its output can still be audited against expert knowledge (e.g. rejecting a confirmed variable that has no plausible mechanistic link to the target, or overriding a rejection for a variable known to be important). In practice, the best approach depends on the study objective, the quality of the covariates, and the sample size available for model training.</p>
+</blockquote>
+<p>Here is the revised Section 6 with a proper QRF introduction:</p>
+<hr />
+</div>
+<div id="section-6-train-the-quantile-regression-forest-model" class="section level2 unnumbered hasAnchor">
+<h2>Section 6 — Train the Quantile Regression Forest model<a href="digital-soil-mapping.html#section-6-train-the-quantile-regression-forest-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="from-random-forest-to-quantile-regression-forest" class="section level3 unnumbered hasAnchor">
+<h3>6.1 From Random Forest to Quantile Regression Forest<a href="digital-soil-mapping.html#from-random-forest-to-quantile-regression-forest" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A standard Random Forest predicts the <strong>expected value</strong> (the mean) of the target variable at each new location. Each tree in the forest produces an estimate, and the final prediction is their average. This single number is useful, but it hides something important: it tells us <em>what</em> the model predicts, but not <em>how confident</em> we should be in that prediction.</p>
+<p><strong>Quantile Regression Forest (QRF)</strong> solves this by changing what each tree stores at its terminal nodes. Instead of keeping only the mean of the training observations that fall into a leaf, QRF retains <em>all individual values</em>. This seemingly small change has a powerful consequence: at any new location, the model can reconstruct the full conditional distribution of the target — not just its centre, but its spread, its skewness, and any quantile of interest.</p>
+<p>In practice, this means QRF can produce <strong>prediction intervals</strong>. Rather than saying “SOC here is 25 g kg⁻¹”, the model can say “SOC here is 25 g kg⁻¹, and there is a 90% probability it falls between 18 and 34 g kg⁻¹”. A narrow interval signals high confidence; a wide interval is the model’s way of saying, transparently, that the environmental conditions at that location are poorly represented in the training data or that the local signal is inherently noisy.</p>
+<p>Applied across the entire study area, this produces two complementary maps: a <strong>mean prediction map</strong> (the best estimate of SOC) and an <strong>uncertainty map</strong> (the conditional standard deviation, σ). Together they operationalise the Universal Model of Soil Variation introduced in Part I: ẑ(s) = m(s) ± σ(s). The uncertainty map is not a by-product — it is a primary output that guides interpretation, identifies where additional sampling is most needed, and supports risk-aware decision making.</p>
+<p>The <code>ranger</code> package makes QRF computationally feasible at the scale of regional DSM studies. Enabling it requires a single argument: <code>quantreg = TRUE</code>.</p>
+</div>
+<div id="cross-validation-setup" class="section level3 unnumbered hasAnchor">
+<h3>6.2 Cross-validation setup<a href="digital-soil-mapping.html#cross-validation-setup" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before training, we define how the model will be evaluated during hyperparameter tuning. Repeated k-fold cross-validation splits the dataset into <em>k</em> folds, trains on <em>k</em> − 1 and tests on the held-out fold, then repeats the whole cycle several times to reduce variance in the performance estimate.</p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="digital-soil-mapping.html#cb246-1" tabindex="-1"></a>cv_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(</span>
+<span id="cb246-2"><a href="digital-soil-mapping.html#cb246-2" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;repeatedcv&quot;</span>,</span>
+<span id="cb246-3"><a href="digital-soil-mapping.html#cb246-3" tabindex="-1"></a>  <span class="at">number =</span> <span class="dv">5</span>,</span>
+<span id="cb246-4"><a href="digital-soil-mapping.html#cb246-4" tabindex="-1"></a>  <span class="at">repeats =</span> <span class="dv">5</span>,</span>
+<span id="cb246-5"><a href="digital-soil-mapping.html#cb246-5" tabindex="-1"></a>  <span class="at">savePredictions =</span> <span class="cn">TRUE</span></span>
+<span id="cb246-6"><a href="digital-soil-mapping.html#cb246-6" tabindex="-1"></a>)</span></code></pre></div>
+<p><code>savePredictions = TRUE</code> stores the out-of-fold predictions for every hyperparameter combination, which we will use in Section 7 to compute validation metrics without re-running the model.</p>
+<blockquote>
+<p><strong>Limitation: standard CV assumes spatial independence.</strong> Random fold assignment means a training fold and its test fold may contain samples that are geographically close, allowing the model to exploit spatial autocorrelation. This leads to over-optimistic accuracy estimates. Spatial cross-validation (e.g. <code>CAST::CreateSpacetimeFolds()</code>) addresses this by grouping spatially proximate samples into the same fold. For this training exercise we use standard CV; keep this limitation in mind when interpreting results.</p>
+</blockquote>
+</div>
+<div id="hyperparameter-grid" class="section level3 unnumbered hasAnchor">
+<h3>6.3 Hyperparameter grid<a href="digital-soil-mapping.html#hyperparameter-grid" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<table>
+<colgroup>
+<col width="55%" />
+<col width="45%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Parameter</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>mtry</strong></td>
+<td>Number of covariates randomly sampled at each split</td>
+</tr>
+<tr class="even">
+<td><strong>min.node.size</strong></td>
+<td>Minimum number of observations in a terminal node</td>
+</tr>
+<tr class="odd">
+<td><strong>splitrule</strong></td>
+<td>Split criterion: <code>variance</code> (standard RF) or <code>extratrees</code> (random splits — faster, sometimes more accurate)</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="digital-soil-mapping.html#cb247-1" tabindex="-1"></a>mtry_base <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">length</span>(selected_features) <span class="sc">/</span> <span class="dv">3</span>)</span>
+<span id="cb247-2"><a href="digital-soil-mapping.html#cb247-2" tabindex="-1"></a>tune_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb247-3"><a href="digital-soil-mapping.html#cb247-3" tabindex="-1"></a>  <span class="at">mtry          =</span> <span class="fu">c</span>(mtry_base <span class="sc">-</span> <span class="fu">round</span>(mtry_base <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb247-4"><a href="digital-soil-mapping.html#cb247-4" tabindex="-1"></a>                    mtry_base,</span>
+<span id="cb247-5"><a href="digital-soil-mapping.html#cb247-5" tabindex="-1"></a>                    mtry_base <span class="sc">+</span> <span class="fu">round</span>(mtry_base <span class="sc">/</span> <span class="dv">2</span>)),</span>
+<span id="cb247-6"><a href="digital-soil-mapping.html#cb247-6" tabindex="-1"></a>  <span class="at">min.node.size =</span> <span class="dv">5</span>,</span>
+<span id="cb247-7"><a href="digital-soil-mapping.html#cb247-7" tabindex="-1"></a>  <span class="at">splitrule     =</span> <span class="fu">c</span>(<span class="st">&quot;variance&quot;</span>, <span class="st">&quot;extratrees&quot;</span>)</span>
+<span id="cb247-8"><a href="digital-soil-mapping.html#cb247-8" tabindex="-1"></a>)</span></code></pre></div>
+<p><code>mtry</code> is initialised around the rule-of-thumb p/3 (where p is the number of selected features) and explored at three levels. <code>expand.grid()</code> produces every combination, yielding six candidate configurations.</p>
+</div>
+<div id="train-the-model" class="section level3 unnumbered hasAnchor">
+<h3>6.4 Train the model<a href="digital-soil-mapping.html#train-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="digital-soil-mapping.html#cb248-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">train</span>(</span>
+<span id="cb248-2"><a href="digital-soil-mapping.html#cb248-2" tabindex="-1"></a>  <span class="at">y           =</span> d[, target],</span>
+<span id="cb248-3"><a href="digital-soil-mapping.html#cb248-3" tabindex="-1"></a>  <span class="at">x           =</span> d[, selected_features],</span>
+<span id="cb248-4"><a href="digital-soil-mapping.html#cb248-4" tabindex="-1"></a>  <span class="at">method      =</span> <span class="st">&quot;ranger&quot;</span>,</span>
+<span id="cb248-5"><a href="digital-soil-mapping.html#cb248-5" tabindex="-1"></a>  <span class="at">quantreg    =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb248-6"><a href="digital-soil-mapping.html#cb248-6" tabindex="-1"></a>  <span class="at">importance  =</span> <span class="st">&quot;permutation&quot;</span>,</span>
+<span id="cb248-7"><a href="digital-soil-mapping.html#cb248-7" tabindex="-1"></a>  <span class="at">trControl   =</span> cv_control,</span>
+<span id="cb248-8"><a href="digital-soil-mapping.html#cb248-8" tabindex="-1"></a>  <span class="at">tuneGrid    =</span> tune_grid,</span>
+<span id="cb248-9"><a href="digital-soil-mapping.html#cb248-9" tabindex="-1"></a>  <span class="at">num.threads =</span> <span class="fu">max</span>(<span class="dv">1</span>, parallel<span class="sc">::</span><span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb248-10"><a href="digital-soil-mapping.html#cb248-10" tabindex="-1"></a>)</span>
+<span id="cb248-11"><a href="digital-soil-mapping.html#cb248-11" tabindex="-1"></a></span>
+<span id="cb248-12"><a href="digital-soil-mapping.html#cb248-12" tabindex="-1"></a>model</span>
+<span id="cb248-13"><a href="digital-soil-mapping.html#cb248-13" tabindex="-1"></a>model<span class="sc">$</span>bestTune</span></code></pre></div>
+<p><code>importance = "permutation"</code> measures how much accuracy drops when each predictor is randomly shuffled — a reliable, model-agnostic importance measure. <code>num.threads</code> uses all but one CPU core; adjust downward if the machine is needed for other tasks during training.</p>
+<div class="figure"><span style="display:block;" id="fig:varimp-plot"></span>
+<img src="images/module3/varImp_SOC.png" alt="Permutation-based variable importance for the SOC model. Longer bars indicate stronger predictive contribution." width="442" />
+<p class="caption">
+Figure 3.2: Permutation-based variable importance for the SOC model. Longer bars indicate stronger predictive contribution.
+</p>
+</div>
+<p>Variable importance ranks predictors by their contribution to model accuracy. In SOC models, climate and vegetation indices (FPAR) typically dominate, while terrain attributes play a secondary role — though this balance varies by region and target depth.</p>
+</div>
+</div>
+<div id="section-7-accuracy-assessment" class="section level2 unnumbered hasAnchor">
+<h2>Section 7 — Accuracy assessment<a href="digital-soil-mapping.html#section-7-accuracy-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Cross-validation accuracy is extracted from the predictions stored during training. Because <code>caret</code> evaluates every hyperparameter combination, we filter to the rows corresponding to the best configuration identified by <code>model$bestTune</code>.</p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="digital-soil-mapping.html#cb249-1" tabindex="-1"></a>cv_preds <span class="ot">&lt;-</span> model<span class="sc">$</span>pred <span class="sc">%&gt;%</span></span>
+<span id="cb249-2"><a href="digital-soil-mapping.html#cb249-2" tabindex="-1"></a>  <span class="fu">filter</span>(mtry          <span class="sc">==</span> model<span class="sc">$</span>bestTune<span class="sc">$</span>mtry,</span>
+<span id="cb249-3"><a href="digital-soil-mapping.html#cb249-3" tabindex="-1"></a>         splitrule     <span class="sc">==</span> model<span class="sc">$</span>bestTune<span class="sc">$</span>splitrule,</span>
+<span id="cb249-4"><a href="digital-soil-mapping.html#cb249-4" tabindex="-1"></a>         min.node.size <span class="sc">==</span> model<span class="sc">$</span>bestTune<span class="sc">$</span>min.node.size)</span>
+<span id="cb249-5"><a href="digital-soil-mapping.html#cb249-5" tabindex="-1"></a></span>
+<span id="cb249-6"><a href="digital-soil-mapping.html#cb249-6" tabindex="-1"></a>obs_vals  <span class="ot">&lt;-</span> cv_preds<span class="sc">$</span>obs</span>
+<span id="cb249-7"><a href="digital-soil-mapping.html#cb249-7" tabindex="-1"></a>pred_vals <span class="ot">&lt;-</span> cv_preds<span class="sc">$</span>pred</span></code></pre></div>
+<p>The <code>eval()</code> function, loaded from <code>eval.RData</code>, implements the accuracy framework proposed by <span class="citation">(<a href="#ref-wadoux2021integrated"><strong>wadoux2021integrated?</strong></a>)</span>. It computes six complementary metrics from the vectors of observed (z) and predicted (ẑ) values:</p>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="digital-soil-mapping.html#cb250-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;02_scripts/module3/eval.RData&quot;</span>)</span>
+<span id="cb250-2"><a href="digital-soil-mapping.html#cb250-2" tabindex="-1"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">eval</span>(pred_vals, obs_vals)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span>
+<span id="cb250-3"><a href="digital-soil-mapping.html#cb250-3" tabindex="-1"></a>accuracy</span></code></pre></div>
+<table>
+<caption><span id="tab:accuracy-table">Table 3.1: </span>Cross-validation accuracy metrics for the SOC model (Wadoux et al., 2021).</caption>
+<thead>
+<tr class="header">
+<th align="right">ME</th>
+<th align="right">MAE</th>
+<th align="right">RMSE</th>
+<th align="right">r</th>
+<th align="right">r2</th>
+<th align="right">MEC</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">-0.02</td>
+<td align="right">0.5</td>
+<td align="right">0.72</td>
+<td align="right">0.7</td>
+<td align="right">0.49</td>
+<td align="right">0.49</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Mean Error (ME)</strong> measures systematic bias — the average signed difference between predictions and observations:</p>
+<p><span class="math display">\[ME = \frac{1}{n}\sum_{i=1}^{n}(\hat{z}_i - z_i)\]</span></p>
+<p>A positive ME means the model systematically over-predicts; a negative ME means it under-predicts. Values near zero are desirable, but ME alone can be misleading: large positive and negative errors can cancel out.</p>
+<p><strong>Mean Absolute Error (MAE)</strong> avoids cancellation by averaging the absolute deviations:</p>
+<p><span class="math display">\[MAE = \frac{1}{n}\sum_{i=1}^{n}|\hat{z}_i - z_i|\]</span></p>
+<p>MAE is in the same units as the target variable and is straightforward to interpret: on average, predictions deviate from observations by this amount.</p>
+<p><strong>Root Mean Squared Error (RMSE)</strong> also measures average error magnitude but penalises large errors more heavily than small ones by squaring the deviations before averaging:</p>
+<p><span class="math display">\[RMSE = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(\hat{z}_i - z_i)^2}\]</span></p>
+<p>RMSE is more sensitive to outliers than MAE. When RMSE &gt;&gt; MAE, a few large errors dominate the total error budget. Comparing both metrics together reveals the error distribution.</p>
+<p><strong>Pearson correlation coefficient (r)</strong> measures the strength and direction of the linear relationship between observed and predicted values:</p>
+<p><span class="math display">\[r = \frac{\sum_{i=1}^{n}(z_i - \bar{z})(\hat{z}_i - \bar{\hat{z}})}{\sqrt{\sum_{i=1}^{n}(z_i - \bar{z})^2 \cdot \sum_{i=1}^{n}(\hat{z}_i - \bar{\hat{z}})^2}}\]</span></p>
+<p>Values range from −1 to 1. Note that r measures association, not agreement: a model that consistently predicts twice the observed value would have r = 1 but poor accuracy. It should always be read alongside bias metrics.</p>
+<p><strong>Coefficient of determination (R²)</strong> quantifies the proportion of variance in the observations explained by the model:</p>
+<p><span class="math display">\[R^2 = 1 - \frac{\sum_{i=1}^{n}(z_i - \hat{z}_i)^2}{\sum_{i=1}^{n}(z_i - \bar{z})^2}\]</span></p>
+<p>Unlike r, R² is sensitive to systematic bias. A model with no bias and perfect correlation yields R² = 1; a model that predicts the observed mean for every point yields R² = 0.</p>
+<p><strong>Model Efficiency Coefficient (MEC)</strong> — also known as the Nash-Sutcliffe efficiency — is the most demanding of the six metrics. It compares the model’s squared errors against the squared deviations from the observed mean, i.e. the error one would incur by always predicting <span class="math inline">\(\bar{z}\)</span>:</p>
+<p><span class="math display">\[MEC = 1 - \frac{\sum_{i=1}^{n}(z_i - \hat{z}_i)^2}{\sum_{i=1}^{n}(z_i - \bar{z})^2}\]</span></p>
+<p>MEC = 1 is a perfect model. MEC = 0 means the model is no better than simply predicting the mean everywhere. <strong>MEC &lt; 0</strong> means the observed mean is a better predictor than the model — a clear sign of model failure. MEC is particularly informative in DSM because it directly benchmarks the spatial model against the null case of no spatial structure.</p>
+<blockquote>
+<p><strong>Tip:</strong> In practice, a MEC above 0.5 is often considered acceptable for DSM models of highly variable soil properties like SOC. Values above 0.7 indicate good model skill. If MEC is close to zero or negative, revisit the covariate stack — the predictors may not capture the main drivers of spatial variability at the target depth.</p>
+</blockquote>
+<div id="observed-vs-predicted-plot" class="section level3 unnumbered hasAnchor">
+<h3>Observed vs predicted plot<a href="digital-soil-mapping.html#observed-vs-predicted-plot" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="digital-soil-mapping.html#cb251-1" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Observed =</span> obs_vals, <span class="at">Predicted =</span> pred_vals)</span>
+<span id="cb251-2"><a href="digital-soil-mapping.html#cb251-2" tabindex="-1"></a>g_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(residuals, <span class="fu">aes</span>(<span class="at">x =</span> Observed, <span class="at">y =</span> Predicted)) <span class="sc">+</span></span>
+<span id="cb251-3"><a href="digital-soil-mapping.html#cb251-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb251-4"><a href="digital-soil-mapping.html#cb251-4" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb251-5"><a href="digital-soil-mapping.html#cb251-5" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fu">min</span>(residuals<span class="sc">$</span>Observed), <span class="fu">max</span>(residuals<span class="sc">$</span>Observed))) <span class="sc">+</span></span>
+<span id="cb251-6"><a href="digital-soil-mapping.html#cb251-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb251-7"><a href="digital-soil-mapping.html#cb251-7" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
+<span id="cb251-8"><a href="digital-soil-mapping.html#cb251-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(<span class="st">&quot;Observed vs Predicted -&quot;</span>, target)) <span class="sc">+</span></span>
+<span id="cb251-9"><a href="digital-soil-mapping.html#cb251-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb251-10"><a href="digital-soil-mapping.html#cb251-10" tabindex="-1"></a></span>
+<span id="cb251-11"><a href="digital-soil-mapping.html#cb251-11" tabindex="-1"></a>g_scatter</span></code></pre></div>
+<div class="figure"><span style="display:block;" id="fig:scatter-plot"></span>
+<img src="images/module3/scatterplot_SOC.png" alt="Observed vs predicted SOC values from cross-validation. The red line is the 1:1 line; a perfect model places all points on it." width="708" />
+<p class="caption">
+Figure 3.3: Observed vs predicted SOC values from cross-validation. The red line is the 1:1 line; a perfect model places all points on it.
+</p>
+</div>
+<p>A common pattern in cross-validated scatterplots is <strong>regression to the mean</strong>: very high observed values tend to be under-predicted and very low values tend to be over-predicted. This reflects the model’s limited ability to extrapolate beyond the range well-represented in the training data, and is expected behaviour rather than a model failure. Wide scatter at intermediate values indicates that the covariates do not fully capture local SOC variability at those concentrations.</p>
+</div>
+<div id="save-outputs" class="section level3 unnumbered hasAnchor">
+<h3>Save outputs<a href="digital-soil-mapping.html#save-outputs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="digital-soil-mapping.html#cb252-1" tabindex="-1"></a><span class="fu">write_csv</span>(accuracy, <span class="st">&quot;03_outputs/module3/validation/accuracy.csv&quot;</span>)</span>
+<span id="cb252-2"><a href="digital-soil-mapping.html#cb252-2" tabindex="-1"></a><span class="fu">saveRDS</span>(model, <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/models/ranger_model_&quot;</span>, target, <span class="st">&quot;.rds&quot;</span>))</span></code></pre></div>
+<p><code>write_csv()</code> saves the accuracy table for reporting and reproducibility. <code>saveRDS()</code> serialises the full caret model object — including the trained ranger forest, CV results, and tuning history. Session 2 reloads it with <code>readRDS()</code> to run spatial prediction without retraining.</p>
+<blockquote>
+<p><strong>Limitation:</strong> Cross-validation accuracy reflects performance on the training dataset, not on locations that are environmentally different from the sampled area. If the study region contains landscapes that are underrepresented in the samples (e.g. poorly drained soils, organic-rich wetland patches), the actual map error in those areas will be higher than the reported CV metrics suggest.</p>
+</blockquote>
+<hr />
+</div>
+</div>
+<div id="session-2-spatial-prediction-and-final-maps" class="section level2 unnumbered hasAnchor">
+<h2>SESSION 2: Spatial Prediction and Final Maps<a href="digital-soil-mapping.html#session-2-spatial-prediction-and-final-maps" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<hr />
+</div>
+<div id="reload-the-workspace" class="section level2 unnumbered hasAnchor">
+<h2>Reload the workspace<a href="digital-soil-mapping.html#reload-the-workspace" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Session 2 is designed to be <strong>self-contained</strong>: it reloads all necessary objects from disk so you can run spatial prediction independently, without re-running Session 1. This is important in practice — model training can take hours, and you may want to experiment with prediction parameters without repeating the full workflow.</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="digital-soil-mapping.html#cb253-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb253-2"><a href="digital-soil-mapping.html#cb253-2" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb253-3"><a href="digital-soil-mapping.html#cb253-3" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb253-4"><a href="digital-soil-mapping.html#cb253-4" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
+<span id="cb253-5"><a href="digital-soil-mapping.html#cb253-5" tabindex="-1"></a></span>
+<span id="cb253-6"><a href="digital-soil-mapping.html#cb253-6" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PROJ_LIB =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb253-7"><a href="digital-soil-mapping.html#cb253-7" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PROJ_DATA =</span> <span class="fu">system.file</span>(<span class="st">&quot;proj&quot;</span>, <span class="at">package =</span> <span class="st">&quot;terra&quot;</span>))</span>
+<span id="cb253-8"><a href="digital-soil-mapping.html#cb253-8" tabindex="-1"></a></span>
+<span id="cb253-9"><a href="digital-soil-mapping.html#cb253-9" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">dirname</span>(rstudioapi<span class="sc">::</span><span class="fu">getActiveDocumentContext</span>()<span class="sc">$</span>path))</span>
+<span id="cb253-10"><a href="digital-soil-mapping.html#cb253-10" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;../../&quot;</span>)</span>
+<span id="cb253-11"><a href="digital-soil-mapping.html#cb253-11" tabindex="-1"></a></span>
+<span id="cb253-12"><a href="digital-soil-mapping.html#cb253-12" tabindex="-1"></a>covs    <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;01_data/module3/Env_Cov_250m_KANSAS.tif&quot;</span>)</span>
+<span id="cb253-13"><a href="digital-soil-mapping.html#cb253-13" tabindex="-1"></a>cov_names <span class="ot">&lt;-</span> <span class="fu">names</span>(covs)</span>
+<span id="cb253-14"><a href="digital-soil-mapping.html#cb253-14" tabindex="-1"></a>target  <span class="ot">&lt;-</span> <span class="st">&quot;SOC&quot;</span></span>
+<span id="cb253-15"><a href="digital-soil-mapping.html#cb253-15" tabindex="-1"></a>model   <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/models/ranger_model_&quot;</span>, target, <span class="st">&quot;.rds&quot;</span>))</span></code></pre></div>
+<p><code>readRDS()</code> reconstructs the full caret model object exactly as it was when saved, including the trained ranger forest and the optimal hyperparameter configuration.</p>
+</div>
+<div id="section-8-spatial-prediction-tiled" class="section level2 unnumbered hasAnchor">
+<h2>Section 8 — Spatial prediction (tiled)<a href="digital-soil-mapping.html#section-8-spatial-prediction-tiled" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Predicting SOC across the full study area requires applying the model to every pixel of the covariate stack. For large rasters this is memory-intensive: loading the full stack and computing predictions simultaneously can exhaust available RAM. The solution is <strong>tiled prediction</strong> — splitting the study area into a grid of smaller tiles, predicting each tile independently, and mosaicking the results at the end.</p>
+<div id="create-tile-grid" class="section level3 unnumbered hasAnchor">
+<h3>8.1 Create tile grid<a href="digital-soil-mapping.html#create-tile-grid" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="digital-soil-mapping.html#cb254-1" tabindex="-1"></a>r    <span class="ot">&lt;-</span> covs[[<span class="dv">1</span>]]</span>
+<span id="cb254-2"><a href="digital-soil-mapping.html#cb254-2" tabindex="-1"></a>t    <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="at">nrows =</span> <span class="dv">5</span>, <span class="at">ncols =</span> <span class="dv">10</span>, <span class="at">extent =</span> <span class="fu">ext</span>(r), <span class="at">crs =</span> <span class="fu">crs</span>(r))</span>
+<span id="cb254-3"><a href="digital-soil-mapping.html#cb254-3" tabindex="-1"></a>tile <span class="ot">&lt;-</span> <span class="fu">makeTiles</span>(r, t, <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb254-4"><a href="digital-soil-mapping.html#cb254-4" tabindex="-1"></a>                  <span class="at">filename =</span> <span class="st">&quot;03_outputs/module3/tiles/tiles.tif&quot;</span>)</span>
+<span id="cb254-5"><a href="digital-soil-mapping.html#cb254-5" tabindex="-1"></a></span>
+<span id="cb254-6"><a href="digital-soil-mapping.html#cb254-6" tabindex="-1"></a><span class="fu">rast</span>(tile[<span class="dv">1</span>]) <span class="sc">%&gt;%</span> plot</span></code></pre></div>
+<p><code>makeTiles()</code> divides the extent of a reference raster (<code>r</code>, here the first covariate layer) into a grid defined by <code>t</code> — a template raster with 5 rows and 10 columns of tiles. It writes one small <code>.tif</code> per tile and returns a vector of file paths. The grid here produces 50 tiles; each tile is a manageable chunk of the full extent.</p>
+<blockquote>
+<p><strong>Tip:</strong> The right number of tiles depends on your available RAM and the number of covariate layers. A rough guide: if <code>nlyr(covs) × nrow_tile × ncol_tile × 4 bytes</code> exceeds ~60% of your free RAM, increase the number of tiles. You can inspect tile dimensions with <code>rast(tile[1])</code> before committing to the full prediction loop.</p>
+</blockquote>
+</div>
+<div id="prepare-model-for-prediction" class="section level3 unnumbered hasAnchor">
+<h3>8.2 Prepare model for prediction<a href="digital-soil-mapping.html#prepare-model-for-prediction" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="digital-soil-mapping.html#cb255-1" tabindex="-1"></a>ranger_model <span class="ot">&lt;-</span> model<span class="sc">$</span>finalModel</span>
+<span id="cb255-2"><a href="digital-soil-mapping.html#cb255-2" tabindex="-1"></a></span>
+<span id="cb255-3"><a href="digital-soil-mapping.html#cb255-3" tabindex="-1"></a>pfun <span class="ot">&lt;-</span> <span class="cf">function</span>(...) {</span>
+<span id="cb255-4"><a href="digital-soil-mapping.html#cb255-4" tabindex="-1"></a>  <span class="fu">predict</span>(...)<span class="sc">$</span>predictions <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
+<span id="cb255-5"><a href="digital-soil-mapping.html#cb255-5" tabindex="-1"></a>}</span>
+<span id="cb255-6"><a href="digital-soil-mapping.html#cb255-6" tabindex="-1"></a></span>
+<span id="cb255-7"><a href="digital-soil-mapping.html#cb255-7" tabindex="-1"></a>gdal_opts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;COMPRESS=LZW&quot;</span>, <span class="st">&quot;TILED=YES&quot;</span>, <span class="st">&quot;BIGTIFF=IF_SAFER&quot;</span>)</span></code></pre></div>
+<p><code>model$finalModel</code> extracts the raw ranger model from the caret wrapper — needed because <code>terra::interpolate()</code> calls <code>predict()</code> directly on the model object. The custom prediction function <code>pfun</code> wraps this call and transposes the output matrix (<code>t()</code>): ranger returns quantile predictions in a format where rows are quantiles and columns are pixels, but terra expects the opposite orientation.</p>
+<p><code>gdal_opts</code> sets three GDAL write options applied when saving rasters to disk: LZW lossless compression reduces file size significantly, tiled storage accelerates partial reads (e.g. when zooming in a GIS), and <code>BIGTIFF=IF_SAFER</code> automatically uses the BigTIFF format if the output exceeds 4 GB.</p>
+</div>
+<div id="prediction-for-one-tile" class="section level3 unnumbered hasAnchor">
+<h3>8.3 Prediction for one tile<a href="digital-soil-mapping.html#prediction-for-one-tile" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before running the full loop, we test the prediction pipeline on a single tile. This lets you verify that the output looks correct and estimate processing time per tile.</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="digital-soil-mapping.html#cb256-1" tabindex="-1"></a>t1       <span class="ot">&lt;-</span> <span class="fu">rast</span>(tile[<span class="dv">1</span>])</span>
+<span id="cb256-2"><a href="digital-soil-mapping.html#cb256-2" tabindex="-1"></a>covs_t1  <span class="ot">&lt;-</span> <span class="fu">crop</span>(covs, t1)</span>
+<span id="cb256-3"><a href="digital-soil-mapping.html#cb256-3" tabindex="-1"></a></span>
+<span id="cb256-4"><a href="digital-soil-mapping.html#cb256-4" tabindex="-1"></a>pred_mean_t1 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">interpolate</span>(covs_t1,</span>
+<span id="cb256-5"><a href="digital-soil-mapping.html#cb256-5" tabindex="-1"></a>                                   <span class="at">model =</span> ranger_model,</span>
+<span id="cb256-6"><a href="digital-soil-mapping.html#cb256-6" tabindex="-1"></a>                                   <span class="at">fun   =</span> pfun,</span>
+<span id="cb256-7"><a href="digital-soil-mapping.html#cb256-7" tabindex="-1"></a>                                   <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb256-8"><a href="digital-soil-mapping.html#cb256-8" tabindex="-1"></a>                                   <span class="at">type  =</span> <span class="st">&quot;quantiles&quot;</span>,</span>
+<span id="cb256-9"><a href="digital-soil-mapping.html#cb256-9" tabindex="-1"></a>                                   <span class="at">what  =</span> mean)</span>
+<span id="cb256-10"><a href="digital-soil-mapping.html#cb256-10" tabindex="-1"></a></span>
+<span id="cb256-11"><a href="digital-soil-mapping.html#cb256-11" tabindex="-1"></a>pred_sd_t1   <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">interpolate</span>(covs_t1,</span>
+<span id="cb256-12"><a href="digital-soil-mapping.html#cb256-12" tabindex="-1"></a>                                   <span class="at">model =</span> ranger_model,</span>
+<span id="cb256-13"><a href="digital-soil-mapping.html#cb256-13" tabindex="-1"></a>                                   <span class="at">fun   =</span> pfun,</span>
+<span id="cb256-14"><a href="digital-soil-mapping.html#cb256-14" tabindex="-1"></a>                                   <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb256-15"><a href="digital-soil-mapping.html#cb256-15" tabindex="-1"></a>                                   <span class="at">type  =</span> <span class="st">&quot;quantiles&quot;</span>,</span>
+<span id="cb256-16"><a href="digital-soil-mapping.html#cb256-16" tabindex="-1"></a>                                   <span class="at">what  =</span> sd)</span>
+<span id="cb256-17"><a href="digital-soil-mapping.html#cb256-17" tabindex="-1"></a></span>
+<span id="cb256-18"><a href="digital-soil-mapping.html#cb256-18" tabindex="-1"></a>pred_cv_t1 <span class="ot">&lt;-</span> pred_sd_t1 <span class="sc">/</span> pred_mean_t1</span>
+<span id="cb256-19"><a href="digital-soil-mapping.html#cb256-19" tabindex="-1"></a></span>
+<span id="cb256-20"><a href="digital-soil-mapping.html#cb256-20" tabindex="-1"></a><span class="fu">mapview</span>(pred_mean_t1)</span></code></pre></div>
+<p><code>terra::interpolate()</code> applies the model to every pixel of the covariate tile. The <code>what</code> argument controls which summary of the quantile distribution is computed: <code>what = mean</code> returns the conditional mean (the best-estimate prediction map), and <code>what = sd</code> returns the conditional standard deviation (the uncertainty map). These correspond directly to m(s) and σ(s) in the Universal Model of Soil Variation.</p>
+<div class="figure"><span style="display:block;" id="fig:tile1-mean"></span>
+<img src="SoilFER-Integrated-soil-information-for-decision-making_files/figure-html/tile1-mean-1.png" alt="SOC mean prediction for tile 1 (g/kg)." width="960" />
+<p class="caption">
+Figure 3.4: SOC mean prediction for tile 1 (g/kg).
+</p>
+</div>
+<div class="figure"><span style="display:block;" id="fig:tile1-sd"></span>
+<img src="SoilFER-Integrated-soil-information-for-decision-making_files/figure-html/tile1-sd-1.png" alt="SOC prediction uncertainty (SD) for tile 1 (g/kg)." width="960" />
+<p class="caption">
+Figure 3.5: SOC prediction uncertainty (SD) for tile 1 (g/kg).
+</p>
+</div>
+<blockquote>
+<p><strong>Reading the uncertainty map:</strong> high SD values indicate locations where the model is less confident — typically at the extremes of the environmental gradient, in areas with few nearby training samples, or where the covariate combination is unlike anything seen during training. These areas should be prioritised for additional soil sampling in future surveys.</p>
+</blockquote>
+</div>
+<div id="prediction-at-all-tiles" class="section level3 unnumbered hasAnchor">
+<h3>8.4 Prediction at all tiles<a href="digital-soil-mapping.html#prediction-at-all-tiles" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Once the single-tile test is satisfactory, run the loop over all tiles:</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="digital-soil-mapping.html#cb257-1" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_along</span>(tile)) {</span>
+<span id="cb257-2"><a href="digital-soil-mapping.html#cb257-2" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Processing tile&quot;</span>, j, <span class="st">&quot;of&quot;</span>, <span class="fu">length</span>(tile)))</span>
+<span id="cb257-3"><a href="digital-soil-mapping.html#cb257-3" tabindex="-1"></a></span>
+<span id="cb257-4"><a href="digital-soil-mapping.html#cb257-4" tabindex="-1"></a>  t_j        <span class="ot">&lt;-</span> <span class="fu">rast</span>(tile[j])</span>
+<span id="cb257-5"><a href="digital-soil-mapping.html#cb257-5" tabindex="-1"></a>  covs_tile  <span class="ot">&lt;-</span> <span class="fu">crop</span>(covs, t_j)</span>
+<span id="cb257-6"><a href="digital-soil-mapping.html#cb257-6" tabindex="-1"></a></span>
+<span id="cb257-7"><a href="digital-soil-mapping.html#cb257-7" tabindex="-1"></a>  mean_file <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/tiles/&quot;</span>, target, <span class="st">&quot;_mean_&quot;</span>, j, <span class="st">&quot;.tif&quot;</span>)</span>
+<span id="cb257-8"><a href="digital-soil-mapping.html#cb257-8" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">interpolate</span>(covs_tile, <span class="at">model =</span> ranger_model, <span class="at">fun =</span> pfun,</span>
+<span id="cb257-9"><a href="digital-soil-mapping.html#cb257-9" tabindex="-1"></a>                     <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">type =</span> <span class="st">&quot;quantiles&quot;</span>, <span class="at">what =</span> mean,</span>
+<span id="cb257-10"><a href="digital-soil-mapping.html#cb257-10" tabindex="-1"></a>                     <span class="at">filename =</span> mean_file, <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb257-11"><a href="digital-soil-mapping.html#cb257-11" tabindex="-1"></a>                     <span class="at">wopt =</span> <span class="fu">list</span>(<span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>, <span class="at">gdal =</span> gdal_opts))</span>
+<span id="cb257-12"><a href="digital-soil-mapping.html#cb257-12" tabindex="-1"></a></span>
+<span id="cb257-13"><a href="digital-soil-mapping.html#cb257-13" tabindex="-1"></a>  sd_file <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/tiles/&quot;</span>, target, <span class="st">&quot;_sd_&quot;</span>, j, <span class="st">&quot;.tif&quot;</span>)</span>
+<span id="cb257-14"><a href="digital-soil-mapping.html#cb257-14" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">interpolate</span>(covs_tile, <span class="at">model =</span> ranger_model, <span class="at">fun =</span> pfun,</span>
+<span id="cb257-15"><a href="digital-soil-mapping.html#cb257-15" tabindex="-1"></a>                     <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">type =</span> <span class="st">&quot;quantiles&quot;</span>, <span class="at">what =</span> sd,</span>
+<span id="cb257-16"><a href="digital-soil-mapping.html#cb257-16" tabindex="-1"></a>                     <span class="at">filename =</span> sd_file, <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb257-17"><a href="digital-soil-mapping.html#cb257-17" tabindex="-1"></a>                     <span class="at">wopt =</span> <span class="fu">list</span>(<span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>, <span class="at">gdal =</span> gdal_opts))</span>
+<span id="cb257-18"><a href="digital-soil-mapping.html#cb257-18" tabindex="-1"></a>}</span></code></pre></div>
+<p><code>paste0()</code> constructs the output file path dynamically for each tile index <code>j</code>. Writing directly to disk with <code>filename =</code> means terra never holds the full prediction in memory — each tile is computed and saved before moving to the next.</p>
+<blockquote>
+<p><strong>Processing time:</strong> with 50 tiles and a moderately sized training dataset, this loop typically takes 20–60 minutes depending on the number of trees, the tile size, and available CPU cores. Note that <code>terra::interpolate()</code> is single-threaded per tile; running tiles in parallel requires an explicit parallelisation wrapper (e.g. <code>foreach</code> + <code>doParallel</code>).</p>
+</blockquote>
+</div>
+</div>
+<div id="section-9-mosaic-tiles-into-final-maps" class="section level2 unnumbered hasAnchor">
+<h2>Section 9 — Mosaic tiles into final maps<a href="digital-soil-mapping.html#section-9-mosaic-tiles-into-final-maps" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="digital-soil-mapping.html#cb258-1" tabindex="-1"></a>mean_tiles   <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&quot;03_outputs/module3/tiles/&quot;</span>,</span>
+<span id="cb258-2"><a href="digital-soil-mapping.html#cb258-2" tabindex="-1"></a>                            <span class="at">pattern    =</span> <span class="fu">paste0</span>(<span class="st">&quot;^&quot;</span>, target, <span class="st">&quot;_mean_.*</span><span class="sc">\\</span><span class="st">.tif$&quot;</span>),</span>
+<span id="cb258-3"><a href="digital-soil-mapping.html#cb258-3" tabindex="-1"></a>                            <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb258-4"><a href="digital-soil-mapping.html#cb258-4" tabindex="-1"></a></span>
+<span id="cb258-5"><a href="digital-soil-mapping.html#cb258-5" tabindex="-1"></a>mean_rasters <span class="ot">&lt;-</span> <span class="fu">lapply</span>(mean_tiles, rast)</span>
+<span id="cb258-6"><a href="digital-soil-mapping.html#cb258-6" tabindex="-1"></a>pred_mean    <span class="ot">&lt;-</span> <span class="fu">mosaic</span>(<span class="fu">sprc</span>(mean_rasters))</span>
+<span id="cb258-7"><a href="digital-soil-mapping.html#cb258-7" tabindex="-1"></a><span class="fu">names</span>(pred_mean) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(target, <span class="st">&quot;_mean&quot;</span>)</span>
+<span id="cb258-8"><a href="digital-soil-mapping.html#cb258-8" tabindex="-1"></a></span>
+<span id="cb258-9"><a href="digital-soil-mapping.html#cb258-9" tabindex="-1"></a><span class="fu">writeRaster</span>(pred_mean,</span>
+<span id="cb258-10"><a href="digital-soil-mapping.html#cb258-10" tabindex="-1"></a>            <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/maps/mean_&quot;</span>, target, <span class="st">&quot;.tif&quot;</span>),</span>
+<span id="cb258-11"><a href="digital-soil-mapping.html#cb258-11" tabindex="-1"></a>            <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb258-12"><a href="digital-soil-mapping.html#cb258-12" tabindex="-1"></a>            <span class="at">wopt =</span> <span class="fu">list</span>(<span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>, <span class="at">gdal =</span> gdal_opts))</span>
+<span id="cb258-13"><a href="digital-soil-mapping.html#cb258-13" tabindex="-1"></a></span>
+<span id="cb258-14"><a href="digital-soil-mapping.html#cb258-14" tabindex="-1"></a>sd_tiles   <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&quot;03_outputs/module3/tiles/&quot;</span>,</span>
+<span id="cb258-15"><a href="digital-soil-mapping.html#cb258-15" tabindex="-1"></a>                          <span class="at">pattern    =</span> <span class="fu">paste0</span>(<span class="st">&quot;^&quot;</span>, target, <span class="st">&quot;_sd_.*</span><span class="sc">\\</span><span class="st">.tif$&quot;</span>),</span>
+<span id="cb258-16"><a href="digital-soil-mapping.html#cb258-16" tabindex="-1"></a>                          <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb258-17"><a href="digital-soil-mapping.html#cb258-17" tabindex="-1"></a></span>
+<span id="cb258-18"><a href="digital-soil-mapping.html#cb258-18" tabindex="-1"></a>sd_rasters <span class="ot">&lt;-</span> <span class="fu">lapply</span>(sd_tiles, rast)</span>
+<span id="cb258-19"><a href="digital-soil-mapping.html#cb258-19" tabindex="-1"></a>pred_sd    <span class="ot">&lt;-</span> <span class="fu">mosaic</span>(<span class="fu">sprc</span>(sd_rasters))</span>
+<span id="cb258-20"><a href="digital-soil-mapping.html#cb258-20" tabindex="-1"></a><span class="fu">names</span>(pred_sd) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(target, <span class="st">&quot;_sd&quot;</span>)</span>
+<span id="cb258-21"><a href="digital-soil-mapping.html#cb258-21" tabindex="-1"></a></span>
+<span id="cb258-22"><a href="digital-soil-mapping.html#cb258-22" tabindex="-1"></a><span class="fu">writeRaster</span>(pred_sd,</span>
+<span id="cb258-23"><a href="digital-soil-mapping.html#cb258-23" tabindex="-1"></a>            <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/maps/sd_&quot;</span>, target, <span class="st">&quot;.tif&quot;</span>),</span>
+<span id="cb258-24"><a href="digital-soil-mapping.html#cb258-24" tabindex="-1"></a>            <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb258-25"><a href="digital-soil-mapping.html#cb258-25" tabindex="-1"></a>            <span class="at">wopt =</span> <span class="fu">list</span>(<span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>, <span class="at">gdal =</span> gdal_opts))</span>
+<span id="cb258-26"><a href="digital-soil-mapping.html#cb258-26" tabindex="-1"></a></span>
+<span id="cb258-27"><a href="digital-soil-mapping.html#cb258-27" tabindex="-1"></a><span class="fu">plot</span>(pred_mean, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;Mean&quot;</span>, target), <span class="at">col =</span> <span class="fu">hcl.colors</span>(<span class="dv">100</span>, <span class="st">&quot;Viridis&quot;</span>))</span>
+<span id="cb258-28"><a href="digital-soil-mapping.html#cb258-28" tabindex="-1"></a><span class="fu">plot</span>(pred_sd,   <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;SD&quot;</span>,   target), <span class="at">col =</span> <span class="fu">hcl.colors</span>(<span class="dv">100</span>, <span class="st">&quot;Inferno&quot;</span>))</span></code></pre></div>
+<p><code>list.files()</code> with a regular expression pattern collects all mean (or SD) tile files in the correct order. <code>sprc()</code> wraps the list of <code>SpatRaster</code> objects into a <code>SpatRasterCollection</code>, and <code>mosaic()</code> assembles them into a single seamless raster by averaging overlapping pixels (where tiles share edges). <code>writeRaster()</code> saves the final maps with the same GDAL options used during tiled prediction.</p>
+<blockquote>
+<p><strong>Note:</strong> the original script contains a typo in the SD output path (<code>outputs/maps/continuous/sd_</code>). The corrected path used here (<code>03_outputs/module3/maps/sd_</code>) matches the directory structure created in Section 1 and is consistent with the mean map path.</p>
+</blockquote>
+<blockquote>
+<p><strong>What you have produced:</strong> at the end of this workflow you have two wall-to-wall rasters covering the study area — a map of predicted SOC (g/kg) and a map of its uncertainty (SD, g/kg). Together they constitute a complete DSM output ready for agronomic interpretation, soil carbon stock estimation, or as a baseline for monitoring change over time.</p>
+</blockquote>
 <hr />
 </div>
 <div id="references-3" class="section level2 unnumbered hasAnchor">
@@ -1517,9 +1402,6 @@ Figure 3.21: pH predictions only shown within the Area of Applicability.
 <div id="refs" class="references csl-bib-body" entry-spacing="0">
 <div id="ref-Bishop1999" class="csl-entry">
 <strong>Bishop, T.F.A., McBratney, A.B. &amp; Laslett, G.M.</strong> 1999. Modelling soil attribute depth functions with equal-area quadratic smoothing splines, 91: 27–45. <a href="https://doi.org/10.1016/s0016-7061(99)00003-8">https://doi.org/10.1016/s0016-7061(99)00003-8</a>
-</div>
-<div id="ref-Breiman2001" class="csl-entry">
-<strong>Breiman, L.</strong> 2001. Random forests. <em>Machine Learning</em>, 45(1): 5–32. <a href="https://doi.org/10.1023/A:1010933404324">https://doi.org/10.1023/A:1010933404324</a>
 </div>
 <div id="ref-Breiman1984" class="csl-entry">
 <strong>Breiman, L., Friedman, J.H., Olshen, R.A. &amp; Stone, C.J.</strong> 1984. <em>Classification and regression trees</em>. Belmont, CA, Wadsworth.
@@ -1539,9 +1421,6 @@ Figure 3.21: pH predictions only shown within the Area of Applicability.
 <div id="ref-Kempen2009" class="csl-entry">
 <strong>Kempen, B., Brus, D.J., Heuvelink, G.B.M. &amp; Stoorvogel, J.J.</strong> 2009. Updating the 1:50,000 dutch soil map using legacy soil data: A multinomial logistic regression approach. <em>Geoderma</em>, 151: 311–326. <a href="https://doi.org/10.1016/j.geoderma.2009.04.023">https://doi.org/10.1016/j.geoderma.2009.04.023</a>
 </div>
-<div id="ref-Kursa2010" class="csl-entry">
-<strong>Kursa, M.B. &amp; Rudnicki, W.R.</strong> 2010. Feature selection with the <span>Boruta</span> package. <em>Journal of Statistical Software</em>, 36(11): 1–13. <a href="https://doi.org/10.18637/jss.v036.i11">https://doi.org/10.18637/jss.v036.i11</a>
-</div>
 <div id="ref-Lagacherie2008" class="csl-entry">
 <strong>Lagacherie, P.</strong> 2008. Digital soil mapping: A state of the art. <em>In</em> A.E. Hartemink, A.B. McBratney &amp; M.L. Mendonça-Santos, eds. <em>Digital soil mapping with limited data</em>, pp. 3–14. Dordrecht, Springer.
 </div>
@@ -1550,9 +1429,6 @@ Figure 3.21: pH predictions only shown within the Area of Applicability.
 </div>
 <div id="ref-McBratney2003" class="csl-entry">
 <strong>McBratney, A.B., Mendonça Santos, M.L. &amp; Minasny, B.</strong> 2003. On digital soil mapping. <em>Geoderma</em>, 117: 3–52. <a href="https://doi.org/10.1016/S0016-7061(03)00223-4">https://doi.org/10.1016/S0016-7061(03)00223-4</a>
-</div>
-<div id="ref-Meyer2021" class="csl-entry">
-<strong>Meyer, H. &amp; Pebesma, E.</strong> 2021. Predicting into unknown space? <span>E</span>stimating the area of applicability of spatial prediction models. <em>Methods in Ecology and Evolution</em>, 12: 1620–1633. <a href="https://doi.org/10.1111/2041-210X.13650">https://doi.org/10.1111/2041-210X.13650</a>
 </div>
 <div id="ref-Minasny2016" class="csl-entry">
 <strong>Minasny, B. &amp; McBratney, A.B.</strong> 2016. Digital soil mapping: A brief history and some lessons. <em>Geoderma</em>, 264: 301–311. <a href="https://doi.org/10.1016/j.geoderma.2015.07.017">https://doi.org/10.1016/j.geoderma.2015.07.017</a>
@@ -1568,9 +1444,6 @@ Figure 3.21: pH predictions only shown within the Area of Applicability.
 </div>
 <div id="ref-Padarian2023" class="csl-entry">
 <strong>Padarian, J. &amp; McBratney, A.B.</strong> 2023. <span>QuadMap</span>: Variable resolution maps to communicate uncertainty. <em>Computers and Geosciences</em>, 181: 105480. <a href="https://doi.org/10.1016/j.cageo.2023.105480">https://doi.org/10.1016/j.cageo.2023.105480</a>
-</div>
-<div id="ref-Roberts2017" class="csl-entry">
-<strong>Roberts, D.R. &amp; others</strong>. 2017. Cross-validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure. <em>Ecography</em>, 40: 913–929. <a href="https://doi.org/10.1111/ecog.02881">https://doi.org/10.1111/ecog.02881</a>
 </div>
 <div id="ref-Styc2021" class="csl-entry">
 <strong>Styc, Q. &amp; Lagacherie, P.</strong> 2021. Combining spatial-environmental covariates and soil input data types to predict soil available water holding capacity. <em>Geoderma</em>, 401: 115171. <a href="https://doi.org/10.1016/j.geoderma.2021.115171">https://doi.org/10.1016/j.geoderma.2021.115171</a>

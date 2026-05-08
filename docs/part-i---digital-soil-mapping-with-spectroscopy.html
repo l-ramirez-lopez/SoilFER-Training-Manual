@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | DRAFT - Integrated soil information for decision-making </title>
+  <title>Module 5 Part I - Digital soil mapping with spectroscopy | DRAFT - Integrated soil information for decision-making </title>
   <meta name="description" content="SoilFER SID Technical Manual" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | DRAFT - Integrated soil information for decision-making " />
+  <meta property="og:title" content="Module 5 Part I - Digital soil mapping with spectroscopy | DRAFT - Integrated soil information for decision-making " />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="SoilFER SID Technical Manual" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | DRAFT - Integrated soil information for decision-making " />
+  <meta name="twitter:title" content="Module 5 Part I - Digital soil mapping with spectroscopy | DRAFT - Integrated soil information for decision-making " />
   
   <meta name="twitter:description" content="SoilFER SID Technical Manual" />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="soil-data-harmonization-sharing-dissemination.html"/>
-
+<link rel="prev" href="soil-spectroscopy-for-digital-soil-mapping.html"/>
+<link rel="next" href="part-ii-practical-application-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -553,172 +553,35 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references-4" class="section level1 unnumbered hasAnchor">
-<h1>References<a href="references-4.html#references-4" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-
-<div id="refs" class="references csl-bib-body" entry-spacing="0">
-<div class="csl-entry">
-<strong>Amatulli, Gi., McInerney, D., Sethi, T., Strobl, P. &amp; Domisch, S.</strong> 2020. Geomorpho90m - global high-resolution geomorphometry layers. OpenTopography. <a href="https://doi.org/10.5069/G91R6NPX">https://doi.org/10.5069/G91R6NPX</a>
+<div id="part-i---digital-soil-mapping-with-spectroscopy" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Module 5</span> Part I - Digital soil mapping with spectroscopy<a href="part-i---digital-soil-mapping-with-spectroscopy.html#part-i---digital-soil-mapping-with-spectroscopy" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-1" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Introduction<a href="part-i---digital-soil-mapping-with-spectroscopy.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Digital Soil Mapping (DSM) has matured over the past two decades into a well-established and widely applied field within soil science and pedometrics <span class="citation">(<a href="#ref-wadoux2021overview"><strong>wadoux2021overview?</strong></a>)</span>. This is because of advances in geospatial modelling, including geostatistics and machine learning, the availability of high-quality environmental covariates, and an ease of access to computational capacity. This has enabled DSM to move toward operational and spatialized soil information delivery across the globe. DSM is now routinely used to support soil fertility assessment, monitoring of soil health or precision agriculture <span class="citation">(<a href="#ref-lagacherie2025operational"><strong>lagacherie2025operational?</strong></a>)</span>.</p>
+<p>In parallel with the maturation of DSM, there has been a rapid development of proximal soil sensing techniques <span class="citation">(<a href="#ref-peng2025spectroscopic"><strong>peng2025spectroscopic?</strong></a>)</span>. Proximal sensing refers to the acquisition of soil information using sensors positioned in close proximity to the soil surface, typically within a distance of less than approximately 2 m. These techniques include, among others, infrared spectroscopic sensing, electromagnetic induction, and radiometric approaches <span class="citation">(<a href="#ref-rossel2010proximal"><strong>rossel2010proximal?</strong></a>)</span>. They enable the direct or indirect estimation of soil properties under field conditions (e.g. portable XRF) or in the laboratory (e.g. laboratory infrared spectrometer). They usually support measurements at high sampling densities and often in real time. Overall, while soil properties are indirectly estimated, proximal sensing substantially reduces the logistical and financial constraints associated with conventional soil surveys and laboratory analyses. As a result, these technologies broadly support faster data acquisition, enable non-destructive and repeatable observations.</p>
+<p>Among proximal sensing approaches, infrared spectroscopy has become the most widely adopted technique for soil characterisation <span class="citation">(<a href="#ref-peng2025spectroscopic"><strong>peng2025spectroscopic?</strong></a>)</span>. Infrared methods are commonly divided into visible–near infrared (vis–NIR), shortwave infrared (SWIR), and mid-infrared (MIR) spectral regions, each providing information on soil properties. Vis–NIR spectroscopy (approximately 400–1000 nm) and the broader vis–NIR–SWIR range (up to about 2500 nm) are frequently used in field applications due to the availability of portable sensors and their sensitivity to soil organic matter, moisture, iron oxides, and texture-related features. In contrast, MIR spectroscopy (approximately 2500–25 000 nm) is obtained conducted under laboratory conditions and offers more distinct absorption features related to fundamental molecular vibrations, often resulting in higher predictive accuracy for mineralogical and chemical soil attributes. Together, these spectral data support the rapid and cost-effective estimation of soil property <span class="citation">(<a href="#ref-wadoux2021soil"><strong>wadoux2021soil?</strong></a>)</span>.</p>
 </div>
-<div class="csl-entry">
-<strong>Arrouays, D., Leenaars, J.G.B., Richer-de-Forges, A.C., Adhikari, K., Ballabio, C., Greve, M., Grundy, M., Guerrero, E., Hempel, J., Hengl, T., Heuvelink, G., Batjes, N., Carvalho, E., Hartemink, A., Hewitt, A., Hong, S.-Y., Krasilnikov, P., Lagacherie, P., Lelyk, G., Libohova, Z., Lilly, A., McBratney, A., McKenzie, N., Vasquez, G.M., Mulder, V.L., Minasny, B., Montanarella, L., Odeh, I., Padarian, J., Poggio, L., Roudier, P., Saby, N., Savin, I., Searle, R., Solbovoy, V., Thompson, J., Smith, S., Sulaeman, Y., Vintila, R., Rossel, R.V., Wilson, P., Zhang, G.-L., Swerts, M., Oorts, K., Karklins, A., Feng, L., Ibelles Navarro, A.R., Levin, A., Laktionova, T., Dell’Acqua, M., Suvannang, N., Ruam, W., Prasad, J., Patil, N., Husnjak, S., Pasztor, L., Okx, J., Hallett, S., Keay, C., Farewell, T., Lilja, H., Juilleret, J., Marx, S., Takata, Y., Kazuyuki, Y., Mansuy, N., Panagos, P., Van Liedekerke, M., Skalsky, R., Sobocka, J., Kobza, J., Eftekhari, K., Alavipanah, S.K., Moussadek, R., Badraoui, M., Da Silva, M., Paterson, G., Conceicao Gonsalves, M. da, Theocharopoulos, S., Yemefack, M., Tedou, S., Vrscaj, B., Grob, U., Kozak, J., Boruvka, L., Dobos, E., Taboada, M., Moretti, L. &amp; Rodriguez, D.</strong> 2017. Soil legacy data rescue via GlobalSoilMap and other international and national initiatives. <em>GeoResJ</em>, 14: 1–19. https://doi.org/<a href="https://doi.org/10.1016/j.grj.2017.06.001">https://doi.org/10.1016/j.grj.2017.06.001</a>
+<div id="rational" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Rational<a href="part-i---digital-soil-mapping-with-spectroscopy.html#rational" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>DSM is typically based on the geostatistical or machine-learning relationships established between environmental covariates and point-measured soil properties such as soil organic carbon, pH, texture, or nutrient content <span class="citation">(<a href="#ref-mcbratney2003digital"><strong>mcbratney2003digital?</strong></a>)</span>. These reference soil measurements are commonly obtained through conventional field sampling followed by laboratory analyses. While such measurements provide high analytical accuracy, they are often costly and time-consuming to obtain. For instance, wet-chemistry determination of soil organic carbon requires sample preparation, chemical reagents, specialised laboratory infrastructure, and skilled personnel, with analyses often taking several hours per batch and incurring substantial per-sample costs <span class="citation">(<a href="#ref-wu2025assessing"><strong>wu2025assessing?</strong></a>)</span>. As a result, the spatial density of high-quality soil observations is frequently limited.</p>
+<p>The use of spectroscopically-inferred soil properties offers a pathway to increase the number of observations available for DSM model calibration <span class="citation">(<a href="#ref-ramirez2019robust"><strong>ramirez2019robust?</strong></a>)</span>. Spectroscopic sensing allows rapid, relatively inexpensive estimation of multiple soil attributes from a single measurement. This directly supports the collection of dense datasets at field to regional scales. By augmenting conventional laboratory datasets with larger volumes of spectroscopically-inferred observations, DSM can benefit from more input data, which can in turn yield more accurate maps for a smaller total cost. In this context, spectroscopic data is a mean of enhancing the information provided for DSM model training rather than replacing traditional reference analyses <span class="citation">(<a href="#ref-chen2023integrating"><strong>chen2023integrating?</strong></a>)</span>.</p>
+<p>However, the integration of spectroscopically inferred soil properties into DSM requires careful consideration of the nature of these data. Unlike conventional laboratory analyses, spectroscopy does not directly measure soil properties but provides statistical predictions based on calibrated relationships between spectral responses and reference measurements. Consequently, each spectroscopic estimate is associated with a uncertainty that is usually larger than that of wet-chemistry measurements. When spectroscopically-inferred data are incorporated into DSM workflows, it is therefore needed to explicitly acknowledge this additional source of uncertainty <span class="citation">(<a href="#ref-takoutsing2022accounting"><strong>takoutsing2022accounting?</strong></a>)</span>.</p>
 </div>
-<div class="csl-entry">
-<strong>Bishop, T.F.A., McBratney, A.B. &amp; Laslett, G.M.</strong> 1999. Modelling soil attribute depth functions with equal-area quadratic smoothing splines, 91: 27–45. <a href="https://doi.org/10.1016/s0016-7061(99)00003-8">https://doi.org/10.1016/s0016-7061(99)00003-8</a>
-</div>
-<div class="csl-entry">
-<strong>Borden, K.A., Thomas, J.E. &amp; Rivard, C.</strong> 2020. Evaluation of diverse cover crop mixtures for use in semi-arid irrigated production systems. <em>Renewable Agriculture and Food Systems</em>, 35(3): 286–296. <a href="https://doi.org/10.1017/S1742170518000509">https://doi.org/10.1017/S1742170518000509</a>
-</div>
-<div class="csl-entry">
-<strong>Breiman, L., Friedman, J.H., Olshen, R.A. &amp; Stone, C.J.</strong> 1984. <em>Classification and regression trees</em>. Belmont, CA, Wadsworth.
-</div>
-<div class="csl-entry">
-<strong>Brevik, E.C., Calzolari, C., Miller, B.A., Pereira, P., Kabala, C., Baumgarten, A. &amp; Jordán, A.</strong> 2016. Soil mapping, classification, and pedologic modeling: History and future directions. <em>Geoderma</em>, 264: 256–274. <a href="https://doi.org/10.1016/j.geoderma.2015.05.017">https://doi.org/10.1016/j.geoderma.2015.05.017</a>
-</div>
-<div class="csl-entry">
-<strong>Brus, D.J.</strong> 2022 b. Sampling for digital soil mapping: A tutorial supported by <span>R</span> scripts. <em>Geoderma</em>, 338: 464–480. <a href="https://doi.org/10.1016/j.geoderma.2018.07.036">https://doi.org/10.1016/j.geoderma.2018.07.036</a>
-</div>
-<div class="csl-entry">
-<strong>Brus, D.J.</strong> 2022 a. <em>Spatial sampling with r</em>. Boca Raton, FL, Chapman &amp; Hall/CRC Press.
-</div>
-<div class="csl-entry">
-<strong>Brus, D.J., Kempen, B. &amp; Heuvelink, G.B.M.</strong> 2011 b. Sampling for validation of digital soil maps. <em>European Journal of Soil Science</em>, 62(3): 394–407. <a href="https://doi.org/10.1111/j.1365-2389.2011.01364.x">https://doi.org/10.1111/j.1365-2389.2011.01364.x</a>
-</div>
-<div class="csl-entry">
-<strong>Brus, D.J., Kempen, B. &amp; Heuvelink, G.B.M.</strong> 2011 a. Sampling for digital soil mapping: A tutorial supported by <span>R</span> scripts. <em>Geoderma</em>, 338: 464–480. <a href="https://doi.org/10.1016/j.geoderma.2018.07.036">https://doi.org/10.1016/j.geoderma.2018.07.036</a>
-</div>
-<div class="csl-entry">
-<strong>Bui, E.</strong> 2020. Soil survey as a knowledge system. <em>Geoderma</em>, 359: 113948. <a href="https://doi.org/10.1016/j.geoderma.2019.113948">https://doi.org/10.1016/j.geoderma.2019.113948</a>
-</div>
-<div class="csl-entry">
-<strong>Clay, D.E., Chang, J., Malo, D.D., Carlson, C.G., Reese, C., Clay, S.A., Ellsbury, M. &amp; Berg, B.</strong> 2001. Factors influencing spatial variability of soil apparent electrical conductivity. <em>Communications in Soil Science and Plant Analysis</em>, 32(19-20): 2993–3008. <a href="https://doi.org/10.1081/CSS-120001104">https://doi.org/10.1081/CSS-120001104</a>
-</div>
-<div class="csl-entry">
-<strong>Gobin, A., Campling, P. &amp; Feyen, J.</strong> 2001. Soil-landscape modelling to quantify spatial variability of soil texture. <em>Physics and Chemistry of the Earth, Part B: Hydrology, Oceans and Atmosphere</em>, 26(1): 41–45. <a href="https://doi.org/10.1016/S1464-1909(01)85011-7">https://doi.org/10.1016/S1464-1909(01)85011-7</a>
-</div>
-<div class="csl-entry">
-<strong>Gruijter, J.J. de, Brus, D.J., Bierkens, M.F.P. &amp; Knotters, M.</strong> 2006. <em><a href="https://doi.org/10.1007/3-540-33161-1">Sampling for natural resource monitoring</a></em>. Berlin, Springer.
-</div>
-<div class="csl-entry">
-<strong>Gupta, S. &amp; Hengl, T.</strong> 2019. Soil available water capacity in mm derived for 5 standard layers (0-10, 10-30, 30-60, 60-100 and 100-200 cm) at 250 m resolution. Zenodo. <a href="https://doi.org/10.5281/zenodo.2629148">https://doi.org/10.5281/zenodo.2629148</a>
-</div>
-<div class="csl-entry">
-<strong>Hengl, T., Heuvelink, G.B.M. &amp; Rossiter, D.G.</strong> 2007. About regression-kriging: From equations to case studies. <em>Computers &amp; Geosciences</em>, 33: 1301–1315. <a href="https://doi.org/10.1016/j.cageo.2007.05.001">https://doi.org/10.1016/j.cageo.2007.05.001</a>
-</div>
-<div class="csl-entry">
-<strong>Hengl, T. &amp; MacMillan, R.A.</strong> 2019. <em>Predictive soil mapping with r</em>. Wageningen, the Netherlands, OpenGeoHub foundation. (also available at <a href="https://soilmapper.org/">https://soilmapper.org/</a>).
-</div>
-<div class="csl-entry">
-<strong>Heuvelink, G.B.M., Kros, J., Reinds, G.J. &amp; De Vries, W.</strong> 2016. Geostatistical prediction and simulation of european soil property maps. <em>Geoderma Regional</em>, 7: 201–215. <a href="https://doi.org/10.1016/j.geodrs.2016.04.002">https://doi.org/10.1016/j.geodrs.2016.04.002</a>
-</div>
-<div class="csl-entry">
-<strong>Heuvelink, G.B.M. &amp; Webster, R.</strong> 2001. Modelling soil variation: Past, present, and future. <em>Geoderma</em>, 100: 269–301. <a href="https://doi.org/10.1016/S0016-7061(01)00025-8">https://doi.org/10.1016/S0016-7061(01)00025-8</a>
-</div>
-<div class="csl-entry">
-<strong>Jenny, H.</strong> 1941 b. A system of quantitative pedology. In <span>“factors of soil formation”</span>. McGraw Hill: New York.
-</div>
-<div class="csl-entry">
-<strong>Jenny, H.</strong> 1941 a. <em>Factors of soil formation. A system of quantitative pedology</em>. New York, McGraw-Hill.
-</div>
-<div class="csl-entry">
-<strong>Kempen, B., Brus, D.J., Heuvelink, G.B.M. &amp; Stoorvogel, J.J.</strong> 2009. Updating the 1:50,000 dutch soil map using legacy soil data: A multinomial logistic regression approach. <em>Geoderma</em>, 151: 311–326. <a href="https://doi.org/10.1016/j.geoderma.2009.04.023">https://doi.org/10.1016/j.geoderma.2009.04.023</a>
-</div>
-<div class="csl-entry">
-<strong>Lagacherie, P.</strong> 2008. Digital soil mapping: A state of the art. <em>In</em> A.E. Hartemink, A.B. McBratney &amp; M.L. Mendonça-Santos, eds. <em>Digital soil mapping with limited data</em>, pp. 3–14. Dordrecht, Springer.
-</div>
-<div class="csl-entry">
-<strong>Lagacherie, P. &amp; McBratney, A.B.</strong> 2006. Spatial soil information systems and spatial soil inference systems: Perspectives for digital soil mapping. <em>In</em> P. Lagacherie, A.B. McBratney &amp; M. Voltz, eds. <em>Digital soil mapping: An introductory perspective</em>, pp. 3–22. Amsterdam, Elsevier.
-</div>
-<div class="csl-entry">
-<strong>Ma, Y., Minasny, B., Weerts, A., Poggio, L., Malone, B. &amp; McBratney, A.</strong> 2020. Comparison of conditioned <span>Latin</span> hypercube and feature space coverage sampling for predicting soil classes using simulation from soil maps. <em>Geoderma</em>, 370: 114366. <a href="https://doi.org/10.1016/j.geoderma.2020.114366">https://doi.org/10.1016/j.geoderma.2020.114366</a>
-</div>
-<div class="csl-entry">
-<strong>McBratney, A.B., Mendonça Santos, M.L. &amp; Minasny, B.</strong> 2003. On digital soil mapping. <em>Geoderma</em>, 117: 3–52. <a href="https://doi.org/10.1016/S0016-7061(03)00223-4">https://doi.org/10.1016/S0016-7061(03)00223-4</a>
-</div>
-<div class="csl-entry">
-<strong>Medeiros, B.M., Rossi, L.S., Caten, A.T., Pereira, G.E., Silva, E.B. &amp; U., Daboit.K.T.</strong> 2024. Soil legacy data: An opportunity for digital soil mapping. <em>Rev. Bras. Ciênc. Solo</em>, 48. <a href="https://doi.org/10.36783/18069657rbcs20230130">https://doi.org/10.36783/18069657rbcs20230130</a>
-</div>
-<div class="csl-entry">
-<strong>Milne, G.</strong> 1936. Normal erosion as a factor in soil profile development. <em>Nature</em>, 138: 548–549. <a href="https://doi.org/10.1038/138548c0">https://doi.org/10.1038/138548c0</a>
-</div>
-<div class="csl-entry">
-<strong>Minasny, B. &amp; McBratney, A.B.</strong> 2006. A conditioned <span>Latin</span> hypercube method for sampling in the presence of ancillary information. <em>Computers &amp; Geosciences</em>, 32(9): 1378–1388. <a href="https://doi.org/10.1016/j.cageo.2005.12.009">https://doi.org/10.1016/j.cageo.2005.12.009</a>
-</div>
-<div class="csl-entry">
-<strong>Minasny, B. &amp; McBratney, A.B.</strong> 2016. Digital soil mapping: A brief history and some lessons. <em>Geoderma</em>, 264: 301–311. <a href="https://doi.org/10.1016/j.geoderma.2015.07.017">https://doi.org/10.1016/j.geoderma.2015.07.017</a>
-</div>
-<div class="csl-entry">
-<strong>Morton, P.A. &amp; Heinemeyer, O.</strong> 2000. Soil sampling and preparation. <em>Methods in Ecosystem Science</em>: 85–94.
-</div>
-<div class="csl-entry">
-<strong>Newhall, F. &amp; Berdanier, C.R.</strong> 1996. Calculation of soil moisture regimes from the climatic record, p. 13. No. 46. Natural Resources Conservation Service.
-</div>
-<div class="csl-entry">
-<strong>Norris, C.E., Quideau, S.A., Landhausser, S.M., Bernard, G.M. &amp; Wasylishen, R.E.</strong> 2013. Tracking stable isotope enrichment in tree seedlings with solid-state <span><span class="math inline">\(^{15}\)</span>N</span> <span>NMR</span> spectroscopy. <em>Biogeosciences</em>, 10: 3433–3445. <a href="https://doi.org/10.5194/bg-10-3433-2013">https://doi.org/10.5194/bg-10-3433-2013</a>
-</div>
-<div class="csl-entry">
-<strong>Odeh, I.O.A., McBratney, A.B. &amp; Chittleborough, D.J.</strong> 1995. Further results on prediction of soil properties from terrain attributes: Heterotopic cokriging and regression-kriging. <em>Geoderma</em>, 67: 215–226. <a href="https://doi.org/10.1016/0016-7061(95)00007-B">https://doi.org/10.1016/0016-7061(95)00007-B</a>
-</div>
-<div class="csl-entry">
-<strong>Odgers, N.P., McBratney, A.B. &amp; Minasny, B.</strong> 2011. Bottom-up digital soil mapping. <span>I</span>. <span>S</span>oil layer classes. <em>Geoderma</em>, 163: 38–44. <a href="https://doi.org/10.1016/j.geoderma.2011.03.014">https://doi.org/10.1016/j.geoderma.2011.03.014</a>
-</div>
-<div class="csl-entry">
-<strong>Orton, T.G., Pringle, M.J., Page, K.L., Dalal, R.C. &amp; Bishop, T.F.A.</strong> 2014. Spatial prediction of soil organic carbon stock using a linear model of coregionalisation. <em>Geoderma</em>, 230–231: 119–130. <a href="https://doi.org/10.1016/j.geoderma.2014.04.016">https://doi.org/10.1016/j.geoderma.2014.04.016</a>
-</div>
-<div class="csl-entry">
-<strong>Padarian, J. &amp; McBratney, A.B.</strong> 2023. <span>QuadMap</span>: Variable resolution maps to communicate uncertainty. <em>Computers and Geosciences</em>, 181: 105480. <a href="https://doi.org/10.1016/j.cageo.2023.105480">https://doi.org/10.1016/j.cageo.2023.105480</a>
-</div>
-<div class="csl-entry">
-<strong>Pebesma, E. &amp; Bivand, R.</strong> 2021. Spatial data science with applications in r. <em>Methods in Ecology and Evolution</em>, 12: 1620–1633. <a href="https://doi.org/10.1111/2041-210X.13650">https://doi.org/10.1111/2041-210X.13650</a>
-</div>
-<div class="csl-entry">
-<strong>Prieto-Castrillo, F., Rodríguez-Rastrero, M., Yunta, F., Borondo, F. &amp; Borondo, J.</strong> 2023. Disentangling jenny’s equation by machine learning. <em>Scientific Reports</em>, 13(1): 20916. <a href="https://doi.org/10.1038/s41598-023-44171-x">https://doi.org/10.1038/s41598-023-44171-x</a>
-</div>
-<div class="csl-entry">
-<strong>Robertson, B.L., Brown, J.A., McDonald, T. &amp; Jaksons, P.</strong> 2013. <span>BAS</span>: Balanced acceptance sampling of natural resources. <em>Biometrics</em>, 69(3): 776–784. <a href="https://doi.org/10.1111/biom.12059">https://doi.org/10.1111/biom.12059</a>
-</div>
-<div class="csl-entry">
-<strong>Saurette, D.D., Berg, A., Laamrani, A., Heck, R.J., Gillespie, A.W. &amp; Biswas, A.</strong> 2023. Determining optimal sample size for soil spectroscopy applications: Learning curves and model validation. <em>Soil Science Society of America Journal</em>, 87(6): 1557–1572. <a href="https://doi.org/10.1002/saj2.20608">https://doi.org/10.1002/saj2.20608</a>
-</div>
-<div class="csl-entry">
-<strong>Schmidinger, J., Heuvelink, G.B.M. &amp; Brus, D.J.</strong> 2024. Sampling design optimization for soil mapping with random forest. <em>Geoderma</em>, 444: 116849. <a href="https://doi.org/10.1016/j.geoderma.2024.116849">https://doi.org/10.1016/j.geoderma.2024.116849</a>
-</div>
-<div class="csl-entry">
-<strong>Stevens, D.L. &amp; Olsen, A.R.</strong> 2004. Spatially balanced sampling of natural resources. <em>Journal of the American Statistical Association</em>, 99(465): 262–278. <a href="https://doi.org/10.1198/016214504000000250">https://doi.org/10.1198/016214504000000250</a>
-</div>
-<div class="csl-entry">
-<strong>Styc, Q. &amp; Lagacherie, P.</strong> 2021. Combining spatial-environmental covariates and soil input data types to predict soil available water holding capacity. <em>Geoderma</em>, 401: 115171. <a href="https://doi.org/10.1016/j.geoderma.2021.115171">https://doi.org/10.1016/j.geoderma.2021.115171</a>
-</div>
-<div class="csl-entry">
-<strong>Wadoux, A.M.J.-C., Minasny, B. &amp; McBratney, A.B.</strong> 2021. Machine learning for digital soil mapping: Applications, challenges and suggested solutions. <em>Earth-Science Reviews</em>, 210: 103359. <a href="https://doi.org/10.1016/j.earscirev.2020.103359">https://doi.org/10.1016/j.earscirev.2020.103359</a>
-</div>
-<div class="csl-entry">
-<strong>Webster, R., Lessells, C.M. &amp; Hodgson, J.M.</strong> 1979. A reconnaissance soil survey of the ivybridge area of south devon. <em>Soil Survey Technical Monograph</em>, 12.
-</div>
-<div class="csl-entry">
-<strong>Webster, R. &amp; Oliver, M.A.</strong> 2007. <em>Geostatistics for environmental scientists</em>. 2nd edition. Chichester, John Wiley &amp; Sons.
-</div>
-<div class="csl-entry">
-<strong>Zanaga, D., Van De Kerchove, R., Daems, D., De Keersmaecker, W., Brockmann, C., Kirches, G., Wevers, J., Cartus, O., Santoro, M., Fritz, S., Lesiv, M., Herold, M., Tsendbazar, N.-E., Xu, P., Ramoino, F. &amp; Arino, O.</strong> 2022. ESA WorldCover 10 m 2021 v200. Zenodo. <a href="https://doi.org/10.5281/zenodo.7254221">https://doi.org/10.5281/zenodo.7254221</a>
-</div>
-<div class="csl-entry">
-<strong>Zhang, L., Heuvelink, G.B.M., Mulder, V.L., Chen, S., Deng, X. &amp; Yang, L.</strong> 2024. Using process-oriented model output to enhance machine learning-based soil organic carbon prediction in space and time. <em>Science of the Total Environment</em>, 922: 170778. <a href="https://doi.org/10.1016/j.scitotenv.2024.170778">https://doi.org/10.1016/j.scitotenv.2024.170778</a>
+<div id="including-spectroscopic-prediction-in-digital-soil-mapping" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Including spectroscopic prediction in digital soil mapping<a href="part-i---digital-soil-mapping-with-spectroscopy.html#including-spectroscopic-prediction-in-digital-soil-mapping" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A number of studies have explained the need to explicitly account for measurement errors in DSM, particularly when integrating soil properties predicted from spectroscopic predictions. Because spectroscopic techniques provide indirect, model-based estimates rather than direct analytical measurements, each predicted value is associated with a prediction uncertainty that may affect the spatial modelling process, that is, both map accuracy and the predicted pattern. Ignoring measurement error can lead to poor DSM model calibration and overconfident spatial predictions <span class="citation">(<a href="#ref-van2022measurement"><strong>van2022measurement?</strong></a>)</span>.</p>
+<p>Different methodological strategies have been proposed to address this issue, depending on the model used for DSM. In geostatistical mapping, measurement error variances have been incorporated into spatial covariance structures <span class="citation">(<a href="#ref-takoutsing2022accounting"><strong>takoutsing2022accounting?</strong></a>)</span>. An example is <span class="citation">(<a href="#ref-ramirez2019robust"><strong>ramirez2019robust?</strong></a>)</span>, which used the measurment error variance for the spectroscopic prediction into the covariance matrix fo the kriging prediciton. This led smoother maps overall. In machine-learning based DSM, the literature remains relatively limited but several studies have explored weighting schemes to reflect varying data quality. For example, weights derived from spectroscopic prediction uncertainty have been used in convolutional neural networks or random forest models by modifying the loss function during model calibration <span class="citation">(<a href="#ref-hengl2018random"><strong>hengl2018random?</strong></a>)</span>. More recently, error-filtered ML frameworks have been proposed in which measurement error variance is explicitly integrated into likelihood-based estimation, showing improvements in predictive performance when observation errors are substantial <span class="citation">(<a href="#ref-van2022measurement"><strong>van2022measurement?</strong></a>)</span>.</p>
+<p>A central prerequisite across these approaches is the availability of sample-specific estimates of measurement error variance for all spectroscopically inferred soil observations. In practice, this means that for each soil sample, spectroscopy provides not only a predicted soil property value (e.g. soil organic carbon content) but also an associated uncertainty metric, often expressed as a prediction standard deviation or variance derived from prediction.</p>
+<p>This is illustrated in Figure <a href="#fig:fig-uncertainty"><strong>??</strong></a>, showing a conceptual representation of soil property observations obtained using wet-chemistry analysis and infrared spectroscopy. The wet-chemistry measurement is depicted as a narrow probability distribution centered on the observed value, reflecting relatively low uncertainty, whereas the spectroscopically-inferred value is represented by a wider distribution centered on the predicted value, indicating the larger uncertainty associated with the spectroscopic prediction. The dashed vertical lines denote the point estimates, and the horizontal arrows represent the corresponding standard deviations, <span class="math inline">\(\sigma_{\mathrm{wet}}\)</span> and ( <span class="math inline">\(\sigma_{\mathrm{spectroscopy}}\)</span>, respectively. This illustration shows the uncertainty of a soil property value through a sample-specific measure uncertainty, typically expressed as a variance or standard deviation derived from the calibration model. Although spectroscopic observations are generally less precise than laboratory measurements, their lower cost enables the acquisition of denser datasets, which is often advantageous in DSM because increased data availability improves the characterization of spatial variation and environmental relationships, provided that the associated uncertainty is explicitly accounted for. In the practical section that follows, we illustrate the concept using an example of DSM implemented with a random forest model.</p>
 </div>
 </div>
-</div>
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="soil-data-harmonization-sharing-dissemination.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="soil-spectroscopy-for-digital-soil-mapping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="part-ii-practical-application-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

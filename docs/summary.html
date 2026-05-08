@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>References | DRAFT - Integrated soil information for decision-making </title>
+  <title>Module 7 Summary | DRAFT - Integrated soil information for decision-making </title>
   <meta name="description" content="SoilFER SID Technical Manual" />
   <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="References | DRAFT - Integrated soil information for decision-making " />
+  <meta property="og:title" content="Module 7 Summary | DRAFT - Integrated soil information for decision-making " />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="SoilFER SID Technical Manual" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="References | DRAFT - Integrated soil information for decision-making " />
+  <meta name="twitter:title" content="Module 7 Summary | DRAFT - Integrated soil information for decision-making " />
   
   <meta name="twitter:description" content="SoilFER SID Technical Manual" />
   
@@ -29,8 +29,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="soil-data-harmonization-sharing-dissemination.html"/>
-
+<link rel="prev" href="part-ii-practical-application-1.html"/>
+<link rel="next" href="soil-data-harmonization-sharing-dissemination.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -553,172 +553,20 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="references-4" class="section level1 unnumbered hasAnchor">
-<h1>References<a href="references-4.html#references-4" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="summary" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Module 7</span> Summary<a href="summary.html#summary" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this practical exercise we demonstrated how soil spectroscopic information can be integrated into a digital soil mapping workflow. Mid-infrared spectral data were first preprocessed and used to build a calibration model that provided, for each soil sample, both a predicted SOC value and a sample-specific estimate of prediction uncertainty. These spectroscopic predictions were then harmonised to a standard depth interval and combined with laboratory observations. Laboratory analytical uncertainty was also approximated so that both data sources could be treated consistently.</p>
+<p>A key step of the workflow was the use of uncertainty-based case weights during spatial model training. By assigning weights proportional to the inverse of observation variance, laboratory data and spectroscopic predictions contributed to model calibration according to their relative reliability. Model validation was also performed using weighted performance metrics, ensuring that predictive skill was evaluated in a way that reflects heterogeneous data quality. Spatial prediction maps illustrated how supplementing laboratory data with spectroscopy can modify spatial patterns and potentially improve prediction stability, depending on the proportion and uncertainty of the additional data.</p>
+<p>Although the example focused on SOC mapping with quantile regression forests, the same principles can be applied to other soil properties and modelling approaches. Only minor adaptations are required, such as changing the calibration model, the spatial prediction algorithm, or the method used to propagate uncertainty. More broadly, the workflow is a practical framework for integrating emerging proximal sensing data sources into DSM while maintaining a transparent treatment of data quality and prediction uncertainty.</p>
 
-<div id="refs" class="references csl-bib-body" entry-spacing="0">
-<div class="csl-entry">
-<strong>Amatulli, Gi., McInerney, D., Sethi, T., Strobl, P. &amp; Domisch, S.</strong> 2020. Geomorpho90m - global high-resolution geomorphometry layers. OpenTopography. <a href="https://doi.org/10.5069/G91R6NPX">https://doi.org/10.5069/G91R6NPX</a>
 </div>
-<div class="csl-entry">
-<strong>Arrouays, D., Leenaars, J.G.B., Richer-de-Forges, A.C., Adhikari, K., Ballabio, C., Greve, M., Grundy, M., Guerrero, E., Hempel, J., Hengl, T., Heuvelink, G., Batjes, N., Carvalho, E., Hartemink, A., Hewitt, A., Hong, S.-Y., Krasilnikov, P., Lagacherie, P., Lelyk, G., Libohova, Z., Lilly, A., McBratney, A., McKenzie, N., Vasquez, G.M., Mulder, V.L., Minasny, B., Montanarella, L., Odeh, I., Padarian, J., Poggio, L., Roudier, P., Saby, N., Savin, I., Searle, R., Solbovoy, V., Thompson, J., Smith, S., Sulaeman, Y., Vintila, R., Rossel, R.V., Wilson, P., Zhang, G.-L., Swerts, M., Oorts, K., Karklins, A., Feng, L., Ibelles Navarro, A.R., Levin, A., Laktionova, T., Dell’Acqua, M., Suvannang, N., Ruam, W., Prasad, J., Patil, N., Husnjak, S., Pasztor, L., Okx, J., Hallett, S., Keay, C., Farewell, T., Lilja, H., Juilleret, J., Marx, S., Takata, Y., Kazuyuki, Y., Mansuy, N., Panagos, P., Van Liedekerke, M., Skalsky, R., Sobocka, J., Kobza, J., Eftekhari, K., Alavipanah, S.K., Moussadek, R., Badraoui, M., Da Silva, M., Paterson, G., Conceicao Gonsalves, M. da, Theocharopoulos, S., Yemefack, M., Tedou, S., Vrscaj, B., Grob, U., Kozak, J., Boruvka, L., Dobos, E., Taboada, M., Moretti, L. &amp; Rodriguez, D.</strong> 2017. Soil legacy data rescue via GlobalSoilMap and other international and national initiatives. <em>GeoResJ</em>, 14: 1–19. https://doi.org/<a href="https://doi.org/10.1016/j.grj.2017.06.001">https://doi.org/10.1016/j.grj.2017.06.001</a>
-</div>
-<div class="csl-entry">
-<strong>Bishop, T.F.A., McBratney, A.B. &amp; Laslett, G.M.</strong> 1999. Modelling soil attribute depth functions with equal-area quadratic smoothing splines, 91: 27–45. <a href="https://doi.org/10.1016/s0016-7061(99)00003-8">https://doi.org/10.1016/s0016-7061(99)00003-8</a>
-</div>
-<div class="csl-entry">
-<strong>Borden, K.A., Thomas, J.E. &amp; Rivard, C.</strong> 2020. Evaluation of diverse cover crop mixtures for use in semi-arid irrigated production systems. <em>Renewable Agriculture and Food Systems</em>, 35(3): 286–296. <a href="https://doi.org/10.1017/S1742170518000509">https://doi.org/10.1017/S1742170518000509</a>
-</div>
-<div class="csl-entry">
-<strong>Breiman, L., Friedman, J.H., Olshen, R.A. &amp; Stone, C.J.</strong> 1984. <em>Classification and regression trees</em>. Belmont, CA, Wadsworth.
-</div>
-<div class="csl-entry">
-<strong>Brevik, E.C., Calzolari, C., Miller, B.A., Pereira, P., Kabala, C., Baumgarten, A. &amp; Jordán, A.</strong> 2016. Soil mapping, classification, and pedologic modeling: History and future directions. <em>Geoderma</em>, 264: 256–274. <a href="https://doi.org/10.1016/j.geoderma.2015.05.017">https://doi.org/10.1016/j.geoderma.2015.05.017</a>
-</div>
-<div class="csl-entry">
-<strong>Brus, D.J.</strong> 2022 b. Sampling for digital soil mapping: A tutorial supported by <span>R</span> scripts. <em>Geoderma</em>, 338: 464–480. <a href="https://doi.org/10.1016/j.geoderma.2018.07.036">https://doi.org/10.1016/j.geoderma.2018.07.036</a>
-</div>
-<div class="csl-entry">
-<strong>Brus, D.J.</strong> 2022 a. <em>Spatial sampling with r</em>. Boca Raton, FL, Chapman &amp; Hall/CRC Press.
-</div>
-<div class="csl-entry">
-<strong>Brus, D.J., Kempen, B. &amp; Heuvelink, G.B.M.</strong> 2011 b. Sampling for validation of digital soil maps. <em>European Journal of Soil Science</em>, 62(3): 394–407. <a href="https://doi.org/10.1111/j.1365-2389.2011.01364.x">https://doi.org/10.1111/j.1365-2389.2011.01364.x</a>
-</div>
-<div class="csl-entry">
-<strong>Brus, D.J., Kempen, B. &amp; Heuvelink, G.B.M.</strong> 2011 a. Sampling for digital soil mapping: A tutorial supported by <span>R</span> scripts. <em>Geoderma</em>, 338: 464–480. <a href="https://doi.org/10.1016/j.geoderma.2018.07.036">https://doi.org/10.1016/j.geoderma.2018.07.036</a>
-</div>
-<div class="csl-entry">
-<strong>Bui, E.</strong> 2020. Soil survey as a knowledge system. <em>Geoderma</em>, 359: 113948. <a href="https://doi.org/10.1016/j.geoderma.2019.113948">https://doi.org/10.1016/j.geoderma.2019.113948</a>
-</div>
-<div class="csl-entry">
-<strong>Clay, D.E., Chang, J., Malo, D.D., Carlson, C.G., Reese, C., Clay, S.A., Ellsbury, M. &amp; Berg, B.</strong> 2001. Factors influencing spatial variability of soil apparent electrical conductivity. <em>Communications in Soil Science and Plant Analysis</em>, 32(19-20): 2993–3008. <a href="https://doi.org/10.1081/CSS-120001104">https://doi.org/10.1081/CSS-120001104</a>
-</div>
-<div class="csl-entry">
-<strong>Gobin, A., Campling, P. &amp; Feyen, J.</strong> 2001. Soil-landscape modelling to quantify spatial variability of soil texture. <em>Physics and Chemistry of the Earth, Part B: Hydrology, Oceans and Atmosphere</em>, 26(1): 41–45. <a href="https://doi.org/10.1016/S1464-1909(01)85011-7">https://doi.org/10.1016/S1464-1909(01)85011-7</a>
-</div>
-<div class="csl-entry">
-<strong>Gruijter, J.J. de, Brus, D.J., Bierkens, M.F.P. &amp; Knotters, M.</strong> 2006. <em><a href="https://doi.org/10.1007/3-540-33161-1">Sampling for natural resource monitoring</a></em>. Berlin, Springer.
-</div>
-<div class="csl-entry">
-<strong>Gupta, S. &amp; Hengl, T.</strong> 2019. Soil available water capacity in mm derived for 5 standard layers (0-10, 10-30, 30-60, 60-100 and 100-200 cm) at 250 m resolution. Zenodo. <a href="https://doi.org/10.5281/zenodo.2629148">https://doi.org/10.5281/zenodo.2629148</a>
-</div>
-<div class="csl-entry">
-<strong>Hengl, T., Heuvelink, G.B.M. &amp; Rossiter, D.G.</strong> 2007. About regression-kriging: From equations to case studies. <em>Computers &amp; Geosciences</em>, 33: 1301–1315. <a href="https://doi.org/10.1016/j.cageo.2007.05.001">https://doi.org/10.1016/j.cageo.2007.05.001</a>
-</div>
-<div class="csl-entry">
-<strong>Hengl, T. &amp; MacMillan, R.A.</strong> 2019. <em>Predictive soil mapping with r</em>. Wageningen, the Netherlands, OpenGeoHub foundation. (also available at <a href="https://soilmapper.org/">https://soilmapper.org/</a>).
-</div>
-<div class="csl-entry">
-<strong>Heuvelink, G.B.M., Kros, J., Reinds, G.J. &amp; De Vries, W.</strong> 2016. Geostatistical prediction and simulation of european soil property maps. <em>Geoderma Regional</em>, 7: 201–215. <a href="https://doi.org/10.1016/j.geodrs.2016.04.002">https://doi.org/10.1016/j.geodrs.2016.04.002</a>
-</div>
-<div class="csl-entry">
-<strong>Heuvelink, G.B.M. &amp; Webster, R.</strong> 2001. Modelling soil variation: Past, present, and future. <em>Geoderma</em>, 100: 269–301. <a href="https://doi.org/10.1016/S0016-7061(01)00025-8">https://doi.org/10.1016/S0016-7061(01)00025-8</a>
-</div>
-<div class="csl-entry">
-<strong>Jenny, H.</strong> 1941 b. A system of quantitative pedology. In <span>“factors of soil formation”</span>. McGraw Hill: New York.
-</div>
-<div class="csl-entry">
-<strong>Jenny, H.</strong> 1941 a. <em>Factors of soil formation. A system of quantitative pedology</em>. New York, McGraw-Hill.
-</div>
-<div class="csl-entry">
-<strong>Kempen, B., Brus, D.J., Heuvelink, G.B.M. &amp; Stoorvogel, J.J.</strong> 2009. Updating the 1:50,000 dutch soil map using legacy soil data: A multinomial logistic regression approach. <em>Geoderma</em>, 151: 311–326. <a href="https://doi.org/10.1016/j.geoderma.2009.04.023">https://doi.org/10.1016/j.geoderma.2009.04.023</a>
-</div>
-<div class="csl-entry">
-<strong>Lagacherie, P.</strong> 2008. Digital soil mapping: A state of the art. <em>In</em> A.E. Hartemink, A.B. McBratney &amp; M.L. Mendonça-Santos, eds. <em>Digital soil mapping with limited data</em>, pp. 3–14. Dordrecht, Springer.
-</div>
-<div class="csl-entry">
-<strong>Lagacherie, P. &amp; McBratney, A.B.</strong> 2006. Spatial soil information systems and spatial soil inference systems: Perspectives for digital soil mapping. <em>In</em> P. Lagacherie, A.B. McBratney &amp; M. Voltz, eds. <em>Digital soil mapping: An introductory perspective</em>, pp. 3–22. Amsterdam, Elsevier.
-</div>
-<div class="csl-entry">
-<strong>Ma, Y., Minasny, B., Weerts, A., Poggio, L., Malone, B. &amp; McBratney, A.</strong> 2020. Comparison of conditioned <span>Latin</span> hypercube and feature space coverage sampling for predicting soil classes using simulation from soil maps. <em>Geoderma</em>, 370: 114366. <a href="https://doi.org/10.1016/j.geoderma.2020.114366">https://doi.org/10.1016/j.geoderma.2020.114366</a>
-</div>
-<div class="csl-entry">
-<strong>McBratney, A.B., Mendonça Santos, M.L. &amp; Minasny, B.</strong> 2003. On digital soil mapping. <em>Geoderma</em>, 117: 3–52. <a href="https://doi.org/10.1016/S0016-7061(03)00223-4">https://doi.org/10.1016/S0016-7061(03)00223-4</a>
-</div>
-<div class="csl-entry">
-<strong>Medeiros, B.M., Rossi, L.S., Caten, A.T., Pereira, G.E., Silva, E.B. &amp; U., Daboit.K.T.</strong> 2024. Soil legacy data: An opportunity for digital soil mapping. <em>Rev. Bras. Ciênc. Solo</em>, 48. <a href="https://doi.org/10.36783/18069657rbcs20230130">https://doi.org/10.36783/18069657rbcs20230130</a>
-</div>
-<div class="csl-entry">
-<strong>Milne, G.</strong> 1936. Normal erosion as a factor in soil profile development. <em>Nature</em>, 138: 548–549. <a href="https://doi.org/10.1038/138548c0">https://doi.org/10.1038/138548c0</a>
-</div>
-<div class="csl-entry">
-<strong>Minasny, B. &amp; McBratney, A.B.</strong> 2006. A conditioned <span>Latin</span> hypercube method for sampling in the presence of ancillary information. <em>Computers &amp; Geosciences</em>, 32(9): 1378–1388. <a href="https://doi.org/10.1016/j.cageo.2005.12.009">https://doi.org/10.1016/j.cageo.2005.12.009</a>
-</div>
-<div class="csl-entry">
-<strong>Minasny, B. &amp; McBratney, A.B.</strong> 2016. Digital soil mapping: A brief history and some lessons. <em>Geoderma</em>, 264: 301–311. <a href="https://doi.org/10.1016/j.geoderma.2015.07.017">https://doi.org/10.1016/j.geoderma.2015.07.017</a>
-</div>
-<div class="csl-entry">
-<strong>Morton, P.A. &amp; Heinemeyer, O.</strong> 2000. Soil sampling and preparation. <em>Methods in Ecosystem Science</em>: 85–94.
-</div>
-<div class="csl-entry">
-<strong>Newhall, F. &amp; Berdanier, C.R.</strong> 1996. Calculation of soil moisture regimes from the climatic record, p. 13. No. 46. Natural Resources Conservation Service.
-</div>
-<div class="csl-entry">
-<strong>Norris, C.E., Quideau, S.A., Landhausser, S.M., Bernard, G.M. &amp; Wasylishen, R.E.</strong> 2013. Tracking stable isotope enrichment in tree seedlings with solid-state <span><span class="math inline">\(^{15}\)</span>N</span> <span>NMR</span> spectroscopy. <em>Biogeosciences</em>, 10: 3433–3445. <a href="https://doi.org/10.5194/bg-10-3433-2013">https://doi.org/10.5194/bg-10-3433-2013</a>
-</div>
-<div class="csl-entry">
-<strong>Odeh, I.O.A., McBratney, A.B. &amp; Chittleborough, D.J.</strong> 1995. Further results on prediction of soil properties from terrain attributes: Heterotopic cokriging and regression-kriging. <em>Geoderma</em>, 67: 215–226. <a href="https://doi.org/10.1016/0016-7061(95)00007-B">https://doi.org/10.1016/0016-7061(95)00007-B</a>
-</div>
-<div class="csl-entry">
-<strong>Odgers, N.P., McBratney, A.B. &amp; Minasny, B.</strong> 2011. Bottom-up digital soil mapping. <span>I</span>. <span>S</span>oil layer classes. <em>Geoderma</em>, 163: 38–44. <a href="https://doi.org/10.1016/j.geoderma.2011.03.014">https://doi.org/10.1016/j.geoderma.2011.03.014</a>
-</div>
-<div class="csl-entry">
-<strong>Orton, T.G., Pringle, M.J., Page, K.L., Dalal, R.C. &amp; Bishop, T.F.A.</strong> 2014. Spatial prediction of soil organic carbon stock using a linear model of coregionalisation. <em>Geoderma</em>, 230–231: 119–130. <a href="https://doi.org/10.1016/j.geoderma.2014.04.016">https://doi.org/10.1016/j.geoderma.2014.04.016</a>
-</div>
-<div class="csl-entry">
-<strong>Padarian, J. &amp; McBratney, A.B.</strong> 2023. <span>QuadMap</span>: Variable resolution maps to communicate uncertainty. <em>Computers and Geosciences</em>, 181: 105480. <a href="https://doi.org/10.1016/j.cageo.2023.105480">https://doi.org/10.1016/j.cageo.2023.105480</a>
-</div>
-<div class="csl-entry">
-<strong>Pebesma, E. &amp; Bivand, R.</strong> 2021. Spatial data science with applications in r. <em>Methods in Ecology and Evolution</em>, 12: 1620–1633. <a href="https://doi.org/10.1111/2041-210X.13650">https://doi.org/10.1111/2041-210X.13650</a>
-</div>
-<div class="csl-entry">
-<strong>Prieto-Castrillo, F., Rodríguez-Rastrero, M., Yunta, F., Borondo, F. &amp; Borondo, J.</strong> 2023. Disentangling jenny’s equation by machine learning. <em>Scientific Reports</em>, 13(1): 20916. <a href="https://doi.org/10.1038/s41598-023-44171-x">https://doi.org/10.1038/s41598-023-44171-x</a>
-</div>
-<div class="csl-entry">
-<strong>Robertson, B.L., Brown, J.A., McDonald, T. &amp; Jaksons, P.</strong> 2013. <span>BAS</span>: Balanced acceptance sampling of natural resources. <em>Biometrics</em>, 69(3): 776–784. <a href="https://doi.org/10.1111/biom.12059">https://doi.org/10.1111/biom.12059</a>
-</div>
-<div class="csl-entry">
-<strong>Saurette, D.D., Berg, A., Laamrani, A., Heck, R.J., Gillespie, A.W. &amp; Biswas, A.</strong> 2023. Determining optimal sample size for soil spectroscopy applications: Learning curves and model validation. <em>Soil Science Society of America Journal</em>, 87(6): 1557–1572. <a href="https://doi.org/10.1002/saj2.20608">https://doi.org/10.1002/saj2.20608</a>
-</div>
-<div class="csl-entry">
-<strong>Schmidinger, J., Heuvelink, G.B.M. &amp; Brus, D.J.</strong> 2024. Sampling design optimization for soil mapping with random forest. <em>Geoderma</em>, 444: 116849. <a href="https://doi.org/10.1016/j.geoderma.2024.116849">https://doi.org/10.1016/j.geoderma.2024.116849</a>
-</div>
-<div class="csl-entry">
-<strong>Stevens, D.L. &amp; Olsen, A.R.</strong> 2004. Spatially balanced sampling of natural resources. <em>Journal of the American Statistical Association</em>, 99(465): 262–278. <a href="https://doi.org/10.1198/016214504000000250">https://doi.org/10.1198/016214504000000250</a>
-</div>
-<div class="csl-entry">
-<strong>Styc, Q. &amp; Lagacherie, P.</strong> 2021. Combining spatial-environmental covariates and soil input data types to predict soil available water holding capacity. <em>Geoderma</em>, 401: 115171. <a href="https://doi.org/10.1016/j.geoderma.2021.115171">https://doi.org/10.1016/j.geoderma.2021.115171</a>
-</div>
-<div class="csl-entry">
-<strong>Wadoux, A.M.J.-C., Minasny, B. &amp; McBratney, A.B.</strong> 2021. Machine learning for digital soil mapping: Applications, challenges and suggested solutions. <em>Earth-Science Reviews</em>, 210: 103359. <a href="https://doi.org/10.1016/j.earscirev.2020.103359">https://doi.org/10.1016/j.earscirev.2020.103359</a>
-</div>
-<div class="csl-entry">
-<strong>Webster, R., Lessells, C.M. &amp; Hodgson, J.M.</strong> 1979. A reconnaissance soil survey of the ivybridge area of south devon. <em>Soil Survey Technical Monograph</em>, 12.
-</div>
-<div class="csl-entry">
-<strong>Webster, R. &amp; Oliver, M.A.</strong> 2007. <em>Geostatistics for environmental scientists</em>. 2nd edition. Chichester, John Wiley &amp; Sons.
-</div>
-<div class="csl-entry">
-<strong>Zanaga, D., Van De Kerchove, R., Daems, D., De Keersmaecker, W., Brockmann, C., Kirches, G., Wevers, J., Cartus, O., Santoro, M., Fritz, S., Lesiv, M., Herold, M., Tsendbazar, N.-E., Xu, P., Ramoino, F. &amp; Arino, O.</strong> 2022. ESA WorldCover 10 m 2021 v200. Zenodo. <a href="https://doi.org/10.5281/zenodo.7254221">https://doi.org/10.5281/zenodo.7254221</a>
-</div>
-<div class="csl-entry">
-<strong>Zhang, L., Heuvelink, G.B.M., Mulder, V.L., Chen, S., Deng, X. &amp; Yang, L.</strong> 2024. Using process-oriented model output to enhance machine learning-based soil organic carbon prediction in space and time. <em>Science of the Total Environment</em>, 922: 170778. <a href="https://doi.org/10.1016/j.scitotenv.2024.170778">https://doi.org/10.1016/j.scitotenv.2024.170778</a>
-</div>
-</div>
-</div>
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="soil-data-harmonization-sharing-dissemination.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="part-ii-practical-application-1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="soil-data-harmonization-sharing-dissemination.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
