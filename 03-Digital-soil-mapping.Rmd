@@ -273,7 +273,7 @@ the S = f(Q) relationship introduced in Part I. They are stored as a multi-layer
 stack (`.tif`) where each layer represents one spatially continuous variable.
 
 ```{r load-covs, eval=FALSE}
-covs <- rast("01_data/module3/Env_Cov_250m_KANSAS.tif")
+covs <- rast("01_data/module1/training_data/Environmental_Covariates_250m_KANSAS.tif")
 
 cov_names <- names(covs)
 
@@ -665,7 +665,7 @@ Sys.setenv(PROJ_DATA = system.file("proj", package = "terra"))
 setwd(dirname(rstudioapi::getActiveDocumentContext()$path))
 setwd("../../")
 
-covs    <- rast("01_data/module3/Env_Cov_250m_KANSAS.tif")
+covs    <- rast("01_data/module1/training_data/Environmental_Covariates_250m_KANSAS.tif")
 cov_names <- names(covs)
 target  <- "SOC"
 model   <- readRDS(paste0("03_outputs/module3/models/ranger_model_", target, ".rds"))

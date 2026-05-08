@@ -788,7 +788,7 @@ RStudio, not from this document.</p>
 <p>The environmental covariates are the <em>predictors</em> in the DSM model — the Q factor in
 the S = f(Q) relationship introduced in Part I. They are stored as a multi-layer raster
 stack (<code>.tif</code>) where each layer represents one spatially continuous variable.</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="digital-soil-mapping.html#cb239-1" tabindex="-1"></a>covs <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;01_data/module3/Env_Cov_250m_KANSAS.tif&quot;</span>)</span>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="digital-soil-mapping.html#cb239-1" tabindex="-1"></a>covs <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;01_data/module1/training_data/Environmental_Covariates_250m_KANSAS.tif&quot;</span>)</span>
 <span id="cb239-2"><a href="digital-soil-mapping.html#cb239-2" tabindex="-1"></a></span>
 <span id="cb239-3"><a href="digital-soil-mapping.html#cb239-3" tabindex="-1"></a>cov_names <span class="ot">&lt;-</span> <span class="fu">names</span>(covs)</span>
 <span id="cb239-4"><a href="digital-soil-mapping.html#cb239-4" tabindex="-1"></a></span>
@@ -1164,12 +1164,12 @@ Figure 3.2: Permutation-based variable importance for the SOC model. Longer bars
 </thead>
 <tbody>
 <tr class="odd">
-<td align="right">-0.01</td>
+<td align="right">-0.02</td>
 <td align="right">0.5</td>
 <td align="right">0.72</td>
-<td align="right">0.71</td>
-<td align="right">0.5</td>
-<td align="right">0.5</td>
+<td align="right">0.7</td>
+<td align="right">0.49</td>
+<td align="right">0.49</td>
 </tr>
 </tbody>
 </table>
@@ -1239,7 +1239,7 @@ Figure 3.3: Observed vs predicted SOC values from cross-validation. The red line
 <span id="cb253-9"><a href="digital-soil-mapping.html#cb253-9" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">dirname</span>(rstudioapi<span class="sc">::</span><span class="fu">getActiveDocumentContext</span>()<span class="sc">$</span>path))</span>
 <span id="cb253-10"><a href="digital-soil-mapping.html#cb253-10" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;../../&quot;</span>)</span>
 <span id="cb253-11"><a href="digital-soil-mapping.html#cb253-11" tabindex="-1"></a></span>
-<span id="cb253-12"><a href="digital-soil-mapping.html#cb253-12" tabindex="-1"></a>covs    <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;01_data/module3/Env_Cov_250m_KANSAS.tif&quot;</span>)</span>
+<span id="cb253-12"><a href="digital-soil-mapping.html#cb253-12" tabindex="-1"></a>covs    <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;01_data/module1/training_data/Environmental_Covariates_250m_KANSAS.tif&quot;</span>)</span>
 <span id="cb253-13"><a href="digital-soil-mapping.html#cb253-13" tabindex="-1"></a>cov_names <span class="ot">&lt;-</span> <span class="fu">names</span>(covs)</span>
 <span id="cb253-14"><a href="digital-soil-mapping.html#cb253-14" tabindex="-1"></a>target  <span class="ot">&lt;-</span> <span class="st">&quot;SOC&quot;</span></span>
 <span id="cb253-15"><a href="digital-soil-mapping.html#cb253-15" tabindex="-1"></a>model   <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/models/ranger_model_&quot;</span>, target, <span class="st">&quot;.rds&quot;</span>))</span></code></pre></div>
@@ -1297,6 +1297,18 @@ Figure 3.3: Observed vs predicted SOC values from cross-validation. The red line
 <span id="cb256-19"><a href="digital-soil-mapping.html#cb256-19" tabindex="-1"></a></span>
 <span id="cb256-20"><a href="digital-soil-mapping.html#cb256-20" tabindex="-1"></a><span class="fu">mapview</span>(pred_mean_t1)</span></code></pre></div>
 <p><code>terra::interpolate()</code> applies the model to every pixel of the covariate tile. The <code>what</code> argument controls which summary of the quantile distribution is computed: <code>what = mean</code> returns the conditional mean (the best-estimate prediction map), and <code>what = sd</code> returns the conditional standard deviation (the uncertainty map). These correspond directly to m(s) and σ(s) in the Universal Model of Soil Variation.</p>
+<div class="figure"><span style="display:block;" id="fig:tile1-mean"></span>
+<img src="SoilFER-Integrated-soil-information-for-decision-making_files/figure-html/tile1-mean-1.png" alt="SOC mean prediction for tile 1 (g/kg)." width="960" />
+<p class="caption">
+Figure 3.4: SOC mean prediction for tile 1 (g/kg).
+</p>
+</div>
+<div class="figure"><span style="display:block;" id="fig:tile1-sd"></span>
+<img src="SoilFER-Integrated-soil-information-for-decision-making_files/figure-html/tile1-sd-1.png" alt="SOC prediction uncertainty (SD) for tile 1 (g/kg)." width="960" />
+<p class="caption">
+Figure 3.5: SOC prediction uncertainty (SD) for tile 1 (g/kg).
+</p>
+</div>
 <blockquote>
 <p><strong>Reading the uncertainty map:</strong> high SD values indicate locations where the model is less confident — typically at the extremes of the environmental gradient, in areas with few nearby training samples, or where the covariate combination is unlike anything seen during training. These areas should be prioritised for additional soil sampling in future surveys.</p>
 </blockquote>
