@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Module 6 Part II – Practical application | DRAFT - Integrated soil information for decision-making </title>
+  <meta name="description" content="SoilFER SID Technical Manual" />
+  <meta name="generator" content="bookdown 0.46 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Module 6 Part II – Practical application | DRAFT - Integrated soil information for decision-making " />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="SoilFER SID Technical Manual" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Module 6 Part II – Practical application | DRAFT - Integrated soil information for decision-making " />
+  
+  <meta name="twitter:description" content="SoilFER SID Technical Manual" />
+  
+
+<meta name="author" content="Angelini, M.E., Rodriguez Lado, L., Mendes, W. S., Ribeiro, E., Luotto, I." />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="part-i---digital-soil-mapping-with-spectroscopy.html"/>
+<link rel="next" href="summary.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Licence</a></li>
+<li class="chapter" data-level="" data-path="abbreviations-and-acronyms.html"><a href="abbreviations-and-acronyms.html"><i class="fa fa-check"></i>Abbreviations and acronyms</a></li>
+<li class="chapter" data-level="" data-path="contributors-and-reviewers.html"><a href="contributors-and-reviewers.html"><i class="fa fa-check"></i>Contributors and reviewers</a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html"><i class="fa fa-check"></i>Presentation and basics</a>
+<ul>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#background-and-objective"><i class="fa fa-check"></i>Background and Objective</a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#the-training-dataset"><i class="fa fa-check"></i>The Training Dataset</a>
+<ul>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#data-structure"><i class="fa fa-check"></i>Data Structure</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#how-to-use-this-manual"><i class="fa fa-check"></i>How to Use This Manual</a>
+<ul>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#manual-structure"><i class="fa fa-check"></i>Manual Structure</a>
+<ul>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-1-introduction-to-r-and-preparation-of-soil-data-for-digital-soil-mapping"><i class="fa fa-check"></i><strong>Module 1: Introduction to R and Preparation of Soil Data for Digital Soil Mapping</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-2-soil-sampling-design"><i class="fa fa-check"></i><strong>Module 2: Soil Sampling Design</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-3-glosis-data-preparation"><i class="fa fa-check"></i><strong>Module 3: GloSIS Data Preparation</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-4-digital-soil-mapping"><i class="fa fa-check"></i><strong>Module 4: Digital Soil Mapping</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-5-soil-spectroscopy"><i class="fa fa-check"></i><strong>Module 5: Soil Spectroscopy</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-6-soil-data-sharing"><i class="fa fa-check"></i><strong>Module 6: Soil Data Sharing</strong></a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#required-downloads"><i class="fa fa-check"></i>Required downloads</a>
+<ul>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#step-by-step-setup-instructions"><i class="fa fa-check"></i>Step-by-step setup instructions</a>
+<ul>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#step-1-download-and-extract-the-github-repository"><i class="fa fa-check"></i>Step 1: Download and extract the GitHub repository</a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#step-2-download-the-google-drive-data"><i class="fa fa-check"></i>Step 2: Download the Google Drive data</a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#step-3-inspect-the-project-folder-structure"><i class="fa fa-check"></i>Step 3: Inspect the project folder structure</a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#step-4-place-google-drive-files-into-the-correct-module-folders"><i class="fa fa-check"></i>Step 4: Place Google Drive files into the correct module folders</a></li>
+</ul></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html"><i class="fa fa-check"></i>Software installation</a>
+<ul>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#installing-r-and-rstudio"><i class="fa fa-check"></i>Installing R and RStudio</a>
+<ul>
+<li class="chapter" data-level="0.0.1" data-path="software-installation.html"><a href="software-installation.html#installing-r"><i class="fa fa-check"></i><b>0.0.1</b> Installing R</a></li>
+<li class="chapter" data-level="0.0.2" data-path="software-installation.html"><a href="software-installation.html#installing-rstudio"><i class="fa fa-check"></i><b>0.0.2</b> Installing RStudio</a></li>
+<li class="chapter" data-level="0.0.3" data-path="software-installation.html"><a href="software-installation.html#verifying-installation"><i class="fa fa-check"></i><b>0.0.3</b> Verifying Installation</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#setting-up-google-earth-engine"><i class="fa fa-check"></i>Setting Up Google Earth Engine</a>
+<ul>
+<li class="chapter" data-level="0.0.4" data-path="software-installation.html"><a href="software-installation.html#step-1-create-a-google-account"><i class="fa fa-check"></i><b>0.0.4</b> Step 1: Create a Google Account</a></li>
+<li class="chapter" data-level="0.0.5" data-path="software-installation.html"><a href="software-installation.html#step-2-register-for-a-gee-account"><i class="fa fa-check"></i><b>0.0.5</b> Step 2: Register for a GEE Account</a></li>
+<li class="chapter" data-level="0.0.6" data-path="software-installation.html"><a href="software-installation.html#step-3-create-or-select-a-google-cloud-project"><i class="fa fa-check"></i><b>0.0.6</b> Step 3: Create or Select a Google Cloud Project</a></li>
+<li class="chapter" data-level="0.0.7" data-path="software-installation.html"><a href="software-installation.html#step-4-access-the-gee-code-editor"><i class="fa fa-check"></i><b>0.0.7</b> Step 4: Access the GEE Code Editor</a>
+<ul>
+<li class="chapter" data-level="0.0.7.1" data-path="software-installation.html"><a href="software-installation.html#left-panel-scripts-assets-and-documentation"><i class="fa fa-check"></i><b>0.0.7.1</b> Left Panel: Scripts, Assets, and Documentation</a></li>
+<li class="chapter" data-level="0.0.7.2" data-path="software-installation.html"><a href="software-installation.html#central-panel-the-code-editor"><i class="fa fa-check"></i><b>0.0.7.2</b> Central Panel: The Code Editor</a></li>
+</ul></li>
+<li class="chapter" data-level="0.0.8" data-path="software-installation.html"><a href="software-installation.html#right-panel-console-inspector-and-tasks"><i class="fa fa-check"></i><b>0.0.8</b> Right Panel: Console, Inspector, and Tasks</a></li>
+<li class="chapter" data-level="0.0.9" data-path="software-installation.html"><a href="software-installation.html#lower-section-the-interactive-map"><i class="fa fa-check"></i><b>0.0.9</b> Lower Section: The Interactive Map</a></li>
+<li class="chapter" data-level="0.0.10" data-path="software-installation.html"><a href="software-installation.html#step-5-prepare-your-google-drive-export-folder"><i class="fa fa-check"></i><b>0.0.10</b> Step 5: Prepare Your Google Drive Export Folder</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#installation-of-qgis"><i class="fa fa-check"></i>Installation of QGIS</a>
+<ul>
+<li class="chapter" data-level="0.0.11" data-path="software-installation.html"><a href="software-installation.html#windows"><i class="fa fa-check"></i><b>0.0.11</b> Windows</a></li>
+<li class="chapter" data-level="0.0.12" data-path="software-installation.html"><a href="software-installation.html#macos-linux"><i class="fa fa-check"></i><b>0.0.12</b> macOS / Linux</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="software-installation.html"><a href="software-installation.html#installation-of-docker-desktop-and-docker-compose"><i class="fa fa-check"></i>Installation of Docker Desktop and Docker Compose</a>
+<ul>
+<li class="chapter" data-level="0.0.13" data-path="software-installation.html"><a href="software-installation.html#windows-1"><i class="fa fa-check"></i><b>0.0.13</b> Windows</a></li>
+<li class="chapter" data-level="0.0.14" data-path="software-installation.html"><a href="software-installation.html#macos"><i class="fa fa-check"></i><b>0.0.14</b> macOS</a></li>
+<li class="chapter" data-level="0.0.15" data-path="software-installation.html"><a href="software-installation.html#linux"><i class="fa fa-check"></i><b>0.0.15</b> Linux</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html"><i class="fa fa-check"></i><b>1</b> Introduction to Soil Data Preparation &amp; Spatial Data</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#part-one-introduction-to-r"><i class="fa fa-check"></i><b>1.1</b> PART ONE: Introduction to R</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#understanding-the-rstudio-interface"><i class="fa fa-check"></i><b>1.1.1</b> Understanding the RStudio Interface</a></li>
+<li class="chapter" data-level="1.1.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#r-packages-extending-rs-capabilities"><i class="fa fa-check"></i><b>1.1.2</b> R Packages: Extending R’s Capabilities</a>
+<ul>
+<li class="chapter" data-level="1.1.2.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#what-are-packages"><i class="fa fa-check"></i><b>1.1.2.1</b> What are Packages?</a></li>
+<li class="chapter" data-level="1.1.2.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#installing-packages"><i class="fa fa-check"></i><b>1.1.2.2</b> Installing Packages</a></li>
+<li class="chapter" data-level="1.1.2.3" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#loading-packages"><i class="fa fa-check"></i><b>1.1.2.3</b> Loading Packages</a></li>
+<li class="chapter" data-level="1.1.2.4" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#finding-help-on-packages"><i class="fa fa-check"></i><b>1.1.2.4</b> Finding Help on Packages</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.3" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#object-types"><i class="fa fa-check"></i><b>1.1.3</b> R Basics: Objects and Data Types</a>
+<ul>
+<li class="chapter" data-level="1.1.3.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#object-assignment"><i class="fa fa-check"></i><b>1.1.3.1</b> Creating Objects with Assignment</a></li>
+<li class="chapter" data-level="1.1.3.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#data-types"><i class="fa fa-check"></i><b>1.1.3.2</b> Data Types in R</a></li>
+<li class="chapter" data-level="1.1.3.3" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#check-data"><i class="fa fa-check"></i><b>1.1.3.3</b> Checking Data Types</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.4" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#structure-data"><i class="fa fa-check"></i><b>1.1.4</b> Data Structures in R</a>
+<ul>
+<li class="chapter" data-level="1.1.4.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#vector-data"><i class="fa fa-check"></i><b>1.1.4.1</b> Vectors</a></li>
+<li class="chapter" data-level="1.1.4.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#factor-data"><i class="fa fa-check"></i><b>1.1.4.2</b> Factors</a></li>
+<li class="chapter" data-level="1.1.4.3" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#matrix-data"><i class="fa fa-check"></i><b>1.1.4.3</b> Matrices</a></li>
+<li class="chapter" data-level="1.1.4.4" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#dataframe"><i class="fa fa-check"></i><b>1.1.4.4</b> Data Frames</a></li>
+<li class="chapter" data-level="1.1.4.5" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#list-data"><i class="fa fa-check"></i><b>1.1.4.5</b> Lists</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.5" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#operators"><i class="fa fa-check"></i><b>1.1.5</b> Operators in R</a>
+<ul>
+<li class="chapter" data-level="1.1.5.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#arithmetic-operators"><i class="fa fa-check"></i><b>1.1.5.1</b> Arithmetic Operators</a></li>
+<li class="chapter" data-level="1.1.5.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#comparison-operators"><i class="fa fa-check"></i><b>1.1.5.2</b> Comparison Operators</a></li>
+<li class="chapter" data-level="1.1.5.3" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#logical-operators"><i class="fa fa-check"></i><b>1.1.5.3</b> Logical Operators</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.6" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#conditional-statements"><i class="fa fa-check"></i><b>1.1.6</b> Control Structures: Conditional Statements</a>
+<ul>
+<li class="chapter" data-level="1.1.6.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#ifelse-statements"><i class="fa fa-check"></i><b>1.1.6.1</b> If-Else Statements</a></li>
+<li class="chapter" data-level="1.1.6.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#v-ifelse-statements"><i class="fa fa-check"></i><b>1.1.6.2</b> Vectorized If-Else: <code>ifelse()</code></a></li>
+<li class="chapter" data-level="1.1.6.3" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#cut-statements"><i class="fa fa-check"></i><b>1.1.6.3</b> Vectorized Cut: <code>cut()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.7" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#control-structures"><i class="fa fa-check"></i><b>1.1.7</b> Control Structures: Loops</a>
+<ul>
+<li class="chapter" data-level="1.1.7.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#for-loop"><i class="fa fa-check"></i><b>1.1.7.1</b> For Loops</a></li>
+<li class="chapter" data-level="1.1.7.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#while-loop"><i class="fa fa-check"></i><b>1.1.7.2</b> While Loops</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.8" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#r-funtions"><i class="fa fa-check"></i><b>1.1.8</b> Functions in R</a>
+<ul>
+<li class="chapter" data-level="1.1.8.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#built-funtions"><i class="fa fa-check"></i><b>1.1.8.1</b> Using Built-in Functions</a></li>
+<li class="chapter" data-level="1.1.8.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#build-functions"><i class="fa fa-check"></i><b>1.1.8.2</b> Creating Custom Functions</a></li>
+<li class="chapter" data-level="1.1.8.3" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#arguments-functions"><i class="fa fa-check"></i><b>1.1.8.3</b> Function Arguments and Defaults</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.9" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#R-data-manipulation"><i class="fa fa-check"></i><b>1.1.9</b> Data Manipulation with Base R</a>
+<ul>
+<li class="chapter" data-level="1.1.9.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#R-data-subset"><i class="fa fa-check"></i><b>1.1.9.1</b> Subsetting and Filtering</a></li>
+<li class="chapter" data-level="1.1.9.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#delete-cols"><i class="fa fa-check"></i><b>1.1.9.2</b> Deleting Columns and Rows</a></li>
+<li class="chapter" data-level="1.1.9.3" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#sort-rows"><i class="fa fa-check"></i><b>1.1.9.3</b> Sorting Data</a></li>
+<li class="chapter" data-level="1.1.9.4" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#aggregate-rows"><i class="fa fa-check"></i><b>1.1.9.4</b> Aggregating Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.10" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#tidyverse-manipultation"><i class="fa fa-check"></i><b>1.1.10</b> Data Manipulation with the Tidyverse</a>
+<ul>
+<li class="chapter" data-level="1.1.10.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#tidyverse-load"><i class="fa fa-check"></i><b>1.1.10.1</b> Loading the Tidyverse</a></li>
+<li class="chapter" data-level="1.1.10.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#tidyverse-tibbles"><i class="fa fa-check"></i><b>1.1.10.2</b> Tibbles: Modern Data Frames</a></li>
+<li class="chapter" data-level="1.1.10.3" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#tidyverse-pipe"><i class="fa fa-check"></i><b>1.1.10.3</b> The Pipe Operator: <code>%&gt;%</code></a></li>
+<li class="chapter" data-level="1.1.10.4" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#manipulation-dplyr"><i class="fa fa-check"></i><b>1.1.10.4</b> Data Manipulation with <code>{dplyr}</code></a></li>
+<li class="chapter" data-level="1.1.10.5" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#dplyr-rename"><i class="fa fa-check"></i><b>1.1.10.5</b> Renaming Columns with <code>rename()</code></a></li>
+<li class="chapter" data-level="1.1.10.6" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#dplyr-group"><i class="fa fa-check"></i><b>1.1.10.6</b> Grouping and Summarizing Data by columns</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.11" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#dplyr-join"><i class="fa fa-check"></i><b>1.1.11</b> Combining Data Frames</a>
+<ul>
+<li class="chapter" data-level="1.1.11.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#understand-joins"><i class="fa fa-check"></i><b>1.1.11.1</b> Understanding Joins</a></li>
+<li class="chapter" data-level="1.1.11.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#dplyr-bind_rows"><i class="fa fa-check"></i><b>1.1.11.2</b> Stacking Data with <code>bind_rows()</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.12" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#NA"><i class="fa fa-check"></i><b>1.1.12</b> Missing Data</a>
+<ul>
+<li class="chapter" data-level="1.1.12.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#identify-NA"><i class="fa fa-check"></i><b>1.1.12.1</b> Identifying Missing Data</a></li>
+<li class="chapter" data-level="1.1.12.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#handle-NA"><i class="fa fa-check"></i><b>1.1.12.2</b> Handling Missing Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.13" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#pivoting"><i class="fa fa-check"></i><b>1.1.13</b> Data Reshaping with <code>{tidyr}</code> package: Pivoting</a></li>
+<li class="chapter" data-level="1.1.14" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#dl-data"><i class="fa fa-check"></i><b>1.1.14</b> Handling Below Detection Limit Data</a></li>
+<li class="chapter" data-level="1.1.15" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#soil-data"><i class="fa fa-check"></i><b>1.1.15</b> Working with Soil Data</a>
+<ul>
+<li class="chapter" data-level="1.1.15.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#set-directory"><i class="fa fa-check"></i><b>1.1.15.1</b> Setting Working Directory</a></li>
+<li class="chapter" data-level="1.1.15.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#load-packages"><i class="fa fa-check"></i><b>1.1.15.2</b> Load packages</a></li>
+<li class="chapter" data-level="1.1.15.3" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#import-files"><i class="fa fa-check"></i><b>1.1.15.3</b> Importing Data from Files</a></li>
+<li class="chapter" data-level="1.1.15.4" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#data-exploration"><i class="fa fa-check"></i><b>1.1.15.4</b> Exploring the Data</a></li>
+</ul></li>
+<li class="chapter" data-level="1.1.16" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#r-resources"><i class="fa fa-check"></i><b>1.1.16</b> Additional resources</a></li>
+<li class="chapter" data-level="" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#references"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#part-two-data-preparation-for-digital-soil-mapping-in-r"><i class="fa fa-check"></i><b>1.2</b> PART TWO: Data preparation for Digital Soil Mapping in R</a>
+<ul>
+<li class="chapter" data-level="1.2.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#introduction"><i class="fa fa-check"></i><b>1.2.1</b> Introduction</a></li>
+<li class="chapter" data-level="1.2.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#preparing-soil-observations"><i class="fa fa-check"></i><b>1.2.2</b> Preparing Soil Observations</a>
+<ul>
+<li class="chapter" data-level="1.2.2.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#loading-and-exploring-raw-soil-data"><i class="fa fa-check"></i><b>1.2.2.1</b> Loading and exploring raw soil data</a></li>
+<li class="chapter" data-level="1.2.2.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#preparing-site-data-for-analysis"><i class="fa fa-check"></i><b>1.2.2.2</b> Preparing site data for analysis</a></li>
+<li class="chapter" data-level="1.2.2.3" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#coordinate-validation-and-correction"><i class="fa fa-check"></i><b>1.2.2.3</b> Coordinate validation and correction</a></li>
+<li class="chapter" data-level="1.2.2.4" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#soil-depth-validation-and-correction"><i class="fa fa-check"></i><b>1.2.2.4</b> Soil depth validation and correction</a></li>
+<li class="chapter" data-level="1.2.2.5" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#preparing-lab-data-harmonization-and-validation"><i class="fa fa-check"></i><b>1.2.2.5</b> Preparing lab data: harmonization and validation</a></li>
+<li class="chapter" data-level="1.2.2.6" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#resolving-duplicated-data-in-soil-profiles"><i class="fa fa-check"></i><b>1.2.2.6</b> Resolving duplicated data in soil profiles</a></li>
+<li class="chapter" data-level="1.2.2.7" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#harmonizing-data-for-dsm"><i class="fa fa-check"></i><b>1.2.2.7</b> Harmonizing data for DSM</a></li>
+<li class="chapter" data-level="1.2.2.8" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#preparing-data-for-spectroscopy-analyses"><i class="fa fa-check"></i><b>1.2.2.8</b> Preparing data for spectroscopy analyses</a></li>
+<li class="chapter" data-level="1.2.2.9" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#summary-of-exported-files"><i class="fa fa-check"></i><b>1.2.2.9</b> Summary of exported files</a></li>
+</ul></li>
+<li class="chapter" data-level="1.2.3" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#spatial-analysis-in-r"><i class="fa fa-check"></i><b>1.2.3</b> Spatial Analysis in R</a>
+<ul>
+<li class="chapter" data-level="1.2.3.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#spatial-data-concepts"><i class="fa fa-check"></i><b>1.2.3.1</b> Spatial Data Concepts</a></li>
+<li class="chapter" data-level="1.2.3.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#spatial-data-types-vector-vs-raster-data"><i class="fa fa-check"></i><b>1.2.3.2</b> Spatial Data Types: Vector vs Raster Data</a></li>
+<li class="chapter" data-level="1.2.3.3" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#coordinate-reference-systems-crs-and-projections"><i class="fa fa-check"></i><b>1.2.3.3</b> Coordinate Reference Systems (CRS) and Projections</a></li>
+<li class="chapter" data-level="1.2.3.4" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#spatial-packages-in-r-sf-and-terra"><i class="fa fa-check"></i><b>1.2.3.4</b> Spatial Packages in R: <code>{sf}</code> and <code>{terra}</code></a></li>
+</ul></li>
+<li class="chapter" data-level="1.2.4" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#preparing-raster-covariates"><i class="fa fa-check"></i><b>1.2.4</b> Preparing Raster Covariates</a>
+<ul>
+<li class="chapter" data-level="1.2.4.1" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#working-with-raster-data-using-terra"><i class="fa fa-check"></i><b>1.2.4.1</b> Working with Raster Data using <code>{terra}</code></a></li>
+<li class="chapter" data-level="1.2.4.2" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#calculation-of-soilclimate-rasters-newhall-simulation-model"><i class="fa fa-check"></i><b>1.2.4.2</b> Calculation of Soil–Climate Rasters (Newhall Simulation Model)</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="introduction-to-soil-data-preparation-spatial-data.html"><a href="introduction-to-soil-data-preparation-spatial-data.html#references-1"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html"><i class="fa fa-check"></i><b>2</b> Sampling design for soil surveys</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#introduction-ssd"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
+<li class="chapter" data-level="2.2" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#sampling-theory"><i class="fa fa-check"></i><b>2.2</b> Sampling methodologies for soil spatial survey</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#selection-methods"><i class="fa fa-check"></i><b>2.2.1</b> Selection of the sampling methodology</a></li>
+<li class="chapter" data-level="2.2.2" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#inference-methods"><i class="fa fa-check"></i><b>2.2.2</b> Inference Methods</a></li>
+<li class="chapter" data-level="2.2.3" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#sampling-purpose"><i class="fa fa-check"></i><b>2.2.3</b> Purpose of Sampling</a></li>
+<li class="chapter" data-level="2.2.4" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#design-types"><i class="fa fa-check"></i><b>2.2.4</b> Sampling Design Types</a></li>
+<li class="chapter" data-level="2.2.5" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#soils4africa-example"><i class="fa fa-check"></i><b>2.2.5</b> Example: Soils4Africa Sampling Design</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#soilfer-design"><i class="fa fa-check"></i><b>2.3</b> SoilFER Sampling Design</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#soil-properties"><i class="fa fa-check"></i><b>2.3.1</b> Soil Properties</a></li>
+<li class="chapter" data-level="2.3.2" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#env-covariates"><i class="fa fa-check"></i><b>2.3.2</b> Environmental Covariates</a></li>
+<li class="chapter" data-level="2.3.3" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#methodology"><i class="fa fa-check"></i><b>2.3.3</b> Understanding the Methodology</a>
+<ul>
+<li class="chapter" data-level="2.3.3.1" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#psu-selection-process"><i class="fa fa-check"></i><b>2.3.3.1</b> PSU Selection Process</a></li>
+<li class="chapter" data-level="2.3.3.2" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#ssu-tsu-selection"><i class="fa fa-check"></i><b>2.3.3.2</b> SSU and TSU Selection Process</a></li>
+<li class="chapter" data-level="2.3.3.3" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#site-id"><i class="fa fa-check"></i><b>2.3.3.3</b> Site Identification System</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#tutorial"><i class="fa fa-check"></i><b>2.4</b> Tutorial using R</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#setup"><i class="fa fa-check"></i><b>2.4.1</b> Setting up the environment</a></li>
+<li class="chapter" data-level="2.4.2" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#install-libraries"><i class="fa fa-check"></i><b>2.4.2</b> Install required libraries</a></li>
+<li class="chapter" data-level="2.4.3" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#define-parameters"><i class="fa fa-check"></i><b>2.4.3</b> Define variables and parameters</a>
+<ul>
+<li class="chapter" data-level="2.4.3.1" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#country-iso-code"><i class="fa fa-check"></i><b>2.4.3.1</b> Country ISO code</a></li>
+<li class="chapter" data-level="2.4.3.2" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#land-use-type"><i class="fa fa-check"></i><b>2.4.3.2</b> Land-use type</a></li>
+<li class="chapter" data-level="2.4.3.3" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#file-paths"><i class="fa fa-check"></i><b>2.4.3.3</b> File paths</a></li>
+<li class="chapter" data-level="2.4.3.4" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#coordinate-reference-system"><i class="fa fa-check"></i><b>2.4.3.4</b> Coordinate reference system</a></li>
+<li class="chapter" data-level="2.4.3.5" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#sample-size-calculation"><i class="fa fa-check"></i><b>2.4.3.5</b> Sample size calculation</a></li>
+<li class="chapter" data-level="2.4.3.6" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#sampling-unit-definitions"><i class="fa fa-check"></i><b>2.4.3.6</b> Sampling unit definitions</a></li>
+<li class="chapter" data-level="2.4.3.7" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#algorithm-parameters"><i class="fa fa-check"></i><b>2.4.3.7</b> Algorithm parameters</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4.4" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#custom-functions"><i class="fa fa-check"></i><b>2.4.4</b> Custom functions</a>
+<ul>
+<li class="chapter" data-level="2.4.4.1" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#covariate-space-coverage-csis"><i class="fa fa-check"></i><b>2.4.4.1</b> Covariate Space Coverage (CSIS)</a></li>
+<li class="chapter" data-level="2.4.4.2" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#k-means-with-progress-reporting"><i class="fa fa-check"></i><b>2.4.4.2</b> K-means with progress reporting</a></li>
+<li class="chapter" data-level="2.4.4.3" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#tsu-generation"><i class="fa fa-check"></i><b>2.4.4.3</b> TSU generation</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4.5" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#load-boundaries"><i class="fa fa-check"></i><b>2.4.5</b> Load country boundaries and legacy data</a>
+<ul>
+<li class="chapter" data-level="2.4.5.1" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#visualize-boundaries-and-legacy-data"><i class="fa fa-check"></i><b>2.4.5.1</b> Visualize boundaries and legacy data</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4.6" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#load-covariates-psu"><i class="fa fa-check"></i><b>2.4.6</b> Load environmental covariates for PSUs</a>
+<ul>
+<li class="chapter" data-level="2.4.6.1" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#protected-areas-mask-exclude-from-sampling"><i class="fa fa-check"></i><b>2.4.6.1</b> Protected areas mask (exclude from sampling)</a></li>
+<li class="chapter" data-level="2.4.6.2" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#slope-mask-exclude-steep-terrain"><i class="fa fa-check"></i><b>2.4.6.2</b> Slope mask (exclude steep terrain)</a></li>
+<li class="chapter" data-level="2.4.6.3" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#ecoregions-geology-data-for-stratification"><i class="fa fa-check"></i><b>2.4.6.3</b> Ecoregions / Geology data (for stratification)</a></li>
+<li class="chapter" data-level="2.4.6.4" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#geomorphology-data-for-stratification"><i class="fa fa-check"></i><b>2.4.6.4</b> Geomorphology data (for stratification)</a></li>
+<li class="chapter" data-level="2.4.6.5" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#environmental-covariates-createdretrieved-from-previous-chapter"><i class="fa fa-check"></i><b>2.4.6.5</b> Environmental covariates created/retrieved from previous Chapter</a></li>
+<li class="chapter" data-level="2.4.6.6" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#load-and-process-soil-climate-data-newhall"><i class="fa fa-check"></i><b>2.4.6.6</b> Load and process soil-climate data (Newhall)</a></li>
+<li class="chapter" data-level="2.4.6.7" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#convert-soil-climate-regimes-to-dummy-variables"><i class="fa fa-check"></i><b>2.4.6.7</b> Convert soil-climate regimes to dummy variables</a></li>
+<li class="chapter" data-level="2.4.6.8" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#integrating-all-layers-and-finalising-the-covariate-stack"><i class="fa fa-check"></i><b>2.4.6.8</b> Integrating all layers and finalising the Covariate Stack</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4.7" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#pca"><i class="fa fa-check"></i><b>2.4.7</b> Principal Component Analysis (PCA)</a></li>
+<li class="chapter" data-level="2.4.8" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#sec-landuse"><i class="fa fa-check"></i><b>2.4.8</b> Load and prepare land-use data</a></li>
+<li class="chapter" data-level="2.4.9" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#create-psu-grid"><i class="fa fa-check"></i><b>2.4.9</b> Create Primary Sampling Units (PSU Grid)</a></li>
+<li class="chapter" data-level="2.4.10" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#select-psus"><i class="fa fa-check"></i><b>2.4.10</b> Select PSUs with sufficient land-use coverage</a></li>
+<li class="chapter" data-level="2.4.11" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#sec-optimal-sample-size"><i class="fa fa-check"></i><b>2.4.11</b> Calculate optimal sample size</a></li>
+<li class="chapter" data-level="2.4.12" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#sec-select-psus-csc"><i class="fa fa-check"></i><b>2.4.12</b> Select PSUs using Covariate Space Coverage (CSC)</a></li>
+<li class="chapter" data-level="2.4.13" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#compute-ssu-tsu"><i class="fa fa-check"></i><b>2.4.13</b> Compute SSUs and TSUs</a></li>
+<li class="chapter" data-level="2.4.14" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#alternative-psus"><i class="fa fa-check"></i><b>2.4.14</b> Compute Alternative PSUs</a></li>
+<li class="chapter" data-level="2.4.15" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#assign-unique-ids"><i class="fa fa-check"></i><b>2.4.15</b> Assign Country-Wide Unique IDs</a></li>
+<li class="chapter" data-level="2.4.16" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#field-protocol"><i class="fa fa-check"></i><b>2.4.16</b> Field sampling protocol</a></li>
+<li class="chapter" data-level="" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#appendices"><i class="fa fa-check"></i>Appendices</a>
+<ul>
+<li class="chapter" data-level="" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#appendix-a-software-and-data-sources"><i class="fa fa-check"></i>Appendix A: Software and Data Sources</a></li>
+<li class="chapter" data-level="" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#appendix-b-troubleshooting-common-issues"><i class="fa fa-check"></i>Appendix B: Troubleshooting Common Issues</a></li>
+<li class="chapter" data-level="" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#appendix-c-acronyms-and-abbreviations"><i class="fa fa-check"></i>Appendix C: Acronyms and Abbreviations</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="sampling-design-for-soil-surveys.html"><a href="sampling-design-for-soil-surveys.html#references-2"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html"><i class="fa fa-check"></i><b>3</b> Digital Soil Mapping</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#fundamentals-of-digital-soil-mapping"><i class="fa fa-check"></i><b>3.1</b> Fundamentals of Digital Soil Mapping</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#introduction-to-digital-soil-mapping"><i class="fa fa-check"></i><b>3.1.1</b> Introduction to Digital Soil Mapping</a></li>
+<li class="chapter" data-level="3.1.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#the-scorpan-framework"><i class="fa fa-check"></i><b>3.1.2</b> The SCORPAN Framework</a></li>
+<li class="chapter" data-level="3.1.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#statistical-theory-for-predictive-soil-mapping"><i class="fa fa-check"></i><b>3.1.3</b> Statistical Theory for Predictive Soil Mapping</a>
+<ul>
+<li class="chapter" data-level="3.1.3.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#mechanistic-versus-empirical-approaches"><i class="fa fa-check"></i><b>3.1.3.1</b> Mechanistic versus Empirical Approaches</a></li>
+<li class="chapter" data-level="3.1.3.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#sources-of-residual-variance"><i class="fa fa-check"></i><b>3.1.3.2</b> Sources of Residual Variance</a></li>
+<li class="chapter" data-level="3.1.3.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#covariates-as-proxies-of-soil-forming-factors"><i class="fa fa-check"></i><b>3.1.3.3</b> Covariates as Proxies of Soil-Forming Factors</a></li>
+<li class="chapter" data-level="3.1.3.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#the-universal-model-of-soil-variation"><i class="fa fa-check"></i><b>3.1.3.4</b> The Universal Model of Soil Variation</a></li>
+<li class="chapter" data-level="3.1.3.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#extending-the-model-space-depth-and-time-3dt"><i class="fa fa-check"></i><b>3.1.3.5</b> Extending the Model: Space, Depth, and Time (3D+T)</a></li>
+</ul></li>
+<li class="chapter" data-level="3.1.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#types-of-soil-variables"><i class="fa fa-check"></i><b>3.1.4</b> Types of Soil Variables</a></li>
+<li class="chapter" data-level="3.1.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-methods"><i class="fa fa-check"></i><b>3.1.5</b> Prediction Methods</a></li>
+<li class="chapter" data-level="3.1.6" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#nonlinearity-and-uncertainty"><i class="fa fa-check"></i><b>3.1.6</b> Nonlinearity and Uncertainty</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#practical-implementation-example"><i class="fa fa-check"></i><b>3.2</b> Practical Implementation Example</a>
+<ul>
+<li class="chapter" data-level="3.2.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#overview"><i class="fa fa-check"></i><b>3.2.1</b> Overview</a></li>
+<li class="chapter" data-level="3.2.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#setup-and-packages"><i class="fa fa-check"></i><b>3.2.2</b> Setup and Packages</a></li>
+<li class="chapter" data-level="3.2.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#load-covariates"><i class="fa fa-check"></i><b>3.2.3</b> Load covariates</a></li>
+<li class="chapter" data-level="3.2.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#load-and-transform-soil-data"><i class="fa fa-check"></i><b>3.2.4</b> Load and transform soil data</a>
+<ul>
+<li class="chapter" data-level="3.2.4.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#estimate-bulk-density-with-a-pedotransfer-function"><i class="fa fa-check"></i><b>3.2.4.1</b> Estimate bulk density with a pedotransfer function</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#merge-soil-data-and-covariate-values"><i class="fa fa-check"></i><b>3.2.5</b> Merge soil data and covariate values</a></li>
+<li class="chapter" data-level="3.2.6" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#feature-selection-with-boruta"><i class="fa fa-check"></i><b>3.2.6</b> Feature selection with Boruta</a></li>
+<li class="chapter" data-level="3.2.7" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#train-the-quantile-regression-forest-model"><i class="fa fa-check"></i><b>3.2.7</b> Train the Quantile Regression Forest model</a>
+<ul>
+<li class="chapter" data-level="3.2.7.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#from-random-forest-to-quantile-regression-forest"><i class="fa fa-check"></i><b>3.2.7.1</b> From Random Forest to Quantile Regression Forest</a></li>
+<li class="chapter" data-level="3.2.7.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#cross-validation-setup"><i class="fa fa-check"></i><b>3.2.7.2</b> Cross-validation setup</a></li>
+<li class="chapter" data-level="3.2.7.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#hyperparameter-grid"><i class="fa fa-check"></i><b>3.2.7.3</b> Hyperparameter grid</a></li>
+<li class="chapter" data-level="3.2.7.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#train-the-model"><i class="fa fa-check"></i><b>3.2.7.4</b> Train the model</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2.8" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#accuracy-assessment"><i class="fa fa-check"></i><b>3.2.8</b> Accuracy assessment</a>
+<ul>
+<li class="chapter" data-level="3.2.8.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#observed-vs-predicted-plot"><i class="fa fa-check"></i><b>3.2.8.1</b> Observed vs predicted plot</a></li>
+<li class="chapter" data-level="3.2.8.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#save-outputs"><i class="fa fa-check"></i><b>3.2.8.2</b> Save outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2.9" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#reload-the-workspace"><i class="fa fa-check"></i><b>3.2.9</b> Reload the workspace</a></li>
+<li class="chapter" data-level="3.2.10" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#spatial-prediction-tiled"><i class="fa fa-check"></i><b>3.2.10</b> Spatial prediction (tiled)</a>
+<ul>
+<li class="chapter" data-level="3.2.10.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#create-tile-grid"><i class="fa fa-check"></i><b>3.2.10.1</b> Create tile grid</a></li>
+<li class="chapter" data-level="3.2.10.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prepare-model-for-prediction"><i class="fa fa-check"></i><b>3.2.10.2</b> Prepare model for prediction</a></li>
+<li class="chapter" data-level="3.2.10.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-for-one-tile"><i class="fa fa-check"></i><b>3.2.10.3</b> Prediction for one tile</a></li>
+<li class="chapter" data-level="3.2.10.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-at-all-tiles"><i class="fa fa-check"></i><b>3.2.10.4</b> Prediction at all tiles</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2.11" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#mosaic-tiles-into-final-maps"><i class="fa fa-check"></i><b>3.2.11</b> Mosaic tiles into final maps</a></li>
+<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#references-3"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="soil-spectroscopy-for-digital-soil-mapping.html"><a href="soil-spectroscopy-for-digital-soil-mapping.html"><i class="fa fa-check"></i><b>4</b> Soil Spectroscopy for Digital Soil Mapping</a></li>
+<li class="chapter" data-level="5" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html"><i class="fa fa-check"></i><b>5</b> Part I - Digital soil mapping with spectroscopy</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html#introduction-1"><i class="fa fa-check"></i><b>5.1</b> Introduction</a></li>
+<li class="chapter" data-level="5.2" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html#rational"><i class="fa fa-check"></i><b>5.2</b> Rational</a></li>
+<li class="chapter" data-level="5.3" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html#including-spectroscopic-prediction-in-digital-soil-mapping"><i class="fa fa-check"></i><b>5.3</b> Including spectroscopic prediction in digital soil mapping</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html"><i class="fa fa-check"></i><b>6</b> Part II – Practical application</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#workflow-overview"><i class="fa fa-check"></i><b>6.1</b> Workflow overview</a></li>
+<li class="chapter" data-level="6.2" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#making-spectroscopic-data-ready-for-inclusion-in-dsm"><i class="fa fa-check"></i><b>6.2</b> Making spectroscopic data ready for inclusion in DSM</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#load-and-plot-the-spectrscopic-data"><i class="fa fa-check"></i><b>6.2.1</b> Load and plot the spectrscopic data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#preprocessing-of-spectra"><i class="fa fa-check"></i><b>6.2.2</b> Preprocessing of spectra</a></li>
+<li class="chapter" data-level="6.2.3" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#spectroscopic-modelling-with-uncertainty"><i class="fa fa-check"></i><b>6.2.3</b> Spectroscopic modelling with uncertainty</a></li>
+<li class="chapter" data-level="6.2.4" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#laboratory-measurement-uncertainty"><i class="fa fa-check"></i><b>6.2.4</b> Laboratory measurement uncertainty</a></li>
+<li class="chapter" data-level="6.2.5" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#depth-harmonisation-of-predictions-and-uncertainties"><i class="fa fa-check"></i><b>6.2.5</b> Depth harmonisation of predictions and uncertainties</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#preparation-of-the-covariates"><i class="fa fa-check"></i><b>6.3</b> Preparation of the covariates</a></li>
+<li class="chapter" data-level="6.4" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#dsm-model-training-with-spectroscopic-data"><i class="fa fa-check"></i><b>6.4</b> DSM model training with spectroscopic data</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#deriving-observation-weights"><i class="fa fa-check"></i><b>6.4.1</b> Deriving observation weights</a></li>
+<li class="chapter" data-level="6.4.2" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#baseline-dsm-model-using-laboratory-data"><i class="fa fa-check"></i><b>6.4.2</b> Baseline DSM model using laboratory data</a></li>
+<li class="chapter" data-level="6.4.3" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#dsm-model-training-integrating-spectroscopic-predictions"><i class="fa fa-check"></i><b>6.4.3</b> DSM model training integrating spectroscopic predictions</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#model-validation"><i class="fa fa-check"></i><b>6.5</b> Model validation</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#validation-statistics"><i class="fa fa-check"></i><b>6.5.1</b> Validation statistics</a></li>
+<li class="chapter" data-level="6.5.2" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#cross-validating-the-models"><i class="fa fa-check"></i><b>6.5.2</b> Cross-validating the models</a></li>
+<li class="chapter" data-level="6.5.3" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#comparing-maps-produced-with-different-proportions-of-spectroscopic-data"><i class="fa fa-check"></i><b>6.5.3</b> Comparing maps produced with different proportions of spectroscopic data</a></li>
+<li class="chapter" data-level="6.5.4" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#testing-different-ratios-of-spectroscopic-and-laboratory-data"><i class="fa fa-check"></i><b>6.5.4</b> Testing different ratios of spectroscopic and laboratory data</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> Summary</a></li>
+<li class="chapter" data-level="8" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html"><i class="fa fa-check"></i><b>8</b> Soil Data Harmonization, Sharing &amp; Dissemination</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#glosis-soil-data-preparation"><i class="fa fa-check"></i><b>8.1</b> GloSIS Soil Data Preparation</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#introduction-2"><i class="fa fa-check"></i><b>8.1.1</b> Introduction</a></li>
+<li class="chapter" data-level="8.1.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#the-glosis-iso-28258-database"><i class="fa fa-check"></i><b>8.1.2</b> The GloSIS ISO 28258 database</a>
+<ul>
+<li class="chapter" data-level="8.1.2.1" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#plot-data-sheet"><i class="fa fa-check"></i><b>8.1.2.1</b> Plot Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#profile-data-sheet"><i class="fa fa-check"></i><b>8.1.2.2</b> Profile Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.3" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#element-data-sheet"><i class="fa fa-check"></i><b>8.1.2.3</b> Element Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.4" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#specimen-data-sheet"><i class="fa fa-check"></i><b>8.1.2.4</b> Specimen Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.5" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#procedures-sheet"><i class="fa fa-check"></i><b>8.1.2.5</b> Procedures Sheet</a></li>
+<li class="chapter" data-level="8.1.2.6" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#metadata-sheet"><i class="fa fa-check"></i><b>8.1.2.6</b> Metadata Sheet</a></li>
+<li class="chapter" data-level="8.1.2.7" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#original-data-sheet"><i class="fa fa-check"></i><b>8.1.2.7</b> Original Data Sheet</a></li>
+<li class="chapter" data-level="8.1.2.8" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#glosis-methods-sheet"><i class="fa fa-check"></i><b>8.1.2.8</b> GloSIS Methods sheet</a></li>
+<li class="chapter" data-level="8.1.2.9" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#installation-and-setup-of-the-glosis-etl-js"><i class="fa fa-check"></i><b>8.1.2.9</b> Installation and Setup of the glosis-etl-js</a></li>
+<li class="chapter" data-level="8.1.2.10" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#verify-installation"><i class="fa fa-check"></i><b>8.1.2.10</b> Verify Installation</a></li>
+<li class="chapter" data-level="8.1.2.11" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#pgadmin"><i class="fa fa-check"></i><b>8.1.2.11</b> Optional: pgAdmin Web Interface</a></li>
+<li class="chapter" data-level="8.1.2.12" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-harmonization"><i class="fa fa-check"></i><b>8.1.2.12</b> Data Harmonization</a></li>
+<li class="chapter" data-level="8.1.2.13" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-standardization"><i class="fa fa-check"></i><b>8.1.2.13</b> Data Standardization</a></li>
+<li class="chapter" data-level="8.1.2.14" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-viewer"><i class="fa fa-check"></i><b>8.1.2.14</b> Data Viewer</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#data-sharing-and-export-formats"><i class="fa fa-check"></i><b>8.2</b> Data sharing and export formats</a></li>
+<li class="chapter" data-level="8.3" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#metadata-1"><i class="fa fa-check"></i><b>8.3</b> Metadata</a></li>
+<li class="chapter" data-level="8.4" data-path="soil-data-harmonization-sharing-dissemination.html"><a href="soil-data-harmonization-sharing-dissemination.html#web-services"><i class="fa fa-check"></i><b>8.4</b> Web Services</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references-4.html"><a href="references-4.html"><i class="fa fa-check"></i>References</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./"><p>DRAFT - Integrated soil information for decision-making
+<img src="images/new_frontcover.png" style="top:0px;height:100px;" align="right" /></p></a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="part-ii-practical-application" class="section level1 hasAnchor" number="6">
+<h1><span class="header-section-number">Module 6</span> Part II – Practical application<a href="part-ii-practical-application.html#part-ii-practical-application" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="workflow-overview" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Workflow overview<a href="part-ii-practical-application.html#workflow-overview" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this practical section we illustrate how soil spectroscopic data can be integrated into DSM. The main objective is to use spectroscopy to complement conventional laboratory soil analyses. This allows an increase in the amount of usable soil information without a proportional increase in laboratory effort.</p>
+<p>The methodology is demonstrated using the Kansas soil dataset (USA), previously presented in Chapter 6 (“Digital Soil Mapping and Modelling”). This dataset includes wet-chemistry measurements of soil properties together with mid-infrared spectral observations collected on the same soil samples. It is therefore a suitable case study to explore the implementation of spectroscopically-enhanced DSM.</p>
+<p>Figure @ref{fig:fig-dsm-workflow} presents the conceptual workflow used in this section. The colours help to distinguish the main groups of steps.</p>
+<p><span style="color:blue;">Blue boxes</span> represent the field sampling and laboratory reference analysis. These steps provide the measured soil property data that serve as the calibration target, either to fit a spectroscopic calibration model or to be used for DSM.</p>
+<p><span style="color:orange;">Orange boxes</span> correspond to the spectroscopic component. This includes spectral acquisition, calibration modelling, and the generation of spectroscopically predicted soil properties with associated uncertainty, expressed as prediction error standard deviation.These predictions are treated as an additional source of soil information in the DSM step.</p>
+<p><span style="color:purple;">Purple boxes</span> indicate the data integration stage. Here, laboratory observations and spectroscopic predictions are combined, into a single dataset.</p>
+<p><span style="color:green;">Green boxes</span> represent the spatial modelling stage, or DSM. Environmental covariates are used together with the soil observations to fit spatial prediction models. The uncertainty of the spectroscopic data are used to down-weight these observations compared to the lab-measurements. The final outputs are continuous soil property maps and corresponding uncertainty maps.</p>
+<p>All main steps of this workflow will be implemented and illustrated using R in the following subsections.</p>
+</div>
+<div id="making-spectroscopic-data-ready-for-inclusion-in-dsm" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Making spectroscopic data ready for inclusion in DSM<a href="part-ii-practical-application.html#making-spectroscopic-data-ready-for-inclusion-in-dsm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this section we prepare the spectroscopic data so that it can be used as input in a digital soil mapping. The requirement is that the spectroscopic modelling step should provide, for each soil sample, both a prediction of the target soil property and an estimate of prediction uncertainty. This follows the approach introduced in the Soil Spectroscopy Training Material (<span class="citation">(<a href="#ref-Wadoux2025FAO"><strong>Wadoux2025FAO?</strong></a>)</span> Section 4.3.3), where uncertainty is quantified at the sample level.</p>
+<p>For DSM applications, these outputs can be treated in a similar way to laboratory observations. However, unlike laboratory data, spectroscopic predictions are associated with an explicit model-based uncertainty. This uncertainty information can later be used in data integration and spatial modelling steps.</p>
+<p>In the following subsections we demonstrate how to (i) import and visualise the spectral data, (ii) apply basic spectral preprocessing, (iii) build a spectroscopic prediction model with uncertainty, (iv) define laboratory measurement uncertainty, and (v) harmonise soil property predictions and uncertainties to a standard depth interval.</p>
+<div id="load-and-plot-the-spectrscopic-data" class="section level3 hasAnchor" number="6.2.1">
+<h3><span class="header-section-number">6.2.1</span> Load and plot the spectrscopic data<a href="part-ii-practical-application.html#load-and-plot-the-spectrscopic-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We first import the mid-infrared (MIR) spectral dataset and prepare it for analysis. The MIR spectral dataset consists of laboratory measurements of soil reflectance or absorbance in the mid-infrared region of the electromagnetic spectrum. In soil spectroscopy, this region typically covers wavelengths of approximately 2500 to 25 000 nm, which corresponds to about 4000 to 400 cm<span class="math inline">\(^{-1}\)</span> in wavenumber.</p>
+<p>MIR spectra are characterised by strong and well-defined absorption features. These features are mainly related to the fundamental vibrations of molecular bonds present in soil minerals and organic compounds. As a result, MIR spectroscopy is particularly sensitive to soil properties such as soil organic carbon, clay minerals, carbonates, and some nutrients. Compared with visible–near infrared spectroscopy, MIR measurements are usually collected on air-dried and finely ground soil samples under controlled laboratory conditions. All this tutorial could be based on the use of vis-NIR or MIR alike.</p>
+<p>Replicate spectral measurements are averaged so that each soil sample is represented by a single spectrum. A unique profile identifier is also created to group horizons belonging to the same soil profile.</p>
+<p>Spectral variables are then separated from the rest of the soil dataset and stored as a spectral matrix. The corresponding wavenumber values are extracted and sorted to ensure the correct order in the spectral bands.</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="part-ii-practical-application.html#cb259-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb259-2"><a href="part-ii-practical-application.html#cb259-2" tabindex="-1"></a><span class="co"># Read MIR spectral dataset (Kansas example)</span></span>
+<span id="cb259-3"><a href="part-ii-practical-application.html#cb259-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb259-4"><a href="part-ii-practical-application.html#cb259-4" tabindex="-1"></a></span>
+<span id="cb259-5"><a href="part-ii-practical-application.html#cb259-5" tabindex="-1"></a><span class="co"># Load data (keep original column names unchanged)</span></span>
+<span id="cb259-6"><a href="part-ii-practical-application.html#cb259-6" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb259-7"><a href="part-ii-practical-application.html#cb259-7" tabindex="-1"></a></span>
+<span id="cb259-8"><a href="part-ii-practical-application.html#cb259-8" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(</span>
+<span id="cb259-9"><a href="part-ii-practical-application.html#cb259-9" tabindex="-1"></a>  <span class="st">&quot;01_data/module1/training_data/data/MIR_KANSAS_data.xlsx&quot;</span>,</span>
+<span id="cb259-10"><a href="part-ii-practical-application.html#cb259-10" tabindex="-1"></a>  <span class="at">.name_repair =</span> <span class="st">&quot;minimal&quot;</span></span>
+<span id="cb259-11"><a href="part-ii-practical-application.html#cb259-11" tabindex="-1"></a>)</span>
+<span id="cb259-12"><a href="part-ii-practical-application.html#cb259-12" tabindex="-1"></a></span>
+<span id="cb259-13"><a href="part-ii-practical-application.html#cb259-13" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb259-14"><a href="part-ii-practical-application.html#cb259-14" tabindex="-1"></a><span class="co"># Average replicate measurements by sample ID</span></span>
+<span id="cb259-15"><a href="part-ii-practical-application.html#cb259-15" tabindex="-1"></a><span class="co"># This reduces laboratory measurement noise</span></span>
+<span id="cb259-16"><a href="part-ii-practical-application.html#cb259-16" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb259-17"><a href="part-ii-practical-application.html#cb259-17" tabindex="-1"></a></span>
+<span id="cb259-18"><a href="part-ii-practical-application.html#cb259-18" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb259-19"><a href="part-ii-practical-application.html#cb259-19" tabindex="-1"></a></span>
+<span id="cb259-20"><a href="part-ii-practical-application.html#cb259-20" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb259-21"><a href="part-ii-practical-application.html#cb259-21" tabindex="-1"></a>  <span class="fu">group_by</span>(smp_id) <span class="sc">%&gt;%</span></span>
+<span id="cb259-22"><a href="part-ii-practical-application.html#cb259-22" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb259-23"><a href="part-ii-practical-application.html#cb259-23" tabindex="-1"></a>    <span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb259-24"><a href="part-ii-practical-application.html#cb259-24" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb259-25"><a href="part-ii-practical-application.html#cb259-25" tabindex="-1"></a>  )</span>
+<span id="cb259-26"><a href="part-ii-practical-application.html#cb259-26" tabindex="-1"></a></span>
+<span id="cb259-27"><a href="part-ii-practical-application.html#cb259-27" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb259-28"><a href="part-ii-practical-application.html#cb259-28" tabindex="-1"></a><span class="co"># Create a profile identifier based on spatial location</span></span>
+<span id="cb259-29"><a href="part-ii-practical-application.html#cb259-29" tabindex="-1"></a><span class="co"># All horizons at the same coordinates belong to one profile</span></span>
+<span id="cb259-30"><a href="part-ii-practical-application.html#cb259-30" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb259-31"><a href="part-ii-practical-application.html#cb259-31" tabindex="-1"></a></span>
+<span id="cb259-32"><a href="part-ii-practical-application.html#cb259-32" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb259-33"><a href="part-ii-practical-application.html#cb259-33" tabindex="-1"></a>  <span class="fu">group_by</span>(Long_Site.x, Lat_Site.x) <span class="sc">%&gt;%</span></span>
+<span id="cb259-34"><a href="part-ii-practical-application.html#cb259-34" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb259-35"><a href="part-ii-practical-application.html#cb259-35" tabindex="-1"></a>    <span class="at">ProfID =</span> <span class="fu">sprintf</span>(<span class="st">&quot;PROF%04d&quot;</span>, <span class="fu">cur_group_id</span>())</span>
+<span id="cb259-36"><a href="part-ii-practical-application.html#cb259-36" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb259-37"><a href="part-ii-practical-application.html#cb259-37" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb259-38"><a href="part-ii-practical-application.html#cb259-38" tabindex="-1"></a></span>
+<span id="cb259-39"><a href="part-ii-practical-application.html#cb259-39" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb259-40"><a href="part-ii-practical-application.html#cb259-40" tabindex="-1"></a><span class="co"># Identify MIR spectral columns</span></span>
+<span id="cb259-41"><a href="part-ii-practical-application.html#cb259-41" tabindex="-1"></a><span class="co"># Spectral variables follow naming pattern like X3999.72758</span></span>
+<span id="cb259-42"><a href="part-ii-practical-application.html#cb259-42" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb259-43"><a href="part-ii-practical-application.html#cb259-43" tabindex="-1"></a></span>
+<span id="cb259-44"><a href="part-ii-practical-application.html#cb259-44" tabindex="-1"></a>spectral_columns <span class="ot">&lt;-</span> <span class="fu">grep</span>(</span>
+<span id="cb259-45"><a href="part-ii-practical-application.html#cb259-45" tabindex="-1"></a>  <span class="st">&quot;^X[0-9]{2,10}(</span><span class="sc">\\</span><span class="st">.[0-9]+)?$&quot;</span>,</span>
+<span id="cb259-46"><a href="part-ii-practical-application.html#cb259-46" tabindex="-1"></a>  <span class="fu">names</span>(dat)</span>
+<span id="cb259-47"><a href="part-ii-practical-application.html#cb259-47" tabindex="-1"></a>)</span>
+<span id="cb259-48"><a href="part-ii-practical-application.html#cb259-48" tabindex="-1"></a></span>
+<span id="cb259-49"><a href="part-ii-practical-application.html#cb259-49" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb259-50"><a href="part-ii-practical-application.html#cb259-50" tabindex="-1"></a><span class="co"># Extract spectral matrix and corresponding wavenumbers</span></span>
+<span id="cb259-51"><a href="part-ii-practical-application.html#cb259-51" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb259-52"><a href="part-ii-practical-application.html#cb259-52" tabindex="-1"></a></span>
+<span id="cb259-53"><a href="part-ii-practical-application.html#cb259-53" tabindex="-1"></a>spc_raw <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(dat[, spectral_columns])</span>
+<span id="cb259-54"><a href="part-ii-practical-application.html#cb259-54" tabindex="-1"></a></span>
+<span id="cb259-55"><a href="part-ii-practical-application.html#cb259-55" tabindex="-1"></a><span class="co"># Convert column names to numeric wavenumber values</span></span>
+<span id="cb259-56"><a href="part-ii-practical-application.html#cb259-56" tabindex="-1"></a>wavenumber <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">sub</span>(<span class="st">&quot;^X&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="fu">colnames</span>(spc_raw)))</span>
+<span id="cb259-57"><a href="part-ii-practical-application.html#cb259-57" tabindex="-1"></a></span>
+<span id="cb259-58"><a href="part-ii-practical-application.html#cb259-58" tabindex="-1"></a><span class="co"># Remove spectral columns from main data table</span></span>
+<span id="cb259-59"><a href="part-ii-practical-application.html#cb259-59" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat[, <span class="sc">-</span>spectral_columns]</span>
+<span id="cb259-60"><a href="part-ii-practical-application.html#cb259-60" tabindex="-1"></a></span>
+<span id="cb259-61"><a href="part-ii-practical-application.html#cb259-61" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb259-62"><a href="part-ii-practical-application.html#cb259-62" tabindex="-1"></a><span class="co"># Sort spectra by increasing wavenumber</span></span>
+<span id="cb259-63"><a href="part-ii-practical-application.html#cb259-63" tabindex="-1"></a><span class="co"># (Axis can later be reversed in plots following MIR convention)</span></span>
+<span id="cb259-64"><a href="part-ii-practical-application.html#cb259-64" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb259-65"><a href="part-ii-practical-application.html#cb259-65" tabindex="-1"></a></span>
+<span id="cb259-66"><a href="part-ii-practical-application.html#cb259-66" tabindex="-1"></a>ord <span class="ot">&lt;-</span> <span class="fu">order</span>(wavenumber)</span>
+<span id="cb259-67"><a href="part-ii-practical-application.html#cb259-67" tabindex="-1"></a></span>
+<span id="cb259-68"><a href="part-ii-practical-application.html#cb259-68" tabindex="-1"></a>wavenumber <span class="ot">&lt;-</span> wavenumber[ord]</span>
+<span id="cb259-69"><a href="part-ii-practical-application.html#cb259-69" tabindex="-1"></a>spc_raw <span class="ot">&lt;-</span> spc_raw[, ord, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb259-70"><a href="part-ii-practical-application.html#cb259-70" tabindex="-1"></a></span>
+<span id="cb259-71"><a href="part-ii-practical-application.html#cb259-71" tabindex="-1"></a><span class="co"># Store wavenumber values as column names</span></span>
+<span id="cb259-72"><a href="part-ii-practical-application.html#cb259-72" tabindex="-1"></a><span class="fu">colnames</span>(spc_raw) <span class="ot">&lt;-</span> wavenumber</span>
+<span id="cb259-73"><a href="part-ii-practical-application.html#cb259-73" tabindex="-1"></a></span>
+<span id="cb259-74"><a href="part-ii-practical-application.html#cb259-74" tabindex="-1"></a><span class="co"># Attach spectral matrix as list-column in main dataset</span></span>
+<span id="cb259-75"><a href="part-ii-practical-application.html#cb259-75" tabindex="-1"></a>dat<span class="sc">$</span>spc_raw <span class="ot">&lt;-</span> spc_raw</span></code></pre></div>
+</div>
+<div id="preprocessing-of-spectra" class="section level3 hasAnchor" number="6.2.2">
+<h3><span class="header-section-number">6.2.2</span> Preprocessing of spectra<a href="part-ii-practical-application.html#preprocessing-of-spectra" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Raw soil spectra often contain measurement noise and may be recorded at slightly different spectral resolutions. Therefore, basic preprocessing is usually required before modelling.</p>
+<p>In this exercise, spectra are first resampled to a common wavenumber. This ensures that all samples share the same spectral support. A moving-average smoothing filter is then applied to reduce high-frequency noise while preserving the main absorption features.</p>
+<p>After preprocessing, the spectra can be visualised to confirm that the signal is smoother and more consistent across samples. Plotting absorbance against wavenumber allows inspection of the general spectral patterns and potential relationships with soil properties such as soil organic carbon (SOC), which we will use hereafter. This basic exploratory step is useful for identifying outliers or inconsistencies before further processing. At this stage the dataset is ready for statistical modelling and fitting a calibration model</p>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="part-ii-practical-application.html#cb260-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb260-2"><a href="part-ii-practical-application.html#cb260-2" tabindex="-1"></a><span class="co"># Define a new regular spectral grid for resampling</span></span>
+<span id="cb260-3"><a href="part-ii-practical-application.html#cb260-3" tabindex="-1"></a><span class="co"># This ensures all spectra share identical wavelength spacing</span></span>
+<span id="cb260-4"><a href="part-ii-practical-application.html#cb260-4" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb260-5"><a href="part-ii-practical-application.html#cb260-5" tabindex="-1"></a></span>
+<span id="cb260-6"><a href="part-ii-practical-application.html#cb260-6" tabindex="-1"></a>new_wavs <span class="ot">&lt;-</span> <span class="fu">seq</span>(</span>
+<span id="cb260-7"><a href="part-ii-practical-application.html#cb260-7" tabindex="-1"></a>  <span class="at">from =</span> <span class="fu">round</span>(<span class="fu">min</span>(<span class="fu">as.numeric</span>(<span class="fu">colnames</span>(dat<span class="sc">$</span>spc_raw)))),</span>
+<span id="cb260-8"><a href="part-ii-practical-application.html#cb260-8" tabindex="-1"></a>  <span class="at">to   =</span> <span class="fu">round</span>(<span class="fu">max</span>(<span class="fu">as.numeric</span>(<span class="fu">colnames</span>(dat<span class="sc">$</span>spc_raw)))),</span>
+<span id="cb260-9"><a href="part-ii-practical-application.html#cb260-9" tabindex="-1"></a>  <span class="at">by   =</span> <span class="dv">5</span>   <span class="co"># spectral resolution in cm-1</span></span>
+<span id="cb260-10"><a href="part-ii-practical-application.html#cb260-10" tabindex="-1"></a>)</span>
+<span id="cb260-11"><a href="part-ii-practical-application.html#cb260-11" tabindex="-1"></a></span>
+<span id="cb260-12"><a href="part-ii-practical-application.html#cb260-12" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb260-13"><a href="part-ii-practical-application.html#cb260-13" tabindex="-1"></a><span class="co"># Resample spectra to the new wavelength grid</span></span>
+<span id="cb260-14"><a href="part-ii-practical-application.html#cb260-14" tabindex="-1"></a><span class="co"># This is important for chemometric modelling and smoothing</span></span>
+<span id="cb260-15"><a href="part-ii-practical-application.html#cb260-15" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb260-16"><a href="part-ii-practical-application.html#cb260-16" tabindex="-1"></a></span>
+<span id="cb260-17"><a href="part-ii-practical-application.html#cb260-17" tabindex="-1"></a>dat<span class="sc">$</span>spc <span class="ot">&lt;-</span> prospectr<span class="sc">::</span><span class="fu">resample</span>(</span>
+<span id="cb260-18"><a href="part-ii-practical-application.html#cb260-18" tabindex="-1"></a>  dat<span class="sc">$</span>spc_raw,</span>
+<span id="cb260-19"><a href="part-ii-practical-application.html#cb260-19" tabindex="-1"></a>  <span class="at">wav     =</span> wavenumber,</span>
+<span id="cb260-20"><a href="part-ii-practical-application.html#cb260-20" tabindex="-1"></a>  <span class="at">new.wav =</span> new_wavs</span>
+<span id="cb260-21"><a href="part-ii-practical-application.html#cb260-21" tabindex="-1"></a>)</span>
+<span id="cb260-22"><a href="part-ii-practical-application.html#cb260-22" tabindex="-1"></a></span>
+<span id="cb260-23"><a href="part-ii-practical-application.html#cb260-23" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb260-24"><a href="part-ii-practical-application.html#cb260-24" tabindex="-1"></a><span class="co"># Apply moving-average smoothing to reduce high-frequency noise</span></span>
+<span id="cb260-25"><a href="part-ii-practical-application.html#cb260-25" tabindex="-1"></a><span class="co"># Window size (w = 11) is typical for MIR preprocessing</span></span>
+<span id="cb260-26"><a href="part-ii-practical-application.html#cb260-26" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb260-27"><a href="part-ii-practical-application.html#cb260-27" tabindex="-1"></a></span>
+<span id="cb260-28"><a href="part-ii-practical-application.html#cb260-28" tabindex="-1"></a>dat<span class="sc">$</span>spc <span class="ot">&lt;-</span> <span class="fu">movav</span>(dat<span class="sc">$</span>spc, <span class="at">w =</span> <span class="dv">11</span>)</span>
+<span id="cb260-29"><a href="part-ii-practical-application.html#cb260-29" tabindex="-1"></a></span>
+<span id="cb260-30"><a href="part-ii-practical-application.html#cb260-30" tabindex="-1"></a><span class="co"># Updated wavelength vector after preprocessing</span></span>
+<span id="cb260-31"><a href="part-ii-practical-application.html#cb260-31" tabindex="-1"></a>wavs <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">colnames</span>(dat<span class="sc">$</span>spc))</span></code></pre></div>
+</div>
+<div id="spectroscopic-modelling-with-uncertainty" class="section level3 hasAnchor" number="6.2.3">
+<h3><span class="header-section-number">6.2.3</span> Spectroscopic modelling with uncertainty<a href="part-ii-practical-application.html#spectroscopic-modelling-with-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The next step is to build a model that predicts SOC from the preprocessed spectra. Here we use a random forest approach, called quantile regression forest. The same model type will then be used for the DSM. This model allows uncertainty to be estimated from the distribution of model predictions.</p>
+<p>To obtain a realistic assessment of model performance, cross-validation is done at the soil profile level. This avoids using horizons from the same profile in both training and testing subsets. For each validation fold, the model is trained on a subset of profiles and used to predict SOC for the remaining profiles.</p>
+<p>Prediction uncertainty is quantified by the model using the conditional distribution of the predictions. This has been extensively described for spectroscopic data in <span class="citation">(<a href="#ref-wadoux2025uncertainty"><strong>wadoux2025uncertainty?</strong></a>)</span>. From this model distribution, a mean predicted value, a prediction variance, and a prediction standard deviation are calculated for each soil sample. These quantities represent the required outputs of the spectroscopic modelling step for DSM.</p>
+<p>Model performance can be first visualised by plotting predicted versus measured SOC values in a scatterplot. Validation statistics can be obtained from the function `ranger`` internal structure, where a R<span class="math inline">\(^2\)</span> is reported from a cross-validation. Error bars in the scatterplot representing the prediction standard deviation, they illustrate the level of confidence associated with each prediction.</p>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="part-ii-practical-application.html#cb261-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb261-2"><a href="part-ii-practical-application.html#cb261-2" tabindex="-1"></a><span class="co"># Quantile Random Forest with 10-fold cross-validation</span></span>
+<span id="cb261-3"><a href="part-ii-practical-application.html#cb261-3" tabindex="-1"></a><span class="co"># grouped by soil profile</span></span>
+<span id="cb261-4"><a href="part-ii-practical-application.html#cb261-4" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb261-5"><a href="part-ii-practical-application.html#cb261-5" tabindex="-1"></a></span>
+<span id="cb261-6"><a href="part-ii-practical-application.html#cb261-6" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb261-7"><a href="part-ii-practical-application.html#cb261-7" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
+<span id="cb261-8"><a href="part-ii-practical-application.html#cb261-8" tabindex="-1"></a><span class="fu">library</span>(matrixStats)</span>
+<span id="cb261-9"><a href="part-ii-practical-application.html#cb261-9" tabindex="-1"></a></span>
+<span id="cb261-10"><a href="part-ii-practical-application.html#cb261-10" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb261-11"><a href="part-ii-practical-application.html#cb261-11" tabindex="-1"></a></span>
+<span id="cb261-12"><a href="part-ii-practical-application.html#cb261-12" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb261-13"><a href="part-ii-practical-application.html#cb261-13" tabindex="-1"></a><span class="co"># Assign entire soil profiles to CV folds</span></span>
+<span id="cb261-14"><a href="part-ii-practical-application.html#cb261-14" tabindex="-1"></a><span class="co"># This avoids splitting horizons from the same profile</span></span>
+<span id="cb261-15"><a href="part-ii-practical-application.html#cb261-15" tabindex="-1"></a><span class="co"># across training and testing data</span></span>
+<span id="cb261-16"><a href="part-ii-practical-application.html#cb261-16" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb261-17"><a href="part-ii-practical-application.html#cb261-17" tabindex="-1"></a></span>
+<span id="cb261-18"><a href="part-ii-practical-application.html#cb261-18" tabindex="-1"></a>profile_ids <span class="ot">&lt;-</span> <span class="fu">unique</span>(dat<span class="sc">$</span>ProfID)</span>
+<span id="cb261-19"><a href="part-ii-practical-application.html#cb261-19" tabindex="-1"></a>n_profiles  <span class="ot">&lt;-</span> <span class="fu">length</span>(profile_ids)</span>
+<span id="cb261-20"><a href="part-ii-practical-application.html#cb261-20" tabindex="-1"></a></span>
+<span id="cb261-21"><a href="part-ii-practical-application.html#cb261-21" tabindex="-1"></a>fold_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb261-22"><a href="part-ii-practical-application.html#cb261-22" tabindex="-1"></a>  <span class="at">ProfID =</span> profile_ids,</span>
+<span id="cb261-23"><a href="part-ii-practical-application.html#cb261-23" tabindex="-1"></a>  <span class="at">fold   =</span> <span class="fu">sample</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">length.out =</span> n_profiles))</span>
+<span id="cb261-24"><a href="part-ii-practical-application.html#cb261-24" tabindex="-1"></a>)</span>
+<span id="cb261-25"><a href="part-ii-practical-application.html#cb261-25" tabindex="-1"></a></span>
+<span id="cb261-26"><a href="part-ii-practical-application.html#cb261-26" tabindex="-1"></a><span class="co"># Add fold membership to the main dataset</span></span>
+<span id="cb261-27"><a href="part-ii-practical-application.html#cb261-27" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb261-28"><a href="part-ii-practical-application.html#cb261-28" tabindex="-1"></a>  <span class="fu">left_join</span>(fold_table, <span class="at">by =</span> <span class="st">&quot;ProfID&quot;</span>)</span>
+<span id="cb261-29"><a href="part-ii-practical-application.html#cb261-29" tabindex="-1"></a></span>
+<span id="cb261-30"><a href="part-ii-practical-application.html#cb261-30" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb261-31"><a href="part-ii-practical-application.html#cb261-31" tabindex="-1"></a><span class="co"># Prepare storage vectors for CV predictions and uncertainty</span></span>
+<span id="cb261-32"><a href="part-ii-practical-application.html#cb261-32" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb261-33"><a href="part-ii-practical-application.html#cb261-33" tabindex="-1"></a></span>
+<span id="cb261-34"><a href="part-ii-practical-application.html#cb261-34" tabindex="-1"></a>SOC_predRF <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, <span class="fu">nrow</span>(dat))  <span class="co"># mean prediction</span></span>
+<span id="cb261-35"><a href="part-ii-practical-application.html#cb261-35" tabindex="-1"></a>SOC_varRF  <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, <span class="fu">nrow</span>(dat))  <span class="co"># predictive variance</span></span>
+<span id="cb261-36"><a href="part-ii-practical-application.html#cb261-36" tabindex="-1"></a>SOC_sdRF   <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, <span class="fu">nrow</span>(dat))  <span class="co"># predictive standard deviation</span></span>
+<span id="cb261-37"><a href="part-ii-practical-application.html#cb261-37" tabindex="-1"></a></span>
+<span id="cb261-38"><a href="part-ii-practical-application.html#cb261-38" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb261-39"><a href="part-ii-practical-application.html#cb261-39" tabindex="-1"></a><span class="co"># Run 10-fold cross-validation</span></span>
+<span id="cb261-40"><a href="part-ii-practical-application.html#cb261-40" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb261-41"><a href="part-ii-practical-application.html#cb261-41" tabindex="-1"></a></span>
+<span id="cb261-42"><a href="part-ii-practical-application.html#cb261-42" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb261-43"><a href="part-ii-practical-application.html#cb261-43" tabindex="-1"></a>  </span>
+<span id="cb261-44"><a href="part-ii-practical-application.html#cb261-44" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\r</span><span class="st">Processing fold&quot;</span>, k, <span class="st">&quot;of 10&quot;</span>)</span>
+<span id="cb261-45"><a href="part-ii-practical-application.html#cb261-45" tabindex="-1"></a>  </span>
+<span id="cb261-46"><a href="part-ii-practical-application.html#cb261-46" tabindex="-1"></a>  <span class="co"># Test set: all samples belonging to fold k</span></span>
+<span id="cb261-47"><a href="part-ii-practical-application.html#cb261-47" tabindex="-1"></a>  test_rows <span class="ot">&lt;-</span> <span class="fu">which</span>(dat<span class="sc">$</span>fold <span class="sc">==</span> k)</span>
+<span id="cb261-48"><a href="part-ii-practical-application.html#cb261-48" tabindex="-1"></a>  </span>
+<span id="cb261-49"><a href="part-ii-practical-application.html#cb261-49" tabindex="-1"></a>  <span class="co"># Training set: all remaining samples</span></span>
+<span id="cb261-50"><a href="part-ii-practical-application.html#cb261-50" tabindex="-1"></a>  train_rows <span class="ot">&lt;-</span> <span class="fu">which</span>(dat<span class="sc">$</span>fold <span class="sc">!=</span> k)</span>
+<span id="cb261-51"><a href="part-ii-practical-application.html#cb261-51" tabindex="-1"></a>  </span>
+<span id="cb261-52"><a href="part-ii-practical-application.html#cb261-52" tabindex="-1"></a>  <span class="co"># Fit quantile random forest on training data</span></span>
+<span id="cb261-53"><a href="part-ii-practical-application.html#cb261-53" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">ranger</span>(</span>
+<span id="cb261-54"><a href="part-ii-practical-application.html#cb261-54" tabindex="-1"></a>    <span class="at">x =</span> dat<span class="sc">$</span>spc[train_rows, ],</span>
+<span id="cb261-55"><a href="part-ii-practical-application.html#cb261-55" tabindex="-1"></a>    <span class="at">y =</span> dat<span class="sc">$</span>SOC[train_rows],</span>
+<span id="cb261-56"><a href="part-ii-practical-application.html#cb261-56" tabindex="-1"></a>    <span class="at">quantreg =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb261-57"><a href="part-ii-practical-application.html#cb261-57" tabindex="-1"></a>    <span class="at">num.trees =</span> <span class="dv">100</span>,</span>
+<span id="cb261-58"><a href="part-ii-practical-application.html#cb261-58" tabindex="-1"></a>    <span class="at">sample.fraction =</span> <span class="dv">1</span>,</span>
+<span id="cb261-59"><a href="part-ii-practical-application.html#cb261-59" tabindex="-1"></a>    <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb261-60"><a href="part-ii-practical-application.html#cb261-60" tabindex="-1"></a>    <span class="at">min.node.size =</span> <span class="dv">2</span></span>
+<span id="cb261-61"><a href="part-ii-practical-application.html#cb261-61" tabindex="-1"></a>  )</span>
+<span id="cb261-62"><a href="part-ii-practical-application.html#cb261-62" tabindex="-1"></a>  </span>
+<span id="cb261-63"><a href="part-ii-practical-application.html#cb261-63" tabindex="-1"></a>  <span class="co"># Predict by drawing samples from the conditional distribution</span></span>
+<span id="cb261-64"><a href="part-ii-practical-application.html#cb261-64" tabindex="-1"></a>  pred_matrix <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb261-65"><a href="part-ii-practical-application.html#cb261-65" tabindex="-1"></a>    model,</span>
+<span id="cb261-66"><a href="part-ii-practical-application.html#cb261-66" tabindex="-1"></a>    <span class="at">data =</span> dat<span class="sc">$</span>spc[test_rows, ],</span>
+<span id="cb261-67"><a href="part-ii-practical-application.html#cb261-67" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;quantiles&quot;</span>,</span>
+<span id="cb261-68"><a href="part-ii-practical-application.html#cb261-68" tabindex="-1"></a>    <span class="at">what =</span> <span class="cf">function</span>(x) <span class="fu">sample</span>(x, <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb261-69"><a href="part-ii-practical-application.html#cb261-69" tabindex="-1"></a>  )<span class="sc">$</span>predictions</span>
+<span id="cb261-70"><a href="part-ii-practical-application.html#cb261-70" tabindex="-1"></a>  </span>
+<span id="cb261-71"><a href="part-ii-practical-application.html#cb261-71" tabindex="-1"></a>  <span class="co"># Store prediction summary statistics</span></span>
+<span id="cb261-72"><a href="part-ii-practical-application.html#cb261-72" tabindex="-1"></a>  SOC_predRF[test_rows] <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(pred_matrix)</span>
+<span id="cb261-73"><a href="part-ii-practical-application.html#cb261-73" tabindex="-1"></a>  SOC_varRF[test_rows]  <span class="ot">&lt;-</span> <span class="fu">rowVars</span>(pred_matrix)</span>
+<span id="cb261-74"><a href="part-ii-practical-application.html#cb261-74" tabindex="-1"></a>  SOC_sdRF[test_rows]   <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(SOC_varRF[test_rows])</span>
+<span id="cb261-75"><a href="part-ii-practical-application.html#cb261-75" tabindex="-1"></a>}</span>
+<span id="cb261-76"><a href="part-ii-practical-application.html#cb261-76" tabindex="-1"></a></span>
+<span id="cb261-77"><a href="part-ii-practical-application.html#cb261-77" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb261-78"><a href="part-ii-practical-application.html#cb261-78" tabindex="-1"></a><span class="co"># Save predictions back into the dataset</span></span>
+<span id="cb261-79"><a href="part-ii-practical-application.html#cb261-79" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb261-80"><a href="part-ii-practical-application.html#cb261-80" tabindex="-1"></a></span>
+<span id="cb261-81"><a href="part-ii-practical-application.html#cb261-81" tabindex="-1"></a>dat<span class="sc">$</span>SOC_predRF <span class="ot">&lt;-</span> SOC_predRF</span>
+<span id="cb261-82"><a href="part-ii-practical-application.html#cb261-82" tabindex="-1"></a>dat<span class="sc">$</span>SOC_varRF  <span class="ot">&lt;-</span> SOC_varRF</span>
+<span id="cb261-83"><a href="part-ii-practical-application.html#cb261-83" tabindex="-1"></a>dat<span class="sc">$</span>SOC_sdRF   <span class="ot">&lt;-</span> SOC_sdRF</span></code></pre></div>
+</div>
+<div id="laboratory-measurement-uncertainty" class="section level3 hasAnchor" number="6.2.4">
+<h3><span class="header-section-number">6.2.4</span> Laboratory measurement uncertainty<a href="part-ii-practical-application.html#laboratory-measurement-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Soil organic carbon (SOC) concentrations were determined using high-temperature dry combustion. This method is widely regarded as one of the most precise laboratory approaches for SOC determination and is commonly used as a reference method.</p>
+<p>Analytical precision for combustion-based SOC measurements is typically on the order of a few percent relative standard deviation, according to laboratory validation studies, generally around 2–3%. Based on this information, it is possible to estimate the standard deviation associated with analytical SOC measurements.</p>
+<p>Measurement uncertainty in SOC analysis is usually assumed to be proportional to the magnitude of the measurement. Accordingly, the laboratory measurement error can be expressed as <span class="math inline">\(\sigma_{\text{laboratory}} = CV \cdot y_i\)</span> where <span class="math inline">\(CV\)</span> is the coefficient of variation and <span class="math inline">\(y_i\)</span> is the measured SOC value.</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="part-ii-practical-application.html#cb262-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb262-2"><a href="part-ii-practical-application.html#cb262-2" tabindex="-1"></a><span class="co"># Approximate laboratory measurement uncertainty for SOC</span></span>
+<span id="cb262-3"><a href="part-ii-practical-application.html#cb262-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb262-4"><a href="part-ii-practical-application.html#cb262-4" tabindex="-1"></a><span class="co"># We assume a relative analytical error of 3%.</span></span>
+<span id="cb262-5"><a href="part-ii-practical-application.html#cb262-5" tabindex="-1"></a><span class="co"># Therefore, the measurement error standard deviation is</span></span>
+<span id="cb262-6"><a href="part-ii-practical-application.html#cb262-6" tabindex="-1"></a><span class="co"># calculated as 3% of the measured SOC value.</span></span>
+<span id="cb262-7"><a href="part-ii-practical-application.html#cb262-7" tabindex="-1"></a></span>
+<span id="cb262-8"><a href="part-ii-practical-application.html#cb262-8" tabindex="-1"></a>dat<span class="sc">$</span>SOC_sdLAB <span class="ot">&lt;-</span> dat<span class="sc">$</span>SOC <span class="sc">*</span> <span class="fl">0.03</span></span></code></pre></div>
+</div>
+<div id="depth-harmonisation-of-predictions-and-uncertainties" class="section level3 hasAnchor" number="6.2.5">
+<h3><span class="header-section-number">6.2.5</span> Depth harmonisation of predictions and uncertainties<a href="part-ii-practical-application.html#depth-harmonisation-of-predictions-and-uncertainties" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Digital soil mapping often requires soil properties to be expressed for standard depth intervals, such as 0–30 cm. However, field observations and spectroscopic predictions are typically available at horizon level with varying thickness.</p>
+<p>In this step, soil profiles are converted into a structured profile object that allows depth-based calculations. Predicted SOC values are then aggregated to the target depth interval using depth-weighted averaging, taking into account the proportion of each horizon that falls within the interval.</p>
+<p>Uncertainty values are harmonised in a similar way. A depth-weighted approach is used to combine horizon-level prediction uncertainties and laboratory uncertainties into a single standard deviation for the 0–30 cm layer. Profiles that do not fully cover the target depth interval are excluded from the summary.</p>
+<p>The final output of this preparation stage is therefore a dataset containing, for each soil profile location:
+* a depth-harmonised predicted SOC value,
+* a corresponding spectroscopic prediction uncertainty,
+* an estimated laboratory measurement uncertainty, and
+* spatial coordinates for mapping.</p>
+<p>These prepared variables can now be used as inputs in the DSM modelling.</p>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="part-ii-practical-application.html#cb263-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-2"><a href="part-ii-practical-application.html#cb263-2" tabindex="-1"></a><span class="co"># Aggregate SOC predictions and uncertainties to 0-30 cm</span></span>
+<span id="cb263-3"><a href="part-ii-practical-application.html#cb263-3" tabindex="-1"></a><span class="co"># using profile information</span></span>
+<span id="cb263-4"><a href="part-ii-practical-application.html#cb263-4" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-5"><a href="part-ii-practical-application.html#cb263-5" tabindex="-1"></a></span>
+<span id="cb263-6"><a href="part-ii-practical-application.html#cb263-6" tabindex="-1"></a><span class="fu">library</span>(aqp)</span>
+<span id="cb263-7"><a href="part-ii-practical-application.html#cb263-7" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb263-8"><a href="part-ii-practical-application.html#cb263-8" tabindex="-1"></a></span>
+<span id="cb263-9"><a href="part-ii-practical-application.html#cb263-9" tabindex="-1"></a><span class="co"># Remove spectral matrix columns before converting to an aqp object</span></span>
+<span id="cb263-10"><a href="part-ii-practical-application.html#cb263-10" tabindex="-1"></a><span class="co"># This keeps only tabular horizon-level information</span></span>
+<span id="cb263-11"><a href="part-ii-practical-application.html#cb263-11" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat[, <span class="sc">!</span><span class="fu">names</span>(dat) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;spc&quot;</span>, <span class="st">&quot;spc_raw&quot;</span>)]</span>
+<span id="cb263-12"><a href="part-ii-practical-application.html#cb263-12" tabindex="-1"></a></span>
+<span id="cb263-13"><a href="part-ii-practical-application.html#cb263-13" tabindex="-1"></a><span class="co"># Build a SoilProfileCollection object</span></span>
+<span id="cb263-14"><a href="part-ii-practical-application.html#cb263-14" tabindex="-1"></a><span class="co"># ProfID identifies each profile, and the top/bottom columns define horizons</span></span>
+<span id="cb263-15"><a href="part-ii-practical-application.html#cb263-15" tabindex="-1"></a><span class="fu">depths</span>(dat) <span class="ot">&lt;-</span> ProfID <span class="sc">~</span> Top_depth_cm.x <span class="sc">+</span> Bottom_depth_cm.x</span>
+<span id="cb263-16"><a href="part-ii-practical-application.html#cb263-16" tabindex="-1"></a></span>
+<span id="cb263-17"><a href="part-ii-practical-application.html#cb263-17" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-18"><a href="part-ii-practical-application.html#cb263-18" tabindex="-1"></a><span class="co"># Depth-weighted mean SOC prediction for 0-30 cm</span></span>
+<span id="cb263-19"><a href="part-ii-practical-application.html#cb263-19" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-20"><a href="part-ii-practical-application.html#cb263-20" tabindex="-1"></a></span>
+<span id="cb263-21"><a href="part-ii-practical-application.html#cb263-21" tabindex="-1"></a>soc_mean_0_30 <span class="ot">&lt;-</span> <span class="fu">slab</span>(</span>
+<span id="cb263-22"><a href="part-ii-practical-application.html#cb263-22" tabindex="-1"></a>  dat,</span>
+<span id="cb263-23"><a href="part-ii-practical-application.html#cb263-23" tabindex="-1"></a>  <span class="at">fm =</span> <span class="sc">~</span> SOC_predRF,</span>
+<span id="cb263-24"><a href="part-ii-practical-application.html#cb263-24" tabindex="-1"></a>  <span class="at">slab.structure =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>)</span>
+<span id="cb263-25"><a href="part-ii-practical-application.html#cb263-25" tabindex="-1"></a>)</span>
+<span id="cb263-26"><a href="part-ii-practical-application.html#cb263-26" tabindex="-1"></a></span>
+<span id="cb263-27"><a href="part-ii-practical-application.html#cb263-27" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-28"><a href="part-ii-practical-application.html#cb263-28" tabindex="-1"></a><span class="co"># Helper function:</span></span>
+<span id="cb263-29"><a href="part-ii-practical-application.html#cb263-29" tabindex="-1"></a><span class="co"># Compute a depth-weighted standard deviation over 0-30 cm</span></span>
+<span id="cb263-30"><a href="part-ii-practical-application.html#cb263-30" tabindex="-1"></a><span class="co"># Only the horizon portions overlapping the target interval are used</span></span>
+<span id="cb263-31"><a href="part-ii-practical-application.html#cb263-31" tabindex="-1"></a><span class="co"># Profiles that do not fully cover 0-30 cm return NA</span></span>
+<span id="cb263-32"><a href="part-ii-practical-application.html#cb263-32" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-33"><a href="part-ii-practical-application.html#cb263-33" tabindex="-1"></a></span>
+<span id="cb263-34"><a href="part-ii-practical-application.html#cb263-34" tabindex="-1"></a>weighted_sd_0_30 <span class="ot">&lt;-</span> <span class="cf">function</span>(top, bottom, sd, <span class="at">z1 =</span> <span class="dv">0</span>, <span class="at">z2 =</span> <span class="dv">30</span>) {</span>
+<span id="cb263-35"><a href="part-ii-practical-application.html#cb263-35" tabindex="-1"></a>  w <span class="ot">&lt;-</span> <span class="fu">pmax</span>(<span class="dv">0</span>, <span class="fu">pmin</span>(bottom, z2) <span class="sc">-</span> <span class="fu">pmax</span>(top, z1))</span>
+<span id="cb263-36"><a href="part-ii-practical-application.html#cb263-36" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> w <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(sd)</span>
+<span id="cb263-37"><a href="part-ii-practical-application.html#cb263-37" tabindex="-1"></a>  </span>
+<span id="cb263-38"><a href="part-ii-practical-application.html#cb263-38" tabindex="-1"></a>  w  <span class="ot">&lt;-</span> w[keep]</span>
+<span id="cb263-39"><a href="part-ii-practical-application.html#cb263-39" tabindex="-1"></a>  sd <span class="ot">&lt;-</span> sd[keep]</span>
+<span id="cb263-40"><a href="part-ii-practical-application.html#cb263-40" tabindex="-1"></a>  </span>
+<span id="cb263-41"><a href="part-ii-practical-application.html#cb263-41" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">sum</span>(w) <span class="sc">&lt;</span> (z2 <span class="sc">-</span> z1)) <span class="fu">return</span>(<span class="cn">NA_real_</span>)</span>
+<span id="cb263-42"><a href="part-ii-practical-application.html#cb263-42" tabindex="-1"></a>  </span>
+<span id="cb263-43"><a href="part-ii-practical-application.html#cb263-43" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="fu">sum</span>((w <span class="sc">*</span> sd)<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">/</span> <span class="fu">sum</span>(w)</span>
+<span id="cb263-44"><a href="part-ii-practical-application.html#cb263-44" tabindex="-1"></a>}</span>
+<span id="cb263-45"><a href="part-ii-practical-application.html#cb263-45" tabindex="-1"></a></span>
+<span id="cb263-46"><a href="part-ii-practical-application.html#cb263-46" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-47"><a href="part-ii-practical-application.html#cb263-47" tabindex="-1"></a><span class="co"># Compute profile-level uncertainty for 0-30 cm</span></span>
+<span id="cb263-48"><a href="part-ii-practical-application.html#cb263-48" tabindex="-1"></a><span class="co"># for both RF prediction uncertainty and lab measurement uncertainty</span></span>
+<span id="cb263-49"><a href="part-ii-practical-application.html#cb263-49" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-50"><a href="part-ii-practical-application.html#cb263-50" tabindex="-1"></a></span>
+<span id="cb263-51"><a href="part-ii-practical-application.html#cb263-51" tabindex="-1"></a>soc_sd_0_30 <span class="ot">&lt;-</span> <span class="fu">horizons</span>(dat) <span class="sc">%&gt;%</span></span>
+<span id="cb263-52"><a href="part-ii-practical-application.html#cb263-52" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb263-53"><a href="part-ii-practical-application.html#cb263-53" tabindex="-1"></a>  <span class="fu">group_by</span>(ProfID) <span class="sc">%&gt;%</span></span>
+<span id="cb263-54"><a href="part-ii-practical-application.html#cb263-54" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb263-55"><a href="part-ii-practical-application.html#cb263-55" tabindex="-1"></a>    <span class="at">SOC_sdRF_0_30 =</span> <span class="fu">weighted_sd_0_30</span>(</span>
+<span id="cb263-56"><a href="part-ii-practical-application.html#cb263-56" tabindex="-1"></a>      Top_depth_cm.x,</span>
+<span id="cb263-57"><a href="part-ii-practical-application.html#cb263-57" tabindex="-1"></a>      Bottom_depth_cm.x,</span>
+<span id="cb263-58"><a href="part-ii-practical-application.html#cb263-58" tabindex="-1"></a>      SOC_sdRF,</span>
+<span id="cb263-59"><a href="part-ii-practical-application.html#cb263-59" tabindex="-1"></a>      <span class="dv">0</span>, <span class="dv">30</span></span>
+<span id="cb263-60"><a href="part-ii-practical-application.html#cb263-60" tabindex="-1"></a>    ),</span>
+<span id="cb263-61"><a href="part-ii-practical-application.html#cb263-61" tabindex="-1"></a>    <span class="at">SOC_sdLAB_0_30 =</span> <span class="fu">weighted_sd_0_30</span>(</span>
+<span id="cb263-62"><a href="part-ii-practical-application.html#cb263-62" tabindex="-1"></a>      Top_depth_cm.x,</span>
+<span id="cb263-63"><a href="part-ii-practical-application.html#cb263-63" tabindex="-1"></a>      Bottom_depth_cm.x,</span>
+<span id="cb263-64"><a href="part-ii-practical-application.html#cb263-64" tabindex="-1"></a>      SOC_sdLAB,</span>
+<span id="cb263-65"><a href="part-ii-practical-application.html#cb263-65" tabindex="-1"></a>      <span class="dv">0</span>, <span class="dv">30</span></span>
+<span id="cb263-66"><a href="part-ii-practical-application.html#cb263-66" tabindex="-1"></a>    ),</span>
+<span id="cb263-67"><a href="part-ii-practical-application.html#cb263-67" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb263-68"><a href="part-ii-practical-application.html#cb263-68" tabindex="-1"></a>  )</span>
+<span id="cb263-69"><a href="part-ii-practical-application.html#cb263-69" tabindex="-1"></a></span>
+<span id="cb263-70"><a href="part-ii-practical-application.html#cb263-70" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-71"><a href="part-ii-practical-application.html#cb263-71" tabindex="-1"></a><span class="co"># Compute profile-level mean predicted SOC for 0-30 cm</span></span>
+<span id="cb263-72"><a href="part-ii-practical-application.html#cb263-72" tabindex="-1"></a><span class="co"># using overlap with the target interval as weights</span></span>
+<span id="cb263-73"><a href="part-ii-practical-application.html#cb263-73" tabindex="-1"></a><span class="co"># Profiles that do not fully cover 0-30 cm return NA</span></span>
+<span id="cb263-74"><a href="part-ii-practical-application.html#cb263-74" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-75"><a href="part-ii-practical-application.html#cb263-75" tabindex="-1"></a></span>
+<span id="cb263-76"><a href="part-ii-practical-application.html#cb263-76" tabindex="-1"></a>soc_mean_vals <span class="ot">&lt;-</span> <span class="fu">profileApply</span>(dat, <span class="cf">function</span>(p) {</span>
+<span id="cb263-77"><a href="part-ii-practical-application.html#cb263-77" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">horizons</span>(p)</span>
+<span id="cb263-78"><a href="part-ii-practical-application.html#cb263-78" tabindex="-1"></a>  </span>
+<span id="cb263-79"><a href="part-ii-practical-application.html#cb263-79" tabindex="-1"></a>  overlap <span class="ot">&lt;-</span> <span class="fu">pmax</span>(<span class="dv">0</span>, <span class="fu">pmin</span>(x<span class="sc">$</span>Bottom_depth_cm.x, <span class="dv">30</span>) <span class="sc">-</span> <span class="fu">pmax</span>(x<span class="sc">$</span>Top_depth_cm.x, <span class="dv">0</span>))</span>
+<span id="cb263-80"><a href="part-ii-practical-application.html#cb263-80" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> overlap <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(x<span class="sc">$</span>SOC_predRF)</span>
+<span id="cb263-81"><a href="part-ii-practical-application.html#cb263-81" tabindex="-1"></a>  </span>
+<span id="cb263-82"><a href="part-ii-practical-application.html#cb263-82" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">sum</span>(overlap[keep]) <span class="sc">&lt;</span> <span class="dv">30</span>) <span class="fu">return</span>(<span class="cn">NA_real_</span>)</span>
+<span id="cb263-83"><a href="part-ii-practical-application.html#cb263-83" tabindex="-1"></a>  </span>
+<span id="cb263-84"><a href="part-ii-practical-application.html#cb263-84" tabindex="-1"></a>  <span class="fu">sum</span>(overlap[keep] <span class="sc">*</span> x<span class="sc">$</span>SOC_predRF[keep]) <span class="sc">/</span> <span class="fu">sum</span>(overlap[keep])</span>
+<span id="cb263-85"><a href="part-ii-practical-application.html#cb263-85" tabindex="-1"></a>})</span>
+<span id="cb263-86"><a href="part-ii-practical-application.html#cb263-86" tabindex="-1"></a></span>
+<span id="cb263-87"><a href="part-ii-practical-application.html#cb263-87" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-88"><a href="part-ii-practical-application.html#cb263-88" tabindex="-1"></a><span class="co"># Combine mean prediction and uncertainty into one table</span></span>
+<span id="cb263-89"><a href="part-ii-practical-application.html#cb263-89" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-90"><a href="part-ii-practical-application.html#cb263-90" tabindex="-1"></a></span>
+<span id="cb263-91"><a href="part-ii-practical-application.html#cb263-91" tabindex="-1"></a>soc_0_30 <span class="ot">&lt;-</span> soc_sd_0_30 <span class="sc">%&gt;%</span></span>
+<span id="cb263-92"><a href="part-ii-practical-application.html#cb263-92" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SOC_predRF_0_30 =</span> soc_mean_vals) <span class="sc">%&gt;%</span></span>
+<span id="cb263-93"><a href="part-ii-practical-application.html#cb263-93" tabindex="-1"></a>  <span class="fu">select</span>(ProfID, SOC_predRF_0_30, SOC_sdRF_0_30, SOC_sdLAB_0_30)</span>
+<span id="cb263-94"><a href="part-ii-practical-application.html#cb263-94" tabindex="-1"></a></span>
+<span id="cb263-95"><a href="part-ii-practical-application.html#cb263-95" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-96"><a href="part-ii-practical-application.html#cb263-96" tabindex="-1"></a><span class="co"># Extract one set of coordinates per profile</span></span>
+<span id="cb263-97"><a href="part-ii-practical-application.html#cb263-97" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-98"><a href="part-ii-practical-application.html#cb263-98" tabindex="-1"></a></span>
+<span id="cb263-99"><a href="part-ii-practical-application.html#cb263-99" tabindex="-1"></a>dat_sub <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(dat)[, <span class="fu">c</span>(<span class="st">&quot;ProfID&quot;</span>, <span class="st">&quot;SOC&quot;</span>, <span class="st">&quot;Lat_Site.x&quot;</span>, <span class="st">&quot;Long_Site.x&quot;</span>)]</span>
+<span id="cb263-100"><a href="part-ii-practical-application.html#cb263-100" tabindex="-1"></a>coords  <span class="ot">&lt;-</span> dat_sub[<span class="sc">!</span><span class="fu">duplicated</span>(dat_sub<span class="sc">$</span>ProfID), ]</span>
+<span id="cb263-101"><a href="part-ii-practical-application.html#cb263-101" tabindex="-1"></a></span>
+<span id="cb263-102"><a href="part-ii-practical-application.html#cb263-102" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-103"><a href="part-ii-practical-application.html#cb263-103" tabindex="-1"></a><span class="co"># Attach coordinates to the 0-30 cm summary table</span></span>
+<span id="cb263-104"><a href="part-ii-practical-application.html#cb263-104" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-105"><a href="part-ii-practical-application.html#cb263-105" tabindex="-1"></a></span>
+<span id="cb263-106"><a href="part-ii-practical-application.html#cb263-106" tabindex="-1"></a>soc_0_30_xy <span class="ot">&lt;-</span> <span class="fu">merge</span>(</span>
+<span id="cb263-107"><a href="part-ii-practical-application.html#cb263-107" tabindex="-1"></a>  soc_0_30,</span>
+<span id="cb263-108"><a href="part-ii-practical-application.html#cb263-108" tabindex="-1"></a>  coords,</span>
+<span id="cb263-109"><a href="part-ii-practical-application.html#cb263-109" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">&quot;ProfID&quot;</span>,</span>
+<span id="cb263-110"><a href="part-ii-practical-application.html#cb263-110" tabindex="-1"></a>  <span class="at">all.x =</span> <span class="cn">TRUE</span></span>
+<span id="cb263-111"><a href="part-ii-practical-application.html#cb263-111" tabindex="-1"></a>)</span>
+<span id="cb263-112"><a href="part-ii-practical-application.html#cb263-112" tabindex="-1"></a></span>
+<span id="cb263-113"><a href="part-ii-practical-application.html#cb263-113" tabindex="-1"></a><span class="co"># Display the first profile-level results</span></span>
+<span id="cb263-114"><a href="part-ii-practical-application.html#cb263-114" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(soc_0_30_xy))</span></code></pre></div>
+</div>
+</div>
+<div id="preparation-of-the-covariates" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Preparation of the covariates<a href="part-ii-practical-application.html#preparation-of-the-covariates" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>At this stage, the environmental covariates are prepared exactly as in the training material, so the same workflow can be followed here. The objective is to align the soil observations with the raster covariate stack and extract, for each sampling location, the values of all environmental predictors that will later be used in the modelling step.</p>
+<p>The procedure involves four main operations:
+* loading the raster stack of environmental covariates,
+* converting the soil profile summaries into a spatial point object,
+* reprojecting the points so that they match the coordinate reference system of the covariates,
+* extracting raster values at each soil observation location and attaching them to the point data.</p>
+<p>This produces a spatial dataset in which each soil observation is associated with the full set of environmental predictors.</p>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="part-ii-practical-application.html#cb264-1" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb264-2"><a href="part-ii-practical-application.html#cb264-2" tabindex="-1"></a></span>
+<span id="cb264-3"><a href="part-ii-practical-application.html#cb264-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb264-4"><a href="part-ii-practical-application.html#cb264-4" tabindex="-1"></a><span class="co"># Load environmental covariates</span></span>
+<span id="cb264-5"><a href="part-ii-practical-application.html#cb264-5" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb264-6"><a href="part-ii-practical-application.html#cb264-6" tabindex="-1"></a></span>
+<span id="cb264-7"><a href="part-ii-practical-application.html#cb264-7" tabindex="-1"></a>covs <span class="ot">&lt;-</span> <span class="fu">rast</span>(</span>
+<span id="cb264-8"><a href="part-ii-practical-application.html#cb264-8" tabindex="-1"></a>  <span class="st">&quot;01_data/module1/training_data/data/Environmental_Covariates_250m_KANSAS.tif&quot;</span></span>
+<span id="cb264-9"><a href="part-ii-practical-application.html#cb264-9" tabindex="-1"></a>)</span>
+<span id="cb264-10"><a href="part-ii-practical-application.html#cb264-10" tabindex="-1"></a>cov_names <span class="ot">&lt;-</span> <span class="fu">names</span>(covs)</span>
+<span id="cb264-11"><a href="part-ii-practical-application.html#cb264-11" tabindex="-1"></a></span>
+<span id="cb264-12"><a href="part-ii-practical-application.html#cb264-12" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb264-13"><a href="part-ii-practical-application.html#cb264-13" tabindex="-1"></a><span class="co"># Convert the 0-30 cm soil summary table to spatial points</span></span>
+<span id="cb264-14"><a href="part-ii-practical-application.html#cb264-14" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb264-15"><a href="part-ii-practical-application.html#cb264-15" tabindex="-1"></a></span>
+<span id="cb264-16"><a href="part-ii-practical-application.html#cb264-16" tabindex="-1"></a>soil_pts <span class="ot">&lt;-</span> <span class="fu">vect</span>(</span>
+<span id="cb264-17"><a href="part-ii-practical-application.html#cb264-17" tabindex="-1"></a>  soc_0_30_xy,</span>
+<span id="cb264-18"><a href="part-ii-practical-application.html#cb264-18" tabindex="-1"></a>  <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">&quot;Long_Site.x&quot;</span>, <span class="st">&quot;Lat_Site.x&quot;</span>),</span>
+<span id="cb264-19"><a href="part-ii-practical-application.html#cb264-19" tabindex="-1"></a>  <span class="at">crs =</span> <span class="st">&quot;EPSG:4326&quot;</span></span>
+<span id="cb264-20"><a href="part-ii-practical-application.html#cb264-20" tabindex="-1"></a>)</span>
+<span id="cb264-21"><a href="part-ii-practical-application.html#cb264-21" tabindex="-1"></a></span>
+<span id="cb264-22"><a href="part-ii-practical-application.html#cb264-22" tabindex="-1"></a><span class="co"># Reproject points to match the raster covariate stack</span></span>
+<span id="cb264-23"><a href="part-ii-practical-application.html#cb264-23" tabindex="-1"></a>soil_pts <span class="ot">&lt;-</span> <span class="fu">project</span>(soil_pts, covs)</span>
+<span id="cb264-24"><a href="part-ii-practical-application.html#cb264-24" tabindex="-1"></a></span>
+<span id="cb264-25"><a href="part-ii-practical-application.html#cb264-25" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb264-26"><a href="part-ii-practical-application.html#cb264-26" tabindex="-1"></a><span class="co"># Extract covariate values at each soil point</span></span>
+<span id="cb264-27"><a href="part-ii-practical-application.html#cb264-27" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb264-28"><a href="part-ii-practical-application.html#cb264-28" tabindex="-1"></a></span>
+<span id="cb264-29"><a href="part-ii-practical-application.html#cb264-29" tabindex="-1"></a>covs_extracted <span class="ot">&lt;-</span> <span class="fu">extract</span>(covs, soil_pts)</span>
+<span id="cb264-30"><a href="part-ii-practical-application.html#cb264-30" tabindex="-1"></a></span>
+<span id="cb264-31"><a href="part-ii-practical-application.html#cb264-31" tabindex="-1"></a><span class="co"># Remove the ID column returned by extract() and attach predictors</span></span>
+<span id="cb264-32"><a href="part-ii-practical-application.html#cb264-32" tabindex="-1"></a>soil_pts <span class="ot">&lt;-</span> <span class="fu">cbind</span>(soil_pts, covs_extracted[, <span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb264-33"><a href="part-ii-practical-application.html#cb264-33" tabindex="-1"></a></span>
+<span id="cb264-34"><a href="part-ii-practical-application.html#cb264-34" tabindex="-1"></a><span class="co"># Optional check: plot sample locations</span></span>
+<span id="cb264-35"><a href="part-ii-practical-application.html#cb264-35" tabindex="-1"></a><span class="fu">plot</span>(soil_pts, <span class="at">cex =</span> <span class="fl">0.7</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+</div>
+<div id="dsm-model-training-with-spectroscopic-data" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> DSM model training with spectroscopic data<a href="part-ii-practical-application.html#dsm-model-training-with-spectroscopic-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this section we demonstrate how spectroscopic predictions can be integrated into the DSM modelling. The idea is that each observation, whether originating from laboratory analysis or from spectroscopy, is associated with a sample-specific uncertainty estimate.
+This uncertainty can be used to control the relative influence of each observation during model training.</p>
+<p>As introduced in Part I (Section 3), a practical way to achieve this is through case weighting. Observations with lower uncertainty are given higher statistical weight, while observations with higher uncertainty contribute less to the fitted model. This approach allows spectroscopic predictions to supplement laboratory data without treating both sources as equally reliable.</p>
+<p>In the following example, SOC is mapped using quantile regression forests, following a workflow similar to previous DSM examples. The steps include deriving uncertainty-based weights, fitting models with and without spectroscopic data, and comparing the resulting spatial predictions.</p>
+<div id="deriving-observation-weights" class="section level3 hasAnchor" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Deriving observation weights<a href="part-ii-practical-application.html#deriving-observation-weights" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Weights are derived from the uncertainty estimates obtained in the previous section. A simple and commonly used formulation is to define weights as the inverse of the variance associated with each observation.</p>
+<p>This means that observations with smaller prediction or measurement variance receive larger weights. Conversely, observations with large uncertainty contribute less to model calibration.</p>
+<p>Separate raw weights are therefore computed for:
+* spectroscopic predictions (based on prediction standard deviation), and
+* laboratory measurements (based on analytical uncertainty).</p>
+<p>Inspecting the distribution of these weights helps to understand the relative precision of the two data sources and to detect potential extreme values before model fitting.</p>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="part-ii-practical-application.html#cb265-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb265-2"><a href="part-ii-practical-application.html#cb265-2" tabindex="-1"></a><span class="co"># Define inverse-variance weights for modelling</span></span>
+<span id="cb265-3"><a href="part-ii-practical-application.html#cb265-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb265-4"><a href="part-ii-practical-application.html#cb265-4" tabindex="-1"></a></span>
+<span id="cb265-5"><a href="part-ii-practical-application.html#cb265-5" tabindex="-1"></a>soil_pts<span class="sc">$</span>w_RF_raw  <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (soil_pts<span class="sc">$</span>SOC_sdRF_0_30<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb265-6"><a href="part-ii-practical-application.html#cb265-6" tabindex="-1"></a>soil_pts<span class="sc">$</span>w_LAB_raw <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (soil_pts<span class="sc">$</span>SOC_sdLAB_0_30<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb265-7"><a href="part-ii-practical-application.html#cb265-7" tabindex="-1"></a></span>
+<span id="cb265-8"><a href="part-ii-practical-application.html#cb265-8" tabindex="-1"></a><span class="co"># Optional: check weight distributions</span></span>
+<span id="cb265-9"><a href="part-ii-practical-application.html#cb265-9" tabindex="-1"></a><span class="fu">summary</span>(soil_pts<span class="sc">$</span>w_RF_raw)</span>
+<span id="cb265-10"><a href="part-ii-practical-application.html#cb265-10" tabindex="-1"></a><span class="fu">summary</span>(soil_pts<span class="sc">$</span>w_LAB_raw)</span></code></pre></div>
+</div>
+<div id="baseline-dsm-model-using-laboratory-data" class="section level3 hasAnchor" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> Baseline DSM model using laboratory data<a href="part-ii-practical-application.html#baseline-dsm-model-using-laboratory-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before integrating spectroscopic information, a baseline DSM model can be fitted using laboratory SOC observations only. Environmental covariates representing soil-forming factors are used as predictors in a random forest model.</p>
+<p>This step provides a reference spatial prediction of SOC across the study area. The resulting map can later be compared with models that include spectroscopic information. Such comparisons help to evaluate whether the additional data source improves spatial patterns or prediction stability.</p>
+</div>
+<div id="dsm-model-training-integrating-spectroscopic-predictions" class="section level3 hasAnchor" number="6.4.3">
+<h3><span class="header-section-number">6.4.3</span> DSM model training integrating spectroscopic predictions<a href="part-ii-practical-application.html#dsm-model-training-integrating-spectroscopic-predictions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To demonstrate the effect of spectroscopic supplementation, a mixed dataset is created. A subset of observations is replaced by spectroscopically predicted SOC values, together with their associated uncertainty-based weights.</p>
+<p>An indicator variable can be retained to distinguish between laboratory and spectroscopic sources if needed for later analyses.</p>
+<p>After removing incomplete or invalid cases, a weighted random forest model is fitted. The case weights ensure that observations contribute according to their estimated reliability, rather than simply according to their number.</p>
+<p>Spatial predictions are then generated and compared with the baseline laboratory-only model. Mapping the difference between predictions helps to visualise how the inclusion of spectroscopic data influences the spatial distribution of SOC.</p>
+<p>This exercise illustrates a practical strategy for integrating heterogeneous soil information sources in DSM. The same principles can be applied to other soil properties and modelling approaches, such as with geostatistics or other machine learning techniques commonly used in DSM.</p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="part-ii-practical-application.html#cb266-1" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
+<span id="cb266-2"><a href="part-ii-practical-application.html#cb266-2" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb266-3"><a href="part-ii-practical-application.html#cb266-3" tabindex="-1"></a></span>
+<span id="cb266-4"><a href="part-ii-practical-application.html#cb266-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb266-5"><a href="part-ii-practical-application.html#cb266-5" tabindex="-1"></a></span>
+<span id="cb266-6"><a href="part-ii-practical-application.html#cb266-6" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb266-7"><a href="part-ii-practical-application.html#cb266-7" tabindex="-1"></a><span class="co"># Create a mixed dataset with 25% spectroscopic observations</span></span>
+<span id="cb266-8"><a href="part-ii-practical-application.html#cb266-8" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb266-9"><a href="part-ii-practical-application.html#cb266-9" tabindex="-1"></a></span>
+<span id="cb266-10"><a href="part-ii-practical-application.html#cb266-10" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(soil_df)</span>
+<span id="cb266-11"><a href="part-ii-practical-application.html#cb266-11" tabindex="-1"></a></span>
+<span id="cb266-12"><a href="part-ii-practical-application.html#cb266-12" tabindex="-1"></a><span class="co"># Randomly select 25% of observations to be replaced by RF predictions</span></span>
+<span id="cb266-13"><a href="part-ii-practical-application.html#cb266-13" tabindex="-1"></a>idx_rf <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(n), <span class="at">size =</span> <span class="fu">round</span>(<span class="fl">0.25</span> <span class="sc">*</span> n))</span>
+<span id="cb266-14"><a href="part-ii-practical-application.html#cb266-14" tabindex="-1"></a></span>
+<span id="cb266-15"><a href="part-ii-practical-application.html#cb266-15" tabindex="-1"></a><span class="co"># Mixed response variable:</span></span>
+<span id="cb266-16"><a href="part-ii-practical-application.html#cb266-16" tabindex="-1"></a><span class="co"># keep lab SOC by default, replace selected points with RF-based SOC</span></span>
+<span id="cb266-17"><a href="part-ii-practical-application.html#cb266-17" tabindex="-1"></a>soil_df<span class="sc">$</span>SOC_mix <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>SOC</span>
+<span id="cb266-18"><a href="part-ii-practical-application.html#cb266-18" tabindex="-1"></a>soil_df<span class="sc">$</span>SOC_mix[idx_rf] <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>SOC_predRF_0_30[idx_rf]</span>
+<span id="cb266-19"><a href="part-ii-practical-application.html#cb266-19" tabindex="-1"></a></span>
+<span id="cb266-20"><a href="part-ii-practical-application.html#cb266-20" tabindex="-1"></a><span class="co"># Matching weights:</span></span>
+<span id="cb266-21"><a href="part-ii-practical-application.html#cb266-21" tabindex="-1"></a><span class="co"># lab points keep lab weights, RF points receive RF-based weights</span></span>
+<span id="cb266-22"><a href="part-ii-practical-application.html#cb266-22" tabindex="-1"></a>soil_df<span class="sc">$</span>w_mix <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>w_LAB_raw</span>
+<span id="cb266-23"><a href="part-ii-practical-application.html#cb266-23" tabindex="-1"></a>soil_df<span class="sc">$</span>w_mix[idx_rf] <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>w_RF_raw[idx_rf]</span>
+<span id="cb266-24"><a href="part-ii-practical-application.html#cb266-24" tabindex="-1"></a></span>
+<span id="cb266-25"><a href="part-ii-practical-application.html#cb266-25" tabindex="-1"></a><span class="co"># Optional indicator showing the source of each observation</span></span>
+<span id="cb266-26"><a href="part-ii-practical-application.html#cb266-26" tabindex="-1"></a>soil_df<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">&quot;LAB&quot;</span></span>
+<span id="cb266-27"><a href="part-ii-practical-application.html#cb266-27" tabindex="-1"></a>soil_df<span class="sc">$</span>source[idx_rf] <span class="ot">&lt;-</span> <span class="st">&quot;RF&quot;</span></span>
+<span id="cb266-28"><a href="part-ii-practical-application.html#cb266-28" tabindex="-1"></a></span>
+<span id="cb266-29"><a href="part-ii-practical-application.html#cb266-29" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb266-30"><a href="part-ii-practical-application.html#cb266-30" tabindex="-1"></a><span class="co"># Keep only valid rows for modelling</span></span>
+<span id="cb266-31"><a href="part-ii-practical-application.html#cb266-31" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb266-32"><a href="part-ii-practical-application.html#cb266-32" tabindex="-1"></a></span>
+<span id="cb266-33"><a href="part-ii-practical-application.html#cb266-33" tabindex="-1"></a>vars_needed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SOC_mix&quot;</span>, <span class="st">&quot;w_mix&quot;</span>, cov_names)</span>
+<span id="cb266-34"><a href="part-ii-practical-application.html#cb266-34" tabindex="-1"></a></span>
+<span id="cb266-35"><a href="part-ii-practical-application.html#cb266-35" tabindex="-1"></a>soil_df2 <span class="ot">&lt;-</span> soil_df[</span>
+<span id="cb266-36"><a href="part-ii-practical-application.html#cb266-36" tabindex="-1"></a>  <span class="fu">complete.cases</span>(soil_df[, vars_needed]) <span class="sc">&amp;</span></span>
+<span id="cb266-37"><a href="part-ii-practical-application.html#cb266-37" tabindex="-1"></a>    <span class="fu">is.finite</span>(soil_df<span class="sc">$</span>w_mix) <span class="sc">&amp;</span></span>
+<span id="cb266-38"><a href="part-ii-practical-application.html#cb266-38" tabindex="-1"></a>    soil_df<span class="sc">$</span>w_mix <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb266-39"><a href="part-ii-practical-application.html#cb266-39" tabindex="-1"></a>]</span>
+<span id="cb266-40"><a href="part-ii-practical-application.html#cb266-40" tabindex="-1"></a></span>
+<span id="cb266-41"><a href="part-ii-practical-application.html#cb266-41" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb266-42"><a href="part-ii-practical-application.html#cb266-42" tabindex="-1"></a><span class="co"># Fit weighted random forest model</span></span>
+<span id="cb266-43"><a href="part-ii-practical-application.html#cb266-43" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb266-44"><a href="part-ii-practical-application.html#cb266-44" tabindex="-1"></a></span>
+<span id="cb266-45"><a href="part-ii-practical-application.html#cb266-45" tabindex="-1"></a>form_mix <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(</span>
+<span id="cb266-46"><a href="part-ii-practical-application.html#cb266-46" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">&quot;SOC_mix ~&quot;</span>, <span class="fu">paste</span>(cov_names, <span class="at">collapse =</span> <span class="st">&quot; + &quot;</span>))</span>
+<span id="cb266-47"><a href="part-ii-practical-application.html#cb266-47" tabindex="-1"></a>)</span>
+<span id="cb266-48"><a href="part-ii-practical-application.html#cb266-48" tabindex="-1"></a></span>
+<span id="cb266-49"><a href="part-ii-practical-application.html#cb266-49" tabindex="-1"></a>mod_mix25 <span class="ot">&lt;-</span> <span class="fu">ranger</span>(</span>
+<span id="cb266-50"><a href="part-ii-practical-application.html#cb266-50" tabindex="-1"></a>  <span class="at">formula =</span> form_mix,</span>
+<span id="cb266-51"><a href="part-ii-practical-application.html#cb266-51" tabindex="-1"></a>  <span class="at">data =</span> soil_df2,</span>
+<span id="cb266-52"><a href="part-ii-practical-application.html#cb266-52" tabindex="-1"></a>  <span class="at">case.weights =</span> soil_df2<span class="sc">$</span>w_mix,</span>
+<span id="cb266-53"><a href="part-ii-practical-application.html#cb266-53" tabindex="-1"></a>  <span class="at">num.trees =</span> <span class="dv">100</span></span>
+<span id="cb266-54"><a href="part-ii-practical-application.html#cb266-54" tabindex="-1"></a>)</span>
+<span id="cb266-55"><a href="part-ii-practical-application.html#cb266-55" tabindex="-1"></a></span>
+<span id="cb266-56"><a href="part-ii-practical-application.html#cb266-56" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb266-57"><a href="part-ii-practical-application.html#cb266-57" tabindex="-1"></a><span class="co"># Predict SOC map for the mixed scenario</span></span>
+<span id="cb266-58"><a href="part-ii-practical-application.html#cb266-58" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb266-59"><a href="part-ii-practical-application.html#cb266-59" tabindex="-1"></a></span>
+<span id="cb266-60"><a href="part-ii-practical-application.html#cb266-60" tabindex="-1"></a>soc_map_mix25 <span class="ot">&lt;-</span> <span class="fu">predict</span>(covs, mod_mix25, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb266-61"><a href="part-ii-practical-application.html#cb266-61" tabindex="-1"></a></span>
+<span id="cb266-62"><a href="part-ii-practical-application.html#cb266-62" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb266-63"><a href="part-ii-practical-application.html#cb266-63" tabindex="-1"></a><span class="co"># Compare baseline and mixed maps</span></span>
+<span id="cb266-64"><a href="part-ii-practical-application.html#cb266-64" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb266-65"><a href="part-ii-practical-application.html#cb266-65" tabindex="-1"></a></span>
+<span id="cb266-66"><a href="part-ii-practical-application.html#cb266-66" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb266-67"><a href="part-ii-practical-application.html#cb266-67" tabindex="-1"></a></span>
+<span id="cb266-68"><a href="part-ii-practical-application.html#cb266-68" tabindex="-1"></a><span class="fu">plot</span>(soc_map, <span class="at">main =</span> <span class="st">&quot;SOC map: lab only&quot;</span>)</span>
+<span id="cb266-69"><a href="part-ii-practical-application.html#cb266-69" tabindex="-1"></a><span class="fu">plot</span>(soc_map_mix25, <span class="at">main =</span> <span class="st">&quot;SOC map: 25% spectro&quot;</span>)</span>
+<span id="cb266-70"><a href="part-ii-practical-application.html#cb266-70" tabindex="-1"></a><span class="fu">plot</span>(soc_map <span class="sc">-</span> soc_map_mix25, <span class="at">main =</span> <span class="st">&quot;Difference&quot;</span>)</span></code></pre></div>
+</div>
+</div>
+<div id="model-validation" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> Model validation<a href="part-ii-practical-application.html#model-validation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this section we evaluate the predictive performance of the DSM models. Because the dataset combines laboratory measurements and spectroscopically derived estimates, model validation must explicitly account for observation-specific uncertainty. Ignoring these differences would treat all observations as equally reliable, which is inconsistent with the modelling strategy adopted in previous sections.</p>
+<p>To address this, validation statistics are computed using uncertainty-based weights. These weights correspond to the inverse variance of each observation and therefore reflect the relative confidence in laboratory and spectroscopic data. Weighted validation provides a more realistic assessment of model performance when heterogeneous data sources are used.</p>
+<div id="validation-statistics" class="section level3 hasAnchor" number="6.5.1">
+<h3><span class="header-section-number">6.5.1</span> Validation statistics<a href="part-ii-practical-application.html#validation-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Three weighted performance metrics are considered. These metrics extend commonly used DSM validation statistics by incorporating observation weights.</p>
+<p>The weighted mean error (<span class="math inline">\(ME_w\)</span>) measures the average signed prediction bias, taking into account the reliability of each observation.
+The weighted ME:
+<span class="math display">\[
+ME_w =
+\frac{\sum_{i=1}^{n} w_i \left( \hat{z}(s_i) - z_m(s_i) \right)}
+{\sum_{i=1}^{n} w_i},
+\]</span></p>
+<p>The weighted root mean square error (<span class="math inline">\(RMSE_w\)</span>) quantifies the overall magnitude of prediction errors while giving more importance to precise observations.
+The weighted RMSE:
+<span class="math display">\[
+RMSE_w =
+\sqrt{
+\frac{
+\sum_{i=1}^{n} w_i \left( \hat{z}(s_i) - z_m(s_i) \right)^2
+}{
+\sum_{i=1}^{n} w_i
+}
+}
+\]</span></p>
+<p>Finally, the weighted Nash–Sutcliffe efficiency (<span class="math inline">\(NSE_w\)</span>) evaluates predictive skill relative to the weighted mean of observed values.
+Values of <span class="math inline">\(NSE_w\)</span> close to 1 indicate good predictive performance, whereas negative values indicate poor model skill.
+The weighted NSE:
+<span class="math display">\[
+NSE_w =
+1 -
+\frac{
+\sum_{i=1}^{n} w_i \left( \hat{z}(s_i) - z_m(s_i) \right)^2
+}{
+\sum_{i=1}^{n} w_i \left( z_m(s_i) - \bar{z}_m \right)^2
+}
+\]</span>
+Simple functions can be defined to compute these metrics from vectors of observations, predictions, and associated weights. These functions will be used throughout the validation exercises.</p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="part-ii-practical-application.html#cb267-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-2"><a href="part-ii-practical-application.html#cb267-2" tabindex="-1"></a><span class="co"># Weighted validation metrics</span></span>
+<span id="cb267-3"><a href="part-ii-practical-application.html#cb267-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-4"><a href="part-ii-practical-application.html#cb267-4" tabindex="-1"></a></span>
+<span id="cb267-5"><a href="part-ii-practical-application.html#cb267-5" tabindex="-1"></a><span class="co"># Weighted Mean Error (bias)</span></span>
+<span id="cb267-6"><a href="part-ii-practical-application.html#cb267-6" tabindex="-1"></a>wME <span class="ot">&lt;-</span> <span class="cf">function</span>(obs, pred, w) {</span>
+<span id="cb267-7"><a href="part-ii-practical-application.html#cb267-7" tabindex="-1"></a>  <span class="fu">sum</span>(w <span class="sc">*</span> (pred <span class="sc">-</span> obs), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span></span>
+<span id="cb267-8"><a href="part-ii-practical-application.html#cb267-8" tabindex="-1"></a>    <span class="fu">sum</span>(w, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb267-9"><a href="part-ii-practical-application.html#cb267-9" tabindex="-1"></a>}</span>
+<span id="cb267-10"><a href="part-ii-practical-application.html#cb267-10" tabindex="-1"></a></span>
+<span id="cb267-11"><a href="part-ii-practical-application.html#cb267-11" tabindex="-1"></a><span class="co"># Weighted Root Mean Squared Error</span></span>
+<span id="cb267-12"><a href="part-ii-practical-application.html#cb267-12" tabindex="-1"></a>wRMSE <span class="ot">&lt;-</span> <span class="cf">function</span>(obs, pred, w) {</span>
+<span id="cb267-13"><a href="part-ii-practical-application.html#cb267-13" tabindex="-1"></a>  <span class="fu">sqrt</span>(</span>
+<span id="cb267-14"><a href="part-ii-practical-application.html#cb267-14" tabindex="-1"></a>    <span class="fu">sum</span>(w <span class="sc">*</span> (pred <span class="sc">-</span> obs)<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span></span>
+<span id="cb267-15"><a href="part-ii-practical-application.html#cb267-15" tabindex="-1"></a>      <span class="fu">sum</span>(w, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb267-16"><a href="part-ii-practical-application.html#cb267-16" tabindex="-1"></a>  )</span>
+<span id="cb267-17"><a href="part-ii-practical-application.html#cb267-17" tabindex="-1"></a>}</span>
+<span id="cb267-18"><a href="part-ii-practical-application.html#cb267-18" tabindex="-1"></a></span>
+<span id="cb267-19"><a href="part-ii-practical-application.html#cb267-19" tabindex="-1"></a><span class="co"># Weighted Nash–Sutcliffe Efficiency</span></span>
+<span id="cb267-20"><a href="part-ii-practical-application.html#cb267-20" tabindex="-1"></a>wNSE <span class="ot">&lt;-</span> <span class="cf">function</span>(obs, pred, w) {</span>
+<span id="cb267-21"><a href="part-ii-practical-application.html#cb267-21" tabindex="-1"></a>  </span>
+<span id="cb267-22"><a href="part-ii-practical-application.html#cb267-22" tabindex="-1"></a>  <span class="co"># weighted mean of observations</span></span>
+<span id="cb267-23"><a href="part-ii-practical-application.html#cb267-23" tabindex="-1"></a>  zbar_w <span class="ot">&lt;-</span> <span class="fu">sum</span>(w <span class="sc">*</span> obs, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span></span>
+<span id="cb267-24"><a href="part-ii-practical-application.html#cb267-24" tabindex="-1"></a>            <span class="fu">sum</span>(w, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb267-25"><a href="part-ii-practical-application.html#cb267-25" tabindex="-1"></a>  </span>
+<span id="cb267-26"><a href="part-ii-practical-application.html#cb267-26" tabindex="-1"></a>  <span class="co"># weighted residual sum of squares</span></span>
+<span id="cb267-27"><a href="part-ii-practical-application.html#cb267-27" tabindex="-1"></a>  num <span class="ot">&lt;-</span> <span class="fu">sum</span>(w <span class="sc">*</span> (pred <span class="sc">-</span> obs)<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb267-28"><a href="part-ii-practical-application.html#cb267-28" tabindex="-1"></a>  </span>
+<span id="cb267-29"><a href="part-ii-practical-application.html#cb267-29" tabindex="-1"></a>  <span class="co"># weighted total sum of squares</span></span>
+<span id="cb267-30"><a href="part-ii-practical-application.html#cb267-30" tabindex="-1"></a>  den <span class="ot">&lt;-</span> <span class="fu">sum</span>(w <span class="sc">*</span> (obs <span class="sc">-</span> zbar_w)<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb267-31"><a href="part-ii-practical-application.html#cb267-31" tabindex="-1"></a>  </span>
+<span id="cb267-32"><a href="part-ii-practical-application.html#cb267-32" tabindex="-1"></a>  <span class="dv">1</span> <span class="sc">-</span> num <span class="sc">/</span> den</span>
+<span id="cb267-33"><a href="part-ii-practical-application.html#cb267-33" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="cross-validating-the-models" class="section level3 hasAnchor" number="6.5.2">
+<h3><span class="header-section-number">6.5.2</span> Cross-validating the models<a href="part-ii-practical-application.html#cross-validating-the-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To obtain robust validation statistics, model performance is assessed using <span class="math inline">\(k\)</span>-fold cross-validation. In this example, a mixed dataset is first constructed by combining laboratory SOC observations with a subset of spectroscopically predicted values. Matching uncertainty-based weights are assigned to each observation according to its data source.</p>
+<p>The dataset is then partitioned into several folds. For each fold, the model is calibrated on the remaining data and used to predict SOC for the withheld observations. This procedure ensures that validation statistics reflect the model’s ability to generalise to unseen locations.</p>
+<p>Predicted values, observed values, and associated weights are stored and subsequently used to compute weighted ME, RMSE, and NSE. These statistics provide a quantitative summary of model performance when spectroscopic data are integrated into the calibration process.</p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="part-ii-practical-application.html#cb268-1" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
+<span id="cb268-2"><a href="part-ii-practical-application.html#cb268-2" tabindex="-1"></a></span>
+<span id="cb268-3"><a href="part-ii-practical-application.html#cb268-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb268-4"><a href="part-ii-practical-application.html#cb268-4" tabindex="-1"></a></span>
+<span id="cb268-5"><a href="part-ii-practical-application.html#cb268-5" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-6"><a href="part-ii-practical-application.html#cb268-6" tabindex="-1"></a><span class="co"># Create mixed response (25% spectroscopic observations)</span></span>
+<span id="cb268-7"><a href="part-ii-practical-application.html#cb268-7" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-8"><a href="part-ii-practical-application.html#cb268-8" tabindex="-1"></a></span>
+<span id="cb268-9"><a href="part-ii-practical-application.html#cb268-9" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(soil_df)</span>
+<span id="cb268-10"><a href="part-ii-practical-application.html#cb268-10" tabindex="-1"></a></span>
+<span id="cb268-11"><a href="part-ii-practical-application.html#cb268-11" tabindex="-1"></a>idx_rf <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(n), <span class="at">size =</span> <span class="fu">round</span>(<span class="fl">0.25</span> <span class="sc">*</span> n))</span>
+<span id="cb268-12"><a href="part-ii-practical-application.html#cb268-12" tabindex="-1"></a></span>
+<span id="cb268-13"><a href="part-ii-practical-application.html#cb268-13" tabindex="-1"></a>soil_df<span class="sc">$</span>SOC_mix <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>SOC</span>
+<span id="cb268-14"><a href="part-ii-practical-application.html#cb268-14" tabindex="-1"></a>soil_df<span class="sc">$</span>SOC_mix[idx_rf] <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>SOC_predRF_0_30[idx_rf]</span>
+<span id="cb268-15"><a href="part-ii-practical-application.html#cb268-15" tabindex="-1"></a></span>
+<span id="cb268-16"><a href="part-ii-practical-application.html#cb268-16" tabindex="-1"></a>soil_df<span class="sc">$</span>w_mix <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>w_LAB_raw</span>
+<span id="cb268-17"><a href="part-ii-practical-application.html#cb268-17" tabindex="-1"></a>soil_df<span class="sc">$</span>w_mix[idx_rf] <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>w_RF_raw[idx_rf]</span>
+<span id="cb268-18"><a href="part-ii-practical-application.html#cb268-18" tabindex="-1"></a></span>
+<span id="cb268-19"><a href="part-ii-practical-application.html#cb268-19" tabindex="-1"></a>soil_df<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">&quot;LAB&quot;</span></span>
+<span id="cb268-20"><a href="part-ii-practical-application.html#cb268-20" tabindex="-1"></a>soil_df<span class="sc">$</span>source[idx_rf] <span class="ot">&lt;-</span> <span class="st">&quot;RF&quot;</span></span>
+<span id="cb268-21"><a href="part-ii-practical-application.html#cb268-21" tabindex="-1"></a></span>
+<span id="cb268-22"><a href="part-ii-practical-application.html#cb268-22" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-23"><a href="part-ii-practical-application.html#cb268-23" tabindex="-1"></a><span class="co"># Keep valid rows for modelling</span></span>
+<span id="cb268-24"><a href="part-ii-practical-application.html#cb268-24" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-25"><a href="part-ii-practical-application.html#cb268-25" tabindex="-1"></a></span>
+<span id="cb268-26"><a href="part-ii-practical-application.html#cb268-26" tabindex="-1"></a>vars_needed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SOC_mix&quot;</span>, <span class="st">&quot;w_mix&quot;</span>, cov_names)</span>
+<span id="cb268-27"><a href="part-ii-practical-application.html#cb268-27" tabindex="-1"></a></span>
+<span id="cb268-28"><a href="part-ii-practical-application.html#cb268-28" tabindex="-1"></a>soil_df2 <span class="ot">&lt;-</span> soil_df[</span>
+<span id="cb268-29"><a href="part-ii-practical-application.html#cb268-29" tabindex="-1"></a>  <span class="fu">complete.cases</span>(soil_df[, vars_needed]) <span class="sc">&amp;</span></span>
+<span id="cb268-30"><a href="part-ii-practical-application.html#cb268-30" tabindex="-1"></a>    <span class="fu">is.finite</span>(soil_df<span class="sc">$</span>w_mix) <span class="sc">&amp;</span></span>
+<span id="cb268-31"><a href="part-ii-practical-application.html#cb268-31" tabindex="-1"></a>    soil_df<span class="sc">$</span>w_mix <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb268-32"><a href="part-ii-practical-application.html#cb268-32" tabindex="-1"></a>]</span>
+<span id="cb268-33"><a href="part-ii-practical-application.html#cb268-33" tabindex="-1"></a></span>
+<span id="cb268-34"><a href="part-ii-practical-application.html#cb268-34" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-35"><a href="part-ii-practical-application.html#cb268-35" tabindex="-1"></a><span class="co"># Define 10-fold cross-validation structure</span></span>
+<span id="cb268-36"><a href="part-ii-practical-application.html#cb268-36" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-37"><a href="part-ii-practical-application.html#cb268-37" tabindex="-1"></a></span>
+<span id="cb268-38"><a href="part-ii-practical-application.html#cb268-38" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb268-39"><a href="part-ii-practical-application.html#cb268-39" tabindex="-1"></a>fold_id <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>k, <span class="at">length.out =</span> <span class="fu">nrow</span>(soil_df2)))</span>
+<span id="cb268-40"><a href="part-ii-practical-application.html#cb268-40" tabindex="-1"></a></span>
+<span id="cb268-41"><a href="part-ii-practical-application.html#cb268-41" tabindex="-1"></a>cv_pred <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, <span class="fu">nrow</span>(soil_df2))</span>
+<span id="cb268-42"><a href="part-ii-practical-application.html#cb268-42" tabindex="-1"></a></span>
+<span id="cb268-43"><a href="part-ii-practical-application.html#cb268-43" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(</span>
+<span id="cb268-44"><a href="part-ii-practical-application.html#cb268-44" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">&quot;SOC_mix ~&quot;</span>, <span class="fu">paste</span>(cov_names, <span class="at">collapse =</span> <span class="st">&quot; + &quot;</span>))</span>
+<span id="cb268-45"><a href="part-ii-practical-application.html#cb268-45" tabindex="-1"></a>)</span>
+<span id="cb268-46"><a href="part-ii-practical-application.html#cb268-46" tabindex="-1"></a></span>
+<span id="cb268-47"><a href="part-ii-practical-application.html#cb268-47" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-48"><a href="part-ii-practical-application.html#cb268-48" tabindex="-1"></a><span class="co"># Run cross-validation loop</span></span>
+<span id="cb268-49"><a href="part-ii-practical-application.html#cb268-49" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-50"><a href="part-ii-practical-application.html#cb268-50" tabindex="-1"></a></span>
+<span id="cb268-51"><a href="part-ii-practical-application.html#cb268-51" tabindex="-1"></a><span class="cf">for</span> (fold <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb268-52"><a href="part-ii-practical-application.html#cb268-52" tabindex="-1"></a>  </span>
+<span id="cb268-53"><a href="part-ii-practical-application.html#cb268-53" tabindex="-1"></a>  train_data <span class="ot">&lt;-</span> soil_df2[fold_id <span class="sc">!=</span> fold, ]</span>
+<span id="cb268-54"><a href="part-ii-practical-application.html#cb268-54" tabindex="-1"></a>  test_data  <span class="ot">&lt;-</span> soil_df2[fold_id <span class="sc">==</span> fold, ]</span>
+<span id="cb268-55"><a href="part-ii-practical-application.html#cb268-55" tabindex="-1"></a>  </span>
+<span id="cb268-56"><a href="part-ii-practical-application.html#cb268-56" tabindex="-1"></a>  mod_cv <span class="ot">&lt;-</span> <span class="fu">ranger</span>(</span>
+<span id="cb268-57"><a href="part-ii-practical-application.html#cb268-57" tabindex="-1"></a>    <span class="at">formula =</span> form,</span>
+<span id="cb268-58"><a href="part-ii-practical-application.html#cb268-58" tabindex="-1"></a>    <span class="at">data =</span> train_data,</span>
+<span id="cb268-59"><a href="part-ii-practical-application.html#cb268-59" tabindex="-1"></a>    <span class="at">case.weights =</span> train_data<span class="sc">$</span>w_mix,</span>
+<span id="cb268-60"><a href="part-ii-practical-application.html#cb268-60" tabindex="-1"></a>    <span class="at">num.trees =</span> <span class="dv">100</span></span>
+<span id="cb268-61"><a href="part-ii-practical-application.html#cb268-61" tabindex="-1"></a>  )</span>
+<span id="cb268-62"><a href="part-ii-practical-application.html#cb268-62" tabindex="-1"></a>  </span>
+<span id="cb268-63"><a href="part-ii-practical-application.html#cb268-63" tabindex="-1"></a>  cv_pred[fold_id <span class="sc">==</span> fold] <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_cv, <span class="at">data =</span> test_data)<span class="sc">$</span>predictions</span>
+<span id="cb268-64"><a href="part-ii-practical-application.html#cb268-64" tabindex="-1"></a>}</span>
+<span id="cb268-65"><a href="part-ii-practical-application.html#cb268-65" tabindex="-1"></a></span>
+<span id="cb268-66"><a href="part-ii-practical-application.html#cb268-66" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-67"><a href="part-ii-practical-application.html#cb268-67" tabindex="-1"></a><span class="co"># Store CV predictions and compute weighted metrics</span></span>
+<span id="cb268-68"><a href="part-ii-practical-application.html#cb268-68" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-69"><a href="part-ii-practical-application.html#cb268-69" tabindex="-1"></a></span>
+<span id="cb268-70"><a href="part-ii-practical-application.html#cb268-70" tabindex="-1"></a>cv_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb268-71"><a href="part-ii-practical-application.html#cb268-71" tabindex="-1"></a>  <span class="at">obs    =</span> soil_df2<span class="sc">$</span>SOC_mix,</span>
+<span id="cb268-72"><a href="part-ii-practical-application.html#cb268-72" tabindex="-1"></a>  <span class="at">pred   =</span> cv_pred,</span>
+<span id="cb268-73"><a href="part-ii-practical-application.html#cb268-73" tabindex="-1"></a>  <span class="at">w      =</span> soil_df2<span class="sc">$</span>w_mix,</span>
+<span id="cb268-74"><a href="part-ii-practical-application.html#cb268-74" tabindex="-1"></a>  <span class="at">source =</span> soil_df2<span class="sc">$</span>source</span>
+<span id="cb268-75"><a href="part-ii-practical-application.html#cb268-75" tabindex="-1"></a>)</span>
+<span id="cb268-76"><a href="part-ii-practical-application.html#cb268-76" tabindex="-1"></a></span>
+<span id="cb268-77"><a href="part-ii-practical-application.html#cb268-77" tabindex="-1"></a>ME_w   <span class="ot">&lt;-</span> <span class="fu">wME</span>(cv_results<span class="sc">$</span>obs, cv_results<span class="sc">$</span>pred, cv_results<span class="sc">$</span>w)</span>
+<span id="cb268-78"><a href="part-ii-practical-application.html#cb268-78" tabindex="-1"></a>RMSE_w <span class="ot">&lt;-</span> <span class="fu">wRMSE</span>(cv_results<span class="sc">$</span>obs, cv_results<span class="sc">$</span>pred, cv_results<span class="sc">$</span>w)</span>
+<span id="cb268-79"><a href="part-ii-practical-application.html#cb268-79" tabindex="-1"></a>NSE_w  <span class="ot">&lt;-</span> <span class="fu">wNSE</span>(cv_results<span class="sc">$</span>obs, cv_results<span class="sc">$</span>pred, cv_results<span class="sc">$</span>w)</span>
+<span id="cb268-80"><a href="part-ii-practical-application.html#cb268-80" tabindex="-1"></a></span>
+<span id="cb268-81"><a href="part-ii-practical-application.html#cb268-81" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb268-82"><a href="part-ii-practical-application.html#cb268-82" tabindex="-1"></a>  <span class="at">Metric =</span> <span class="fu">c</span>(<span class="st">&quot;wME&quot;</span>, <span class="st">&quot;wRMSE&quot;</span>, <span class="st">&quot;wNSE&quot;</span>),</span>
+<span id="cb268-83"><a href="part-ii-practical-application.html#cb268-83" tabindex="-1"></a>  <span class="at">Value  =</span> <span class="fu">round</span>(<span class="fu">c</span>(ME_w, RMSE_w, NSE_w), <span class="dv">3</span>)</span>
+<span id="cb268-84"><a href="part-ii-practical-application.html#cb268-84" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="comparing-maps-produced-with-different-proportions-of-spectroscopic-data" class="section level3 hasAnchor" number="6.5.3">
+<h3><span class="header-section-number">6.5.3</span> Comparing maps produced with different proportions of spectroscopic data<a href="part-ii-practical-application.html#comparing-maps-produced-with-different-proportions-of-spectroscopic-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>After model validation, spatial prediction maps can be generated. Maps derived from laboratory-only models can be compared with maps obtained from models that incorporate spectroscopic predictions. This visual comparison helps to identify changes in spatial patterns, prediction smoothness, and local variability.</p>
+<p>Differences between maps may reflect both the increased data density and the influence of uncertainty-based weighting. Such comparisons are an important step in understanding the practical impact of spectroscopic data supplementation in DSM applications.</p>
+<p>To visualise the effect of increasing the proportion of spectroscopic observations, several mixed-data scenarios can be fitted and mapped. In the example below, four proportions are considered: 10%, 25%, 50%, and 75% spectroscopic data. For each scenario, a weighted random forest is fitted, a SOC map is predicted, and the result is compared with the baseline map derived from laboratory observations only.</p>
+<p>The final figure is organised in two rows:
+* the top row shows the SOC maps for the four mixed scenarios, with sampling points coloured by source,
+* the bottom row shows the difference between each mixed map and the baseline laboratory-only map.</p>
+</div>
+<div id="testing-different-ratios-of-spectroscopic-and-laboratory-data" class="section level3 hasAnchor" number="6.5.4">
+<h3><span class="header-section-number">6.5.4</span> Testing different ratios of spectroscopic and laboratory data<a href="part-ii-practical-application.html#testing-different-ratios-of-spectroscopic-and-laboratory-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The influence of spectroscopic information on DSM can be further explored by systematically varying the proportion of spectroscopically inferred observations used during model calibration. Such a sensitivity analysis provides insight into how increasing reliance on spectroscopy may affect both the spatial pattern of predictions and the overall predictive performance of the model.</p>
+<p>In this exercise, several scenarios are evaluated, ranging from situations where only a small fraction of the calibration dataset is derived from spectroscopy to cases where spectroscopic observations constitute a substantial component of the available information.
+For each scenario, a weighted DSM model is fitted using uncertainty-based case weights, and spatial prediction maps are generated.</p>
+<p>Difference maps relative to the laboratory-only baseline allow visual inspection of how predicted SOC distributions evolve as the balance between laboratory and spectroscopic data changes.</p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="part-i---digital-soil-mapping-with-spectroscopy.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+  "sharing": {
+    "github": false,
+    "facebook": true,
+    "twitter": true,
+    "linkedin": false,
+    "weibo": false,
+    "instapaper": false,
+    "vk": false,
+    "whatsapp": false,
+    "all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+  },
+  "fontsettings": {
+    "theme": "white",
+    "family": "sans",
+    "size": 2
+  },
+  "edit": {
+    "link": null,
+    "text": null
+  },
+  "history": {
+    "link": null,
+    "text": null
+  },
+  "view": {
+    "link": null,
+    "text": null
+  },
+  "download": {},
+  "search": {
+    "engine": "fuse",
+    "options": null
+  },
+  "toc": {
+    "collapse": "subsection"
+  },
+  "fig_caption": true
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

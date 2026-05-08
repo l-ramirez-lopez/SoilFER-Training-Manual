@@ -16,9 +16,7 @@ if (requireNamespace("terra", quietly = TRUE))
 set.seed(2024)
 ```
 
-## Part I: Theoretical Foundations {-}
 
-------------------------------------------------------------------------
 
 ## Fundamentals of Digital Soil Mapping
 
@@ -181,11 +179,11 @@ However, @Padarian2023 noted that uncertainty estimates remain underutilised in 
 
 ------------------------------------------------------------------------
 
-## Part II: Practical Application {-}
+## Practical Implementation Example
 
 ------------------------------------------------------------------------
 
-## Overview {-}
+### Overview
 
 This section is a step-by-step companion to the script
 `modelling_&_mapping_v2.R`. Its goal is to bridge the transition from
@@ -210,11 +208,8 @@ sessions:
 > RStudio, not from this document.
 
 
-## SESSION 1: Data Preparation, Feature Selection, Modelling, and Accuracy Assessment {-}
 
-------------------------------------------------------------------------
-
-## 1. Setup and Packages
+### Setup and Packages
 
 ```{r s1-setup, eval=FALSE}
 rm(list = ls())
@@ -271,7 +266,7 @@ Here is the complete Section 2 ready to copy-paste:
 
 ---
 
-## Section 2 — Load covariates {-}
+### Load covariates 
 
 The environmental covariates are the *predictors* in the DSM model — the Q factor in 
 the S = f(Q) relationship introduced in Part I. They are stored as a multi-layer raster 
@@ -365,7 +360,7 @@ Here is Section 3, ready to copy-paste:
 ---
 
 
-## Section 3 — Load and transform soil data {-}
+### Load and transform soil data 
 
 The soil observations come from the KSSL dataset prepared in Module 1. The file 
 contains one row per sample, with columns for coordinates, texture fractions, and SOC.
@@ -377,7 +372,7 @@ dat
 summary(dat)
 ```
 
-### 3.1 Estimate bulk density with a pedotransfer function {-}
+#### Estimate bulk density with a pedotransfer function
 
 A **pedotransfer function (PTF)** predicts a soil property that is difficult or 
 expensive to measure directly from properties that are routinely available. Here we 
@@ -399,7 +394,7 @@ readable and chainable.
 > AWC is a target variable or a covariate in your project.
 
 
-## Section 4 — Merge soil data and covariate values {-}
+### Merge soil data and covariate values
 
 To link each soil observation to its environmental context, we convert the dataframe to a spatial object, reproject it to match the covariate CRS, and extract the raster values at each sample location.
 
@@ -419,7 +414,7 @@ dat_cov <- bind_cols(dat, extracted_covs)
 `terra::extract()` samples the raster stack at each point location and returns a dataframe with one row per point and one column per covariate layer. Setting `xy = TRUE` appends the projected coordinates, and `ID = FALSE` drops the auto-generated row-index column. Finally, `bind_cols()` joins the covariate values to the soil data, producing `dat_cov` — the complete modelling dataset that links S (soil observation) to Q (environmental covariates), as in the S = f(Q) formulation from Part I.
 
 
-## Section 5 — Feature selection with Boruta {-}
+### Feature selection with Boruta
 
 Before training the model, we identify which covariates carry genuine predictive signal for SOC. Including irrelevant predictors inflates model complexity and can reduce accuracy.
 
@@ -469,9 +464,9 @@ Here is the revised Section 6 with a proper QRF introduction:
 
 ---
 
-## Section 6 — Train the Quantile Regression Forest model {-}
+### Train the Quantile Regression Forest model
 
-### 6.1 From Random Forest to Quantile Regression Forest {-}
+#### From Random Forest to Quantile Regression Forest
 
 A standard Random Forest predicts the **expected value** (the mean) of the target variable at each new location. Each tree in the forest produces an estimate, and the final prediction is their average. This single number is useful, but it hides something important: it tells us *what* the model predicts, but not *how confident* we should be in that prediction.
 
@@ -483,7 +478,7 @@ Applied across the entire study area, this produces two complementary maps: a **
 
 The `ranger` package makes QRF computationally feasible at the scale of regional DSM studies. Enabling it requires a single argument: `quantreg = TRUE`.
 
-### 6.2 Cross-validation setup {-}
+#### Cross-validation setup 
 
 Before training, we define how the model will be evaluated during hyperparameter tuning. Repeated k-fold cross-validation splits the dataset into *k* folds, trains on *k* − 1 and tests on the held-out fold, then repeats the whole cycle several times to reduce variance in the performance estimate.
 
@@ -500,7 +495,7 @@ cv_control <- trainControl(
 
 > **Limitation: standard CV assumes spatial independence.** Random fold assignment means a training fold and its test fold may contain samples that are geographically close, allowing the model to exploit spatial autocorrelation. This leads to over-optimistic accuracy estimates. Spatial cross-validation (e.g. `CAST::CreateSpacetimeFolds()`) addresses this by grouping spatially proximate samples into the same fold. For this training exercise we use standard CV; keep this limitation in mind when interpreting results.
 
-### 6.3 Hyperparameter grid {-}
+#### Hyperparameter grid 
 
 | Parameter | Meaning |
 |-----------|---------|
@@ -521,7 +516,7 @@ tune_grid <- expand.grid(
 
 `mtry` is initialised around the rule-of-thumb p/3 (where p is the number of selected features) and explored at three levels. `expand.grid()` produces every combination, yielding six candidate configurations.
 
-### 6.4 Train the model {-}
+#### Train the model
 
 ```{r train-model, eval=FALSE}
 model <- caret::train(
@@ -548,7 +543,7 @@ knitr::include_graphics("images/module3/varImp_SOC.png")
 Variable importance ranks predictors by their contribution to model accuracy. In SOC models, climate and vegetation indices (FPAR) typically dominate, while terrain attributes play a secondary role — though this balance varies by region and target depth.
 
 
-## Section 7 — Accuracy assessment {-}
+### Accuracy assessment
 
 Cross-validation accuracy is extracted from the predictions stored during training. Because `caret` evaluates every hyperparameter combination, we filter to the rows corresponding to the best configuration identified by `model$bestTune`.
 
@@ -619,7 +614,7 @@ MEC = 1 is a perfect model. MEC = 0 means the model is no better than simply pre
 
 > **Tip:** In practice, a MEC above 0.5 is often considered acceptable for DSM models of highly variable soil properties like SOC. Values above 0.7 indicate good model skill. If MEC is close to zero or negative, revisit the covariate stack — the predictors may not capture the main drivers of spatial variability at the target depth.
 
-### Observed vs predicted plot {-}
+#### Observed vs predicted plot 
 
 ```{r scatter-code, eval=FALSE}
 residuals <- tibble(Observed = obs_vals, Predicted = pred_vals)
@@ -641,7 +636,7 @@ knitr::include_graphics("images/module3/scatterplot_SOC.png")
 
 A common pattern in cross-validated scatterplots is **regression to the mean**: very high observed values tend to be under-predicted and very low values tend to be over-predicted. This reflects the model's limited ability to extrapolate beyond the range well-represented in the training data, and is expected behaviour rather than a model failure. Wide scatter at intermediate values indicates that the covariates do not fully capture local SOC variability at those concentrations.
 
-### Save outputs {-}
+#### Save outputs 
 
 ```{r save-outputs, eval=FALSE}
 write_csv(accuracy, "03_outputs/module3/validation/accuracy.csv")
@@ -654,13 +649,7 @@ saveRDS(model, paste0("03_outputs/module3/models/ranger_model_", target, ".rds")
 
 
 
-------------------------------------------------------------------------
-
-## SESSION 2: Spatial Prediction and Final Maps {-}
-
-------------------------------------------------------------------------
-
-## Reload the workspace {-}
+### Reload the workspace
 
 Session 2 is designed to be **self-contained**: it reloads all necessary objects from disk so you can run spatial prediction independently, without re-running Session 1. This is important in practice — model training can take hours, and you may want to experiment with prediction parameters without repeating the full workflow.
 
@@ -686,11 +675,11 @@ model   <- readRDS(paste0("03_outputs/module3/models/ranger_model_", target, ".r
 
 
 
-## Section 8 — Spatial prediction (tiled) {-}
+### Spatial prediction (tiled) 
 
 Predicting SOC across the full study area requires applying the model to every pixel of the covariate stack. For large rasters this is memory-intensive: loading the full stack and computing predictions simultaneously can exhaust available RAM. The solution is **tiled prediction** — splitting the study area into a grid of smaller tiles, predicting each tile independently, and mosaicking the results at the end.
 
-### 8.1 Create tile grid {-}
+#### Create tile grid 
 
 ```{r make-tiles, eval=FALSE}
 r    <- covs[[1]]
@@ -705,7 +694,7 @@ rast(tile[1]) %>% plot
 
 > **Tip:** The right number of tiles depends on your available RAM and the number of covariate layers. A rough guide: if `nlyr(covs) × nrow_tile × ncol_tile × 4 bytes` exceeds ~60% of your free RAM, increase the number of tiles. You can inspect tile dimensions with `rast(tile[1])` before committing to the full prediction loop.
 
-### 8.2 Prepare model for prediction {-}
+#### Prepare model for prediction 
 
 ```{r pred-setup, eval=FALSE}
 ranger_model <- model$finalModel
@@ -721,7 +710,7 @@ gdal_opts <- c("COMPRESS=LZW", "TILED=YES", "BIGTIFF=IF_SAFER")
 
 `gdal_opts` sets three GDAL write options applied when saving rasters to disk: LZW lossless compression reduces file size significantly, tiled storage accelerates partial reads (e.g. when zooming in a GIS), and `BIGTIFF=IF_SAFER` automatically uses the BigTIFF format if the output exceeds 4 GB.
 
-### 8.3 Prediction for one tile {-}
+#### Prediction for one tile 
 
 Before running the full loop, we test the prediction pipeline on a single tile. This lets you verify that the output looks correct and estimate processing time per tile.
 
@@ -774,7 +763,7 @@ if (file.exists(sd_tile_path)) {
 
 > **Reading the uncertainty map:** high SD values indicate locations where the model is less confident — typically at the extremes of the environmental gradient, in areas with few nearby training samples, or where the covariate combination is unlike anything seen during training. These areas should be prioritised for additional soil sampling in future surveys.
 
-### 8.4 Prediction at all tiles {-}
+#### Prediction at all tiles
 
 Once the single-tile test is satisfactory, run the loop over all tiles:
 
@@ -805,7 +794,7 @@ for (j in seq_along(tile)) {
 
 
 
-## Section 9 — Mosaic tiles into final maps {-}
+### Mosaic tiles into final maps 
 
 ```{r mosaic-mean, eval=FALSE}
 mean_tiles   <- list.files("03_outputs/module3/tiles/",
@@ -847,6 +836,4 @@ plot(pred_sd,   main = paste("SD",   target), col = hcl.colors(100, "Inferno"))
 
 
 
---------------
-
-## References {-}
+### References {-}

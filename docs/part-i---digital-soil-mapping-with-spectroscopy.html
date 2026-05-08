@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="soil-spectroscopy-for-digital-soil-mapping.html"/>
-<link rel="next" href="part-ii-practical-application-1.html"/>
+<link rel="next" href="part-ii-practical-application.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -54,8 +54,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -65,7 +66,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -421,7 +422,6 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html"><i class="fa fa-check"></i><b>3</b> Digital Soil Mapping</a>
 <ul>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#part-i-theoretical-foundations"><i class="fa fa-check"></i>Part I: Theoretical Foundations</a></li>
 <li class="chapter" data-level="3.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#fundamentals-of-digital-soil-mapping"><i class="fa fa-check"></i><b>3.1</b> Fundamentals of Digital Soil Mapping</a>
 <ul>
 <li class="chapter" data-level="3.1.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#introduction-to-digital-soil-mapping"><i class="fa fa-check"></i><b>3.1.1</b> Introduction to Digital Soil Mapping</a></li>
@@ -438,40 +438,40 @@ div.csl-indent {
 <li class="chapter" data-level="3.1.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-methods"><i class="fa fa-check"></i><b>3.1.5</b> Prediction Methods</a></li>
 <li class="chapter" data-level="3.1.6" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#nonlinearity-and-uncertainty"><i class="fa fa-check"></i><b>3.1.6</b> Nonlinearity and Uncertainty</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#part-ii-practical-application"><i class="fa fa-check"></i>Part II: Practical Application</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#overview"><i class="fa fa-check"></i>Overview</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#session-1-data-preparation-feature-selection-modelling-and-accuracy-assessment"><i class="fa fa-check"></i>SESSION 1: Data Preparation, Feature Selection, Modelling, and Accuracy Assessment</a></li>
-<li class="chapter" data-level="3.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#setup-and-packages"><i class="fa fa-check"></i><b>3.2</b> 1. Setup and Packages</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-2-load-covariates"><i class="fa fa-check"></i>Section 2 — Load covariates</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-3-load-and-transform-soil-data"><i class="fa fa-check"></i>Section 3 — Load and transform soil data</a>
+<li class="chapter" data-level="3.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#practical-implementation-example"><i class="fa fa-check"></i><b>3.2</b> Practical Implementation Example</a>
 <ul>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#estimate-bulk-density-with-a-pedotransfer-function"><i class="fa fa-check"></i>3.1 Estimate bulk density with a pedotransfer function</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-4-merge-soil-data-and-covariate-values"><i class="fa fa-check"></i>Section 4 — Merge soil data and covariate values</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-5-feature-selection-with-boruta"><i class="fa fa-check"></i>Section 5 — Feature selection with Boruta</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-6-train-the-quantile-regression-forest-model"><i class="fa fa-check"></i>Section 6 — Train the Quantile Regression Forest model</a>
+<li class="chapter" data-level="3.2.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#overview"><i class="fa fa-check"></i><b>3.2.1</b> Overview</a></li>
+<li class="chapter" data-level="3.2.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#setup-and-packages"><i class="fa fa-check"></i><b>3.2.2</b> Setup and Packages</a></li>
+<li class="chapter" data-level="3.2.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#load-covariates"><i class="fa fa-check"></i><b>3.2.3</b> Load covariates</a></li>
+<li class="chapter" data-level="3.2.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#load-and-transform-soil-data"><i class="fa fa-check"></i><b>3.2.4</b> Load and transform soil data</a>
 <ul>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#from-random-forest-to-quantile-regression-forest"><i class="fa fa-check"></i>6.1 From Random Forest to Quantile Regression Forest</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#cross-validation-setup"><i class="fa fa-check"></i>6.2 Cross-validation setup</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#hyperparameter-grid"><i class="fa fa-check"></i>6.3 Hyperparameter grid</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#train-the-model"><i class="fa fa-check"></i>6.4 Train the model</a></li>
+<li class="chapter" data-level="3.2.4.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#estimate-bulk-density-with-a-pedotransfer-function"><i class="fa fa-check"></i><b>3.2.4.1</b> Estimate bulk density with a pedotransfer function</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-7-accuracy-assessment"><i class="fa fa-check"></i>Section 7 — Accuracy assessment</a>
+<li class="chapter" data-level="3.2.5" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#merge-soil-data-and-covariate-values"><i class="fa fa-check"></i><b>3.2.5</b> Merge soil data and covariate values</a></li>
+<li class="chapter" data-level="3.2.6" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#feature-selection-with-boruta"><i class="fa fa-check"></i><b>3.2.6</b> Feature selection with Boruta</a></li>
+<li class="chapter" data-level="3.2.7" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#train-the-quantile-regression-forest-model"><i class="fa fa-check"></i><b>3.2.7</b> Train the Quantile Regression Forest model</a>
 <ul>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#observed-vs-predicted-plot"><i class="fa fa-check"></i>Observed vs predicted plot</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#save-outputs"><i class="fa fa-check"></i>Save outputs</a></li>
+<li class="chapter" data-level="3.2.7.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#from-random-forest-to-quantile-regression-forest"><i class="fa fa-check"></i><b>3.2.7.1</b> From Random Forest to Quantile Regression Forest</a></li>
+<li class="chapter" data-level="3.2.7.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#cross-validation-setup"><i class="fa fa-check"></i><b>3.2.7.2</b> Cross-validation setup</a></li>
+<li class="chapter" data-level="3.2.7.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#hyperparameter-grid"><i class="fa fa-check"></i><b>3.2.7.3</b> Hyperparameter grid</a></li>
+<li class="chapter" data-level="3.2.7.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#train-the-model"><i class="fa fa-check"></i><b>3.2.7.4</b> Train the model</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#session-2-spatial-prediction-and-final-maps"><i class="fa fa-check"></i>SESSION 2: Spatial Prediction and Final Maps</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#reload-the-workspace"><i class="fa fa-check"></i>Reload the workspace</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-8-spatial-prediction-tiled"><i class="fa fa-check"></i>Section 8 — Spatial prediction (tiled)</a>
+<li class="chapter" data-level="3.2.8" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#accuracy-assessment"><i class="fa fa-check"></i><b>3.2.8</b> Accuracy assessment</a>
 <ul>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#create-tile-grid"><i class="fa fa-check"></i>8.1 Create tile grid</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prepare-model-for-prediction"><i class="fa fa-check"></i>8.2 Prepare model for prediction</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-for-one-tile"><i class="fa fa-check"></i>8.3 Prediction for one tile</a></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-at-all-tiles"><i class="fa fa-check"></i>8.4 Prediction at all tiles</a></li>
+<li class="chapter" data-level="3.2.8.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#observed-vs-predicted-plot"><i class="fa fa-check"></i><b>3.2.8.1</b> Observed vs predicted plot</a></li>
+<li class="chapter" data-level="3.2.8.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#save-outputs"><i class="fa fa-check"></i><b>3.2.8.2</b> Save outputs</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#section-9-mosaic-tiles-into-final-maps"><i class="fa fa-check"></i>Section 9 — Mosaic tiles into final maps</a></li>
+<li class="chapter" data-level="3.2.9" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#reload-the-workspace"><i class="fa fa-check"></i><b>3.2.9</b> Reload the workspace</a></li>
+<li class="chapter" data-level="3.2.10" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#spatial-prediction-tiled"><i class="fa fa-check"></i><b>3.2.10</b> Spatial prediction (tiled)</a>
+<ul>
+<li class="chapter" data-level="3.2.10.1" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#create-tile-grid"><i class="fa fa-check"></i><b>3.2.10.1</b> Create tile grid</a></li>
+<li class="chapter" data-level="3.2.10.2" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prepare-model-for-prediction"><i class="fa fa-check"></i><b>3.2.10.2</b> Prepare model for prediction</a></li>
+<li class="chapter" data-level="3.2.10.3" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-for-one-tile"><i class="fa fa-check"></i><b>3.2.10.3</b> Prediction for one tile</a></li>
+<li class="chapter" data-level="3.2.10.4" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#prediction-at-all-tiles"><i class="fa fa-check"></i><b>3.2.10.4</b> Prediction at all tiles</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2.11" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#mosaic-tiles-into-final-maps"><i class="fa fa-check"></i><b>3.2.11</b> Mosaic tiles into final maps</a></li>
 <li class="chapter" data-level="" data-path="digital-soil-mapping.html"><a href="digital-soil-mapping.html#references-3"><i class="fa fa-check"></i>References</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="soil-spectroscopy-for-digital-soil-mapping.html"><a href="soil-spectroscopy-for-digital-soil-mapping.html"><i class="fa fa-check"></i><b>4</b> Soil Spectroscopy for Digital Soil Mapping</a></li>
 <li class="chapter" data-level="5" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html"><i class="fa fa-check"></i><b>5</b> Part I - Digital soil mapping with spectroscopy</a>
@@ -480,30 +480,30 @@ div.csl-indent {
 <li class="chapter" data-level="5.2" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html#rational"><i class="fa fa-check"></i><b>5.2</b> Rational</a></li>
 <li class="chapter" data-level="5.3" data-path="part-i---digital-soil-mapping-with-spectroscopy.html"><a href="part-i---digital-soil-mapping-with-spectroscopy.html#including-spectroscopic-prediction-in-digital-soil-mapping"><i class="fa fa-check"></i><b>5.3</b> Including spectroscopic prediction in digital soil mapping</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html"><i class="fa fa-check"></i><b>6</b> Part II – Practical application</a>
+<li class="chapter" data-level="6" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html"><i class="fa fa-check"></i><b>6</b> Part II – Practical application</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#workflow-overview"><i class="fa fa-check"></i><b>6.1</b> Workflow overview</a></li>
-<li class="chapter" data-level="6.2" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#making-spectroscopic-data-ready-for-inclusion-in-dsm"><i class="fa fa-check"></i><b>6.2</b> Making spectroscopic data ready for inclusion in DSM</a>
+<li class="chapter" data-level="6.1" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#workflow-overview"><i class="fa fa-check"></i><b>6.1</b> Workflow overview</a></li>
+<li class="chapter" data-level="6.2" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#making-spectroscopic-data-ready-for-inclusion-in-dsm"><i class="fa fa-check"></i><b>6.2</b> Making spectroscopic data ready for inclusion in DSM</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#load-and-plot-the-spectrscopic-data"><i class="fa fa-check"></i><b>6.2.1</b> Load and plot the spectrscopic data</a></li>
-<li class="chapter" data-level="6.2.2" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#preprocessing-of-spectra"><i class="fa fa-check"></i><b>6.2.2</b> Preprocessing of spectra</a></li>
-<li class="chapter" data-level="6.2.3" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#spectroscopic-modelling-with-uncertainty"><i class="fa fa-check"></i><b>6.2.3</b> Spectroscopic modelling with uncertainty</a></li>
-<li class="chapter" data-level="6.2.4" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#laboratory-measurement-uncertainty"><i class="fa fa-check"></i><b>6.2.4</b> Laboratory measurement uncertainty</a></li>
-<li class="chapter" data-level="6.2.5" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#depth-harmonisation-of-predictions-and-uncertainties"><i class="fa fa-check"></i><b>6.2.5</b> Depth harmonisation of predictions and uncertainties</a></li>
+<li class="chapter" data-level="6.2.1" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#load-and-plot-the-spectrscopic-data"><i class="fa fa-check"></i><b>6.2.1</b> Load and plot the spectrscopic data</a></li>
+<li class="chapter" data-level="6.2.2" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#preprocessing-of-spectra"><i class="fa fa-check"></i><b>6.2.2</b> Preprocessing of spectra</a></li>
+<li class="chapter" data-level="6.2.3" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#spectroscopic-modelling-with-uncertainty"><i class="fa fa-check"></i><b>6.2.3</b> Spectroscopic modelling with uncertainty</a></li>
+<li class="chapter" data-level="6.2.4" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#laboratory-measurement-uncertainty"><i class="fa fa-check"></i><b>6.2.4</b> Laboratory measurement uncertainty</a></li>
+<li class="chapter" data-level="6.2.5" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#depth-harmonisation-of-predictions-and-uncertainties"><i class="fa fa-check"></i><b>6.2.5</b> Depth harmonisation of predictions and uncertainties</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#preparation-of-the-covariates"><i class="fa fa-check"></i><b>6.3</b> Preparation of the covariates</a></li>
-<li class="chapter" data-level="6.4" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#dsm-model-training-with-spectroscopic-data"><i class="fa fa-check"></i><b>6.4</b> DSM model training with spectroscopic data</a>
+<li class="chapter" data-level="6.3" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#preparation-of-the-covariates"><i class="fa fa-check"></i><b>6.3</b> Preparation of the covariates</a></li>
+<li class="chapter" data-level="6.4" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#dsm-model-training-with-spectroscopic-data"><i class="fa fa-check"></i><b>6.4</b> DSM model training with spectroscopic data</a>
 <ul>
-<li class="chapter" data-level="6.4.1" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#deriving-observation-weights"><i class="fa fa-check"></i><b>6.4.1</b> Deriving observation weights</a></li>
-<li class="chapter" data-level="6.4.2" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#baseline-dsm-model-using-laboratory-data"><i class="fa fa-check"></i><b>6.4.2</b> Baseline DSM model using laboratory data</a></li>
-<li class="chapter" data-level="6.4.3" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#dsm-model-training-integrating-spectroscopic-predictions"><i class="fa fa-check"></i><b>6.4.3</b> DSM model training integrating spectroscopic predictions</a></li>
+<li class="chapter" data-level="6.4.1" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#deriving-observation-weights"><i class="fa fa-check"></i><b>6.4.1</b> Deriving observation weights</a></li>
+<li class="chapter" data-level="6.4.2" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#baseline-dsm-model-using-laboratory-data"><i class="fa fa-check"></i><b>6.4.2</b> Baseline DSM model using laboratory data</a></li>
+<li class="chapter" data-level="6.4.3" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#dsm-model-training-integrating-spectroscopic-predictions"><i class="fa fa-check"></i><b>6.4.3</b> DSM model training integrating spectroscopic predictions</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#model-validation"><i class="fa fa-check"></i><b>6.5</b> Model validation</a>
+<li class="chapter" data-level="6.5" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#model-validation"><i class="fa fa-check"></i><b>6.5</b> Model validation</a>
 <ul>
-<li class="chapter" data-level="6.5.1" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#validation-statistics"><i class="fa fa-check"></i><b>6.5.1</b> Validation statistics</a></li>
-<li class="chapter" data-level="6.5.2" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#cross-validating-the-models"><i class="fa fa-check"></i><b>6.5.2</b> Cross-validating the models</a></li>
-<li class="chapter" data-level="6.5.3" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#comparing-maps-produced-with-different-proportions-of-spectroscopic-data"><i class="fa fa-check"></i><b>6.5.3</b> Comparing maps produced with different proportions of spectroscopic data</a></li>
-<li class="chapter" data-level="6.5.4" data-path="part-ii-practical-application-1.html"><a href="part-ii-practical-application-1.html#testing-different-ratios-of-spectroscopic-and-laboratory-data"><i class="fa fa-check"></i><b>6.5.4</b> Testing different ratios of spectroscopic and laboratory data</a></li>
+<li class="chapter" data-level="6.5.1" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#validation-statistics"><i class="fa fa-check"></i><b>6.5.1</b> Validation statistics</a></li>
+<li class="chapter" data-level="6.5.2" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#cross-validating-the-models"><i class="fa fa-check"></i><b>6.5.2</b> Cross-validating the models</a></li>
+<li class="chapter" data-level="6.5.3" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#comparing-maps-produced-with-different-proportions-of-spectroscopic-data"><i class="fa fa-check"></i><b>6.5.3</b> Comparing maps produced with different proportions of spectroscopic data</a></li>
+<li class="chapter" data-level="6.5.4" data-path="part-ii-practical-application.html"><a href="part-ii-practical-application.html#testing-different-ratios-of-spectroscopic-and-laboratory-data"><i class="fa fa-check"></i><b>6.5.4</b> Testing different ratios of spectroscopic and laboratory data</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>7</b> Summary</a></li>
@@ -581,7 +581,7 @@ div.csl-indent {
         </div>
       </div>
 <a href="soil-spectroscopy-for-digital-soil-mapping.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="part-ii-practical-application-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="part-ii-practical-application.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
