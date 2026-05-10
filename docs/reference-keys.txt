@@ -47,10 +47,7 @@ fig:plot-sampling-design-target-outputs
 tab:acronyms
 fig:boruta-plot
 fig:varimp-plot
-tab:accuracy-table
 fig:scatter-plot
-fig:tile1-mean
-fig:tile1-sd
 installing-r
 installing-rstudio
 verifying-installation

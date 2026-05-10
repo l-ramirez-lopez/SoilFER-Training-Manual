@@ -712,18 +712,18 @@ RStudio, not from this document.</p>
 </div>
 <div id="setup-and-packages" class="section level3 hasAnchor" number="3.2.2">
 <h3><span class="header-section-number">3.2.2</span> Setup and Packages<a href="digital-soil-mapping.html#setup-and-packages" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="digital-soil-mapping.html#cb237-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
-<span id="cb237-2"><a href="digital-soil-mapping.html#cb237-2" tabindex="-1"></a><span class="fu">gc</span>()</span>
-<span id="cb237-3"><a href="digital-soil-mapping.html#cb237-3" tabindex="-1"></a></span>
-<span id="cb237-4"><a href="digital-soil-mapping.html#cb237-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb237-5"><a href="digital-soil-mapping.html#cb237-5" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb237-6"><a href="digital-soil-mapping.html#cb237-6" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
-<span id="cb237-7"><a href="digital-soil-mapping.html#cb237-7" tabindex="-1"></a><span class="fu">library</span>(Boruta)</span>
-<span id="cb237-8"><a href="digital-soil-mapping.html#cb237-8" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
-<span id="cb237-9"><a href="digital-soil-mapping.html#cb237-9" tabindex="-1"></a><span class="fu">library</span>(mapview)</span>
-<span id="cb237-10"><a href="digital-soil-mapping.html#cb237-10" tabindex="-1"></a></span>
-<span id="cb237-11"><a href="digital-soil-mapping.html#cb237-11" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PROJ_LIB =</span> <span class="st">&quot;&quot;</span>)  </span>
-<span id="cb237-12"><a href="digital-soil-mapping.html#cb237-12" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PROJ_DATA =</span> <span class="fu">system.file</span>(<span class="st">&quot;proj&quot;</span>, <span class="at">package =</span> <span class="st">&quot;terra&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="digital-soil-mapping.html#cb241-1" tabindex="-1"></a><span class="fu">rm</span>(<span class="at">list =</span> <span class="fu">ls</span>())</span>
+<span id="cb241-2"><a href="digital-soil-mapping.html#cb241-2" tabindex="-1"></a><span class="fu">gc</span>()</span>
+<span id="cb241-3"><a href="digital-soil-mapping.html#cb241-3" tabindex="-1"></a></span>
+<span id="cb241-4"><a href="digital-soil-mapping.html#cb241-4" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb241-5"><a href="digital-soil-mapping.html#cb241-5" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb241-6"><a href="digital-soil-mapping.html#cb241-6" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb241-7"><a href="digital-soil-mapping.html#cb241-7" tabindex="-1"></a><span class="fu">library</span>(Boruta)</span>
+<span id="cb241-8"><a href="digital-soil-mapping.html#cb241-8" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
+<span id="cb241-9"><a href="digital-soil-mapping.html#cb241-9" tabindex="-1"></a><span class="fu">library</span>(mapview)</span>
+<span id="cb241-10"><a href="digital-soil-mapping.html#cb241-10" tabindex="-1"></a></span>
+<span id="cb241-11"><a href="digital-soil-mapping.html#cb241-11" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PROJ_LIB =</span> <span class="st">&quot;&quot;</span>)  </span>
+<span id="cb241-12"><a href="digital-soil-mapping.html#cb241-12" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PROJ_DATA =</span> <span class="fu">system.file</span>(<span class="st">&quot;proj&quot;</span>, <span class="at">package =</span> <span class="st">&quot;terra&quot;</span>))</span></code></pre></div>
 <p><code>rm(list = ls())</code> removes every object from memory; <code>gc()</code> releases unused RAM. Starting clean prevents objects from a previous session from silently affecting results.</p>
 <p>Each package has a specific role:</p>
 <table>
@@ -765,19 +765,19 @@ RStudio, not from this document.</p>
 </tbody>
 </table>
 <p>The two <code>Sys.setenv()</code> lines reset the PROJ database path to terra’s bundled copy. PROJ defines coordinate reference systems; conflicting paths left by other packages cause cryptic reprojection errors.</p>
-<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="digital-soil-mapping.html#cb238-1" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">dirname</span>(rstudioapi<span class="sc">::</span><span class="fu">getActiveDocumentContext</span>()<span class="sc">$</span>path))</span>
-<span id="cb238-2"><a href="digital-soil-mapping.html#cb238-2" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;../../&quot;</span>)</span>
-<span id="cb238-3"><a href="digital-soil-mapping.html#cb238-3" tabindex="-1"></a></span>
-<span id="cb238-4"><a href="digital-soil-mapping.html#cb238-4" tabindex="-1"></a><span class="cf">for</span> (d <span class="cf">in</span> <span class="fu">c</span>(<span class="st">&quot;03_outputs/module3/models/&quot;</span>, </span>
-<span id="cb238-5"><a href="digital-soil-mapping.html#cb238-5" tabindex="-1"></a>            <span class="st">&quot;03_outputs/module3/validation/&quot;</span>, </span>
-<span id="cb238-6"><a href="digital-soil-mapping.html#cb238-6" tabindex="-1"></a>            <span class="st">&quot;03_outputs/module3/tiles/&quot;</span>,</span>
-<span id="cb238-7"><a href="digital-soil-mapping.html#cb238-7" tabindex="-1"></a>            <span class="st">&quot;03_outputs/module3/maps/&quot;</span>,</span>
-<span id="cb238-8"><a href="digital-soil-mapping.html#cb238-8" tabindex="-1"></a>            <span class="st">&quot;03_outputs/module3/maps/aoa/&quot;</span>,</span>
-<span id="cb238-9"><a href="digital-soil-mapping.html#cb238-9" tabindex="-1"></a>            <span class="st">&quot;terra_tmp&quot;</span>)) {</span>
-<span id="cb238-10"><a href="digital-soil-mapping.html#cb238-10" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(d)) <span class="fu">dir.create</span>(d, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb238-11"><a href="digital-soil-mapping.html#cb238-11" tabindex="-1"></a>}</span>
-<span id="cb238-12"><a href="digital-soil-mapping.html#cb238-12" tabindex="-1"></a></span>
-<span id="cb238-13"><a href="digital-soil-mapping.html#cb238-13" tabindex="-1"></a><span class="fu">terraOptions</span>(<span class="at">progress =</span> <span class="dv">1</span>, <span class="at">memfrac =</span> <span class="fl">0.6</span>, <span class="at">tempdir =</span> <span class="fu">file.path</span>(<span class="fu">getwd</span>(), <span class="st">&quot;terra_tmp&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="digital-soil-mapping.html#cb242-1" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">dirname</span>(rstudioapi<span class="sc">::</span><span class="fu">getActiveDocumentContext</span>()<span class="sc">$</span>path))</span>
+<span id="cb242-2"><a href="digital-soil-mapping.html#cb242-2" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;../../&quot;</span>)</span>
+<span id="cb242-3"><a href="digital-soil-mapping.html#cb242-3" tabindex="-1"></a></span>
+<span id="cb242-4"><a href="digital-soil-mapping.html#cb242-4" tabindex="-1"></a><span class="cf">for</span> (d <span class="cf">in</span> <span class="fu">c</span>(<span class="st">&quot;03_outputs/module3/models/&quot;</span>, </span>
+<span id="cb242-5"><a href="digital-soil-mapping.html#cb242-5" tabindex="-1"></a>            <span class="st">&quot;03_outputs/module3/validation/&quot;</span>, </span>
+<span id="cb242-6"><a href="digital-soil-mapping.html#cb242-6" tabindex="-1"></a>            <span class="st">&quot;03_outputs/module3/tiles/&quot;</span>,</span>
+<span id="cb242-7"><a href="digital-soil-mapping.html#cb242-7" tabindex="-1"></a>            <span class="st">&quot;03_outputs/module3/maps/&quot;</span>,</span>
+<span id="cb242-8"><a href="digital-soil-mapping.html#cb242-8" tabindex="-1"></a>            <span class="st">&quot;03_outputs/module3/maps/aoa/&quot;</span>,</span>
+<span id="cb242-9"><a href="digital-soil-mapping.html#cb242-9" tabindex="-1"></a>            <span class="st">&quot;terra_tmp&quot;</span>)) {</span>
+<span id="cb242-10"><a href="digital-soil-mapping.html#cb242-10" tabindex="-1"></a>  <span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(d)) <span class="fu">dir.create</span>(d, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb242-11"><a href="digital-soil-mapping.html#cb242-11" tabindex="-1"></a>}</span>
+<span id="cb242-12"><a href="digital-soil-mapping.html#cb242-12" tabindex="-1"></a></span>
+<span id="cb242-13"><a href="digital-soil-mapping.html#cb242-13" tabindex="-1"></a><span class="fu">terraOptions</span>(<span class="at">progress =</span> <span class="dv">1</span>, <span class="at">memfrac =</span> <span class="fl">0.6</span>, <span class="at">tempdir =</span> <span class="fu">file.path</span>(<span class="fu">getwd</span>(), <span class="st">&quot;terra_tmp&quot;</span>))</span></code></pre></div>
 <p><code>setwd()</code> navigates from the script folder up two levels to the project root, making all subsequent file paths relative and portable. The <code>for</code> loop pre-creates every output folder needed by the workflow. <code>terraOptions()</code> enables a progress bar, allows terra to use 60% of available RAM before spilling to disk, and redirects large temporary raster files to a known folder inside the project.</p>
 <p>Let me check the Excel file for the official descriptions:</p>
 <p>Here is the complete Section 2 ready to copy-paste:</p>
@@ -788,13 +788,13 @@ RStudio, not from this document.</p>
 <p>The environmental covariates are the <em>predictors</em> in the DSM model — the Q factor in
 the S = f(Q) relationship introduced in Part I. They are stored as a multi-layer raster
 stack (<code>.tif</code>) where each layer represents one spatially continuous variable.</p>
-<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="digital-soil-mapping.html#cb239-1" tabindex="-1"></a>covs <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;01_data/module1/training_data/Environmental_Covariates_250m_KANSAS.tif&quot;</span>)</span>
-<span id="cb239-2"><a href="digital-soil-mapping.html#cb239-2" tabindex="-1"></a></span>
-<span id="cb239-3"><a href="digital-soil-mapping.html#cb239-3" tabindex="-1"></a>cov_names <span class="ot">&lt;-</span> <span class="fu">names</span>(covs)</span>
-<span id="cb239-4"><a href="digital-soil-mapping.html#cb239-4" tabindex="-1"></a></span>
-<span id="cb239-5"><a href="digital-soil-mapping.html#cb239-5" tabindex="-1"></a>covs[[<span class="dv">1</span>]]   <span class="co"># resolution, extent, CRS of the first layer</span></span>
-<span id="cb239-6"><a href="digital-soil-mapping.html#cb239-6" tabindex="-1"></a><span class="fu">nlyr</span>(covs)  <span class="co"># total number of layers</span></span>
-<span id="cb239-7"><a href="digital-soil-mapping.html#cb239-7" tabindex="-1"></a><span class="fu">plot</span>(covs[[<span class="dv">1</span>]])</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="digital-soil-mapping.html#cb243-1" tabindex="-1"></a>covs <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;01_data/module1/training_data/Environmental_Covariates_250m_KANSAS.tif&quot;</span>)</span>
+<span id="cb243-2"><a href="digital-soil-mapping.html#cb243-2" tabindex="-1"></a></span>
+<span id="cb243-3"><a href="digital-soil-mapping.html#cb243-3" tabindex="-1"></a>cov_names <span class="ot">&lt;-</span> <span class="fu">names</span>(covs)</span>
+<span id="cb243-4"><a href="digital-soil-mapping.html#cb243-4" tabindex="-1"></a></span>
+<span id="cb243-5"><a href="digital-soil-mapping.html#cb243-5" tabindex="-1"></a>covs[[<span class="dv">1</span>]]   <span class="co"># resolution, extent, CRS of the first layer</span></span>
+<span id="cb243-6"><a href="digital-soil-mapping.html#cb243-6" tabindex="-1"></a><span class="fu">nlyr</span>(covs)  <span class="co"># total number of layers</span></span>
+<span id="cb243-7"><a href="digital-soil-mapping.html#cb243-7" tabindex="-1"></a><span class="fu">plot</span>(covs[[<span class="dv">1</span>]])</span></code></pre></div>
 <p><code>rast()</code> reads the file as a <code>SpatRaster</code> object (the terra equivalent of a raster
 brick). The double-bracket operator <code>[[i]]</code> extracts a single layer by index or name
 and returns a <code>SpatRaster</code>; the single-bracket <code>[i]</code> returns a subset of the stack
@@ -974,17 +974,17 @@ redistribution — a key driver of SOC accumulation.</p>
 <h3><span class="header-section-number">3.2.4</span> Load and transform soil data<a href="digital-soil-mapping.html#load-and-transform-soil-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The soil observations come from the KSSL dataset prepared in Module 1. The file
 contains one row per sample, with columns for coordinates, texture fractions, and SOC.</p>
-<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="digital-soil-mapping.html#cb240-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;03_outputs/module1/KSSL_DSM_0-30.csv&quot;</span>)</span>
-<span id="cb240-2"><a href="digital-soil-mapping.html#cb240-2" tabindex="-1"></a></span>
-<span id="cb240-3"><a href="digital-soil-mapping.html#cb240-3" tabindex="-1"></a>dat</span>
-<span id="cb240-4"><a href="digital-soil-mapping.html#cb240-4" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="digital-soil-mapping.html#cb244-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;03_outputs/module1/KSSL_DSM_0-30.csv&quot;</span>)</span>
+<span id="cb244-2"><a href="digital-soil-mapping.html#cb244-2" tabindex="-1"></a></span>
+<span id="cb244-3"><a href="digital-soil-mapping.html#cb244-3" tabindex="-1"></a>dat</span>
+<span id="cb244-4"><a href="digital-soil-mapping.html#cb244-4" tabindex="-1"></a><span class="fu">summary</span>(dat)</span></code></pre></div>
 <div id="estimate-bulk-density-with-a-pedotransfer-function" class="section level4 hasAnchor" number="3.2.4.1">
 <h4><span class="header-section-number">3.2.4.1</span> Estimate bulk density with a pedotransfer function<a href="digital-soil-mapping.html#estimate-bulk-density-with-a-pedotransfer-function" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>A <strong>pedotransfer function (PTF)</strong> predicts a soil property that is difficult or
 expensive to measure directly from properties that are routinely available. Here we
 use the Saxton equation to derive bulk density (BD, g cm⁻³) from sand, clay, and SOC:</p>
-<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="digital-soil-mapping.html#cb241-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
-<span id="cb241-2"><a href="digital-soil-mapping.html#cb241-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BD =</span> <span class="fl">1.35</span> <span class="sc">+</span> <span class="fl">0.0045</span> <span class="sc">*</span> Sand <span class="sc">+</span> <span class="fl">0.0035</span> <span class="sc">*</span> Clay <span class="sc">-</span> <span class="fl">0.06</span> <span class="sc">*</span> <span class="fl">1.72</span> <span class="sc">*</span> SOC)</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="digital-soil-mapping.html#cb245-1" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb245-2"><a href="digital-soil-mapping.html#cb245-2" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">BD =</span> <span class="fl">1.35</span> <span class="sc">+</span> <span class="fl">0.0045</span> <span class="sc">*</span> Sand <span class="sc">+</span> <span class="fl">0.0035</span> <span class="sc">*</span> Clay <span class="sc">-</span> <span class="fl">0.06</span> <span class="sc">*</span> <span class="fl">1.72</span> <span class="sc">*</span> SOC)</span></code></pre></div>
 <p>The <code>%&gt;%</code> pipe passes <code>dat</code> as the first argument to <code>mutate()</code>, which adds the new
 column <code>BD</code> without touching the existing columns. This keeps the transformation
 readable and chainable.</p>
@@ -1000,34 +1000,34 @@ AWC is a target variable or a covariate in your project.</p>
 <div id="merge-soil-data-and-covariate-values" class="section level3 hasAnchor" number="3.2.5">
 <h3><span class="header-section-number">3.2.5</span> Merge soil data and covariate values<a href="digital-soil-mapping.html#merge-soil-data-and-covariate-values" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To link each soil observation to its environmental context, we convert the dataframe to a spatial object, reproject it to match the covariate CRS, and extract the raster values at each sample location.</p>
-<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="digital-soil-mapping.html#cb242-1" tabindex="-1"></a>dat_pts <span class="ot">&lt;-</span> <span class="fu">vect</span>(dat, <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="at">crs =</span> <span class="st">&quot;epsg:4326&quot;</span>)</span>
-<span id="cb242-2"><a href="digital-soil-mapping.html#cb242-2" tabindex="-1"></a>dat_pts <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(dat_pts, covs)</span>
-<span id="cb242-3"><a href="digital-soil-mapping.html#cb242-3" tabindex="-1"></a><span class="fu">mapview</span>(dat_pts, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
-<span id="cb242-4"><a href="digital-soil-mapping.html#cb242-4" tabindex="-1"></a></span>
-<span id="cb242-5"><a href="digital-soil-mapping.html#cb242-5" tabindex="-1"></a>extracted_covs <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(<span class="at">x =</span> covs, <span class="at">y =</span> dat_pts, <span class="at">xy =</span> <span class="cn">TRUE</span>, <span class="at">ID =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb242-6"><a href="digital-soil-mapping.html#cb242-6" tabindex="-1"></a><span class="fu">summary</span>(extracted_covs)</span>
-<span id="cb242-7"><a href="digital-soil-mapping.html#cb242-7" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(dat_pts)</span>
-<span id="cb242-8"><a href="digital-soil-mapping.html#cb242-8" tabindex="-1"></a>dat_cov <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(dat, extracted_covs)</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="digital-soil-mapping.html#cb246-1" tabindex="-1"></a>dat_pts <span class="ot">&lt;-</span> <span class="fu">vect</span>(dat, <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">&quot;lon&quot;</span>, <span class="st">&quot;lat&quot;</span>), <span class="at">crs =</span> <span class="st">&quot;epsg:4326&quot;</span>)</span>
+<span id="cb246-2"><a href="digital-soil-mapping.html#cb246-2" tabindex="-1"></a>dat_pts <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">project</span>(dat_pts, covs)</span>
+<span id="cb246-3"><a href="digital-soil-mapping.html#cb246-3" tabindex="-1"></a><span class="fu">mapview</span>(dat_pts, <span class="at">cex =</span> <span class="fl">1.5</span>)</span>
+<span id="cb246-4"><a href="digital-soil-mapping.html#cb246-4" tabindex="-1"></a></span>
+<span id="cb246-5"><a href="digital-soil-mapping.html#cb246-5" tabindex="-1"></a>extracted_covs <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">extract</span>(<span class="at">x =</span> covs, <span class="at">y =</span> dat_pts, <span class="at">xy =</span> <span class="cn">TRUE</span>, <span class="at">ID =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb246-6"><a href="digital-soil-mapping.html#cb246-6" tabindex="-1"></a><span class="fu">summary</span>(extracted_covs)</span>
+<span id="cb246-7"><a href="digital-soil-mapping.html#cb246-7" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(dat_pts)</span>
+<span id="cb246-8"><a href="digital-soil-mapping.html#cb246-8" tabindex="-1"></a>dat_cov <span class="ot">&lt;-</span> <span class="fu">bind_cols</span>(dat, extracted_covs)</span></code></pre></div>
 <p><code>vect()</code> creates a <code>SpatVector</code> (the terra class for vector data) from the longitude and latitude columns, assigning geographic coordinates (EPSG:4326). <code>terra::project()</code> then reprojects the points to the same CRS as <code>covs</code> — this step is essential: if the CRS of the points does not match the raster, <code>extract()</code> will return all <code>NA</code>. <code>mapview()</code> opens an interactive map to visually verify that the points fall within the study area.</p>
 <p><code>terra::extract()</code> samples the raster stack at each point location and returns a dataframe with one row per point and one column per covariate layer. Setting <code>xy = TRUE</code> appends the projected coordinates, and <code>ID = FALSE</code> drops the auto-generated row-index column. Finally, <code>bind_cols()</code> joins the covariate values to the soil data, producing <code>dat_cov</code> — the complete modelling dataset that links S (soil observation) to Q (environmental covariates), as in the S = f(Q) formulation from Part I.</p>
 </div>
 <div id="feature-selection-with-boruta" class="section level3 hasAnchor" number="3.2.6">
 <h3><span class="header-section-number">3.2.6</span> Feature selection with Boruta<a href="digital-soil-mapping.html#feature-selection-with-boruta" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Before training the model, we identify which covariates carry genuine predictive signal for SOC. Including irrelevant predictors inflates model complexity and can reduce accuracy.</p>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="digital-soil-mapping.html#cb243-1" tabindex="-1"></a>target <span class="ot">&lt;-</span> <span class="st">&quot;SOC&quot;</span></span>
-<span id="cb243-2"><a href="digital-soil-mapping.html#cb243-2" tabindex="-1"></a></span>
-<span id="cb243-3"><a href="digital-soil-mapping.html#cb243-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> dat_cov <span class="sc">%&gt;%</span></span>
-<span id="cb243-4"><a href="digital-soil-mapping.html#cb243-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">all_of</span>(target), <span class="fu">all_of</span>(cov_names)) <span class="sc">%&gt;%</span></span>
-<span id="cb243-5"><a href="digital-soil-mapping.html#cb243-5" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb243-6"><a href="digital-soil-mapping.html#cb243-6" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="digital-soil-mapping.html#cb247-1" tabindex="-1"></a>target <span class="ot">&lt;-</span> <span class="st">&quot;SOC&quot;</span></span>
+<span id="cb247-2"><a href="digital-soil-mapping.html#cb247-2" tabindex="-1"></a></span>
+<span id="cb247-3"><a href="digital-soil-mapping.html#cb247-3" tabindex="-1"></a>d <span class="ot">&lt;-</span> dat_cov <span class="sc">%&gt;%</span></span>
+<span id="cb247-4"><a href="digital-soil-mapping.html#cb247-4" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">select</span>(<span class="fu">all_of</span>(target), <span class="fu">all_of</span>(cov_names)) <span class="sc">%&gt;%</span></span>
+<span id="cb247-5"><a href="digital-soil-mapping.html#cb247-5" tabindex="-1"></a>  <span class="fu">na.omit</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb247-6"><a href="digital-soil-mapping.html#cb247-6" tabindex="-1"></a>  <span class="fu">as.data.frame</span>()</span></code></pre></div>
 <p><code>na.omit()</code> removes rows where any covariate value is missing (e.g. points that fall outside the raster extent). The result <code>d</code> is the clean training table used throughout the modelling workflow.</p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="digital-soil-mapping.html#cb244-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb244-2"><a href="digital-soil-mapping.html#cb244-2" tabindex="-1"></a>boruta_result <span class="ot">&lt;-</span> <span class="fu">Boruta</span>(</span>
-<span id="cb244-3"><a href="digital-soil-mapping.html#cb244-3" tabindex="-1"></a>  <span class="at">y =</span> d[, target],</span>
-<span id="cb244-4"><a href="digital-soil-mapping.html#cb244-4" tabindex="-1"></a>  <span class="at">x =</span> d[, cov_names],</span>
-<span id="cb244-5"><a href="digital-soil-mapping.html#cb244-5" tabindex="-1"></a>  <span class="at">maxRuns =</span> <span class="dv">25</span>,</span>
-<span id="cb244-6"><a href="digital-soil-mapping.html#cb244-6" tabindex="-1"></a>  <span class="at">doTrace =</span> <span class="dv">1</span></span>
-<span id="cb244-7"><a href="digital-soil-mapping.html#cb244-7" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="digital-soil-mapping.html#cb248-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb248-2"><a href="digital-soil-mapping.html#cb248-2" tabindex="-1"></a>boruta_result <span class="ot">&lt;-</span> <span class="fu">Boruta</span>(</span>
+<span id="cb248-3"><a href="digital-soil-mapping.html#cb248-3" tabindex="-1"></a>  <span class="at">y =</span> d[, target],</span>
+<span id="cb248-4"><a href="digital-soil-mapping.html#cb248-4" tabindex="-1"></a>  <span class="at">x =</span> d[, cov_names],</span>
+<span id="cb248-5"><a href="digital-soil-mapping.html#cb248-5" tabindex="-1"></a>  <span class="at">maxRuns =</span> <span class="dv">25</span>,</span>
+<span id="cb248-6"><a href="digital-soil-mapping.html#cb248-6" tabindex="-1"></a>  <span class="at">doTrace =</span> <span class="dv">1</span></span>
+<span id="cb248-7"><a href="digital-soil-mapping.html#cb248-7" tabindex="-1"></a>)</span></code></pre></div>
 <p><strong>How Boruta works.</strong> Boruta is a wrapper around Random Forest that tests each variable against a set of <em>shadow variables</em> — permuted (shuffled) copies of the originals that have no real relationship with the target. In each iteration, a Random Forest is trained on the original predictors plus their shadows. A predictor is classified as:</p>
 <ul>
 <li><strong>Confirmed</strong> (green): its importance is consistently higher than the best shadow variable.</li>
@@ -1036,12 +1036,12 @@ AWC is a target variable or a covariate in your project.</p>
 </ul>
 <p><code>maxRuns = 25</code> sets the number of Random Forest iterations. For a final analysis, increase this to at least 100 to stabilise decisions on tentative variables.</p>
 <div class="figure"><span style="display:block;" id="fig:boruta-plot"></span>
-<img src="images/module3/boruta_SOC.png" alt="Boruta feature selection for SOC. Green = confirmed, red = rejected, yellow = tentative, blue = shadow variables." width="442" />
+<img src="images/module3/boruta_SOC.png" alt="Boruta feature selection for SOC. Green = confirmed, red = rejected, yellow = tentative, blue = shadow variables."  />
 <p class="caption">
 Figure 3.1: Boruta feature selection for SOC. Green = confirmed, red = rejected, yellow = tentative, blue = shadow variables.
 </p>
 </div>
-<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="digital-soil-mapping.html#cb245-1" tabindex="-1"></a>selected_features <span class="ot">&lt;-</span> <span class="fu">getSelectedAttributes</span>(boruta_result, <span class="at">withTentative =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="digital-soil-mapping.html#cb249-1" tabindex="-1"></a>selected_features <span class="ot">&lt;-</span> <span class="fu">getSelectedAttributes</span>(boruta_result, <span class="at">withTentative =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
 <p><code>getSelectedAttributes()</code> returns the names of confirmed predictors. Setting <code>withTentative = TRUE</code> also includes tentative ones — a conservative choice that avoids discarding potentially useful variables.</p>
 <blockquote>
 <p><strong>Feature selection in DSM: two schools of thought.</strong> The field is divided on how to approach predictor selection. One tradition favours <em>expert-guided selection</em>: the practitioner chooses covariates based on known soil-forming processes, keeping the predictor set small, interpretable, and grounded in pedological theory. The opposing view argues for <em>data-driven inclusion</em>: feed all available covariates to the model and let the algorithm determine relevance — a pragmatic position when the environmental drivers of a given soil property are poorly understood or when the goal is purely predictive accuracy. Boruta sits between these extremes: it is automated and data-driven, but its output can still be audited against expert knowledge (e.g. rejecting a confirmed variable that has no plausible mechanistic link to the target, or overriding a rejection for a variable known to be important). In practice, the best approach depends on the study objective, the quality of the covariates, and the sample size available for model training.</p>
@@ -1062,12 +1062,12 @@ Figure 3.1: Boruta feature selection for SOC. Green = confirmed, red = rejected,
 <div id="cross-validation-setup" class="section level4 hasAnchor" number="3.2.7.2">
 <h4><span class="header-section-number">3.2.7.2</span> Cross-validation setup<a href="digital-soil-mapping.html#cross-validation-setup" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Before training, we define how the model will be evaluated during hyperparameter tuning. Repeated k-fold cross-validation splits the dataset into <em>k</em> folds, trains on <em>k</em> − 1 and tests on the held-out fold, then repeats the whole cycle several times to reduce variance in the performance estimate.</p>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="digital-soil-mapping.html#cb246-1" tabindex="-1"></a>cv_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(</span>
-<span id="cb246-2"><a href="digital-soil-mapping.html#cb246-2" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;repeatedcv&quot;</span>,</span>
-<span id="cb246-3"><a href="digital-soil-mapping.html#cb246-3" tabindex="-1"></a>  <span class="at">number =</span> <span class="dv">5</span>,</span>
-<span id="cb246-4"><a href="digital-soil-mapping.html#cb246-4" tabindex="-1"></a>  <span class="at">repeats =</span> <span class="dv">5</span>,</span>
-<span id="cb246-5"><a href="digital-soil-mapping.html#cb246-5" tabindex="-1"></a>  <span class="at">savePredictions =</span> <span class="cn">TRUE</span></span>
-<span id="cb246-6"><a href="digital-soil-mapping.html#cb246-6" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="digital-soil-mapping.html#cb250-1" tabindex="-1"></a>cv_control <span class="ot">&lt;-</span> <span class="fu">trainControl</span>(</span>
+<span id="cb250-2"><a href="digital-soil-mapping.html#cb250-2" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">&quot;repeatedcv&quot;</span>,</span>
+<span id="cb250-3"><a href="digital-soil-mapping.html#cb250-3" tabindex="-1"></a>  <span class="at">number =</span> <span class="dv">5</span>,</span>
+<span id="cb250-4"><a href="digital-soil-mapping.html#cb250-4" tabindex="-1"></a>  <span class="at">repeats =</span> <span class="dv">5</span>,</span>
+<span id="cb250-5"><a href="digital-soil-mapping.html#cb250-5" tabindex="-1"></a>  <span class="at">savePredictions =</span> <span class="cn">TRUE</span></span>
+<span id="cb250-6"><a href="digital-soil-mapping.html#cb250-6" tabindex="-1"></a>)</span></code></pre></div>
 <p><code>savePredictions = TRUE</code> stores the out-of-fold predictions for every hyperparameter combination, which we will use in Section 7 to compute validation metrics without re-running the model.</p>
 <blockquote>
 <p><strong>Limitation: standard CV assumes spatial independence.</strong> Random fold assignment means a training fold and its test fold may contain samples that are geographically close, allowing the model to exploit spatial autocorrelation. This leads to over-optimistic accuracy estimates. Spatial cross-validation (e.g. <code>CAST::CreateSpacetimeFolds()</code>) addresses this by grouping spatially proximate samples into the same fold. For this training exercise we use standard CV; keep this limitation in mind when interpreting results.</p>
@@ -1101,34 +1101,34 @@ Figure 3.1: Boruta feature selection for SOC. Green = confirmed, red = rejected,
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="digital-soil-mapping.html#cb247-1" tabindex="-1"></a>mtry_base <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">length</span>(selected_features) <span class="sc">/</span> <span class="dv">3</span>)</span>
-<span id="cb247-2"><a href="digital-soil-mapping.html#cb247-2" tabindex="-1"></a>tune_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
-<span id="cb247-3"><a href="digital-soil-mapping.html#cb247-3" tabindex="-1"></a>  <span class="at">mtry          =</span> <span class="fu">c</span>(mtry_base <span class="sc">-</span> <span class="fu">round</span>(mtry_base <span class="sc">/</span> <span class="dv">2</span>),</span>
-<span id="cb247-4"><a href="digital-soil-mapping.html#cb247-4" tabindex="-1"></a>                    mtry_base,</span>
-<span id="cb247-5"><a href="digital-soil-mapping.html#cb247-5" tabindex="-1"></a>                    mtry_base <span class="sc">+</span> <span class="fu">round</span>(mtry_base <span class="sc">/</span> <span class="dv">2</span>)),</span>
-<span id="cb247-6"><a href="digital-soil-mapping.html#cb247-6" tabindex="-1"></a>  <span class="at">min.node.size =</span> <span class="dv">5</span>,</span>
-<span id="cb247-7"><a href="digital-soil-mapping.html#cb247-7" tabindex="-1"></a>  <span class="at">splitrule     =</span> <span class="fu">c</span>(<span class="st">&quot;variance&quot;</span>, <span class="st">&quot;extratrees&quot;</span>)</span>
-<span id="cb247-8"><a href="digital-soil-mapping.html#cb247-8" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="digital-soil-mapping.html#cb251-1" tabindex="-1"></a>mtry_base <span class="ot">&lt;-</span> <span class="fu">round</span>(<span class="fu">length</span>(selected_features) <span class="sc">/</span> <span class="dv">3</span>)</span>
+<span id="cb251-2"><a href="digital-soil-mapping.html#cb251-2" tabindex="-1"></a>tune_grid <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(</span>
+<span id="cb251-3"><a href="digital-soil-mapping.html#cb251-3" tabindex="-1"></a>  <span class="at">mtry          =</span> <span class="fu">c</span>(mtry_base <span class="sc">-</span> <span class="fu">round</span>(mtry_base <span class="sc">/</span> <span class="dv">2</span>),</span>
+<span id="cb251-4"><a href="digital-soil-mapping.html#cb251-4" tabindex="-1"></a>                    mtry_base,</span>
+<span id="cb251-5"><a href="digital-soil-mapping.html#cb251-5" tabindex="-1"></a>                    mtry_base <span class="sc">+</span> <span class="fu">round</span>(mtry_base <span class="sc">/</span> <span class="dv">2</span>)),</span>
+<span id="cb251-6"><a href="digital-soil-mapping.html#cb251-6" tabindex="-1"></a>  <span class="at">min.node.size =</span> <span class="dv">5</span>,</span>
+<span id="cb251-7"><a href="digital-soil-mapping.html#cb251-7" tabindex="-1"></a>  <span class="at">splitrule     =</span> <span class="fu">c</span>(<span class="st">&quot;variance&quot;</span>, <span class="st">&quot;extratrees&quot;</span>)</span>
+<span id="cb251-8"><a href="digital-soil-mapping.html#cb251-8" tabindex="-1"></a>)</span></code></pre></div>
 <p><code>mtry</code> is initialised around the rule-of-thumb p/3 (where p is the number of selected features) and explored at three levels. <code>expand.grid()</code> produces every combination, yielding six candidate configurations.</p>
 </div>
 <div id="train-the-model" class="section level4 hasAnchor" number="3.2.7.4">
 <h4><span class="header-section-number">3.2.7.4</span> Train the model<a href="digital-soil-mapping.html#train-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="digital-soil-mapping.html#cb248-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">train</span>(</span>
-<span id="cb248-2"><a href="digital-soil-mapping.html#cb248-2" tabindex="-1"></a>  <span class="at">y           =</span> d[, target],</span>
-<span id="cb248-3"><a href="digital-soil-mapping.html#cb248-3" tabindex="-1"></a>  <span class="at">x           =</span> d[, selected_features],</span>
-<span id="cb248-4"><a href="digital-soil-mapping.html#cb248-4" tabindex="-1"></a>  <span class="at">method      =</span> <span class="st">&quot;ranger&quot;</span>,</span>
-<span id="cb248-5"><a href="digital-soil-mapping.html#cb248-5" tabindex="-1"></a>  <span class="at">quantreg    =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb248-6"><a href="digital-soil-mapping.html#cb248-6" tabindex="-1"></a>  <span class="at">importance  =</span> <span class="st">&quot;permutation&quot;</span>,</span>
-<span id="cb248-7"><a href="digital-soil-mapping.html#cb248-7" tabindex="-1"></a>  <span class="at">trControl   =</span> cv_control,</span>
-<span id="cb248-8"><a href="digital-soil-mapping.html#cb248-8" tabindex="-1"></a>  <span class="at">tuneGrid    =</span> tune_grid,</span>
-<span id="cb248-9"><a href="digital-soil-mapping.html#cb248-9" tabindex="-1"></a>  <span class="at">num.threads =</span> <span class="fu">max</span>(<span class="dv">1</span>, parallel<span class="sc">::</span><span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb248-10"><a href="digital-soil-mapping.html#cb248-10" tabindex="-1"></a>)</span>
-<span id="cb248-11"><a href="digital-soil-mapping.html#cb248-11" tabindex="-1"></a></span>
-<span id="cb248-12"><a href="digital-soil-mapping.html#cb248-12" tabindex="-1"></a>model</span>
-<span id="cb248-13"><a href="digital-soil-mapping.html#cb248-13" tabindex="-1"></a>model<span class="sc">$</span>bestTune</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="digital-soil-mapping.html#cb252-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> caret<span class="sc">::</span><span class="fu">train</span>(</span>
+<span id="cb252-2"><a href="digital-soil-mapping.html#cb252-2" tabindex="-1"></a>  <span class="at">y           =</span> d[, target],</span>
+<span id="cb252-3"><a href="digital-soil-mapping.html#cb252-3" tabindex="-1"></a>  <span class="at">x           =</span> d[, selected_features],</span>
+<span id="cb252-4"><a href="digital-soil-mapping.html#cb252-4" tabindex="-1"></a>  <span class="at">method      =</span> <span class="st">&quot;ranger&quot;</span>,</span>
+<span id="cb252-5"><a href="digital-soil-mapping.html#cb252-5" tabindex="-1"></a>  <span class="at">quantreg    =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb252-6"><a href="digital-soil-mapping.html#cb252-6" tabindex="-1"></a>  <span class="at">importance  =</span> <span class="st">&quot;permutation&quot;</span>,</span>
+<span id="cb252-7"><a href="digital-soil-mapping.html#cb252-7" tabindex="-1"></a>  <span class="at">trControl   =</span> cv_control,</span>
+<span id="cb252-8"><a href="digital-soil-mapping.html#cb252-8" tabindex="-1"></a>  <span class="at">tuneGrid    =</span> tune_grid,</span>
+<span id="cb252-9"><a href="digital-soil-mapping.html#cb252-9" tabindex="-1"></a>  <span class="at">num.threads =</span> <span class="fu">max</span>(<span class="dv">1</span>, parallel<span class="sc">::</span><span class="fu">detectCores</span>() <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb252-10"><a href="digital-soil-mapping.html#cb252-10" tabindex="-1"></a>)</span>
+<span id="cb252-11"><a href="digital-soil-mapping.html#cb252-11" tabindex="-1"></a></span>
+<span id="cb252-12"><a href="digital-soil-mapping.html#cb252-12" tabindex="-1"></a>model</span>
+<span id="cb252-13"><a href="digital-soil-mapping.html#cb252-13" tabindex="-1"></a>model<span class="sc">$</span>bestTune</span></code></pre></div>
 <p><code>importance = "permutation"</code> measures how much accuracy drops when each predictor is randomly shuffled — a reliable, model-agnostic importance measure. <code>num.threads</code> uses all but one CPU core; adjust downward if the machine is needed for other tasks during training.</p>
 <div class="figure"><span style="display:block;" id="fig:varimp-plot"></span>
-<img src="images/module3/varImp_SOC.png" alt="Permutation-based variable importance for the SOC model. Longer bars indicate stronger predictive contribution." width="442" />
+<img src="images/module3/varImp_SOC.png" alt="Permutation-based variable importance for the SOC model. Longer bars indicate stronger predictive contribution."  />
 <p class="caption">
 Figure 3.2: Permutation-based variable importance for the SOC model. Longer bars indicate stronger predictive contribution.
 </p>
@@ -1139,40 +1139,17 @@ Figure 3.2: Permutation-based variable importance for the SOC model. Longer bars
 <div id="accuracy-assessment" class="section level3 hasAnchor" number="3.2.8">
 <h3><span class="header-section-number">3.2.8</span> Accuracy assessment<a href="digital-soil-mapping.html#accuracy-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Cross-validation accuracy is extracted from the predictions stored during training. Because <code>caret</code> evaluates every hyperparameter combination, we filter to the rows corresponding to the best configuration identified by <code>model$bestTune</code>.</p>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="digital-soil-mapping.html#cb249-1" tabindex="-1"></a>cv_preds <span class="ot">&lt;-</span> model<span class="sc">$</span>pred <span class="sc">%&gt;%</span></span>
-<span id="cb249-2"><a href="digital-soil-mapping.html#cb249-2" tabindex="-1"></a>  <span class="fu">filter</span>(mtry          <span class="sc">==</span> model<span class="sc">$</span>bestTune<span class="sc">$</span>mtry,</span>
-<span id="cb249-3"><a href="digital-soil-mapping.html#cb249-3" tabindex="-1"></a>         splitrule     <span class="sc">==</span> model<span class="sc">$</span>bestTune<span class="sc">$</span>splitrule,</span>
-<span id="cb249-4"><a href="digital-soil-mapping.html#cb249-4" tabindex="-1"></a>         min.node.size <span class="sc">==</span> model<span class="sc">$</span>bestTune<span class="sc">$</span>min.node.size)</span>
-<span id="cb249-5"><a href="digital-soil-mapping.html#cb249-5" tabindex="-1"></a></span>
-<span id="cb249-6"><a href="digital-soil-mapping.html#cb249-6" tabindex="-1"></a>obs_vals  <span class="ot">&lt;-</span> cv_preds<span class="sc">$</span>obs</span>
-<span id="cb249-7"><a href="digital-soil-mapping.html#cb249-7" tabindex="-1"></a>pred_vals <span class="ot">&lt;-</span> cv_preds<span class="sc">$</span>pred</span></code></pre></div>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="digital-soil-mapping.html#cb253-1" tabindex="-1"></a>cv_preds <span class="ot">&lt;-</span> model<span class="sc">$</span>pred <span class="sc">%&gt;%</span></span>
+<span id="cb253-2"><a href="digital-soil-mapping.html#cb253-2" tabindex="-1"></a>  <span class="fu">filter</span>(mtry          <span class="sc">==</span> model<span class="sc">$</span>bestTune<span class="sc">$</span>mtry,</span>
+<span id="cb253-3"><a href="digital-soil-mapping.html#cb253-3" tabindex="-1"></a>         splitrule     <span class="sc">==</span> model<span class="sc">$</span>bestTune<span class="sc">$</span>splitrule,</span>
+<span id="cb253-4"><a href="digital-soil-mapping.html#cb253-4" tabindex="-1"></a>         min.node.size <span class="sc">==</span> model<span class="sc">$</span>bestTune<span class="sc">$</span>min.node.size)</span>
+<span id="cb253-5"><a href="digital-soil-mapping.html#cb253-5" tabindex="-1"></a></span>
+<span id="cb253-6"><a href="digital-soil-mapping.html#cb253-6" tabindex="-1"></a>obs_vals  <span class="ot">&lt;-</span> cv_preds<span class="sc">$</span>obs</span>
+<span id="cb253-7"><a href="digital-soil-mapping.html#cb253-7" tabindex="-1"></a>pred_vals <span class="ot">&lt;-</span> cv_preds<span class="sc">$</span>pred</span></code></pre></div>
 <p>The <code>eval()</code> function, loaded from <code>eval.RData</code>, implements the accuracy framework proposed by <span class="citation">(<a href="#ref-wadoux2021integrated"><strong>wadoux2021integrated?</strong></a>)</span>. It computes six complementary metrics from the vectors of observed (z) and predicted (ẑ) values:</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="digital-soil-mapping.html#cb250-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;02_scripts/module3/eval.RData&quot;</span>)</span>
-<span id="cb250-2"><a href="digital-soil-mapping.html#cb250-2" tabindex="-1"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">eval</span>(pred_vals, obs_vals)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span>
-<span id="cb250-3"><a href="digital-soil-mapping.html#cb250-3" tabindex="-1"></a>accuracy</span></code></pre></div>
-<table>
-<caption><span id="tab:accuracy-table">Table 3.1: </span>Cross-validation accuracy metrics for the SOC model (Wadoux et al., 2021).</caption>
-<thead>
-<tr class="header">
-<th align="right">ME</th>
-<th align="right">MAE</th>
-<th align="right">RMSE</th>
-<th align="right">r</th>
-<th align="right">r2</th>
-<th align="right">MEC</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">-0.02</td>
-<td align="right">0.5</td>
-<td align="right">0.72</td>
-<td align="right">0.7</td>
-<td align="right">0.49</td>
-<td align="right">0.49</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="digital-soil-mapping.html#cb254-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;02_scripts/module3/eval.RData&quot;</span>)</span>
+<span id="cb254-2"><a href="digital-soil-mapping.html#cb254-2" tabindex="-1"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">eval</span>(pred_vals, obs_vals)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span>
+<span id="cb254-3"><a href="digital-soil-mapping.html#cb254-3" tabindex="-1"></a>accuracy</span></code></pre></div>
 <p><strong>Mean Error (ME)</strong> measures systematic bias — the average signed difference between predictions and observations:</p>
 <p><span class="math display">\[ME = \frac{1}{n}\sum_{i=1}^{n}(\hat{z}_i - z_i)\]</span></p>
 <p>A positive ME means the model systematically over-predicts; a negative ME means it under-predicts. Values near zero are desirable, but ME alone can be misleading: large positive and negative errors can cancel out.</p>
@@ -1196,19 +1173,19 @@ Figure 3.2: Permutation-based variable importance for the SOC model. Longer bars
 </blockquote>
 <div id="observed-vs-predicted-plot" class="section level4 hasAnchor" number="3.2.8.1">
 <h4><span class="header-section-number">3.2.8.1</span> Observed vs predicted plot<a href="digital-soil-mapping.html#observed-vs-predicted-plot" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="digital-soil-mapping.html#cb251-1" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Observed =</span> obs_vals, <span class="at">Predicted =</span> pred_vals)</span>
-<span id="cb251-2"><a href="digital-soil-mapping.html#cb251-2" tabindex="-1"></a>g_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(residuals, <span class="fu">aes</span>(<span class="at">x =</span> Observed, <span class="at">y =</span> Predicted)) <span class="sc">+</span></span>
-<span id="cb251-3"><a href="digital-soil-mapping.html#cb251-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
-<span id="cb251-4"><a href="digital-soil-mapping.html#cb251-4" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb251-5"><a href="digital-soil-mapping.html#cb251-5" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fu">min</span>(residuals<span class="sc">$</span>Observed), <span class="fu">max</span>(residuals<span class="sc">$</span>Observed))) <span class="sc">+</span></span>
-<span id="cb251-6"><a href="digital-soil-mapping.html#cb251-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb251-7"><a href="digital-soil-mapping.html#cb251-7" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
-<span id="cb251-8"><a href="digital-soil-mapping.html#cb251-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(<span class="st">&quot;Observed vs Predicted -&quot;</span>, target)) <span class="sc">+</span></span>
-<span id="cb251-9"><a href="digital-soil-mapping.html#cb251-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
-<span id="cb251-10"><a href="digital-soil-mapping.html#cb251-10" tabindex="-1"></a></span>
-<span id="cb251-11"><a href="digital-soil-mapping.html#cb251-11" tabindex="-1"></a>g_scatter</span></code></pre></div>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="digital-soil-mapping.html#cb255-1" tabindex="-1"></a>residuals <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Observed =</span> obs_vals, <span class="at">Predicted =</span> pred_vals)</span>
+<span id="cb255-2"><a href="digital-soil-mapping.html#cb255-2" tabindex="-1"></a>g_scatter <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(residuals, <span class="fu">aes</span>(<span class="at">x =</span> Observed, <span class="at">y =</span> Predicted)) <span class="sc">+</span></span>
+<span id="cb255-3"><a href="digital-soil-mapping.html#cb255-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.3</span>) <span class="sc">+</span></span>
+<span id="cb255-4"><a href="digital-soil-mapping.html#cb255-4" tabindex="-1"></a>  <span class="fu">geom_abline</span>(<span class="at">slope =</span> <span class="dv">1</span>, <span class="at">intercept =</span> <span class="dv">0</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>, <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb255-5"><a href="digital-soil-mapping.html#cb255-5" tabindex="-1"></a>  <span class="fu">ylim</span>(<span class="fu">c</span>(<span class="fu">min</span>(residuals<span class="sc">$</span>Observed), <span class="fu">max</span>(residuals<span class="sc">$</span>Observed))) <span class="sc">+</span></span>
+<span id="cb255-6"><a href="digital-soil-mapping.html#cb255-6" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">aspect.ratio =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb255-7"><a href="digital-soil-mapping.html#cb255-7" tabindex="-1"></a>  <span class="fu">coord_fixed</span>() <span class="sc">+</span></span>
+<span id="cb255-8"><a href="digital-soil-mapping.html#cb255-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="fu">paste</span>(<span class="st">&quot;Observed vs Predicted -&quot;</span>, target)) <span class="sc">+</span></span>
+<span id="cb255-9"><a href="digital-soil-mapping.html#cb255-9" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span>
+<span id="cb255-10"><a href="digital-soil-mapping.html#cb255-10" tabindex="-1"></a></span>
+<span id="cb255-11"><a href="digital-soil-mapping.html#cb255-11" tabindex="-1"></a>g_scatter</span></code></pre></div>
 <div class="figure"><span style="display:block;" id="fig:scatter-plot"></span>
-<img src="images/module3/scatterplot_SOC.png" alt="Observed vs predicted SOC values from cross-validation. The red line is the 1:1 line; a perfect model places all points on it." width="708" />
+<img src="images/module3/scatterplot_SOC.png" alt="Observed vs predicted SOC values from cross-validation. The red line is the 1:1 line; a perfect model places all points on it."  />
 <p class="caption">
 Figure 3.3: Observed vs predicted SOC values from cross-validation. The red line is the 1:1 line; a perfect model places all points on it.
 </p>
@@ -1217,8 +1194,8 @@ Figure 3.3: Observed vs predicted SOC values from cross-validation. The red line
 </div>
 <div id="save-outputs" class="section level4 hasAnchor" number="3.2.8.2">
 <h4><span class="header-section-number">3.2.8.2</span> Save outputs<a href="digital-soil-mapping.html#save-outputs" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="digital-soil-mapping.html#cb252-1" tabindex="-1"></a><span class="fu">write_csv</span>(accuracy, <span class="st">&quot;03_outputs/module3/validation/accuracy.csv&quot;</span>)</span>
-<span id="cb252-2"><a href="digital-soil-mapping.html#cb252-2" tabindex="-1"></a><span class="fu">saveRDS</span>(model, <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/models/ranger_model_&quot;</span>, target, <span class="st">&quot;.rds&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="digital-soil-mapping.html#cb256-1" tabindex="-1"></a><span class="fu">write_csv</span>(accuracy, <span class="st">&quot;03_outputs/module3/validation/accuracy.csv&quot;</span>)</span>
+<span id="cb256-2"><a href="digital-soil-mapping.html#cb256-2" tabindex="-1"></a><span class="fu">saveRDS</span>(model, <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/models/ranger_model_&quot;</span>, target, <span class="st">&quot;.rds&quot;</span>))</span></code></pre></div>
 <p><code>write_csv()</code> saves the accuracy table for reporting and reproducibility. <code>saveRDS()</code> serialises the full caret model object — including the trained ranger forest, CV results, and tuning history. Session 2 reloads it with <code>readRDS()</code> to run spatial prediction without retraining.</p>
 <blockquote>
 <p><strong>Limitation:</strong> Cross-validation accuracy reflects performance on the training dataset, not on locations that are environmentally different from the sampled area. If the study region contains landscapes that are underrepresented in the samples (e.g. poorly drained soils, organic-rich wetland patches), the actual map error in those areas will be higher than the reported CV metrics suggest.</p>
@@ -1228,21 +1205,21 @@ Figure 3.3: Observed vs predicted SOC values from cross-validation. The red line
 <div id="reload-the-workspace" class="section level3 hasAnchor" number="3.2.9">
 <h3><span class="header-section-number">3.2.9</span> Reload the workspace<a href="digital-soil-mapping.html#reload-the-workspace" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Session 2 is designed to be <strong>self-contained</strong>: it reloads all necessary objects from disk so you can run spatial prediction independently, without re-running Session 1. This is important in practice — model training can take hours, and you may want to experiment with prediction parameters without repeating the full workflow.</p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="digital-soil-mapping.html#cb253-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb253-2"><a href="digital-soil-mapping.html#cb253-2" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
-<span id="cb253-3"><a href="digital-soil-mapping.html#cb253-3" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
-<span id="cb253-4"><a href="digital-soil-mapping.html#cb253-4" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
-<span id="cb253-5"><a href="digital-soil-mapping.html#cb253-5" tabindex="-1"></a></span>
-<span id="cb253-6"><a href="digital-soil-mapping.html#cb253-6" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PROJ_LIB =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb253-7"><a href="digital-soil-mapping.html#cb253-7" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PROJ_DATA =</span> <span class="fu">system.file</span>(<span class="st">&quot;proj&quot;</span>, <span class="at">package =</span> <span class="st">&quot;terra&quot;</span>))</span>
-<span id="cb253-8"><a href="digital-soil-mapping.html#cb253-8" tabindex="-1"></a></span>
-<span id="cb253-9"><a href="digital-soil-mapping.html#cb253-9" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">dirname</span>(rstudioapi<span class="sc">::</span><span class="fu">getActiveDocumentContext</span>()<span class="sc">$</span>path))</span>
-<span id="cb253-10"><a href="digital-soil-mapping.html#cb253-10" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;../../&quot;</span>)</span>
-<span id="cb253-11"><a href="digital-soil-mapping.html#cb253-11" tabindex="-1"></a></span>
-<span id="cb253-12"><a href="digital-soil-mapping.html#cb253-12" tabindex="-1"></a>covs    <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;01_data/module1/training_data/Environmental_Covariates_250m_KANSAS.tif&quot;</span>)</span>
-<span id="cb253-13"><a href="digital-soil-mapping.html#cb253-13" tabindex="-1"></a>cov_names <span class="ot">&lt;-</span> <span class="fu">names</span>(covs)</span>
-<span id="cb253-14"><a href="digital-soil-mapping.html#cb253-14" tabindex="-1"></a>target  <span class="ot">&lt;-</span> <span class="st">&quot;SOC&quot;</span></span>
-<span id="cb253-15"><a href="digital-soil-mapping.html#cb253-15" tabindex="-1"></a>model   <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/models/ranger_model_&quot;</span>, target, <span class="st">&quot;.rds&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="digital-soil-mapping.html#cb257-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb257-2"><a href="digital-soil-mapping.html#cb257-2" tabindex="-1"></a><span class="fu">library</span>(caret)</span>
+<span id="cb257-3"><a href="digital-soil-mapping.html#cb257-3" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb257-4"><a href="digital-soil-mapping.html#cb257-4" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
+<span id="cb257-5"><a href="digital-soil-mapping.html#cb257-5" tabindex="-1"></a></span>
+<span id="cb257-6"><a href="digital-soil-mapping.html#cb257-6" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PROJ_LIB =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb257-7"><a href="digital-soil-mapping.html#cb257-7" tabindex="-1"></a><span class="fu">Sys.setenv</span>(<span class="at">PROJ_DATA =</span> <span class="fu">system.file</span>(<span class="st">&quot;proj&quot;</span>, <span class="at">package =</span> <span class="st">&quot;terra&quot;</span>))</span>
+<span id="cb257-8"><a href="digital-soil-mapping.html#cb257-8" tabindex="-1"></a></span>
+<span id="cb257-9"><a href="digital-soil-mapping.html#cb257-9" tabindex="-1"></a><span class="fu">setwd</span>(<span class="fu">dirname</span>(rstudioapi<span class="sc">::</span><span class="fu">getActiveDocumentContext</span>()<span class="sc">$</span>path))</span>
+<span id="cb257-10"><a href="digital-soil-mapping.html#cb257-10" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">&quot;../../&quot;</span>)</span>
+<span id="cb257-11"><a href="digital-soil-mapping.html#cb257-11" tabindex="-1"></a></span>
+<span id="cb257-12"><a href="digital-soil-mapping.html#cb257-12" tabindex="-1"></a>covs    <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="st">&quot;01_data/module1/training_data/Environmental_Covariates_250m_KANSAS.tif&quot;</span>)</span>
+<span id="cb257-13"><a href="digital-soil-mapping.html#cb257-13" tabindex="-1"></a>cov_names <span class="ot">&lt;-</span> <span class="fu">names</span>(covs)</span>
+<span id="cb257-14"><a href="digital-soil-mapping.html#cb257-14" tabindex="-1"></a>target  <span class="ot">&lt;-</span> <span class="st">&quot;SOC&quot;</span></span>
+<span id="cb257-15"><a href="digital-soil-mapping.html#cb257-15" tabindex="-1"></a>model   <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/models/ranger_model_&quot;</span>, target, <span class="st">&quot;.rds&quot;</span>))</span></code></pre></div>
 <p><code>readRDS()</code> reconstructs the full caret model object exactly as it was when saved, including the trained ranger forest and the optimal hyperparameter configuration.</p>
 </div>
 <div id="spatial-prediction-tiled" class="section level3 hasAnchor" number="3.2.10">
@@ -1250,12 +1227,12 @@ Figure 3.3: Observed vs predicted SOC values from cross-validation. The red line
 <p>Predicting SOC across the full study area requires applying the model to every pixel of the covariate stack. For large rasters this is memory-intensive: loading the full stack and computing predictions simultaneously can exhaust available RAM. The solution is <strong>tiled prediction</strong> — splitting the study area into a grid of smaller tiles, predicting each tile independently, and mosaicking the results at the end.</p>
 <div id="create-tile-grid" class="section level4 hasAnchor" number="3.2.10.1">
 <h4><span class="header-section-number">3.2.10.1</span> Create tile grid<a href="digital-soil-mapping.html#create-tile-grid" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="digital-soil-mapping.html#cb254-1" tabindex="-1"></a>r    <span class="ot">&lt;-</span> covs[[<span class="dv">1</span>]]</span>
-<span id="cb254-2"><a href="digital-soil-mapping.html#cb254-2" tabindex="-1"></a>t    <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="at">nrows =</span> <span class="dv">5</span>, <span class="at">ncols =</span> <span class="dv">10</span>, <span class="at">extent =</span> <span class="fu">ext</span>(r), <span class="at">crs =</span> <span class="fu">crs</span>(r))</span>
-<span id="cb254-3"><a href="digital-soil-mapping.html#cb254-3" tabindex="-1"></a>tile <span class="ot">&lt;-</span> <span class="fu">makeTiles</span>(r, t, <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb254-4"><a href="digital-soil-mapping.html#cb254-4" tabindex="-1"></a>                  <span class="at">filename =</span> <span class="st">&quot;03_outputs/module3/tiles/tiles.tif&quot;</span>)</span>
-<span id="cb254-5"><a href="digital-soil-mapping.html#cb254-5" tabindex="-1"></a></span>
-<span id="cb254-6"><a href="digital-soil-mapping.html#cb254-6" tabindex="-1"></a><span class="fu">rast</span>(tile[<span class="dv">1</span>]) <span class="sc">%&gt;%</span> plot</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="digital-soil-mapping.html#cb258-1" tabindex="-1"></a>r    <span class="ot">&lt;-</span> covs[[<span class="dv">1</span>]]</span>
+<span id="cb258-2"><a href="digital-soil-mapping.html#cb258-2" tabindex="-1"></a>t    <span class="ot">&lt;-</span> <span class="fu">rast</span>(<span class="at">nrows =</span> <span class="dv">5</span>, <span class="at">ncols =</span> <span class="dv">10</span>, <span class="at">extent =</span> <span class="fu">ext</span>(r), <span class="at">crs =</span> <span class="fu">crs</span>(r))</span>
+<span id="cb258-3"><a href="digital-soil-mapping.html#cb258-3" tabindex="-1"></a>tile <span class="ot">&lt;-</span> <span class="fu">makeTiles</span>(r, t, <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb258-4"><a href="digital-soil-mapping.html#cb258-4" tabindex="-1"></a>                  <span class="at">filename =</span> <span class="st">&quot;03_outputs/module3/tiles/tiles.tif&quot;</span>)</span>
+<span id="cb258-5"><a href="digital-soil-mapping.html#cb258-5" tabindex="-1"></a></span>
+<span id="cb258-6"><a href="digital-soil-mapping.html#cb258-6" tabindex="-1"></a><span class="fu">rast</span>(tile[<span class="dv">1</span>]) <span class="sc">%&gt;%</span> plot</span></code></pre></div>
 <p><code>makeTiles()</code> divides the extent of a reference raster (<code>r</code>, here the first covariate layer) into a grid defined by <code>t</code> — a template raster with 5 rows and 10 columns of tiles. It writes one small <code>.tif</code> per tile and returns a vector of file paths. The grid here produces 50 tiles; each tile is a manageable chunk of the full extent.</p>
 <blockquote>
 <p><strong>Tip:</strong> The right number of tiles depends on your available RAM and the number of covariate layers. A rough guide: if <code>nlyr(covs) × nrow_tile × ncol_tile × 4 bytes</code> exceeds ~60% of your free RAM, increase the number of tiles. You can inspect tile dimensions with <code>rast(tile[1])</code> before committing to the full prediction loop.</p>
@@ -1263,52 +1240,40 @@ Figure 3.3: Observed vs predicted SOC values from cross-validation. The red line
 </div>
 <div id="prepare-model-for-prediction" class="section level4 hasAnchor" number="3.2.10.2">
 <h4><span class="header-section-number">3.2.10.2</span> Prepare model for prediction<a href="digital-soil-mapping.html#prepare-model-for-prediction" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="digital-soil-mapping.html#cb255-1" tabindex="-1"></a>ranger_model <span class="ot">&lt;-</span> model<span class="sc">$</span>finalModel</span>
-<span id="cb255-2"><a href="digital-soil-mapping.html#cb255-2" tabindex="-1"></a></span>
-<span id="cb255-3"><a href="digital-soil-mapping.html#cb255-3" tabindex="-1"></a>pfun <span class="ot">&lt;-</span> <span class="cf">function</span>(...) {</span>
-<span id="cb255-4"><a href="digital-soil-mapping.html#cb255-4" tabindex="-1"></a>  <span class="fu">predict</span>(...)<span class="sc">$</span>predictions <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
-<span id="cb255-5"><a href="digital-soil-mapping.html#cb255-5" tabindex="-1"></a>}</span>
-<span id="cb255-6"><a href="digital-soil-mapping.html#cb255-6" tabindex="-1"></a></span>
-<span id="cb255-7"><a href="digital-soil-mapping.html#cb255-7" tabindex="-1"></a>gdal_opts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;COMPRESS=LZW&quot;</span>, <span class="st">&quot;TILED=YES&quot;</span>, <span class="st">&quot;BIGTIFF=IF_SAFER&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="digital-soil-mapping.html#cb259-1" tabindex="-1"></a>ranger_model <span class="ot">&lt;-</span> model<span class="sc">$</span>finalModel</span>
+<span id="cb259-2"><a href="digital-soil-mapping.html#cb259-2" tabindex="-1"></a></span>
+<span id="cb259-3"><a href="digital-soil-mapping.html#cb259-3" tabindex="-1"></a>pfun <span class="ot">&lt;-</span> <span class="cf">function</span>(...) {</span>
+<span id="cb259-4"><a href="digital-soil-mapping.html#cb259-4" tabindex="-1"></a>  <span class="fu">predict</span>(...)<span class="sc">$</span>predictions <span class="sc">|&gt;</span> <span class="fu">t</span>()</span>
+<span id="cb259-5"><a href="digital-soil-mapping.html#cb259-5" tabindex="-1"></a>}</span>
+<span id="cb259-6"><a href="digital-soil-mapping.html#cb259-6" tabindex="-1"></a></span>
+<span id="cb259-7"><a href="digital-soil-mapping.html#cb259-7" tabindex="-1"></a>gdal_opts <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;COMPRESS=LZW&quot;</span>, <span class="st">&quot;TILED=YES&quot;</span>, <span class="st">&quot;BIGTIFF=IF_SAFER&quot;</span>)</span></code></pre></div>
 <p><code>model$finalModel</code> extracts the raw ranger model from the caret wrapper — needed because <code>terra::interpolate()</code> calls <code>predict()</code> directly on the model object. The custom prediction function <code>pfun</code> wraps this call and transposes the output matrix (<code>t()</code>): ranger returns quantile predictions in a format where rows are quantiles and columns are pixels, but terra expects the opposite orientation.</p>
 <p><code>gdal_opts</code> sets three GDAL write options applied when saving rasters to disk: LZW lossless compression reduces file size significantly, tiled storage accelerates partial reads (e.g. when zooming in a GIS), and <code>BIGTIFF=IF_SAFER</code> automatically uses the BigTIFF format if the output exceeds 4 GB.</p>
 </div>
 <div id="prediction-for-one-tile" class="section level4 hasAnchor" number="3.2.10.3">
 <h4><span class="header-section-number">3.2.10.3</span> Prediction for one tile<a href="digital-soil-mapping.html#prediction-for-one-tile" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Before running the full loop, we test the prediction pipeline on a single tile. This lets you verify that the output looks correct and estimate processing time per tile.</p>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="digital-soil-mapping.html#cb256-1" tabindex="-1"></a>t1       <span class="ot">&lt;-</span> <span class="fu">rast</span>(tile[<span class="dv">1</span>])</span>
-<span id="cb256-2"><a href="digital-soil-mapping.html#cb256-2" tabindex="-1"></a>covs_t1  <span class="ot">&lt;-</span> <span class="fu">crop</span>(covs, t1)</span>
-<span id="cb256-3"><a href="digital-soil-mapping.html#cb256-3" tabindex="-1"></a></span>
-<span id="cb256-4"><a href="digital-soil-mapping.html#cb256-4" tabindex="-1"></a>pred_mean_t1 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">interpolate</span>(covs_t1,</span>
-<span id="cb256-5"><a href="digital-soil-mapping.html#cb256-5" tabindex="-1"></a>                                   <span class="at">model =</span> ranger_model,</span>
-<span id="cb256-6"><a href="digital-soil-mapping.html#cb256-6" tabindex="-1"></a>                                   <span class="at">fun   =</span> pfun,</span>
-<span id="cb256-7"><a href="digital-soil-mapping.html#cb256-7" tabindex="-1"></a>                                   <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb256-8"><a href="digital-soil-mapping.html#cb256-8" tabindex="-1"></a>                                   <span class="at">type  =</span> <span class="st">&quot;quantiles&quot;</span>,</span>
-<span id="cb256-9"><a href="digital-soil-mapping.html#cb256-9" tabindex="-1"></a>                                   <span class="at">what  =</span> mean)</span>
-<span id="cb256-10"><a href="digital-soil-mapping.html#cb256-10" tabindex="-1"></a></span>
-<span id="cb256-11"><a href="digital-soil-mapping.html#cb256-11" tabindex="-1"></a>pred_sd_t1   <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">interpolate</span>(covs_t1,</span>
-<span id="cb256-12"><a href="digital-soil-mapping.html#cb256-12" tabindex="-1"></a>                                   <span class="at">model =</span> ranger_model,</span>
-<span id="cb256-13"><a href="digital-soil-mapping.html#cb256-13" tabindex="-1"></a>                                   <span class="at">fun   =</span> pfun,</span>
-<span id="cb256-14"><a href="digital-soil-mapping.html#cb256-14" tabindex="-1"></a>                                   <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb256-15"><a href="digital-soil-mapping.html#cb256-15" tabindex="-1"></a>                                   <span class="at">type  =</span> <span class="st">&quot;quantiles&quot;</span>,</span>
-<span id="cb256-16"><a href="digital-soil-mapping.html#cb256-16" tabindex="-1"></a>                                   <span class="at">what  =</span> sd)</span>
-<span id="cb256-17"><a href="digital-soil-mapping.html#cb256-17" tabindex="-1"></a></span>
-<span id="cb256-18"><a href="digital-soil-mapping.html#cb256-18" tabindex="-1"></a>pred_cv_t1 <span class="ot">&lt;-</span> pred_sd_t1 <span class="sc">/</span> pred_mean_t1</span>
-<span id="cb256-19"><a href="digital-soil-mapping.html#cb256-19" tabindex="-1"></a></span>
-<span id="cb256-20"><a href="digital-soil-mapping.html#cb256-20" tabindex="-1"></a><span class="fu">mapview</span>(pred_mean_t1)</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="digital-soil-mapping.html#cb260-1" tabindex="-1"></a>t1       <span class="ot">&lt;-</span> <span class="fu">rast</span>(tile[<span class="dv">1</span>])</span>
+<span id="cb260-2"><a href="digital-soil-mapping.html#cb260-2" tabindex="-1"></a>covs_t1  <span class="ot">&lt;-</span> <span class="fu">crop</span>(covs, t1)</span>
+<span id="cb260-3"><a href="digital-soil-mapping.html#cb260-3" tabindex="-1"></a></span>
+<span id="cb260-4"><a href="digital-soil-mapping.html#cb260-4" tabindex="-1"></a>pred_mean_t1 <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">interpolate</span>(covs_t1,</span>
+<span id="cb260-5"><a href="digital-soil-mapping.html#cb260-5" tabindex="-1"></a>                                   <span class="at">model =</span> ranger_model,</span>
+<span id="cb260-6"><a href="digital-soil-mapping.html#cb260-6" tabindex="-1"></a>                                   <span class="at">fun   =</span> pfun,</span>
+<span id="cb260-7"><a href="digital-soil-mapping.html#cb260-7" tabindex="-1"></a>                                   <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb260-8"><a href="digital-soil-mapping.html#cb260-8" tabindex="-1"></a>                                   <span class="at">type  =</span> <span class="st">&quot;quantiles&quot;</span>,</span>
+<span id="cb260-9"><a href="digital-soil-mapping.html#cb260-9" tabindex="-1"></a>                                   <span class="at">what  =</span> mean)</span>
+<span id="cb260-10"><a href="digital-soil-mapping.html#cb260-10" tabindex="-1"></a></span>
+<span id="cb260-11"><a href="digital-soil-mapping.html#cb260-11" tabindex="-1"></a>pred_sd_t1   <span class="ot">&lt;-</span> terra<span class="sc">::</span><span class="fu">interpolate</span>(covs_t1,</span>
+<span id="cb260-12"><a href="digital-soil-mapping.html#cb260-12" tabindex="-1"></a>                                   <span class="at">model =</span> ranger_model,</span>
+<span id="cb260-13"><a href="digital-soil-mapping.html#cb260-13" tabindex="-1"></a>                                   <span class="at">fun   =</span> pfun,</span>
+<span id="cb260-14"><a href="digital-soil-mapping.html#cb260-14" tabindex="-1"></a>                                   <span class="at">na.rm =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb260-15"><a href="digital-soil-mapping.html#cb260-15" tabindex="-1"></a>                                   <span class="at">type  =</span> <span class="st">&quot;quantiles&quot;</span>,</span>
+<span id="cb260-16"><a href="digital-soil-mapping.html#cb260-16" tabindex="-1"></a>                                   <span class="at">what  =</span> sd)</span>
+<span id="cb260-17"><a href="digital-soil-mapping.html#cb260-17" tabindex="-1"></a></span>
+<span id="cb260-18"><a href="digital-soil-mapping.html#cb260-18" tabindex="-1"></a>pred_cv_t1 <span class="ot">&lt;-</span> pred_sd_t1 <span class="sc">/</span> pred_mean_t1</span>
+<span id="cb260-19"><a href="digital-soil-mapping.html#cb260-19" tabindex="-1"></a></span>
+<span id="cb260-20"><a href="digital-soil-mapping.html#cb260-20" tabindex="-1"></a><span class="fu">mapview</span>(pred_mean_t1)</span></code></pre></div>
 <p><code>terra::interpolate()</code> applies the model to every pixel of the covariate tile. The <code>what</code> argument controls which summary of the quantile distribution is computed: <code>what = mean</code> returns the conditional mean (the best-estimate prediction map), and <code>what = sd</code> returns the conditional standard deviation (the uncertainty map). These correspond directly to m(s) and σ(s) in the Universal Model of Soil Variation.</p>
-<div class="figure"><span style="display:block;" id="fig:tile1-mean"></span>
-<img src="SoilFER-Integrated-soil-information-for-decision-making_files/figure-html/tile1-mean-1.png" alt="SOC mean prediction for tile 1 (g/kg)." width="960" />
-<p class="caption">
-Figure 3.4: SOC mean prediction for tile 1 (g/kg).
-</p>
-</div>
-<div class="figure"><span style="display:block;" id="fig:tile1-sd"></span>
-<img src="SoilFER-Integrated-soil-information-for-decision-making_files/figure-html/tile1-sd-1.png" alt="SOC prediction uncertainty (SD) for tile 1 (g/kg)." width="960" />
-<p class="caption">
-Figure 3.5: SOC prediction uncertainty (SD) for tile 1 (g/kg).
-</p>
-</div>
 <blockquote>
 <p><strong>Reading the uncertainty map:</strong> high SD values indicate locations where the model is less confident — typically at the extremes of the environmental gradient, in areas with few nearby training samples, or where the covariate combination is unlike anything seen during training. These areas should be prioritised for additional soil sampling in future surveys.</p>
 </blockquote>
@@ -1316,24 +1281,24 @@ Figure 3.5: SOC prediction uncertainty (SD) for tile 1 (g/kg).
 <div id="prediction-at-all-tiles" class="section level4 hasAnchor" number="3.2.10.4">
 <h4><span class="header-section-number">3.2.10.4</span> Prediction at all tiles<a href="digital-soil-mapping.html#prediction-at-all-tiles" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Once the single-tile test is satisfactory, run the loop over all tiles:</p>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="digital-soil-mapping.html#cb257-1" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_along</span>(tile)) {</span>
-<span id="cb257-2"><a href="digital-soil-mapping.html#cb257-2" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Processing tile&quot;</span>, j, <span class="st">&quot;of&quot;</span>, <span class="fu">length</span>(tile)))</span>
-<span id="cb257-3"><a href="digital-soil-mapping.html#cb257-3" tabindex="-1"></a></span>
-<span id="cb257-4"><a href="digital-soil-mapping.html#cb257-4" tabindex="-1"></a>  t_j        <span class="ot">&lt;-</span> <span class="fu">rast</span>(tile[j])</span>
-<span id="cb257-5"><a href="digital-soil-mapping.html#cb257-5" tabindex="-1"></a>  covs_tile  <span class="ot">&lt;-</span> <span class="fu">crop</span>(covs, t_j)</span>
-<span id="cb257-6"><a href="digital-soil-mapping.html#cb257-6" tabindex="-1"></a></span>
-<span id="cb257-7"><a href="digital-soil-mapping.html#cb257-7" tabindex="-1"></a>  mean_file <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/tiles/&quot;</span>, target, <span class="st">&quot;_mean_&quot;</span>, j, <span class="st">&quot;.tif&quot;</span>)</span>
-<span id="cb257-8"><a href="digital-soil-mapping.html#cb257-8" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">interpolate</span>(covs_tile, <span class="at">model =</span> ranger_model, <span class="at">fun =</span> pfun,</span>
-<span id="cb257-9"><a href="digital-soil-mapping.html#cb257-9" tabindex="-1"></a>                     <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">type =</span> <span class="st">&quot;quantiles&quot;</span>, <span class="at">what =</span> mean,</span>
-<span id="cb257-10"><a href="digital-soil-mapping.html#cb257-10" tabindex="-1"></a>                     <span class="at">filename =</span> mean_file, <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb257-11"><a href="digital-soil-mapping.html#cb257-11" tabindex="-1"></a>                     <span class="at">wopt =</span> <span class="fu">list</span>(<span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>, <span class="at">gdal =</span> gdal_opts))</span>
-<span id="cb257-12"><a href="digital-soil-mapping.html#cb257-12" tabindex="-1"></a></span>
-<span id="cb257-13"><a href="digital-soil-mapping.html#cb257-13" tabindex="-1"></a>  sd_file <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/tiles/&quot;</span>, target, <span class="st">&quot;_sd_&quot;</span>, j, <span class="st">&quot;.tif&quot;</span>)</span>
-<span id="cb257-14"><a href="digital-soil-mapping.html#cb257-14" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">interpolate</span>(covs_tile, <span class="at">model =</span> ranger_model, <span class="at">fun =</span> pfun,</span>
-<span id="cb257-15"><a href="digital-soil-mapping.html#cb257-15" tabindex="-1"></a>                     <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">type =</span> <span class="st">&quot;quantiles&quot;</span>, <span class="at">what =</span> sd,</span>
-<span id="cb257-16"><a href="digital-soil-mapping.html#cb257-16" tabindex="-1"></a>                     <span class="at">filename =</span> sd_file, <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb257-17"><a href="digital-soil-mapping.html#cb257-17" tabindex="-1"></a>                     <span class="at">wopt =</span> <span class="fu">list</span>(<span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>, <span class="at">gdal =</span> gdal_opts))</span>
-<span id="cb257-18"><a href="digital-soil-mapping.html#cb257-18" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="digital-soil-mapping.html#cb261-1" tabindex="-1"></a><span class="cf">for</span> (j <span class="cf">in</span> <span class="fu">seq_along</span>(tile)) {</span>
+<span id="cb261-2"><a href="digital-soil-mapping.html#cb261-2" tabindex="-1"></a>  <span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Processing tile&quot;</span>, j, <span class="st">&quot;of&quot;</span>, <span class="fu">length</span>(tile)))</span>
+<span id="cb261-3"><a href="digital-soil-mapping.html#cb261-3" tabindex="-1"></a></span>
+<span id="cb261-4"><a href="digital-soil-mapping.html#cb261-4" tabindex="-1"></a>  t_j        <span class="ot">&lt;-</span> <span class="fu">rast</span>(tile[j])</span>
+<span id="cb261-5"><a href="digital-soil-mapping.html#cb261-5" tabindex="-1"></a>  covs_tile  <span class="ot">&lt;-</span> <span class="fu">crop</span>(covs, t_j)</span>
+<span id="cb261-6"><a href="digital-soil-mapping.html#cb261-6" tabindex="-1"></a></span>
+<span id="cb261-7"><a href="digital-soil-mapping.html#cb261-7" tabindex="-1"></a>  mean_file <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/tiles/&quot;</span>, target, <span class="st">&quot;_mean_&quot;</span>, j, <span class="st">&quot;.tif&quot;</span>)</span>
+<span id="cb261-8"><a href="digital-soil-mapping.html#cb261-8" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">interpolate</span>(covs_tile, <span class="at">model =</span> ranger_model, <span class="at">fun =</span> pfun,</span>
+<span id="cb261-9"><a href="digital-soil-mapping.html#cb261-9" tabindex="-1"></a>                     <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">type =</span> <span class="st">&quot;quantiles&quot;</span>, <span class="at">what =</span> mean,</span>
+<span id="cb261-10"><a href="digital-soil-mapping.html#cb261-10" tabindex="-1"></a>                     <span class="at">filename =</span> mean_file, <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb261-11"><a href="digital-soil-mapping.html#cb261-11" tabindex="-1"></a>                     <span class="at">wopt =</span> <span class="fu">list</span>(<span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>, <span class="at">gdal =</span> gdal_opts))</span>
+<span id="cb261-12"><a href="digital-soil-mapping.html#cb261-12" tabindex="-1"></a></span>
+<span id="cb261-13"><a href="digital-soil-mapping.html#cb261-13" tabindex="-1"></a>  sd_file <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/tiles/&quot;</span>, target, <span class="st">&quot;_sd_&quot;</span>, j, <span class="st">&quot;.tif&quot;</span>)</span>
+<span id="cb261-14"><a href="digital-soil-mapping.html#cb261-14" tabindex="-1"></a>  terra<span class="sc">::</span><span class="fu">interpolate</span>(covs_tile, <span class="at">model =</span> ranger_model, <span class="at">fun =</span> pfun,</span>
+<span id="cb261-15"><a href="digital-soil-mapping.html#cb261-15" tabindex="-1"></a>                     <span class="at">na.rm =</span> <span class="cn">TRUE</span>, <span class="at">type =</span> <span class="st">&quot;quantiles&quot;</span>, <span class="at">what =</span> sd,</span>
+<span id="cb261-16"><a href="digital-soil-mapping.html#cb261-16" tabindex="-1"></a>                     <span class="at">filename =</span> sd_file, <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb261-17"><a href="digital-soil-mapping.html#cb261-17" tabindex="-1"></a>                     <span class="at">wopt =</span> <span class="fu">list</span>(<span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>, <span class="at">gdal =</span> gdal_opts))</span>
+<span id="cb261-18"><a href="digital-soil-mapping.html#cb261-18" tabindex="-1"></a>}</span></code></pre></div>
 <p><code>paste0()</code> constructs the output file path dynamically for each tile index <code>j</code>. Writing directly to disk with <code>filename =</code> means terra never holds the full prediction in memory — each tile is computed and saved before moving to the next.</p>
 <blockquote>
 <p><strong>Processing time:</strong> with 50 tiles and a moderately sized training dataset, this loop typically takes 20–60 minutes depending on the number of trees, the tile size, and available CPU cores. Note that <code>terra::interpolate()</code> is single-threaded per tile; running tiles in parallel requires an explicit parallelisation wrapper (e.g. <code>foreach</code> + <code>doParallel</code>).</p>
@@ -1342,34 +1307,34 @@ Figure 3.5: SOC prediction uncertainty (SD) for tile 1 (g/kg).
 </div>
 <div id="mosaic-tiles-into-final-maps" class="section level3 hasAnchor" number="3.2.11">
 <h3><span class="header-section-number">3.2.11</span> Mosaic tiles into final maps<a href="digital-soil-mapping.html#mosaic-tiles-into-final-maps" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="digital-soil-mapping.html#cb258-1" tabindex="-1"></a>mean_tiles   <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&quot;03_outputs/module3/tiles/&quot;</span>,</span>
-<span id="cb258-2"><a href="digital-soil-mapping.html#cb258-2" tabindex="-1"></a>                            <span class="at">pattern    =</span> <span class="fu">paste0</span>(<span class="st">&quot;^&quot;</span>, target, <span class="st">&quot;_mean_.*</span><span class="sc">\\</span><span class="st">.tif$&quot;</span>),</span>
-<span id="cb258-3"><a href="digital-soil-mapping.html#cb258-3" tabindex="-1"></a>                            <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb258-4"><a href="digital-soil-mapping.html#cb258-4" tabindex="-1"></a></span>
-<span id="cb258-5"><a href="digital-soil-mapping.html#cb258-5" tabindex="-1"></a>mean_rasters <span class="ot">&lt;-</span> <span class="fu">lapply</span>(mean_tiles, rast)</span>
-<span id="cb258-6"><a href="digital-soil-mapping.html#cb258-6" tabindex="-1"></a>pred_mean    <span class="ot">&lt;-</span> <span class="fu">mosaic</span>(<span class="fu">sprc</span>(mean_rasters))</span>
-<span id="cb258-7"><a href="digital-soil-mapping.html#cb258-7" tabindex="-1"></a><span class="fu">names</span>(pred_mean) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(target, <span class="st">&quot;_mean&quot;</span>)</span>
-<span id="cb258-8"><a href="digital-soil-mapping.html#cb258-8" tabindex="-1"></a></span>
-<span id="cb258-9"><a href="digital-soil-mapping.html#cb258-9" tabindex="-1"></a><span class="fu">writeRaster</span>(pred_mean,</span>
-<span id="cb258-10"><a href="digital-soil-mapping.html#cb258-10" tabindex="-1"></a>            <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/maps/mean_&quot;</span>, target, <span class="st">&quot;.tif&quot;</span>),</span>
-<span id="cb258-11"><a href="digital-soil-mapping.html#cb258-11" tabindex="-1"></a>            <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb258-12"><a href="digital-soil-mapping.html#cb258-12" tabindex="-1"></a>            <span class="at">wopt =</span> <span class="fu">list</span>(<span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>, <span class="at">gdal =</span> gdal_opts))</span>
-<span id="cb258-13"><a href="digital-soil-mapping.html#cb258-13" tabindex="-1"></a></span>
-<span id="cb258-14"><a href="digital-soil-mapping.html#cb258-14" tabindex="-1"></a>sd_tiles   <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&quot;03_outputs/module3/tiles/&quot;</span>,</span>
-<span id="cb258-15"><a href="digital-soil-mapping.html#cb258-15" tabindex="-1"></a>                          <span class="at">pattern    =</span> <span class="fu">paste0</span>(<span class="st">&quot;^&quot;</span>, target, <span class="st">&quot;_sd_.*</span><span class="sc">\\</span><span class="st">.tif$&quot;</span>),</span>
-<span id="cb258-16"><a href="digital-soil-mapping.html#cb258-16" tabindex="-1"></a>                          <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb258-17"><a href="digital-soil-mapping.html#cb258-17" tabindex="-1"></a></span>
-<span id="cb258-18"><a href="digital-soil-mapping.html#cb258-18" tabindex="-1"></a>sd_rasters <span class="ot">&lt;-</span> <span class="fu">lapply</span>(sd_tiles, rast)</span>
-<span id="cb258-19"><a href="digital-soil-mapping.html#cb258-19" tabindex="-1"></a>pred_sd    <span class="ot">&lt;-</span> <span class="fu">mosaic</span>(<span class="fu">sprc</span>(sd_rasters))</span>
-<span id="cb258-20"><a href="digital-soil-mapping.html#cb258-20" tabindex="-1"></a><span class="fu">names</span>(pred_sd) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(target, <span class="st">&quot;_sd&quot;</span>)</span>
-<span id="cb258-21"><a href="digital-soil-mapping.html#cb258-21" tabindex="-1"></a></span>
-<span id="cb258-22"><a href="digital-soil-mapping.html#cb258-22" tabindex="-1"></a><span class="fu">writeRaster</span>(pred_sd,</span>
-<span id="cb258-23"><a href="digital-soil-mapping.html#cb258-23" tabindex="-1"></a>            <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/maps/sd_&quot;</span>, target, <span class="st">&quot;.tif&quot;</span>),</span>
-<span id="cb258-24"><a href="digital-soil-mapping.html#cb258-24" tabindex="-1"></a>            <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb258-25"><a href="digital-soil-mapping.html#cb258-25" tabindex="-1"></a>            <span class="at">wopt =</span> <span class="fu">list</span>(<span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>, <span class="at">gdal =</span> gdal_opts))</span>
-<span id="cb258-26"><a href="digital-soil-mapping.html#cb258-26" tabindex="-1"></a></span>
-<span id="cb258-27"><a href="digital-soil-mapping.html#cb258-27" tabindex="-1"></a><span class="fu">plot</span>(pred_mean, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;Mean&quot;</span>, target), <span class="at">col =</span> <span class="fu">hcl.colors</span>(<span class="dv">100</span>, <span class="st">&quot;Viridis&quot;</span>))</span>
-<span id="cb258-28"><a href="digital-soil-mapping.html#cb258-28" tabindex="-1"></a><span class="fu">plot</span>(pred_sd,   <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;SD&quot;</span>,   target), <span class="at">col =</span> <span class="fu">hcl.colors</span>(<span class="dv">100</span>, <span class="st">&quot;Inferno&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="digital-soil-mapping.html#cb262-1" tabindex="-1"></a>mean_tiles   <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&quot;03_outputs/module3/tiles/&quot;</span>,</span>
+<span id="cb262-2"><a href="digital-soil-mapping.html#cb262-2" tabindex="-1"></a>                            <span class="at">pattern    =</span> <span class="fu">paste0</span>(<span class="st">&quot;^&quot;</span>, target, <span class="st">&quot;_mean_.*</span><span class="sc">\\</span><span class="st">.tif$&quot;</span>),</span>
+<span id="cb262-3"><a href="digital-soil-mapping.html#cb262-3" tabindex="-1"></a>                            <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb262-4"><a href="digital-soil-mapping.html#cb262-4" tabindex="-1"></a></span>
+<span id="cb262-5"><a href="digital-soil-mapping.html#cb262-5" tabindex="-1"></a>mean_rasters <span class="ot">&lt;-</span> <span class="fu">lapply</span>(mean_tiles, rast)</span>
+<span id="cb262-6"><a href="digital-soil-mapping.html#cb262-6" tabindex="-1"></a>pred_mean    <span class="ot">&lt;-</span> <span class="fu">mosaic</span>(<span class="fu">sprc</span>(mean_rasters))</span>
+<span id="cb262-7"><a href="digital-soil-mapping.html#cb262-7" tabindex="-1"></a><span class="fu">names</span>(pred_mean) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(target, <span class="st">&quot;_mean&quot;</span>)</span>
+<span id="cb262-8"><a href="digital-soil-mapping.html#cb262-8" tabindex="-1"></a></span>
+<span id="cb262-9"><a href="digital-soil-mapping.html#cb262-9" tabindex="-1"></a><span class="fu">writeRaster</span>(pred_mean,</span>
+<span id="cb262-10"><a href="digital-soil-mapping.html#cb262-10" tabindex="-1"></a>            <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/maps/mean_&quot;</span>, target, <span class="st">&quot;.tif&quot;</span>),</span>
+<span id="cb262-11"><a href="digital-soil-mapping.html#cb262-11" tabindex="-1"></a>            <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb262-12"><a href="digital-soil-mapping.html#cb262-12" tabindex="-1"></a>            <span class="at">wopt =</span> <span class="fu">list</span>(<span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>, <span class="at">gdal =</span> gdal_opts))</span>
+<span id="cb262-13"><a href="digital-soil-mapping.html#cb262-13" tabindex="-1"></a></span>
+<span id="cb262-14"><a href="digital-soil-mapping.html#cb262-14" tabindex="-1"></a>sd_tiles   <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="st">&quot;03_outputs/module3/tiles/&quot;</span>,</span>
+<span id="cb262-15"><a href="digital-soil-mapping.html#cb262-15" tabindex="-1"></a>                          <span class="at">pattern    =</span> <span class="fu">paste0</span>(<span class="st">&quot;^&quot;</span>, target, <span class="st">&quot;_sd_.*</span><span class="sc">\\</span><span class="st">.tif$&quot;</span>),</span>
+<span id="cb262-16"><a href="digital-soil-mapping.html#cb262-16" tabindex="-1"></a>                          <span class="at">full.names =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb262-17"><a href="digital-soil-mapping.html#cb262-17" tabindex="-1"></a></span>
+<span id="cb262-18"><a href="digital-soil-mapping.html#cb262-18" tabindex="-1"></a>sd_rasters <span class="ot">&lt;-</span> <span class="fu">lapply</span>(sd_tiles, rast)</span>
+<span id="cb262-19"><a href="digital-soil-mapping.html#cb262-19" tabindex="-1"></a>pred_sd    <span class="ot">&lt;-</span> <span class="fu">mosaic</span>(<span class="fu">sprc</span>(sd_rasters))</span>
+<span id="cb262-20"><a href="digital-soil-mapping.html#cb262-20" tabindex="-1"></a><span class="fu">names</span>(pred_sd) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(target, <span class="st">&quot;_sd&quot;</span>)</span>
+<span id="cb262-21"><a href="digital-soil-mapping.html#cb262-21" tabindex="-1"></a></span>
+<span id="cb262-22"><a href="digital-soil-mapping.html#cb262-22" tabindex="-1"></a><span class="fu">writeRaster</span>(pred_sd,</span>
+<span id="cb262-23"><a href="digital-soil-mapping.html#cb262-23" tabindex="-1"></a>            <span class="fu">paste0</span>(<span class="st">&quot;03_outputs/module3/maps/sd_&quot;</span>, target, <span class="st">&quot;.tif&quot;</span>),</span>
+<span id="cb262-24"><a href="digital-soil-mapping.html#cb262-24" tabindex="-1"></a>            <span class="at">overwrite =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb262-25"><a href="digital-soil-mapping.html#cb262-25" tabindex="-1"></a>            <span class="at">wopt =</span> <span class="fu">list</span>(<span class="at">datatype =</span> <span class="st">&quot;FLT4S&quot;</span>, <span class="at">gdal =</span> gdal_opts))</span>
+<span id="cb262-26"><a href="digital-soil-mapping.html#cb262-26" tabindex="-1"></a></span>
+<span id="cb262-27"><a href="digital-soil-mapping.html#cb262-27" tabindex="-1"></a><span class="fu">plot</span>(pred_mean, <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;Mean&quot;</span>, target), <span class="at">col =</span> <span class="fu">hcl.colors</span>(<span class="dv">100</span>, <span class="st">&quot;Viridis&quot;</span>))</span>
+<span id="cb262-28"><a href="digital-soil-mapping.html#cb262-28" tabindex="-1"></a><span class="fu">plot</span>(pred_sd,   <span class="at">main =</span> <span class="fu">paste</span>(<span class="st">&quot;SD&quot;</span>,   target), <span class="at">col =</span> <span class="fu">hcl.colors</span>(<span class="dv">100</span>, <span class="st">&quot;Inferno&quot;</span>))</span></code></pre></div>
 <p><code>list.files()</code> with a regular expression pattern collects all mean (or SD) tile files in the correct order. <code>sprc()</code> wraps the list of <code>SpatRaster</code> objects into a <code>SpatRasterCollection</code>, and <code>mosaic()</code> assembles them into a single seamless raster by averaging overlapping pixels (where tiles share edges). <code>writeRaster()</code> saves the final maps with the same GDAL options used during tiled prediction.</p>
 <blockquote>
 <p><strong>Note:</strong> the original script contains a typo in the SD output path (<code>outputs/maps/continuous/sd_</code>). The corrected path used here (<code>03_outputs/module3/maps/sd_</code>) matches the directory structure created in Section 1 and is consistent with the mean map path.</p>
