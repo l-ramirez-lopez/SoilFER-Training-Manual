@@ -18,23 +18,29 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Part I - Digital soil mapping with spectroscopy 
+## Part I - Digital soil mapping with spectroscopy 
 
-## Introduction 
-Digital Soil Mapping (DSM) has matured over the past two decades into a well-established and widely applied field within soil science and pedometrics [@wadoux2021overview]. This is because of advances in geospatial modelling, including geostatistics and machine learning, the availability of high-quality environmental covariates, and an ease of access to computational capacity. This has enabled DSM to move toward operational and spatialized soil information delivery across the globe. DSM is now routinely used to support soil fertility assessment, monitoring of soil health or precision agriculture [@lagacherie2025operational].
+### Introduction 
 
-In parallel with the maturation of DSM, there has been a rapid development of proximal soil sensing techniques [@peng2025spectroscopic]. Proximal sensing refers to the acquisition of soil information using sensors positioned in close proximity to the soil surface, typically within a distance of less than approximately 2 m. These techniques include, among others, infrared spectroscopic sensing, electromagnetic induction, and radiometric approaches [@rossel2010proximal]. They enable the direct or indirect estimation of soil properties under field conditions (e.g. portable XRF) or in the laboratory (e.g. laboratory infrared spectrometer). They usually support measurements at high sampling densities and often in real time. Overall, while soil properties are indirectly estimated, proximal sensing substantially reduces the logistical and financial constraints associated with conventional soil surveys and laboratory analyses. As a result, these technologies broadly support faster data acquisition, enable non-destructive and repeatable observations.
+Digital soil mapping (DSM) relies heavily on laboratory analyses to measure and characterize soil properties at sampled locations, which are then used as reference observations for training and validating spatial prediction models. Although highly accurate, conventional laboratory methods are slow and costly, creating a bottleneck that restricts timely data production for DSM. In this context, sensing technologies such as diffuse reflectance spectroscopy can complement laboratory analysis by reducing analytical costs and enabling soil property observations to be generated more rapidly and at greater spatial density. For these reasons, diffuse reflectance spectroscopy has gained substantial attention in the soil science community as a tool for enhancing soil characterization [@peng2025spectroscopic].
 
-Among proximal sensing approaches, infrared spectroscopy has become the most widely adopted technique for soil characterisation [@peng2025spectroscopic]. Infrared methods are commonly divided into visible–near infrared (vis–NIR), shortwave infrared (SWIR), and mid-infrared (MIR) spectral regions, each providing information on soil properties. Vis–NIR spectroscopy (approximately 400–1000 nm) and the broader vis–NIR–SWIR range (up to about 2500 nm) are frequently used in field applications due to the availability of portable sensors and their sensitivity to soil organic matter, moisture, iron oxides, and texture-related features. In contrast, MIR spectroscopy (approximately 2500–25 000 nm) is obtained conducted under laboratory conditions and offers more distinct absorption features related to fundamental molecular vibrations, often resulting in higher predictive accuracy for mineralogical and chemical soil attributes. Together, these spectral data support the rapid and cost-effective estimation of soil property [@wadoux2021soil].
+In soil applications, diffuse reflectance spectroscopy (DRS) is a maturing spectroscopic approach focused on extracting information from the interaction between soil samples and electromagnetic radiation. The chemical composition and physical structure of soil determine how electromagnetic radiation is absorbed and scattered. Consequently, soil composition and physical properties can be inferred by analyzing reflected energy. DRS sensors record reflected energy across multiple wavelengths, producing spectra that are typically converted from reflectance to absorbance. Soil property quantification with DRS relies on empirical calibration models, usually built with regression methods that link spectral measurements to laboratory reference data. 
 
-## Rational
+DRS methods used in soil science are commonly grouped into visible–near infrared (vis–NIR), shortwave infrared (SWIR), and mid-infrared (MIR) regions. The vis–NIR and SWIR regions are used in both laboratory and field applications, supported by the availability of portable instruments. These regions show a high sensitivity to soil organic matter, moisture, iron oxides, and texture-related features. MIR spectroscopy is more commonly conducted under laboratory conditions and often provides sharper absorption features associated with mineralogical and chemical soil attributes. In all these regions, spectral measurements of a soil sample can typically be acquired within seconds to a few minutes.
+
+There is broad consensus that DRS complements rather than replaces soil laboratory analyses [@viscarra2022diffuse], increasing analytical throughput while retaining the validity of reference procedures. For DSM, this means that spectroscopy can expand soil property datasets and improve mapping workflows while reducing cost and logistical constraints. This is true when the empirical models that translate spectra into soil property predictions have been properly calibrated and validated. It is important to note, however, that developing these models can still be laborious, time-consuming, and costly, a limitation that is rarely acknowledged in the soil spectroscopy literature. In this respect, pre-existing soil spectral libraries containing reference samples offer an opportunity to reduce calibration effort when developing new models for a specific area or application.
+
+
+
+### Rational 
+
 DSM is typically based on the geostatistical or machine-learning relationships established between environmental covariates and point-measured soil properties such as soil organic carbon, pH, texture, or nutrient content [@mcbratney2003digital]. These reference soil measurements are commonly obtained through conventional field sampling followed by laboratory analyses. While such measurements provide high analytical accuracy, they are often costly and time-consuming to obtain. For instance, wet-chemistry determination of soil organic carbon requires sample preparation, chemical reagents, specialised laboratory infrastructure, and skilled personnel, with analyses often taking several hours per batch and incurring substantial per-sample costs [@wu2025assessing]. As a result, the spatial density of high-quality soil observations is frequently limited.
 
 The use of spectroscopically-inferred soil properties offers a pathway to increase the number of observations available for DSM model calibration [@ramirez2019robust]. Spectroscopic sensing allows rapid, relatively inexpensive estimation of multiple soil attributes from a single measurement. This directly supports the collection of dense datasets at field to regional scales. By augmenting conventional laboratory datasets with larger volumes of spectroscopically-inferred observations, DSM can benefit from more input data, which can in turn yield more accurate maps for a smaller total cost. In this context, spectroscopic data is a mean of enhancing the information provided for DSM model training rather than replacing traditional reference analyses [@chen2023integrating].
 
 However, the integration of spectroscopically inferred soil properties into DSM requires careful consideration of the nature of these data. Unlike conventional laboratory analyses, spectroscopy does not directly measure soil properties but provides statistical predictions based on calibrated relationships between spectral responses and reference measurements. Consequently, each spectroscopic estimate is associated with a uncertainty that is usually larger than that of wet-chemistry measurements. When spectroscopically-inferred data are incorporated into DSM workflows, it is therefore needed to explicitly acknowledge this additional source of uncertainty [@takoutsing2022accounting].
 
-## Including spectroscopic prediction in digital soil mapping
+### Including spectroscopic prediction in digital soil mapping
 
 A number of studies have explained the need to explicitly account for measurement errors in DSM, particularly when integrating soil properties predicted from spectroscopic predictions. Because spectroscopic techniques provide indirect, model-based estimates rather than direct analytical measurements, each predicted value is associated with a prediction uncertainty that may affect the spatial modelling process, that is, both map accuracy and the predicted pattern. Ignoring measurement error can lead to poor DSM model calibration and overconfident spatial predictions [@van2022measurement].
 
@@ -170,8 +176,8 @@ ggplot(df, aes(x = x, y = density, color = method, fill = method)) +
 
 
 
-# Part II – Practical application
-## Workflow overview
+## Part II – Practical application
+### Workflow overview
 
 In this practical section we illustrate how soil spectroscopic data can be integrated into DSM. The main objective is to use spectroscopy to complement conventional laboratory soil analyses. This allows an increase in the amount of usable soil information without a proportional increase in laboratory effort.
 
@@ -237,7 +243,7 @@ digraph dsm_workflow {
 
 ```
 
-## Making spectroscopic data ready for inclusion in DSM
+### Making spectroscopic data ready for inclusion in DSM
 
 In this section we prepare the spectroscopic data so that it can be used as input in a digital soil mapping. The  requirement is that the spectroscopic modelling step should provide, for each soil sample, both a prediction of the target soil property and an estimate of prediction uncertainty. This follows the approach introduced in the Soil Spectroscopy Training Material (@Wadoux2025FAO Section 4.3.3), where uncertainty is quantified at the sample level.
 
@@ -245,7 +251,7 @@ For DSM applications, these outputs can be treated in a similar way to laborator
 
 In the following subsections we demonstrate how to (i) import and visualise the spectral data, (ii) apply basic spectral preprocessing, (iii) build a spectroscopic prediction model with uncertainty, (iv) define laboratory measurement uncertainty, and (v) harmonise soil property predictions and uncertainties to a standard depth interval. 
 
-### Load and plot the spectrscopic data
+#### Load and plot the spectrscopic data
 
 We first import the mid-infrared (MIR) spectral dataset and prepare it for analysis. The MIR spectral dataset consists of laboratory measurements of soil reflectance or absorbance in the mid-infrared region of the electromagnetic spectrum. In soil spectroscopy, this region typically covers wavelengths of approximately 2500 to 25 000 nm, which corresponds to about 4000 to 400 cm$^{-1}$ in wavenumber.
 
@@ -334,7 +340,7 @@ dat$spc_raw <- spc_raw
 
 ```
 
-### Preprocessing of spectra
+#### Preprocessing of spectra
 
 Raw soil spectra often contain measurement noise and may be recorded at slightly different spectral resolutions. Therefore, basic preprocessing is usually required before modelling.
 
@@ -416,7 +422,8 @@ plot_ir <- ggplot(
 print(plot_ir)
 ```
 
-### Spectroscopic modelling with uncertainty
+#### Spectroscopic modelling with uncertainty
+
 The next step is to build a model that predicts SOC from the preprocessed spectra. Here we use a random forest approach, called quantile regression forest. The same model type will then be used for the DSM. This model allows uncertainty to be estimated from the distribution of model predictions.
 
 To obtain a realistic assessment of model performance, cross-validation is done at the soil profile level. This avoids using horizons from the same profile in both training and testing subsets. For each validation fold, the model is trained on a subset of profiles and used to predict SOC for the remaining profiles.
@@ -556,7 +563,8 @@ grid()
 ```
 
 
-### Laboratory measurement uncertainty
+#### Laboratory measurement uncertainty
+
 Soil organic carbon (SOC) concentrations were determined using high-temperature dry combustion. This method is widely regarded as one of the most precise laboratory approaches for SOC determination and is commonly used as a reference method.
 
 Analytical precision for combustion-based SOC measurements is typically on the order of a few percent relative standard deviation, according to laboratory validation studies, generally around 2--3\%. Based on this information, it is possible to estimate the standard deviation associated with analytical SOC measurements.
@@ -575,7 +583,8 @@ dat$SOC_sdLAB <- dat$SOC * 0.03
 ```
 
 
-### Depth harmonisation of predictions and uncertainties
+#### Depth harmonisation of predictions and uncertainties
+
 Digital soil mapping often requires soil properties to be expressed for standard depth intervals, such as 0–30 cm. However, field observations and spectroscopic predictions are typically available at horizon level with varying thickness. 
 
 In this step, soil profiles are converted into a structured profile object that allows depth-based calculations. Predicted SOC values are then aggregated to the target depth interval using depth-weighted averaging, taking into account the proportion of each horizon that falls within the interval.
@@ -708,7 +717,8 @@ print(head(soc_0_30_xy))
 ```
 
 
-## Preparation of the covariates
+### Preparation of the covariates
+
 At this stage, the environmental covariates are prepared exactly as in the training material, so the same workflow can be followed here. The objective is to align the soil observations with the raster covariate stack and extract, for each sampling location, the values of all environmental predictors that will later be used in the modelling step.
 
 The procedure involves four main operations:
@@ -757,7 +767,8 @@ plot(soil_pts, cex = 0.7, col = "red")
 
 ```
 
-## DSM model training with spectroscopic data
+### DSM model training with spectroscopic data
+
 In this section we demonstrate how spectroscopic predictions can be integrated into the DSM modelling. The idea is that each observation, whether originating from laboratory analysis or from spectroscopy, is associated with a sample-specific uncertainty estimate.
 This uncertainty can be used to control the relative influence of each observation during model training.
 
@@ -765,7 +776,8 @@ As introduced in Part I (Section 3), a practical way to achieve this is through 
 
 In the following example, SOC is mapped using quantile regression forests, following a workflow similar to previous DSM examples. The steps include deriving uncertainty-based weights, fitting models with and without spectroscopic data, and comparing the resulting spatial predictions.
 
-### Deriving observation weights
+#### Deriving observation weights
+
 Weights are derived from the uncertainty estimates obtained in the previous section. A simple and commonly used formulation is to define weights as the inverse of the variance associated with each observation.
 
 This means that observations with smaller prediction or measurement variance receive larger weights. Conversely, observations with large uncertainty contribute less to model calibration.
@@ -789,7 +801,7 @@ summary(soil_pts$w_RF_raw)
 summary(soil_pts$w_LAB_raw)
 ```
 
-### Baseline DSM model using laboratory data
+#### Baseline DSM model using laboratory data
 
 Before integrating spectroscopic information, a baseline DSM model can be fitted using laboratory SOC observations only. Environmental covariates representing soil-forming factors are used as predictors in a random forest model.
 
@@ -835,7 +847,7 @@ soc_map <- predict(covs, mod, na.rm = TRUE)
 plot(soc_map, main = "Baseline SOC map (lab observations only)")
 ```
 
-### DSM model training integrating spectroscopic predictions
+#### DSM model training integrating spectroscopic predictions
 
 To demonstrate the effect of spectroscopic supplementation, a mixed dataset is created. A subset of observations is replaced by spectroscopically predicted SOC values, together with their associated uncertainty-based weights.
 
@@ -920,13 +932,14 @@ plot(soc_map_mix25, main = "SOC map: 25% spectro")
 plot(soc_map - soc_map_mix25, main = "Difference")
 ```
 
-## Model validation
+### Model validation
 
 In this section we evaluate the predictive performance of the DSM models. Because the dataset combines laboratory measurements and spectroscopically derived estimates, model validation must explicitly account for observation-specific uncertainty. Ignoring these differences would treat all observations as equally reliable, which is inconsistent with the modelling strategy adopted in previous sections.
 
 To address this, validation statistics are computed using uncertainty-based weights. These weights correspond to the inverse variance of each observation and therefore reflect the relative confidence in laboratory and spectroscopic data. Weighted validation provides a more realistic assessment of model performance when heterogeneous data sources are used.
 
-### Validation statistics
+#### Validation statistics
+
 Three weighted performance metrics are considered. These metrics extend commonly used DSM validation statistics by incorporating observation weights.
 
 The weighted mean error ($ME_w$) measures the average signed prediction bias, taking into account the reliability of each observation.
@@ -1003,7 +1016,7 @@ wNSE <- function(obs, pred, w) {
 }
 ```
 
-### Cross-validating the models
+#### Cross-validating the models
 
 To obtain robust validation statistics, model performance is assessed using $k$-fold cross-validation. In this example, a mixed dataset is first constructed by combining laboratory SOC observations with a subset of spectroscopically predicted values. Matching uncertainty-based weights are assigned to each observation according to its data source.
 
@@ -1099,7 +1112,8 @@ data.frame(
 
 ```
 
-### Comparing maps produced with different proportions of spectroscopic data
+#### Comparing maps produced with different proportions of spectroscopic data
+
 After model validation, spatial prediction maps can be generated. Maps derived from laboratory-only models can be compared with maps obtained from models that incorporate spectroscopic predictions. This visual comparison helps to identify changes in spatial patterns, prediction smoothness, and local variability.
 
 Differences between maps may reflect both the increased data density and the influence of uncertainty-based weighting. Such comparisons are an important step in understanding the practical impact of spectroscopic data supplementation in DSM applications.
@@ -1282,7 +1296,7 @@ final_fig
 ```
 
 
-### Testing different ratios of spectroscopic and laboratory data
+#### Testing different ratios of spectroscopic and laboratory data
 
 The influence of spectroscopic information on DSM can be further explored by systematically varying the proportion of spectroscopically inferred observations used during model calibration. Such a sensitivity analysis provides insight into how increasing reliance on spectroscopy may affect both the spatial pattern of predictions and the overall predictive performance of the model.
 
@@ -1523,7 +1537,8 @@ perf_fig
 ```
 
 
-# Summary 
+## Summary 
+
 In this practical exercise we demonstrated how soil spectroscopic information can be integrated into a digital soil mapping workflow. Mid-infrared spectral data were first preprocessed and used to build a calibration model that provided, for each soil sample, both a predicted SOC value and a sample-specific estimate of prediction uncertainty. These spectroscopic predictions were then harmonised to a standard depth interval and combined with laboratory observations. Laboratory analytical uncertainty was also approximated so that both data sources could be treated consistently.
 
 A key step of the workflow was the use of uncertainty-based case weights during spatial model training. By assigning weights proportional to the inverse of observation variance, laboratory data and spectroscopic predictions contributed to model calibration according to their relative reliability. Model validation was also performed using weighted performance metrics, ensuring that predictive skill was evaluated in a way that reflects heterogeneous data quality. Spatial prediction maps illustrated how supplementing laboratory data with spectroscopy can modify spatial patterns and potentially improve prediction stability, depending on the proportion and uncertainty of the additional data.
