@@ -25,3 +25,6 @@
 *.csv
 *.xlsx
 *.xls
+
+# Bookdown temporary merged file (created and deleted during build)
+/SoilFER\ Integrated\ soil\ information\ for\ decision-making.Rmd
