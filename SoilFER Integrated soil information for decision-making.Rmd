@@ -3840,11 +3840,7 @@ Spatial data is commonly stored in two major formats: vector and raster (Fig. \@
    - Raster data (regular grids) for continuous surfaces.
 
 ```{r VectRast, echo=FALSE, fig.cap="Vector vs raster data representations", out.width='100%'}
-<<<<<<< HEAD
 knitr::include_graphics("images/module1/vectorVSraster.png")
-=======
-knitr::include_graphics("images/module1/vectorVSRaster.png")
->>>>>>> 548d65c6701bacd04170bf267e937c3aa95ed145
 ```
 
 **Vector data** represent features as geometries (POINT, LINE, POLYGON) linked to an attribute table. They are ideal for representing discrete spatial objects such as soil sampling points, field boundaries, or landscape units.
