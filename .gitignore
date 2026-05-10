@@ -3,3 +3,25 @@
 .RData
 .Ruserdata
 .DS_Store
+
+# LaTeX build artifacts (generated at root during PDF build)
+/*.log
+/*.nlo
+/*.idx
+
+# Windows temporary/lock files (e.g. Word opens .bib and creates ~$*.bib)
+~$*
+
+# knitr cache directories
+*_cache/
+
+# Intermediate bookdown figure output outside docs/
+# (rooted pattern avoids matching inside docs/)
+/*_files/
+
+# R binary and tabular data files (keep data local, not in the repo)
+*.rds
+*.RData
+*.csv
+*.xlsx
+*.xls
