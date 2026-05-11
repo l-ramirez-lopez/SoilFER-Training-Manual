@@ -176,10 +176,9 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-1-introduction-to-r-and-preparation-of-soil-data-for-digital-soil-mapping"><i class="fa fa-check"></i><strong>Module 1: Introduction to R and Preparation of Soil Data for Digital Soil Mapping</strong></a></li>
 <li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-2-soil-sampling-design"><i class="fa fa-check"></i><strong>Module 2: Soil Sampling Design</strong></a></li>
-<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-3-glosis-data-preparation"><i class="fa fa-check"></i><strong>Module 3: GloSIS Data Preparation</strong></a></li>
-<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-4-digital-soil-mapping"><i class="fa fa-check"></i><strong>Module 4: Digital Soil Mapping</strong></a></li>
-<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-5-soil-spectroscopy"><i class="fa fa-check"></i><strong>Module 5: Soil Spectroscopy</strong></a></li>
-<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-6-soil-data-sharing"><i class="fa fa-check"></i><strong>Module 6: Soil Data Sharing</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-3-digital-soil-mapping"><i class="fa fa-check"></i><strong>Module 3: Digital Soil Mapping</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-4-soil-spectroscopy"><i class="fa fa-check"></i><strong>Module 4: Soil Spectroscopy</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-5-soil-data-sharing"><i class="fa fa-check"></i><strong>Module 5: Soil Data Sharing</strong></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#required-downloads"><i class="fa fa-check"></i>Required downloads</a>
@@ -577,118 +576,118 @@ div.csl-indent {
 <p>MIR spectra are characterised by strong and well-defined absorption features. These features are mainly related to the fundamental vibrations of molecular bonds present in soil minerals and organic compounds. As a result, MIR spectroscopy is particularly sensitive to soil properties such as soil organic carbon, clay minerals, carbonates, and some nutrients. Compared with visible–near infrared spectroscopy, MIR measurements are usually collected on air-dried and finely ground soil samples under controlled laboratory conditions. All this tutorial could be based on the use of vis-NIR or MIR alike.</p>
 <p>Replicate spectral measurements are averaged so that each soil sample is represented by a single spectrum. A unique profile identifier is also created to group horizons belonging to the same soil profile.</p>
 <p>Spectral variables are then separated from the rest of the soil dataset and stored as a spectral matrix. The corresponding wavenumber values are extracted and sorted to ensure the correct order in the spectral bands.</p>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="part-ii-practical-application.html#cb259-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb259-2"><a href="part-ii-practical-application.html#cb259-2" tabindex="-1"></a><span class="co"># Read MIR spectral dataset (Kansas example)</span></span>
-<span id="cb259-3"><a href="part-ii-practical-application.html#cb259-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb259-4"><a href="part-ii-practical-application.html#cb259-4" tabindex="-1"></a></span>
-<span id="cb259-5"><a href="part-ii-practical-application.html#cb259-5" tabindex="-1"></a><span class="co"># Load data (keep original column names unchanged)</span></span>
-<span id="cb259-6"><a href="part-ii-practical-application.html#cb259-6" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb259-7"><a href="part-ii-practical-application.html#cb259-7" tabindex="-1"></a></span>
-<span id="cb259-8"><a href="part-ii-practical-application.html#cb259-8" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(</span>
-<span id="cb259-9"><a href="part-ii-practical-application.html#cb259-9" tabindex="-1"></a>  <span class="st">&quot;01_data/module1/training_data/data/MIR_KANSAS_data.xlsx&quot;</span>,</span>
-<span id="cb259-10"><a href="part-ii-practical-application.html#cb259-10" tabindex="-1"></a>  <span class="at">.name_repair =</span> <span class="st">&quot;minimal&quot;</span></span>
-<span id="cb259-11"><a href="part-ii-practical-application.html#cb259-11" tabindex="-1"></a>)</span>
-<span id="cb259-12"><a href="part-ii-practical-application.html#cb259-12" tabindex="-1"></a></span>
-<span id="cb259-13"><a href="part-ii-practical-application.html#cb259-13" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb259-14"><a href="part-ii-practical-application.html#cb259-14" tabindex="-1"></a><span class="co"># Average replicate measurements by sample ID</span></span>
-<span id="cb259-15"><a href="part-ii-practical-application.html#cb259-15" tabindex="-1"></a><span class="co"># This reduces laboratory measurement noise</span></span>
-<span id="cb259-16"><a href="part-ii-practical-application.html#cb259-16" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb259-17"><a href="part-ii-practical-application.html#cb259-17" tabindex="-1"></a></span>
-<span id="cb259-18"><a href="part-ii-practical-application.html#cb259-18" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb259-19"><a href="part-ii-practical-application.html#cb259-19" tabindex="-1"></a></span>
-<span id="cb259-20"><a href="part-ii-practical-application.html#cb259-20" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
-<span id="cb259-21"><a href="part-ii-practical-application.html#cb259-21" tabindex="-1"></a>  <span class="fu">group_by</span>(smp_id) <span class="sc">%&gt;%</span></span>
-<span id="cb259-22"><a href="part-ii-practical-application.html#cb259-22" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb259-23"><a href="part-ii-practical-application.html#cb259-23" tabindex="-1"></a>    <span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb259-24"><a href="part-ii-practical-application.html#cb259-24" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
-<span id="cb259-25"><a href="part-ii-practical-application.html#cb259-25" tabindex="-1"></a>  )</span>
-<span id="cb259-26"><a href="part-ii-practical-application.html#cb259-26" tabindex="-1"></a></span>
-<span id="cb259-27"><a href="part-ii-practical-application.html#cb259-27" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb259-28"><a href="part-ii-practical-application.html#cb259-28" tabindex="-1"></a><span class="co"># Create a profile identifier based on spatial location</span></span>
-<span id="cb259-29"><a href="part-ii-practical-application.html#cb259-29" tabindex="-1"></a><span class="co"># All horizons at the same coordinates belong to one profile</span></span>
-<span id="cb259-30"><a href="part-ii-practical-application.html#cb259-30" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb259-31"><a href="part-ii-practical-application.html#cb259-31" tabindex="-1"></a></span>
-<span id="cb259-32"><a href="part-ii-practical-application.html#cb259-32" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
-<span id="cb259-33"><a href="part-ii-practical-application.html#cb259-33" tabindex="-1"></a>  <span class="fu">group_by</span>(Long_Site.x, Lat_Site.x) <span class="sc">%&gt;%</span></span>
-<span id="cb259-34"><a href="part-ii-practical-application.html#cb259-34" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb259-35"><a href="part-ii-practical-application.html#cb259-35" tabindex="-1"></a>    <span class="at">ProfID =</span> <span class="fu">sprintf</span>(<span class="st">&quot;PROF%04d&quot;</span>, <span class="fu">cur_group_id</span>())</span>
-<span id="cb259-36"><a href="part-ii-practical-application.html#cb259-36" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb259-37"><a href="part-ii-practical-application.html#cb259-37" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
-<span id="cb259-38"><a href="part-ii-practical-application.html#cb259-38" tabindex="-1"></a></span>
-<span id="cb259-39"><a href="part-ii-practical-application.html#cb259-39" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb259-40"><a href="part-ii-practical-application.html#cb259-40" tabindex="-1"></a><span class="co"># Identify MIR spectral columns</span></span>
-<span id="cb259-41"><a href="part-ii-practical-application.html#cb259-41" tabindex="-1"></a><span class="co"># Spectral variables follow naming pattern like X3999.72758</span></span>
-<span id="cb259-42"><a href="part-ii-practical-application.html#cb259-42" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb259-43"><a href="part-ii-practical-application.html#cb259-43" tabindex="-1"></a></span>
-<span id="cb259-44"><a href="part-ii-practical-application.html#cb259-44" tabindex="-1"></a>spectral_columns <span class="ot">&lt;-</span> <span class="fu">grep</span>(</span>
-<span id="cb259-45"><a href="part-ii-practical-application.html#cb259-45" tabindex="-1"></a>  <span class="st">&quot;^X[0-9]{2,10}(</span><span class="sc">\\</span><span class="st">.[0-9]+)?$&quot;</span>,</span>
-<span id="cb259-46"><a href="part-ii-practical-application.html#cb259-46" tabindex="-1"></a>  <span class="fu">names</span>(dat)</span>
-<span id="cb259-47"><a href="part-ii-practical-application.html#cb259-47" tabindex="-1"></a>)</span>
-<span id="cb259-48"><a href="part-ii-practical-application.html#cb259-48" tabindex="-1"></a></span>
-<span id="cb259-49"><a href="part-ii-practical-application.html#cb259-49" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb259-50"><a href="part-ii-practical-application.html#cb259-50" tabindex="-1"></a><span class="co"># Extract spectral matrix and corresponding wavenumbers</span></span>
-<span id="cb259-51"><a href="part-ii-practical-application.html#cb259-51" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb259-52"><a href="part-ii-practical-application.html#cb259-52" tabindex="-1"></a></span>
-<span id="cb259-53"><a href="part-ii-practical-application.html#cb259-53" tabindex="-1"></a>spc_raw <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(dat[, spectral_columns])</span>
-<span id="cb259-54"><a href="part-ii-practical-application.html#cb259-54" tabindex="-1"></a></span>
-<span id="cb259-55"><a href="part-ii-practical-application.html#cb259-55" tabindex="-1"></a><span class="co"># Convert column names to numeric wavenumber values</span></span>
-<span id="cb259-56"><a href="part-ii-practical-application.html#cb259-56" tabindex="-1"></a>wavenumber <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">sub</span>(<span class="st">&quot;^X&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="fu">colnames</span>(spc_raw)))</span>
-<span id="cb259-57"><a href="part-ii-practical-application.html#cb259-57" tabindex="-1"></a></span>
-<span id="cb259-58"><a href="part-ii-practical-application.html#cb259-58" tabindex="-1"></a><span class="co"># Remove spectral columns from main data table</span></span>
-<span id="cb259-59"><a href="part-ii-practical-application.html#cb259-59" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat[, <span class="sc">-</span>spectral_columns]</span>
-<span id="cb259-60"><a href="part-ii-practical-application.html#cb259-60" tabindex="-1"></a></span>
-<span id="cb259-61"><a href="part-ii-practical-application.html#cb259-61" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb259-62"><a href="part-ii-practical-application.html#cb259-62" tabindex="-1"></a><span class="co"># Sort spectra by increasing wavenumber</span></span>
-<span id="cb259-63"><a href="part-ii-practical-application.html#cb259-63" tabindex="-1"></a><span class="co"># (Axis can later be reversed in plots following MIR convention)</span></span>
-<span id="cb259-64"><a href="part-ii-practical-application.html#cb259-64" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb259-65"><a href="part-ii-practical-application.html#cb259-65" tabindex="-1"></a></span>
-<span id="cb259-66"><a href="part-ii-practical-application.html#cb259-66" tabindex="-1"></a>ord <span class="ot">&lt;-</span> <span class="fu">order</span>(wavenumber)</span>
-<span id="cb259-67"><a href="part-ii-practical-application.html#cb259-67" tabindex="-1"></a></span>
-<span id="cb259-68"><a href="part-ii-practical-application.html#cb259-68" tabindex="-1"></a>wavenumber <span class="ot">&lt;-</span> wavenumber[ord]</span>
-<span id="cb259-69"><a href="part-ii-practical-application.html#cb259-69" tabindex="-1"></a>spc_raw <span class="ot">&lt;-</span> spc_raw[, ord, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
-<span id="cb259-70"><a href="part-ii-practical-application.html#cb259-70" tabindex="-1"></a></span>
-<span id="cb259-71"><a href="part-ii-practical-application.html#cb259-71" tabindex="-1"></a><span class="co"># Store wavenumber values as column names</span></span>
-<span id="cb259-72"><a href="part-ii-practical-application.html#cb259-72" tabindex="-1"></a><span class="fu">colnames</span>(spc_raw) <span class="ot">&lt;-</span> wavenumber</span>
-<span id="cb259-73"><a href="part-ii-practical-application.html#cb259-73" tabindex="-1"></a></span>
-<span id="cb259-74"><a href="part-ii-practical-application.html#cb259-74" tabindex="-1"></a><span class="co"># Attach spectral matrix as list-column in main dataset</span></span>
-<span id="cb259-75"><a href="part-ii-practical-application.html#cb259-75" tabindex="-1"></a>dat<span class="sc">$</span>spc_raw <span class="ot">&lt;-</span> spc_raw</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="part-ii-practical-application.html#cb263-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-2"><a href="part-ii-practical-application.html#cb263-2" tabindex="-1"></a><span class="co"># Read MIR spectral dataset (Kansas example)</span></span>
+<span id="cb263-3"><a href="part-ii-practical-application.html#cb263-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-4"><a href="part-ii-practical-application.html#cb263-4" tabindex="-1"></a></span>
+<span id="cb263-5"><a href="part-ii-practical-application.html#cb263-5" tabindex="-1"></a><span class="co"># Load data (keep original column names unchanged)</span></span>
+<span id="cb263-6"><a href="part-ii-practical-application.html#cb263-6" tabindex="-1"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb263-7"><a href="part-ii-practical-application.html#cb263-7" tabindex="-1"></a></span>
+<span id="cb263-8"><a href="part-ii-practical-application.html#cb263-8" tabindex="-1"></a>dat <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(</span>
+<span id="cb263-9"><a href="part-ii-practical-application.html#cb263-9" tabindex="-1"></a>  <span class="st">&quot;01_data/module1/training_data/data/MIR_KANSAS_data.xlsx&quot;</span>,</span>
+<span id="cb263-10"><a href="part-ii-practical-application.html#cb263-10" tabindex="-1"></a>  <span class="at">.name_repair =</span> <span class="st">&quot;minimal&quot;</span></span>
+<span id="cb263-11"><a href="part-ii-practical-application.html#cb263-11" tabindex="-1"></a>)</span>
+<span id="cb263-12"><a href="part-ii-practical-application.html#cb263-12" tabindex="-1"></a></span>
+<span id="cb263-13"><a href="part-ii-practical-application.html#cb263-13" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-14"><a href="part-ii-practical-application.html#cb263-14" tabindex="-1"></a><span class="co"># Average replicate measurements by sample ID</span></span>
+<span id="cb263-15"><a href="part-ii-practical-application.html#cb263-15" tabindex="-1"></a><span class="co"># This reduces laboratory measurement noise</span></span>
+<span id="cb263-16"><a href="part-ii-practical-application.html#cb263-16" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-17"><a href="part-ii-practical-application.html#cb263-17" tabindex="-1"></a></span>
+<span id="cb263-18"><a href="part-ii-practical-application.html#cb263-18" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb263-19"><a href="part-ii-practical-application.html#cb263-19" tabindex="-1"></a></span>
+<span id="cb263-20"><a href="part-ii-practical-application.html#cb263-20" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb263-21"><a href="part-ii-practical-application.html#cb263-21" tabindex="-1"></a>  <span class="fu">group_by</span>(smp_id) <span class="sc">%&gt;%</span></span>
+<span id="cb263-22"><a href="part-ii-practical-application.html#cb263-22" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb263-23"><a href="part-ii-practical-application.html#cb263-23" tabindex="-1"></a>    <span class="fu">across</span>(<span class="fu">where</span>(is.numeric), mean, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb263-24"><a href="part-ii-practical-application.html#cb263-24" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb263-25"><a href="part-ii-practical-application.html#cb263-25" tabindex="-1"></a>  )</span>
+<span id="cb263-26"><a href="part-ii-practical-application.html#cb263-26" tabindex="-1"></a></span>
+<span id="cb263-27"><a href="part-ii-practical-application.html#cb263-27" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-28"><a href="part-ii-practical-application.html#cb263-28" tabindex="-1"></a><span class="co"># Create a profile identifier based on spatial location</span></span>
+<span id="cb263-29"><a href="part-ii-practical-application.html#cb263-29" tabindex="-1"></a><span class="co"># All horizons at the same coordinates belong to one profile</span></span>
+<span id="cb263-30"><a href="part-ii-practical-application.html#cb263-30" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-31"><a href="part-ii-practical-application.html#cb263-31" tabindex="-1"></a></span>
+<span id="cb263-32"><a href="part-ii-practical-application.html#cb263-32" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb263-33"><a href="part-ii-practical-application.html#cb263-33" tabindex="-1"></a>  <span class="fu">group_by</span>(Long_Site.x, Lat_Site.x) <span class="sc">%&gt;%</span></span>
+<span id="cb263-34"><a href="part-ii-practical-application.html#cb263-34" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb263-35"><a href="part-ii-practical-application.html#cb263-35" tabindex="-1"></a>    <span class="at">ProfID =</span> <span class="fu">sprintf</span>(<span class="st">&quot;PROF%04d&quot;</span>, <span class="fu">cur_group_id</span>())</span>
+<span id="cb263-36"><a href="part-ii-practical-application.html#cb263-36" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb263-37"><a href="part-ii-practical-application.html#cb263-37" tabindex="-1"></a>  <span class="fu">ungroup</span>()</span>
+<span id="cb263-38"><a href="part-ii-practical-application.html#cb263-38" tabindex="-1"></a></span>
+<span id="cb263-39"><a href="part-ii-practical-application.html#cb263-39" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-40"><a href="part-ii-practical-application.html#cb263-40" tabindex="-1"></a><span class="co"># Identify MIR spectral columns</span></span>
+<span id="cb263-41"><a href="part-ii-practical-application.html#cb263-41" tabindex="-1"></a><span class="co"># Spectral variables follow naming pattern like X3999.72758</span></span>
+<span id="cb263-42"><a href="part-ii-practical-application.html#cb263-42" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-43"><a href="part-ii-practical-application.html#cb263-43" tabindex="-1"></a></span>
+<span id="cb263-44"><a href="part-ii-practical-application.html#cb263-44" tabindex="-1"></a>spectral_columns <span class="ot">&lt;-</span> <span class="fu">grep</span>(</span>
+<span id="cb263-45"><a href="part-ii-practical-application.html#cb263-45" tabindex="-1"></a>  <span class="st">&quot;^X[0-9]{2,10}(</span><span class="sc">\\</span><span class="st">.[0-9]+)?$&quot;</span>,</span>
+<span id="cb263-46"><a href="part-ii-practical-application.html#cb263-46" tabindex="-1"></a>  <span class="fu">names</span>(dat)</span>
+<span id="cb263-47"><a href="part-ii-practical-application.html#cb263-47" tabindex="-1"></a>)</span>
+<span id="cb263-48"><a href="part-ii-practical-application.html#cb263-48" tabindex="-1"></a></span>
+<span id="cb263-49"><a href="part-ii-practical-application.html#cb263-49" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-50"><a href="part-ii-practical-application.html#cb263-50" tabindex="-1"></a><span class="co"># Extract spectral matrix and corresponding wavenumbers</span></span>
+<span id="cb263-51"><a href="part-ii-practical-application.html#cb263-51" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-52"><a href="part-ii-practical-application.html#cb263-52" tabindex="-1"></a></span>
+<span id="cb263-53"><a href="part-ii-practical-application.html#cb263-53" tabindex="-1"></a>spc_raw <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(dat[, spectral_columns])</span>
+<span id="cb263-54"><a href="part-ii-practical-application.html#cb263-54" tabindex="-1"></a></span>
+<span id="cb263-55"><a href="part-ii-practical-application.html#cb263-55" tabindex="-1"></a><span class="co"># Convert column names to numeric wavenumber values</span></span>
+<span id="cb263-56"><a href="part-ii-practical-application.html#cb263-56" tabindex="-1"></a>wavenumber <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">sub</span>(<span class="st">&quot;^X&quot;</span>, <span class="st">&quot;&quot;</span>, <span class="fu">colnames</span>(spc_raw)))</span>
+<span id="cb263-57"><a href="part-ii-practical-application.html#cb263-57" tabindex="-1"></a></span>
+<span id="cb263-58"><a href="part-ii-practical-application.html#cb263-58" tabindex="-1"></a><span class="co"># Remove spectral columns from main data table</span></span>
+<span id="cb263-59"><a href="part-ii-practical-application.html#cb263-59" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat[, <span class="sc">-</span>spectral_columns]</span>
+<span id="cb263-60"><a href="part-ii-practical-application.html#cb263-60" tabindex="-1"></a></span>
+<span id="cb263-61"><a href="part-ii-practical-application.html#cb263-61" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-62"><a href="part-ii-practical-application.html#cb263-62" tabindex="-1"></a><span class="co"># Sort spectra by increasing wavenumber</span></span>
+<span id="cb263-63"><a href="part-ii-practical-application.html#cb263-63" tabindex="-1"></a><span class="co"># (Axis can later be reversed in plots following MIR convention)</span></span>
+<span id="cb263-64"><a href="part-ii-practical-application.html#cb263-64" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb263-65"><a href="part-ii-practical-application.html#cb263-65" tabindex="-1"></a></span>
+<span id="cb263-66"><a href="part-ii-practical-application.html#cb263-66" tabindex="-1"></a>ord <span class="ot">&lt;-</span> <span class="fu">order</span>(wavenumber)</span>
+<span id="cb263-67"><a href="part-ii-practical-application.html#cb263-67" tabindex="-1"></a></span>
+<span id="cb263-68"><a href="part-ii-practical-application.html#cb263-68" tabindex="-1"></a>wavenumber <span class="ot">&lt;-</span> wavenumber[ord]</span>
+<span id="cb263-69"><a href="part-ii-practical-application.html#cb263-69" tabindex="-1"></a>spc_raw <span class="ot">&lt;-</span> spc_raw[, ord, drop <span class="ot">=</span> <span class="cn">FALSE</span>]</span>
+<span id="cb263-70"><a href="part-ii-practical-application.html#cb263-70" tabindex="-1"></a></span>
+<span id="cb263-71"><a href="part-ii-practical-application.html#cb263-71" tabindex="-1"></a><span class="co"># Store wavenumber values as column names</span></span>
+<span id="cb263-72"><a href="part-ii-practical-application.html#cb263-72" tabindex="-1"></a><span class="fu">colnames</span>(spc_raw) <span class="ot">&lt;-</span> wavenumber</span>
+<span id="cb263-73"><a href="part-ii-practical-application.html#cb263-73" tabindex="-1"></a></span>
+<span id="cb263-74"><a href="part-ii-practical-application.html#cb263-74" tabindex="-1"></a><span class="co"># Attach spectral matrix as list-column in main dataset</span></span>
+<span id="cb263-75"><a href="part-ii-practical-application.html#cb263-75" tabindex="-1"></a>dat<span class="sc">$</span>spc_raw <span class="ot">&lt;-</span> spc_raw</span></code></pre></div>
 </div>
 <div id="preprocessing-of-spectra" class="section level3 hasAnchor" number="6.2.2">
 <h3><span class="header-section-number">6.2.2</span> Preprocessing of spectra<a href="part-ii-practical-application.html#preprocessing-of-spectra" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Raw soil spectra often contain measurement noise and may be recorded at slightly different spectral resolutions. Therefore, basic preprocessing is usually required before modelling.</p>
 <p>In this exercise, spectra are first resampled to a common wavenumber. This ensures that all samples share the same spectral support. A moving-average smoothing filter is then applied to reduce high-frequency noise while preserving the main absorption features.</p>
 <p>After preprocessing, the spectra can be visualised to confirm that the signal is smoother and more consistent across samples. Plotting absorbance against wavenumber allows inspection of the general spectral patterns and potential relationships with soil properties such as soil organic carbon (SOC), which we will use hereafter. This basic exploratory step is useful for identifying outliers or inconsistencies before further processing. At this stage the dataset is ready for statistical modelling and fitting a calibration model</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="part-ii-practical-application.html#cb260-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb260-2"><a href="part-ii-practical-application.html#cb260-2" tabindex="-1"></a><span class="co"># Define a new regular spectral grid for resampling</span></span>
-<span id="cb260-3"><a href="part-ii-practical-application.html#cb260-3" tabindex="-1"></a><span class="co"># This ensures all spectra share identical wavelength spacing</span></span>
-<span id="cb260-4"><a href="part-ii-practical-application.html#cb260-4" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb260-5"><a href="part-ii-practical-application.html#cb260-5" tabindex="-1"></a></span>
-<span id="cb260-6"><a href="part-ii-practical-application.html#cb260-6" tabindex="-1"></a>new_wavs <span class="ot">&lt;-</span> <span class="fu">seq</span>(</span>
-<span id="cb260-7"><a href="part-ii-practical-application.html#cb260-7" tabindex="-1"></a>  <span class="at">from =</span> <span class="fu">round</span>(<span class="fu">min</span>(<span class="fu">as.numeric</span>(<span class="fu">colnames</span>(dat<span class="sc">$</span>spc_raw)))),</span>
-<span id="cb260-8"><a href="part-ii-practical-application.html#cb260-8" tabindex="-1"></a>  <span class="at">to   =</span> <span class="fu">round</span>(<span class="fu">max</span>(<span class="fu">as.numeric</span>(<span class="fu">colnames</span>(dat<span class="sc">$</span>spc_raw)))),</span>
-<span id="cb260-9"><a href="part-ii-practical-application.html#cb260-9" tabindex="-1"></a>  <span class="at">by   =</span> <span class="dv">5</span>   <span class="co"># spectral resolution in cm-1</span></span>
-<span id="cb260-10"><a href="part-ii-practical-application.html#cb260-10" tabindex="-1"></a>)</span>
-<span id="cb260-11"><a href="part-ii-practical-application.html#cb260-11" tabindex="-1"></a></span>
-<span id="cb260-12"><a href="part-ii-practical-application.html#cb260-12" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb260-13"><a href="part-ii-practical-application.html#cb260-13" tabindex="-1"></a><span class="co"># Resample spectra to the new wavelength grid</span></span>
-<span id="cb260-14"><a href="part-ii-practical-application.html#cb260-14" tabindex="-1"></a><span class="co"># This is important for chemometric modelling and smoothing</span></span>
-<span id="cb260-15"><a href="part-ii-practical-application.html#cb260-15" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb260-16"><a href="part-ii-practical-application.html#cb260-16" tabindex="-1"></a></span>
-<span id="cb260-17"><a href="part-ii-practical-application.html#cb260-17" tabindex="-1"></a>dat<span class="sc">$</span>spc <span class="ot">&lt;-</span> prospectr<span class="sc">::</span><span class="fu">resample</span>(</span>
-<span id="cb260-18"><a href="part-ii-practical-application.html#cb260-18" tabindex="-1"></a>  dat<span class="sc">$</span>spc_raw,</span>
-<span id="cb260-19"><a href="part-ii-practical-application.html#cb260-19" tabindex="-1"></a>  <span class="at">wav     =</span> wavenumber,</span>
-<span id="cb260-20"><a href="part-ii-practical-application.html#cb260-20" tabindex="-1"></a>  <span class="at">new.wav =</span> new_wavs</span>
-<span id="cb260-21"><a href="part-ii-practical-application.html#cb260-21" tabindex="-1"></a>)</span>
-<span id="cb260-22"><a href="part-ii-practical-application.html#cb260-22" tabindex="-1"></a></span>
-<span id="cb260-23"><a href="part-ii-practical-application.html#cb260-23" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb260-24"><a href="part-ii-practical-application.html#cb260-24" tabindex="-1"></a><span class="co"># Apply moving-average smoothing to reduce high-frequency noise</span></span>
-<span id="cb260-25"><a href="part-ii-practical-application.html#cb260-25" tabindex="-1"></a><span class="co"># Window size (w = 11) is typical for MIR preprocessing</span></span>
-<span id="cb260-26"><a href="part-ii-practical-application.html#cb260-26" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb260-27"><a href="part-ii-practical-application.html#cb260-27" tabindex="-1"></a></span>
-<span id="cb260-28"><a href="part-ii-practical-application.html#cb260-28" tabindex="-1"></a>dat<span class="sc">$</span>spc <span class="ot">&lt;-</span> <span class="fu">movav</span>(dat<span class="sc">$</span>spc, <span class="at">w =</span> <span class="dv">11</span>)</span>
-<span id="cb260-29"><a href="part-ii-practical-application.html#cb260-29" tabindex="-1"></a></span>
-<span id="cb260-30"><a href="part-ii-practical-application.html#cb260-30" tabindex="-1"></a><span class="co"># Updated wavelength vector after preprocessing</span></span>
-<span id="cb260-31"><a href="part-ii-practical-application.html#cb260-31" tabindex="-1"></a>wavs <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">colnames</span>(dat<span class="sc">$</span>spc))</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="part-ii-practical-application.html#cb264-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb264-2"><a href="part-ii-practical-application.html#cb264-2" tabindex="-1"></a><span class="co"># Define a new regular spectral grid for resampling</span></span>
+<span id="cb264-3"><a href="part-ii-practical-application.html#cb264-3" tabindex="-1"></a><span class="co"># This ensures all spectra share identical wavelength spacing</span></span>
+<span id="cb264-4"><a href="part-ii-practical-application.html#cb264-4" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb264-5"><a href="part-ii-practical-application.html#cb264-5" tabindex="-1"></a></span>
+<span id="cb264-6"><a href="part-ii-practical-application.html#cb264-6" tabindex="-1"></a>new_wavs <span class="ot">&lt;-</span> <span class="fu">seq</span>(</span>
+<span id="cb264-7"><a href="part-ii-practical-application.html#cb264-7" tabindex="-1"></a>  <span class="at">from =</span> <span class="fu">round</span>(<span class="fu">min</span>(<span class="fu">as.numeric</span>(<span class="fu">colnames</span>(dat<span class="sc">$</span>spc_raw)))),</span>
+<span id="cb264-8"><a href="part-ii-practical-application.html#cb264-8" tabindex="-1"></a>  <span class="at">to   =</span> <span class="fu">round</span>(<span class="fu">max</span>(<span class="fu">as.numeric</span>(<span class="fu">colnames</span>(dat<span class="sc">$</span>spc_raw)))),</span>
+<span id="cb264-9"><a href="part-ii-practical-application.html#cb264-9" tabindex="-1"></a>  <span class="at">by   =</span> <span class="dv">5</span>   <span class="co"># spectral resolution in cm-1</span></span>
+<span id="cb264-10"><a href="part-ii-practical-application.html#cb264-10" tabindex="-1"></a>)</span>
+<span id="cb264-11"><a href="part-ii-practical-application.html#cb264-11" tabindex="-1"></a></span>
+<span id="cb264-12"><a href="part-ii-practical-application.html#cb264-12" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb264-13"><a href="part-ii-practical-application.html#cb264-13" tabindex="-1"></a><span class="co"># Resample spectra to the new wavelength grid</span></span>
+<span id="cb264-14"><a href="part-ii-practical-application.html#cb264-14" tabindex="-1"></a><span class="co"># This is important for chemometric modelling and smoothing</span></span>
+<span id="cb264-15"><a href="part-ii-practical-application.html#cb264-15" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb264-16"><a href="part-ii-practical-application.html#cb264-16" tabindex="-1"></a></span>
+<span id="cb264-17"><a href="part-ii-practical-application.html#cb264-17" tabindex="-1"></a>dat<span class="sc">$</span>spc <span class="ot">&lt;-</span> prospectr<span class="sc">::</span><span class="fu">resample</span>(</span>
+<span id="cb264-18"><a href="part-ii-practical-application.html#cb264-18" tabindex="-1"></a>  dat<span class="sc">$</span>spc_raw,</span>
+<span id="cb264-19"><a href="part-ii-practical-application.html#cb264-19" tabindex="-1"></a>  <span class="at">wav     =</span> wavenumber,</span>
+<span id="cb264-20"><a href="part-ii-practical-application.html#cb264-20" tabindex="-1"></a>  <span class="at">new.wav =</span> new_wavs</span>
+<span id="cb264-21"><a href="part-ii-practical-application.html#cb264-21" tabindex="-1"></a>)</span>
+<span id="cb264-22"><a href="part-ii-practical-application.html#cb264-22" tabindex="-1"></a></span>
+<span id="cb264-23"><a href="part-ii-practical-application.html#cb264-23" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb264-24"><a href="part-ii-practical-application.html#cb264-24" tabindex="-1"></a><span class="co"># Apply moving-average smoothing to reduce high-frequency noise</span></span>
+<span id="cb264-25"><a href="part-ii-practical-application.html#cb264-25" tabindex="-1"></a><span class="co"># Window size (w = 11) is typical for MIR preprocessing</span></span>
+<span id="cb264-26"><a href="part-ii-practical-application.html#cb264-26" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb264-27"><a href="part-ii-practical-application.html#cb264-27" tabindex="-1"></a></span>
+<span id="cb264-28"><a href="part-ii-practical-application.html#cb264-28" tabindex="-1"></a>dat<span class="sc">$</span>spc <span class="ot">&lt;-</span> <span class="fu">movav</span>(dat<span class="sc">$</span>spc, <span class="at">w =</span> <span class="dv">11</span>)</span>
+<span id="cb264-29"><a href="part-ii-practical-application.html#cb264-29" tabindex="-1"></a></span>
+<span id="cb264-30"><a href="part-ii-practical-application.html#cb264-30" tabindex="-1"></a><span class="co"># Updated wavelength vector after preprocessing</span></span>
+<span id="cb264-31"><a href="part-ii-practical-application.html#cb264-31" tabindex="-1"></a>wavs <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">colnames</span>(dat<span class="sc">$</span>spc))</span></code></pre></div>
 </div>
 <div id="spectroscopic-modelling-with-uncertainty" class="section level3 hasAnchor" number="6.2.3">
 <h3><span class="header-section-number">6.2.3</span> Spectroscopic modelling with uncertainty<a href="part-ii-practical-application.html#spectroscopic-modelling-with-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -696,103 +695,103 @@ div.csl-indent {
 <p>To obtain a realistic assessment of model performance, cross-validation is done at the soil profile level. This avoids using horizons from the same profile in both training and testing subsets. For each validation fold, the model is trained on a subset of profiles and used to predict SOC for the remaining profiles.</p>
 <p>Prediction uncertainty is quantified by the model using the conditional distribution of the predictions. This has been extensively described for spectroscopic data in <span class="citation">(<a href="#ref-wadoux2025uncertainty"><strong>wadoux2025uncertainty?</strong></a>)</span>. From this model distribution, a mean predicted value, a prediction variance, and a prediction standard deviation are calculated for each soil sample. These quantities represent the required outputs of the spectroscopic modelling step for DSM.</p>
 <p>Model performance can be first visualised by plotting predicted versus measured SOC values in a scatterplot. Validation statistics can be obtained from the function `ranger`` internal structure, where a R<span class="math inline">\(^2\)</span> is reported from a cross-validation. Error bars in the scatterplot representing the prediction standard deviation, they illustrate the level of confidence associated with each prediction.</p>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="part-ii-practical-application.html#cb261-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb261-2"><a href="part-ii-practical-application.html#cb261-2" tabindex="-1"></a><span class="co"># Quantile Random Forest with 10-fold cross-validation</span></span>
-<span id="cb261-3"><a href="part-ii-practical-application.html#cb261-3" tabindex="-1"></a><span class="co"># grouped by soil profile</span></span>
-<span id="cb261-4"><a href="part-ii-practical-application.html#cb261-4" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb261-5"><a href="part-ii-practical-application.html#cb261-5" tabindex="-1"></a></span>
-<span id="cb261-6"><a href="part-ii-practical-application.html#cb261-6" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb261-7"><a href="part-ii-practical-application.html#cb261-7" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
-<span id="cb261-8"><a href="part-ii-practical-application.html#cb261-8" tabindex="-1"></a><span class="fu">library</span>(matrixStats)</span>
-<span id="cb261-9"><a href="part-ii-practical-application.html#cb261-9" tabindex="-1"></a></span>
-<span id="cb261-10"><a href="part-ii-practical-application.html#cb261-10" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb261-11"><a href="part-ii-practical-application.html#cb261-11" tabindex="-1"></a></span>
-<span id="cb261-12"><a href="part-ii-practical-application.html#cb261-12" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb261-13"><a href="part-ii-practical-application.html#cb261-13" tabindex="-1"></a><span class="co"># Assign entire soil profiles to CV folds</span></span>
-<span id="cb261-14"><a href="part-ii-practical-application.html#cb261-14" tabindex="-1"></a><span class="co"># This avoids splitting horizons from the same profile</span></span>
-<span id="cb261-15"><a href="part-ii-practical-application.html#cb261-15" tabindex="-1"></a><span class="co"># across training and testing data</span></span>
-<span id="cb261-16"><a href="part-ii-practical-application.html#cb261-16" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb261-17"><a href="part-ii-practical-application.html#cb261-17" tabindex="-1"></a></span>
-<span id="cb261-18"><a href="part-ii-practical-application.html#cb261-18" tabindex="-1"></a>profile_ids <span class="ot">&lt;-</span> <span class="fu">unique</span>(dat<span class="sc">$</span>ProfID)</span>
-<span id="cb261-19"><a href="part-ii-practical-application.html#cb261-19" tabindex="-1"></a>n_profiles  <span class="ot">&lt;-</span> <span class="fu">length</span>(profile_ids)</span>
-<span id="cb261-20"><a href="part-ii-practical-application.html#cb261-20" tabindex="-1"></a></span>
-<span id="cb261-21"><a href="part-ii-practical-application.html#cb261-21" tabindex="-1"></a>fold_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb261-22"><a href="part-ii-practical-application.html#cb261-22" tabindex="-1"></a>  <span class="at">ProfID =</span> profile_ids,</span>
-<span id="cb261-23"><a href="part-ii-practical-application.html#cb261-23" tabindex="-1"></a>  <span class="at">fold   =</span> <span class="fu">sample</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">length.out =</span> n_profiles))</span>
-<span id="cb261-24"><a href="part-ii-practical-application.html#cb261-24" tabindex="-1"></a>)</span>
-<span id="cb261-25"><a href="part-ii-practical-application.html#cb261-25" tabindex="-1"></a></span>
-<span id="cb261-26"><a href="part-ii-practical-application.html#cb261-26" tabindex="-1"></a><span class="co"># Add fold membership to the main dataset</span></span>
-<span id="cb261-27"><a href="part-ii-practical-application.html#cb261-27" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
-<span id="cb261-28"><a href="part-ii-practical-application.html#cb261-28" tabindex="-1"></a>  <span class="fu">left_join</span>(fold_table, <span class="at">by =</span> <span class="st">&quot;ProfID&quot;</span>)</span>
-<span id="cb261-29"><a href="part-ii-practical-application.html#cb261-29" tabindex="-1"></a></span>
-<span id="cb261-30"><a href="part-ii-practical-application.html#cb261-30" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb261-31"><a href="part-ii-practical-application.html#cb261-31" tabindex="-1"></a><span class="co"># Prepare storage vectors for CV predictions and uncertainty</span></span>
-<span id="cb261-32"><a href="part-ii-practical-application.html#cb261-32" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb261-33"><a href="part-ii-practical-application.html#cb261-33" tabindex="-1"></a></span>
-<span id="cb261-34"><a href="part-ii-practical-application.html#cb261-34" tabindex="-1"></a>SOC_predRF <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, <span class="fu">nrow</span>(dat))  <span class="co"># mean prediction</span></span>
-<span id="cb261-35"><a href="part-ii-practical-application.html#cb261-35" tabindex="-1"></a>SOC_varRF  <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, <span class="fu">nrow</span>(dat))  <span class="co"># predictive variance</span></span>
-<span id="cb261-36"><a href="part-ii-practical-application.html#cb261-36" tabindex="-1"></a>SOC_sdRF   <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, <span class="fu">nrow</span>(dat))  <span class="co"># predictive standard deviation</span></span>
-<span id="cb261-37"><a href="part-ii-practical-application.html#cb261-37" tabindex="-1"></a></span>
-<span id="cb261-38"><a href="part-ii-practical-application.html#cb261-38" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb261-39"><a href="part-ii-practical-application.html#cb261-39" tabindex="-1"></a><span class="co"># Run 10-fold cross-validation</span></span>
-<span id="cb261-40"><a href="part-ii-practical-application.html#cb261-40" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb261-41"><a href="part-ii-practical-application.html#cb261-41" tabindex="-1"></a></span>
-<span id="cb261-42"><a href="part-ii-practical-application.html#cb261-42" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
-<span id="cb261-43"><a href="part-ii-practical-application.html#cb261-43" tabindex="-1"></a>  </span>
-<span id="cb261-44"><a href="part-ii-practical-application.html#cb261-44" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\r</span><span class="st">Processing fold&quot;</span>, k, <span class="st">&quot;of 10&quot;</span>)</span>
-<span id="cb261-45"><a href="part-ii-practical-application.html#cb261-45" tabindex="-1"></a>  </span>
-<span id="cb261-46"><a href="part-ii-practical-application.html#cb261-46" tabindex="-1"></a>  <span class="co"># Test set: all samples belonging to fold k</span></span>
-<span id="cb261-47"><a href="part-ii-practical-application.html#cb261-47" tabindex="-1"></a>  test_rows <span class="ot">&lt;-</span> <span class="fu">which</span>(dat<span class="sc">$</span>fold <span class="sc">==</span> k)</span>
-<span id="cb261-48"><a href="part-ii-practical-application.html#cb261-48" tabindex="-1"></a>  </span>
-<span id="cb261-49"><a href="part-ii-practical-application.html#cb261-49" tabindex="-1"></a>  <span class="co"># Training set: all remaining samples</span></span>
-<span id="cb261-50"><a href="part-ii-practical-application.html#cb261-50" tabindex="-1"></a>  train_rows <span class="ot">&lt;-</span> <span class="fu">which</span>(dat<span class="sc">$</span>fold <span class="sc">!=</span> k)</span>
-<span id="cb261-51"><a href="part-ii-practical-application.html#cb261-51" tabindex="-1"></a>  </span>
-<span id="cb261-52"><a href="part-ii-practical-application.html#cb261-52" tabindex="-1"></a>  <span class="co"># Fit quantile random forest on training data</span></span>
-<span id="cb261-53"><a href="part-ii-practical-application.html#cb261-53" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">ranger</span>(</span>
-<span id="cb261-54"><a href="part-ii-practical-application.html#cb261-54" tabindex="-1"></a>    <span class="at">x =</span> dat<span class="sc">$</span>spc[train_rows, ],</span>
-<span id="cb261-55"><a href="part-ii-practical-application.html#cb261-55" tabindex="-1"></a>    <span class="at">y =</span> dat<span class="sc">$</span>SOC[train_rows],</span>
-<span id="cb261-56"><a href="part-ii-practical-application.html#cb261-56" tabindex="-1"></a>    <span class="at">quantreg =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb261-57"><a href="part-ii-practical-application.html#cb261-57" tabindex="-1"></a>    <span class="at">num.trees =</span> <span class="dv">100</span>,</span>
-<span id="cb261-58"><a href="part-ii-practical-application.html#cb261-58" tabindex="-1"></a>    <span class="at">sample.fraction =</span> <span class="dv">1</span>,</span>
-<span id="cb261-59"><a href="part-ii-practical-application.html#cb261-59" tabindex="-1"></a>    <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb261-60"><a href="part-ii-practical-application.html#cb261-60" tabindex="-1"></a>    <span class="at">min.node.size =</span> <span class="dv">2</span></span>
-<span id="cb261-61"><a href="part-ii-practical-application.html#cb261-61" tabindex="-1"></a>  )</span>
-<span id="cb261-62"><a href="part-ii-practical-application.html#cb261-62" tabindex="-1"></a>  </span>
-<span id="cb261-63"><a href="part-ii-practical-application.html#cb261-63" tabindex="-1"></a>  <span class="co"># Predict by drawing samples from the conditional distribution</span></span>
-<span id="cb261-64"><a href="part-ii-practical-application.html#cb261-64" tabindex="-1"></a>  pred_matrix <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
-<span id="cb261-65"><a href="part-ii-practical-application.html#cb261-65" tabindex="-1"></a>    model,</span>
-<span id="cb261-66"><a href="part-ii-practical-application.html#cb261-66" tabindex="-1"></a>    <span class="at">data =</span> dat<span class="sc">$</span>spc[test_rows, ],</span>
-<span id="cb261-67"><a href="part-ii-practical-application.html#cb261-67" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;quantiles&quot;</span>,</span>
-<span id="cb261-68"><a href="part-ii-practical-application.html#cb261-68" tabindex="-1"></a>    <span class="at">what =</span> <span class="cf">function</span>(x) <span class="fu">sample</span>(x, <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb261-69"><a href="part-ii-practical-application.html#cb261-69" tabindex="-1"></a>  )<span class="sc">$</span>predictions</span>
-<span id="cb261-70"><a href="part-ii-practical-application.html#cb261-70" tabindex="-1"></a>  </span>
-<span id="cb261-71"><a href="part-ii-practical-application.html#cb261-71" tabindex="-1"></a>  <span class="co"># Store prediction summary statistics</span></span>
-<span id="cb261-72"><a href="part-ii-practical-application.html#cb261-72" tabindex="-1"></a>  SOC_predRF[test_rows] <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(pred_matrix)</span>
-<span id="cb261-73"><a href="part-ii-practical-application.html#cb261-73" tabindex="-1"></a>  SOC_varRF[test_rows]  <span class="ot">&lt;-</span> <span class="fu">rowVars</span>(pred_matrix)</span>
-<span id="cb261-74"><a href="part-ii-practical-application.html#cb261-74" tabindex="-1"></a>  SOC_sdRF[test_rows]   <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(SOC_varRF[test_rows])</span>
-<span id="cb261-75"><a href="part-ii-practical-application.html#cb261-75" tabindex="-1"></a>}</span>
-<span id="cb261-76"><a href="part-ii-practical-application.html#cb261-76" tabindex="-1"></a></span>
-<span id="cb261-77"><a href="part-ii-practical-application.html#cb261-77" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb261-78"><a href="part-ii-practical-application.html#cb261-78" tabindex="-1"></a><span class="co"># Save predictions back into the dataset</span></span>
-<span id="cb261-79"><a href="part-ii-practical-application.html#cb261-79" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb261-80"><a href="part-ii-practical-application.html#cb261-80" tabindex="-1"></a></span>
-<span id="cb261-81"><a href="part-ii-practical-application.html#cb261-81" tabindex="-1"></a>dat<span class="sc">$</span>SOC_predRF <span class="ot">&lt;-</span> SOC_predRF</span>
-<span id="cb261-82"><a href="part-ii-practical-application.html#cb261-82" tabindex="-1"></a>dat<span class="sc">$</span>SOC_varRF  <span class="ot">&lt;-</span> SOC_varRF</span>
-<span id="cb261-83"><a href="part-ii-practical-application.html#cb261-83" tabindex="-1"></a>dat<span class="sc">$</span>SOC_sdRF   <span class="ot">&lt;-</span> SOC_sdRF</span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="part-ii-practical-application.html#cb265-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb265-2"><a href="part-ii-practical-application.html#cb265-2" tabindex="-1"></a><span class="co"># Quantile Random Forest with 10-fold cross-validation</span></span>
+<span id="cb265-3"><a href="part-ii-practical-application.html#cb265-3" tabindex="-1"></a><span class="co"># grouped by soil profile</span></span>
+<span id="cb265-4"><a href="part-ii-practical-application.html#cb265-4" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb265-5"><a href="part-ii-practical-application.html#cb265-5" tabindex="-1"></a></span>
+<span id="cb265-6"><a href="part-ii-practical-application.html#cb265-6" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb265-7"><a href="part-ii-practical-application.html#cb265-7" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
+<span id="cb265-8"><a href="part-ii-practical-application.html#cb265-8" tabindex="-1"></a><span class="fu">library</span>(matrixStats)</span>
+<span id="cb265-9"><a href="part-ii-practical-application.html#cb265-9" tabindex="-1"></a></span>
+<span id="cb265-10"><a href="part-ii-practical-application.html#cb265-10" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb265-11"><a href="part-ii-practical-application.html#cb265-11" tabindex="-1"></a></span>
+<span id="cb265-12"><a href="part-ii-practical-application.html#cb265-12" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb265-13"><a href="part-ii-practical-application.html#cb265-13" tabindex="-1"></a><span class="co"># Assign entire soil profiles to CV folds</span></span>
+<span id="cb265-14"><a href="part-ii-practical-application.html#cb265-14" tabindex="-1"></a><span class="co"># This avoids splitting horizons from the same profile</span></span>
+<span id="cb265-15"><a href="part-ii-practical-application.html#cb265-15" tabindex="-1"></a><span class="co"># across training and testing data</span></span>
+<span id="cb265-16"><a href="part-ii-practical-application.html#cb265-16" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb265-17"><a href="part-ii-practical-application.html#cb265-17" tabindex="-1"></a></span>
+<span id="cb265-18"><a href="part-ii-practical-application.html#cb265-18" tabindex="-1"></a>profile_ids <span class="ot">&lt;-</span> <span class="fu">unique</span>(dat<span class="sc">$</span>ProfID)</span>
+<span id="cb265-19"><a href="part-ii-practical-application.html#cb265-19" tabindex="-1"></a>n_profiles  <span class="ot">&lt;-</span> <span class="fu">length</span>(profile_ids)</span>
+<span id="cb265-20"><a href="part-ii-practical-application.html#cb265-20" tabindex="-1"></a></span>
+<span id="cb265-21"><a href="part-ii-practical-application.html#cb265-21" tabindex="-1"></a>fold_table <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb265-22"><a href="part-ii-practical-application.html#cb265-22" tabindex="-1"></a>  <span class="at">ProfID =</span> profile_ids,</span>
+<span id="cb265-23"><a href="part-ii-practical-application.html#cb265-23" tabindex="-1"></a>  <span class="at">fold   =</span> <span class="fu">sample</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>, <span class="at">length.out =</span> n_profiles))</span>
+<span id="cb265-24"><a href="part-ii-practical-application.html#cb265-24" tabindex="-1"></a>)</span>
+<span id="cb265-25"><a href="part-ii-practical-application.html#cb265-25" tabindex="-1"></a></span>
+<span id="cb265-26"><a href="part-ii-practical-application.html#cb265-26" tabindex="-1"></a><span class="co"># Add fold membership to the main dataset</span></span>
+<span id="cb265-27"><a href="part-ii-practical-application.html#cb265-27" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat <span class="sc">%&gt;%</span></span>
+<span id="cb265-28"><a href="part-ii-practical-application.html#cb265-28" tabindex="-1"></a>  <span class="fu">left_join</span>(fold_table, <span class="at">by =</span> <span class="st">&quot;ProfID&quot;</span>)</span>
+<span id="cb265-29"><a href="part-ii-practical-application.html#cb265-29" tabindex="-1"></a></span>
+<span id="cb265-30"><a href="part-ii-practical-application.html#cb265-30" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb265-31"><a href="part-ii-practical-application.html#cb265-31" tabindex="-1"></a><span class="co"># Prepare storage vectors for CV predictions and uncertainty</span></span>
+<span id="cb265-32"><a href="part-ii-practical-application.html#cb265-32" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb265-33"><a href="part-ii-practical-application.html#cb265-33" tabindex="-1"></a></span>
+<span id="cb265-34"><a href="part-ii-practical-application.html#cb265-34" tabindex="-1"></a>SOC_predRF <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, <span class="fu">nrow</span>(dat))  <span class="co"># mean prediction</span></span>
+<span id="cb265-35"><a href="part-ii-practical-application.html#cb265-35" tabindex="-1"></a>SOC_varRF  <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, <span class="fu">nrow</span>(dat))  <span class="co"># predictive variance</span></span>
+<span id="cb265-36"><a href="part-ii-practical-application.html#cb265-36" tabindex="-1"></a>SOC_sdRF   <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, <span class="fu">nrow</span>(dat))  <span class="co"># predictive standard deviation</span></span>
+<span id="cb265-37"><a href="part-ii-practical-application.html#cb265-37" tabindex="-1"></a></span>
+<span id="cb265-38"><a href="part-ii-practical-application.html#cb265-38" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb265-39"><a href="part-ii-practical-application.html#cb265-39" tabindex="-1"></a><span class="co"># Run 10-fold cross-validation</span></span>
+<span id="cb265-40"><a href="part-ii-practical-application.html#cb265-40" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb265-41"><a href="part-ii-practical-application.html#cb265-41" tabindex="-1"></a></span>
+<span id="cb265-42"><a href="part-ii-practical-application.html#cb265-42" tabindex="-1"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb265-43"><a href="part-ii-practical-application.html#cb265-43" tabindex="-1"></a>  </span>
+<span id="cb265-44"><a href="part-ii-practical-application.html#cb265-44" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot;</span><span class="sc">\r</span><span class="st">Processing fold&quot;</span>, k, <span class="st">&quot;of 10&quot;</span>)</span>
+<span id="cb265-45"><a href="part-ii-practical-application.html#cb265-45" tabindex="-1"></a>  </span>
+<span id="cb265-46"><a href="part-ii-practical-application.html#cb265-46" tabindex="-1"></a>  <span class="co"># Test set: all samples belonging to fold k</span></span>
+<span id="cb265-47"><a href="part-ii-practical-application.html#cb265-47" tabindex="-1"></a>  test_rows <span class="ot">&lt;-</span> <span class="fu">which</span>(dat<span class="sc">$</span>fold <span class="sc">==</span> k)</span>
+<span id="cb265-48"><a href="part-ii-practical-application.html#cb265-48" tabindex="-1"></a>  </span>
+<span id="cb265-49"><a href="part-ii-practical-application.html#cb265-49" tabindex="-1"></a>  <span class="co"># Training set: all remaining samples</span></span>
+<span id="cb265-50"><a href="part-ii-practical-application.html#cb265-50" tabindex="-1"></a>  train_rows <span class="ot">&lt;-</span> <span class="fu">which</span>(dat<span class="sc">$</span>fold <span class="sc">!=</span> k)</span>
+<span id="cb265-51"><a href="part-ii-practical-application.html#cb265-51" tabindex="-1"></a>  </span>
+<span id="cb265-52"><a href="part-ii-practical-application.html#cb265-52" tabindex="-1"></a>  <span class="co"># Fit quantile random forest on training data</span></span>
+<span id="cb265-53"><a href="part-ii-practical-application.html#cb265-53" tabindex="-1"></a>  model <span class="ot">&lt;-</span> <span class="fu">ranger</span>(</span>
+<span id="cb265-54"><a href="part-ii-practical-application.html#cb265-54" tabindex="-1"></a>    <span class="at">x =</span> dat<span class="sc">$</span>spc[train_rows, ],</span>
+<span id="cb265-55"><a href="part-ii-practical-application.html#cb265-55" tabindex="-1"></a>    <span class="at">y =</span> dat<span class="sc">$</span>SOC[train_rows],</span>
+<span id="cb265-56"><a href="part-ii-practical-application.html#cb265-56" tabindex="-1"></a>    <span class="at">quantreg =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb265-57"><a href="part-ii-practical-application.html#cb265-57" tabindex="-1"></a>    <span class="at">num.trees =</span> <span class="dv">100</span>,</span>
+<span id="cb265-58"><a href="part-ii-practical-application.html#cb265-58" tabindex="-1"></a>    <span class="at">sample.fraction =</span> <span class="dv">1</span>,</span>
+<span id="cb265-59"><a href="part-ii-practical-application.html#cb265-59" tabindex="-1"></a>    <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb265-60"><a href="part-ii-practical-application.html#cb265-60" tabindex="-1"></a>    <span class="at">min.node.size =</span> <span class="dv">2</span></span>
+<span id="cb265-61"><a href="part-ii-practical-application.html#cb265-61" tabindex="-1"></a>  )</span>
+<span id="cb265-62"><a href="part-ii-practical-application.html#cb265-62" tabindex="-1"></a>  </span>
+<span id="cb265-63"><a href="part-ii-practical-application.html#cb265-63" tabindex="-1"></a>  <span class="co"># Predict by drawing samples from the conditional distribution</span></span>
+<span id="cb265-64"><a href="part-ii-practical-application.html#cb265-64" tabindex="-1"></a>  pred_matrix <span class="ot">&lt;-</span> <span class="fu">predict</span>(</span>
+<span id="cb265-65"><a href="part-ii-practical-application.html#cb265-65" tabindex="-1"></a>    model,</span>
+<span id="cb265-66"><a href="part-ii-practical-application.html#cb265-66" tabindex="-1"></a>    <span class="at">data =</span> dat<span class="sc">$</span>spc[test_rows, ],</span>
+<span id="cb265-67"><a href="part-ii-practical-application.html#cb265-67" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;quantiles&quot;</span>,</span>
+<span id="cb265-68"><a href="part-ii-practical-application.html#cb265-68" tabindex="-1"></a>    <span class="at">what =</span> <span class="cf">function</span>(x) <span class="fu">sample</span>(x, <span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb265-69"><a href="part-ii-practical-application.html#cb265-69" tabindex="-1"></a>  )<span class="sc">$</span>predictions</span>
+<span id="cb265-70"><a href="part-ii-practical-application.html#cb265-70" tabindex="-1"></a>  </span>
+<span id="cb265-71"><a href="part-ii-practical-application.html#cb265-71" tabindex="-1"></a>  <span class="co"># Store prediction summary statistics</span></span>
+<span id="cb265-72"><a href="part-ii-practical-application.html#cb265-72" tabindex="-1"></a>  SOC_predRF[test_rows] <span class="ot">&lt;-</span> <span class="fu">rowMeans</span>(pred_matrix)</span>
+<span id="cb265-73"><a href="part-ii-practical-application.html#cb265-73" tabindex="-1"></a>  SOC_varRF[test_rows]  <span class="ot">&lt;-</span> <span class="fu">rowVars</span>(pred_matrix)</span>
+<span id="cb265-74"><a href="part-ii-practical-application.html#cb265-74" tabindex="-1"></a>  SOC_sdRF[test_rows]   <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(SOC_varRF[test_rows])</span>
+<span id="cb265-75"><a href="part-ii-practical-application.html#cb265-75" tabindex="-1"></a>}</span>
+<span id="cb265-76"><a href="part-ii-practical-application.html#cb265-76" tabindex="-1"></a></span>
+<span id="cb265-77"><a href="part-ii-practical-application.html#cb265-77" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb265-78"><a href="part-ii-practical-application.html#cb265-78" tabindex="-1"></a><span class="co"># Save predictions back into the dataset</span></span>
+<span id="cb265-79"><a href="part-ii-practical-application.html#cb265-79" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb265-80"><a href="part-ii-practical-application.html#cb265-80" tabindex="-1"></a></span>
+<span id="cb265-81"><a href="part-ii-practical-application.html#cb265-81" tabindex="-1"></a>dat<span class="sc">$</span>SOC_predRF <span class="ot">&lt;-</span> SOC_predRF</span>
+<span id="cb265-82"><a href="part-ii-practical-application.html#cb265-82" tabindex="-1"></a>dat<span class="sc">$</span>SOC_varRF  <span class="ot">&lt;-</span> SOC_varRF</span>
+<span id="cb265-83"><a href="part-ii-practical-application.html#cb265-83" tabindex="-1"></a>dat<span class="sc">$</span>SOC_sdRF   <span class="ot">&lt;-</span> SOC_sdRF</span></code></pre></div>
 </div>
 <div id="laboratory-measurement-uncertainty" class="section level3 hasAnchor" number="6.2.4">
 <h3><span class="header-section-number">6.2.4</span> Laboratory measurement uncertainty<a href="part-ii-practical-application.html#laboratory-measurement-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Soil organic carbon (SOC) concentrations were determined using high-temperature dry combustion. This method is widely regarded as one of the most precise laboratory approaches for SOC determination and is commonly used as a reference method.</p>
 <p>Analytical precision for combustion-based SOC measurements is typically on the order of a few percent relative standard deviation, according to laboratory validation studies, generally around 2–3%. Based on this information, it is possible to estimate the standard deviation associated with analytical SOC measurements.</p>
 <p>Measurement uncertainty in SOC analysis is usually assumed to be proportional to the magnitude of the measurement. Accordingly, the laboratory measurement error can be expressed as <span class="math inline">\(\sigma_{\text{laboratory}} = CV \cdot y_i\)</span> where <span class="math inline">\(CV\)</span> is the coefficient of variation and <span class="math inline">\(y_i\)</span> is the measured SOC value.</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="part-ii-practical-application.html#cb262-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb262-2"><a href="part-ii-practical-application.html#cb262-2" tabindex="-1"></a><span class="co"># Approximate laboratory measurement uncertainty for SOC</span></span>
-<span id="cb262-3"><a href="part-ii-practical-application.html#cb262-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb262-4"><a href="part-ii-practical-application.html#cb262-4" tabindex="-1"></a><span class="co"># We assume a relative analytical error of 3%.</span></span>
-<span id="cb262-5"><a href="part-ii-practical-application.html#cb262-5" tabindex="-1"></a><span class="co"># Therefore, the measurement error standard deviation is</span></span>
-<span id="cb262-6"><a href="part-ii-practical-application.html#cb262-6" tabindex="-1"></a><span class="co"># calculated as 3% of the measured SOC value.</span></span>
-<span id="cb262-7"><a href="part-ii-practical-application.html#cb262-7" tabindex="-1"></a></span>
-<span id="cb262-8"><a href="part-ii-practical-application.html#cb262-8" tabindex="-1"></a>dat<span class="sc">$</span>SOC_sdLAB <span class="ot">&lt;-</span> dat<span class="sc">$</span>SOC <span class="sc">*</span> <span class="fl">0.03</span></span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="part-ii-practical-application.html#cb266-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb266-2"><a href="part-ii-practical-application.html#cb266-2" tabindex="-1"></a><span class="co"># Approximate laboratory measurement uncertainty for SOC</span></span>
+<span id="cb266-3"><a href="part-ii-practical-application.html#cb266-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb266-4"><a href="part-ii-practical-application.html#cb266-4" tabindex="-1"></a><span class="co"># We assume a relative analytical error of 3%.</span></span>
+<span id="cb266-5"><a href="part-ii-practical-application.html#cb266-5" tabindex="-1"></a><span class="co"># Therefore, the measurement error standard deviation is</span></span>
+<span id="cb266-6"><a href="part-ii-practical-application.html#cb266-6" tabindex="-1"></a><span class="co"># calculated as 3% of the measured SOC value.</span></span>
+<span id="cb266-7"><a href="part-ii-practical-application.html#cb266-7" tabindex="-1"></a></span>
+<span id="cb266-8"><a href="part-ii-practical-application.html#cb266-8" tabindex="-1"></a>dat<span class="sc">$</span>SOC_sdLAB <span class="ot">&lt;-</span> dat<span class="sc">$</span>SOC <span class="sc">*</span> <span class="fl">0.03</span></span></code></pre></div>
 </div>
 <div id="depth-harmonisation-of-predictions-and-uncertainties" class="section level3 hasAnchor" number="6.2.5">
 <h3><span class="header-section-number">6.2.5</span> Depth harmonisation of predictions and uncertainties<a href="part-ii-practical-application.html#depth-harmonisation-of-predictions-and-uncertainties" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -805,120 +804,120 @@ div.csl-indent {
 * an estimated laboratory measurement uncertainty, and
 * spatial coordinates for mapping.</p>
 <p>These prepared variables can now be used as inputs in the DSM modelling.</p>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="part-ii-practical-application.html#cb263-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-2"><a href="part-ii-practical-application.html#cb263-2" tabindex="-1"></a><span class="co"># Aggregate SOC predictions and uncertainties to 0-30 cm</span></span>
-<span id="cb263-3"><a href="part-ii-practical-application.html#cb263-3" tabindex="-1"></a><span class="co"># using profile information</span></span>
-<span id="cb263-4"><a href="part-ii-practical-application.html#cb263-4" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-5"><a href="part-ii-practical-application.html#cb263-5" tabindex="-1"></a></span>
-<span id="cb263-6"><a href="part-ii-practical-application.html#cb263-6" tabindex="-1"></a><span class="fu">library</span>(aqp)</span>
-<span id="cb263-7"><a href="part-ii-practical-application.html#cb263-7" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb263-8"><a href="part-ii-practical-application.html#cb263-8" tabindex="-1"></a></span>
-<span id="cb263-9"><a href="part-ii-practical-application.html#cb263-9" tabindex="-1"></a><span class="co"># Remove spectral matrix columns before converting to an aqp object</span></span>
-<span id="cb263-10"><a href="part-ii-practical-application.html#cb263-10" tabindex="-1"></a><span class="co"># This keeps only tabular horizon-level information</span></span>
-<span id="cb263-11"><a href="part-ii-practical-application.html#cb263-11" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat[, <span class="sc">!</span><span class="fu">names</span>(dat) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;spc&quot;</span>, <span class="st">&quot;spc_raw&quot;</span>)]</span>
-<span id="cb263-12"><a href="part-ii-practical-application.html#cb263-12" tabindex="-1"></a></span>
-<span id="cb263-13"><a href="part-ii-practical-application.html#cb263-13" tabindex="-1"></a><span class="co"># Build a SoilProfileCollection object</span></span>
-<span id="cb263-14"><a href="part-ii-practical-application.html#cb263-14" tabindex="-1"></a><span class="co"># ProfID identifies each profile, and the top/bottom columns define horizons</span></span>
-<span id="cb263-15"><a href="part-ii-practical-application.html#cb263-15" tabindex="-1"></a><span class="fu">depths</span>(dat) <span class="ot">&lt;-</span> ProfID <span class="sc">~</span> Top_depth_cm.x <span class="sc">+</span> Bottom_depth_cm.x</span>
-<span id="cb263-16"><a href="part-ii-practical-application.html#cb263-16" tabindex="-1"></a></span>
-<span id="cb263-17"><a href="part-ii-practical-application.html#cb263-17" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-18"><a href="part-ii-practical-application.html#cb263-18" tabindex="-1"></a><span class="co"># Depth-weighted mean SOC prediction for 0-30 cm</span></span>
-<span id="cb263-19"><a href="part-ii-practical-application.html#cb263-19" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-20"><a href="part-ii-practical-application.html#cb263-20" tabindex="-1"></a></span>
-<span id="cb263-21"><a href="part-ii-practical-application.html#cb263-21" tabindex="-1"></a>soc_mean_0_30 <span class="ot">&lt;-</span> <span class="fu">slab</span>(</span>
-<span id="cb263-22"><a href="part-ii-practical-application.html#cb263-22" tabindex="-1"></a>  dat,</span>
-<span id="cb263-23"><a href="part-ii-practical-application.html#cb263-23" tabindex="-1"></a>  <span class="at">fm =</span> <span class="sc">~</span> SOC_predRF,</span>
-<span id="cb263-24"><a href="part-ii-practical-application.html#cb263-24" tabindex="-1"></a>  <span class="at">slab.structure =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>)</span>
-<span id="cb263-25"><a href="part-ii-practical-application.html#cb263-25" tabindex="-1"></a>)</span>
-<span id="cb263-26"><a href="part-ii-practical-application.html#cb263-26" tabindex="-1"></a></span>
-<span id="cb263-27"><a href="part-ii-practical-application.html#cb263-27" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-28"><a href="part-ii-practical-application.html#cb263-28" tabindex="-1"></a><span class="co"># Helper function:</span></span>
-<span id="cb263-29"><a href="part-ii-practical-application.html#cb263-29" tabindex="-1"></a><span class="co"># Compute a depth-weighted standard deviation over 0-30 cm</span></span>
-<span id="cb263-30"><a href="part-ii-practical-application.html#cb263-30" tabindex="-1"></a><span class="co"># Only the horizon portions overlapping the target interval are used</span></span>
-<span id="cb263-31"><a href="part-ii-practical-application.html#cb263-31" tabindex="-1"></a><span class="co"># Profiles that do not fully cover 0-30 cm return NA</span></span>
-<span id="cb263-32"><a href="part-ii-practical-application.html#cb263-32" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-33"><a href="part-ii-practical-application.html#cb263-33" tabindex="-1"></a></span>
-<span id="cb263-34"><a href="part-ii-practical-application.html#cb263-34" tabindex="-1"></a>weighted_sd_0_30 <span class="ot">&lt;-</span> <span class="cf">function</span>(top, bottom, sd, <span class="at">z1 =</span> <span class="dv">0</span>, <span class="at">z2 =</span> <span class="dv">30</span>) {</span>
-<span id="cb263-35"><a href="part-ii-practical-application.html#cb263-35" tabindex="-1"></a>  w <span class="ot">&lt;-</span> <span class="fu">pmax</span>(<span class="dv">0</span>, <span class="fu">pmin</span>(bottom, z2) <span class="sc">-</span> <span class="fu">pmax</span>(top, z1))</span>
-<span id="cb263-36"><a href="part-ii-practical-application.html#cb263-36" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> w <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(sd)</span>
-<span id="cb263-37"><a href="part-ii-practical-application.html#cb263-37" tabindex="-1"></a>  </span>
-<span id="cb263-38"><a href="part-ii-practical-application.html#cb263-38" tabindex="-1"></a>  w  <span class="ot">&lt;-</span> w[keep]</span>
-<span id="cb263-39"><a href="part-ii-practical-application.html#cb263-39" tabindex="-1"></a>  sd <span class="ot">&lt;-</span> sd[keep]</span>
-<span id="cb263-40"><a href="part-ii-practical-application.html#cb263-40" tabindex="-1"></a>  </span>
-<span id="cb263-41"><a href="part-ii-practical-application.html#cb263-41" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">sum</span>(w) <span class="sc">&lt;</span> (z2 <span class="sc">-</span> z1)) <span class="fu">return</span>(<span class="cn">NA_real_</span>)</span>
-<span id="cb263-42"><a href="part-ii-practical-application.html#cb263-42" tabindex="-1"></a>  </span>
-<span id="cb263-43"><a href="part-ii-practical-application.html#cb263-43" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="fu">sum</span>((w <span class="sc">*</span> sd)<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">/</span> <span class="fu">sum</span>(w)</span>
-<span id="cb263-44"><a href="part-ii-practical-application.html#cb263-44" tabindex="-1"></a>}</span>
-<span id="cb263-45"><a href="part-ii-practical-application.html#cb263-45" tabindex="-1"></a></span>
-<span id="cb263-46"><a href="part-ii-practical-application.html#cb263-46" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-47"><a href="part-ii-practical-application.html#cb263-47" tabindex="-1"></a><span class="co"># Compute profile-level uncertainty for 0-30 cm</span></span>
-<span id="cb263-48"><a href="part-ii-practical-application.html#cb263-48" tabindex="-1"></a><span class="co"># for both RF prediction uncertainty and lab measurement uncertainty</span></span>
-<span id="cb263-49"><a href="part-ii-practical-application.html#cb263-49" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-50"><a href="part-ii-practical-application.html#cb263-50" tabindex="-1"></a></span>
-<span id="cb263-51"><a href="part-ii-practical-application.html#cb263-51" tabindex="-1"></a>soc_sd_0_30 <span class="ot">&lt;-</span> <span class="fu">horizons</span>(dat) <span class="sc">%&gt;%</span></span>
-<span id="cb263-52"><a href="part-ii-practical-application.html#cb263-52" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb263-53"><a href="part-ii-practical-application.html#cb263-53" tabindex="-1"></a>  <span class="fu">group_by</span>(ProfID) <span class="sc">%&gt;%</span></span>
-<span id="cb263-54"><a href="part-ii-practical-application.html#cb263-54" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb263-55"><a href="part-ii-practical-application.html#cb263-55" tabindex="-1"></a>    <span class="at">SOC_sdRF_0_30 =</span> <span class="fu">weighted_sd_0_30</span>(</span>
-<span id="cb263-56"><a href="part-ii-practical-application.html#cb263-56" tabindex="-1"></a>      Top_depth_cm.x,</span>
-<span id="cb263-57"><a href="part-ii-practical-application.html#cb263-57" tabindex="-1"></a>      Bottom_depth_cm.x,</span>
-<span id="cb263-58"><a href="part-ii-practical-application.html#cb263-58" tabindex="-1"></a>      SOC_sdRF,</span>
-<span id="cb263-59"><a href="part-ii-practical-application.html#cb263-59" tabindex="-1"></a>      <span class="dv">0</span>, <span class="dv">30</span></span>
-<span id="cb263-60"><a href="part-ii-practical-application.html#cb263-60" tabindex="-1"></a>    ),</span>
-<span id="cb263-61"><a href="part-ii-practical-application.html#cb263-61" tabindex="-1"></a>    <span class="at">SOC_sdLAB_0_30 =</span> <span class="fu">weighted_sd_0_30</span>(</span>
-<span id="cb263-62"><a href="part-ii-practical-application.html#cb263-62" tabindex="-1"></a>      Top_depth_cm.x,</span>
-<span id="cb263-63"><a href="part-ii-practical-application.html#cb263-63" tabindex="-1"></a>      Bottom_depth_cm.x,</span>
-<span id="cb263-64"><a href="part-ii-practical-application.html#cb263-64" tabindex="-1"></a>      SOC_sdLAB,</span>
-<span id="cb263-65"><a href="part-ii-practical-application.html#cb263-65" tabindex="-1"></a>      <span class="dv">0</span>, <span class="dv">30</span></span>
-<span id="cb263-66"><a href="part-ii-practical-application.html#cb263-66" tabindex="-1"></a>    ),</span>
-<span id="cb263-67"><a href="part-ii-practical-application.html#cb263-67" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
-<span id="cb263-68"><a href="part-ii-practical-application.html#cb263-68" tabindex="-1"></a>  )</span>
-<span id="cb263-69"><a href="part-ii-practical-application.html#cb263-69" tabindex="-1"></a></span>
-<span id="cb263-70"><a href="part-ii-practical-application.html#cb263-70" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-71"><a href="part-ii-practical-application.html#cb263-71" tabindex="-1"></a><span class="co"># Compute profile-level mean predicted SOC for 0-30 cm</span></span>
-<span id="cb263-72"><a href="part-ii-practical-application.html#cb263-72" tabindex="-1"></a><span class="co"># using overlap with the target interval as weights</span></span>
-<span id="cb263-73"><a href="part-ii-practical-application.html#cb263-73" tabindex="-1"></a><span class="co"># Profiles that do not fully cover 0-30 cm return NA</span></span>
-<span id="cb263-74"><a href="part-ii-practical-application.html#cb263-74" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-75"><a href="part-ii-practical-application.html#cb263-75" tabindex="-1"></a></span>
-<span id="cb263-76"><a href="part-ii-practical-application.html#cb263-76" tabindex="-1"></a>soc_mean_vals <span class="ot">&lt;-</span> <span class="fu">profileApply</span>(dat, <span class="cf">function</span>(p) {</span>
-<span id="cb263-77"><a href="part-ii-practical-application.html#cb263-77" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">horizons</span>(p)</span>
-<span id="cb263-78"><a href="part-ii-practical-application.html#cb263-78" tabindex="-1"></a>  </span>
-<span id="cb263-79"><a href="part-ii-practical-application.html#cb263-79" tabindex="-1"></a>  overlap <span class="ot">&lt;-</span> <span class="fu">pmax</span>(<span class="dv">0</span>, <span class="fu">pmin</span>(x<span class="sc">$</span>Bottom_depth_cm.x, <span class="dv">30</span>) <span class="sc">-</span> <span class="fu">pmax</span>(x<span class="sc">$</span>Top_depth_cm.x, <span class="dv">0</span>))</span>
-<span id="cb263-80"><a href="part-ii-practical-application.html#cb263-80" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> overlap <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(x<span class="sc">$</span>SOC_predRF)</span>
-<span id="cb263-81"><a href="part-ii-practical-application.html#cb263-81" tabindex="-1"></a>  </span>
-<span id="cb263-82"><a href="part-ii-practical-application.html#cb263-82" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">sum</span>(overlap[keep]) <span class="sc">&lt;</span> <span class="dv">30</span>) <span class="fu">return</span>(<span class="cn">NA_real_</span>)</span>
-<span id="cb263-83"><a href="part-ii-practical-application.html#cb263-83" tabindex="-1"></a>  </span>
-<span id="cb263-84"><a href="part-ii-practical-application.html#cb263-84" tabindex="-1"></a>  <span class="fu">sum</span>(overlap[keep] <span class="sc">*</span> x<span class="sc">$</span>SOC_predRF[keep]) <span class="sc">/</span> <span class="fu">sum</span>(overlap[keep])</span>
-<span id="cb263-85"><a href="part-ii-practical-application.html#cb263-85" tabindex="-1"></a>})</span>
-<span id="cb263-86"><a href="part-ii-practical-application.html#cb263-86" tabindex="-1"></a></span>
-<span id="cb263-87"><a href="part-ii-practical-application.html#cb263-87" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-88"><a href="part-ii-practical-application.html#cb263-88" tabindex="-1"></a><span class="co"># Combine mean prediction and uncertainty into one table</span></span>
-<span id="cb263-89"><a href="part-ii-practical-application.html#cb263-89" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-90"><a href="part-ii-practical-application.html#cb263-90" tabindex="-1"></a></span>
-<span id="cb263-91"><a href="part-ii-practical-application.html#cb263-91" tabindex="-1"></a>soc_0_30 <span class="ot">&lt;-</span> soc_sd_0_30 <span class="sc">%&gt;%</span></span>
-<span id="cb263-92"><a href="part-ii-practical-application.html#cb263-92" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SOC_predRF_0_30 =</span> soc_mean_vals) <span class="sc">%&gt;%</span></span>
-<span id="cb263-93"><a href="part-ii-practical-application.html#cb263-93" tabindex="-1"></a>  <span class="fu">select</span>(ProfID, SOC_predRF_0_30, SOC_sdRF_0_30, SOC_sdLAB_0_30)</span>
-<span id="cb263-94"><a href="part-ii-practical-application.html#cb263-94" tabindex="-1"></a></span>
-<span id="cb263-95"><a href="part-ii-practical-application.html#cb263-95" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-96"><a href="part-ii-practical-application.html#cb263-96" tabindex="-1"></a><span class="co"># Extract one set of coordinates per profile</span></span>
-<span id="cb263-97"><a href="part-ii-practical-application.html#cb263-97" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-98"><a href="part-ii-practical-application.html#cb263-98" tabindex="-1"></a></span>
-<span id="cb263-99"><a href="part-ii-practical-application.html#cb263-99" tabindex="-1"></a>dat_sub <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(dat)[, <span class="fu">c</span>(<span class="st">&quot;ProfID&quot;</span>, <span class="st">&quot;SOC&quot;</span>, <span class="st">&quot;Lat_Site.x&quot;</span>, <span class="st">&quot;Long_Site.x&quot;</span>)]</span>
-<span id="cb263-100"><a href="part-ii-practical-application.html#cb263-100" tabindex="-1"></a>coords  <span class="ot">&lt;-</span> dat_sub[<span class="sc">!</span><span class="fu">duplicated</span>(dat_sub<span class="sc">$</span>ProfID), ]</span>
-<span id="cb263-101"><a href="part-ii-practical-application.html#cb263-101" tabindex="-1"></a></span>
-<span id="cb263-102"><a href="part-ii-practical-application.html#cb263-102" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-103"><a href="part-ii-practical-application.html#cb263-103" tabindex="-1"></a><span class="co"># Attach coordinates to the 0-30 cm summary table</span></span>
-<span id="cb263-104"><a href="part-ii-practical-application.html#cb263-104" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb263-105"><a href="part-ii-practical-application.html#cb263-105" tabindex="-1"></a></span>
-<span id="cb263-106"><a href="part-ii-practical-application.html#cb263-106" tabindex="-1"></a>soc_0_30_xy <span class="ot">&lt;-</span> <span class="fu">merge</span>(</span>
-<span id="cb263-107"><a href="part-ii-practical-application.html#cb263-107" tabindex="-1"></a>  soc_0_30,</span>
-<span id="cb263-108"><a href="part-ii-practical-application.html#cb263-108" tabindex="-1"></a>  coords,</span>
-<span id="cb263-109"><a href="part-ii-practical-application.html#cb263-109" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">&quot;ProfID&quot;</span>,</span>
-<span id="cb263-110"><a href="part-ii-practical-application.html#cb263-110" tabindex="-1"></a>  <span class="at">all.x =</span> <span class="cn">TRUE</span></span>
-<span id="cb263-111"><a href="part-ii-practical-application.html#cb263-111" tabindex="-1"></a>)</span>
-<span id="cb263-112"><a href="part-ii-practical-application.html#cb263-112" tabindex="-1"></a></span>
-<span id="cb263-113"><a href="part-ii-practical-application.html#cb263-113" tabindex="-1"></a><span class="co"># Display the first profile-level results</span></span>
-<span id="cb263-114"><a href="part-ii-practical-application.html#cb263-114" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(soc_0_30_xy))</span></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="part-ii-practical-application.html#cb267-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-2"><a href="part-ii-practical-application.html#cb267-2" tabindex="-1"></a><span class="co"># Aggregate SOC predictions and uncertainties to 0-30 cm</span></span>
+<span id="cb267-3"><a href="part-ii-practical-application.html#cb267-3" tabindex="-1"></a><span class="co"># using profile information</span></span>
+<span id="cb267-4"><a href="part-ii-practical-application.html#cb267-4" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-5"><a href="part-ii-practical-application.html#cb267-5" tabindex="-1"></a></span>
+<span id="cb267-6"><a href="part-ii-practical-application.html#cb267-6" tabindex="-1"></a><span class="fu">library</span>(aqp)</span>
+<span id="cb267-7"><a href="part-ii-practical-application.html#cb267-7" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb267-8"><a href="part-ii-practical-application.html#cb267-8" tabindex="-1"></a></span>
+<span id="cb267-9"><a href="part-ii-practical-application.html#cb267-9" tabindex="-1"></a><span class="co"># Remove spectral matrix columns before converting to an aqp object</span></span>
+<span id="cb267-10"><a href="part-ii-practical-application.html#cb267-10" tabindex="-1"></a><span class="co"># This keeps only tabular horizon-level information</span></span>
+<span id="cb267-11"><a href="part-ii-practical-application.html#cb267-11" tabindex="-1"></a>dat <span class="ot">&lt;-</span> dat[, <span class="sc">!</span><span class="fu">names</span>(dat) <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;spc&quot;</span>, <span class="st">&quot;spc_raw&quot;</span>)]</span>
+<span id="cb267-12"><a href="part-ii-practical-application.html#cb267-12" tabindex="-1"></a></span>
+<span id="cb267-13"><a href="part-ii-practical-application.html#cb267-13" tabindex="-1"></a><span class="co"># Build a SoilProfileCollection object</span></span>
+<span id="cb267-14"><a href="part-ii-practical-application.html#cb267-14" tabindex="-1"></a><span class="co"># ProfID identifies each profile, and the top/bottom columns define horizons</span></span>
+<span id="cb267-15"><a href="part-ii-practical-application.html#cb267-15" tabindex="-1"></a><span class="fu">depths</span>(dat) <span class="ot">&lt;-</span> ProfID <span class="sc">~</span> Top_depth_cm.x <span class="sc">+</span> Bottom_depth_cm.x</span>
+<span id="cb267-16"><a href="part-ii-practical-application.html#cb267-16" tabindex="-1"></a></span>
+<span id="cb267-17"><a href="part-ii-practical-application.html#cb267-17" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-18"><a href="part-ii-practical-application.html#cb267-18" tabindex="-1"></a><span class="co"># Depth-weighted mean SOC prediction for 0-30 cm</span></span>
+<span id="cb267-19"><a href="part-ii-practical-application.html#cb267-19" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-20"><a href="part-ii-practical-application.html#cb267-20" tabindex="-1"></a></span>
+<span id="cb267-21"><a href="part-ii-practical-application.html#cb267-21" tabindex="-1"></a>soc_mean_0_30 <span class="ot">&lt;-</span> <span class="fu">slab</span>(</span>
+<span id="cb267-22"><a href="part-ii-practical-application.html#cb267-22" tabindex="-1"></a>  dat,</span>
+<span id="cb267-23"><a href="part-ii-practical-application.html#cb267-23" tabindex="-1"></a>  <span class="at">fm =</span> <span class="sc">~</span> SOC_predRF,</span>
+<span id="cb267-24"><a href="part-ii-practical-application.html#cb267-24" tabindex="-1"></a>  <span class="at">slab.structure =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">30</span>)</span>
+<span id="cb267-25"><a href="part-ii-practical-application.html#cb267-25" tabindex="-1"></a>)</span>
+<span id="cb267-26"><a href="part-ii-practical-application.html#cb267-26" tabindex="-1"></a></span>
+<span id="cb267-27"><a href="part-ii-practical-application.html#cb267-27" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-28"><a href="part-ii-practical-application.html#cb267-28" tabindex="-1"></a><span class="co"># Helper function:</span></span>
+<span id="cb267-29"><a href="part-ii-practical-application.html#cb267-29" tabindex="-1"></a><span class="co"># Compute a depth-weighted standard deviation over 0-30 cm</span></span>
+<span id="cb267-30"><a href="part-ii-practical-application.html#cb267-30" tabindex="-1"></a><span class="co"># Only the horizon portions overlapping the target interval are used</span></span>
+<span id="cb267-31"><a href="part-ii-practical-application.html#cb267-31" tabindex="-1"></a><span class="co"># Profiles that do not fully cover 0-30 cm return NA</span></span>
+<span id="cb267-32"><a href="part-ii-practical-application.html#cb267-32" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-33"><a href="part-ii-practical-application.html#cb267-33" tabindex="-1"></a></span>
+<span id="cb267-34"><a href="part-ii-practical-application.html#cb267-34" tabindex="-1"></a>weighted_sd_0_30 <span class="ot">&lt;-</span> <span class="cf">function</span>(top, bottom, sd, <span class="at">z1 =</span> <span class="dv">0</span>, <span class="at">z2 =</span> <span class="dv">30</span>) {</span>
+<span id="cb267-35"><a href="part-ii-practical-application.html#cb267-35" tabindex="-1"></a>  w <span class="ot">&lt;-</span> <span class="fu">pmax</span>(<span class="dv">0</span>, <span class="fu">pmin</span>(bottom, z2) <span class="sc">-</span> <span class="fu">pmax</span>(top, z1))</span>
+<span id="cb267-36"><a href="part-ii-practical-application.html#cb267-36" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> w <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(sd)</span>
+<span id="cb267-37"><a href="part-ii-practical-application.html#cb267-37" tabindex="-1"></a>  </span>
+<span id="cb267-38"><a href="part-ii-practical-application.html#cb267-38" tabindex="-1"></a>  w  <span class="ot">&lt;-</span> w[keep]</span>
+<span id="cb267-39"><a href="part-ii-practical-application.html#cb267-39" tabindex="-1"></a>  sd <span class="ot">&lt;-</span> sd[keep]</span>
+<span id="cb267-40"><a href="part-ii-practical-application.html#cb267-40" tabindex="-1"></a>  </span>
+<span id="cb267-41"><a href="part-ii-practical-application.html#cb267-41" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">sum</span>(w) <span class="sc">&lt;</span> (z2 <span class="sc">-</span> z1)) <span class="fu">return</span>(<span class="cn">NA_real_</span>)</span>
+<span id="cb267-42"><a href="part-ii-practical-application.html#cb267-42" tabindex="-1"></a>  </span>
+<span id="cb267-43"><a href="part-ii-practical-application.html#cb267-43" tabindex="-1"></a>  <span class="fu">sqrt</span>(<span class="fu">sum</span>((w <span class="sc">*</span> sd)<span class="sc">^</span><span class="dv">2</span>)) <span class="sc">/</span> <span class="fu">sum</span>(w)</span>
+<span id="cb267-44"><a href="part-ii-practical-application.html#cb267-44" tabindex="-1"></a>}</span>
+<span id="cb267-45"><a href="part-ii-practical-application.html#cb267-45" tabindex="-1"></a></span>
+<span id="cb267-46"><a href="part-ii-practical-application.html#cb267-46" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-47"><a href="part-ii-practical-application.html#cb267-47" tabindex="-1"></a><span class="co"># Compute profile-level uncertainty for 0-30 cm</span></span>
+<span id="cb267-48"><a href="part-ii-practical-application.html#cb267-48" tabindex="-1"></a><span class="co"># for both RF prediction uncertainty and lab measurement uncertainty</span></span>
+<span id="cb267-49"><a href="part-ii-practical-application.html#cb267-49" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-50"><a href="part-ii-practical-application.html#cb267-50" tabindex="-1"></a></span>
+<span id="cb267-51"><a href="part-ii-practical-application.html#cb267-51" tabindex="-1"></a>soc_sd_0_30 <span class="ot">&lt;-</span> <span class="fu">horizons</span>(dat) <span class="sc">%&gt;%</span></span>
+<span id="cb267-52"><a href="part-ii-practical-application.html#cb267-52" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb267-53"><a href="part-ii-practical-application.html#cb267-53" tabindex="-1"></a>  <span class="fu">group_by</span>(ProfID) <span class="sc">%&gt;%</span></span>
+<span id="cb267-54"><a href="part-ii-practical-application.html#cb267-54" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb267-55"><a href="part-ii-practical-application.html#cb267-55" tabindex="-1"></a>    <span class="at">SOC_sdRF_0_30 =</span> <span class="fu">weighted_sd_0_30</span>(</span>
+<span id="cb267-56"><a href="part-ii-practical-application.html#cb267-56" tabindex="-1"></a>      Top_depth_cm.x,</span>
+<span id="cb267-57"><a href="part-ii-practical-application.html#cb267-57" tabindex="-1"></a>      Bottom_depth_cm.x,</span>
+<span id="cb267-58"><a href="part-ii-practical-application.html#cb267-58" tabindex="-1"></a>      SOC_sdRF,</span>
+<span id="cb267-59"><a href="part-ii-practical-application.html#cb267-59" tabindex="-1"></a>      <span class="dv">0</span>, <span class="dv">30</span></span>
+<span id="cb267-60"><a href="part-ii-practical-application.html#cb267-60" tabindex="-1"></a>    ),</span>
+<span id="cb267-61"><a href="part-ii-practical-application.html#cb267-61" tabindex="-1"></a>    <span class="at">SOC_sdLAB_0_30 =</span> <span class="fu">weighted_sd_0_30</span>(</span>
+<span id="cb267-62"><a href="part-ii-practical-application.html#cb267-62" tabindex="-1"></a>      Top_depth_cm.x,</span>
+<span id="cb267-63"><a href="part-ii-practical-application.html#cb267-63" tabindex="-1"></a>      Bottom_depth_cm.x,</span>
+<span id="cb267-64"><a href="part-ii-practical-application.html#cb267-64" tabindex="-1"></a>      SOC_sdLAB,</span>
+<span id="cb267-65"><a href="part-ii-practical-application.html#cb267-65" tabindex="-1"></a>      <span class="dv">0</span>, <span class="dv">30</span></span>
+<span id="cb267-66"><a href="part-ii-practical-application.html#cb267-66" tabindex="-1"></a>    ),</span>
+<span id="cb267-67"><a href="part-ii-practical-application.html#cb267-67" tabindex="-1"></a>    <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span></span>
+<span id="cb267-68"><a href="part-ii-practical-application.html#cb267-68" tabindex="-1"></a>  )</span>
+<span id="cb267-69"><a href="part-ii-practical-application.html#cb267-69" tabindex="-1"></a></span>
+<span id="cb267-70"><a href="part-ii-practical-application.html#cb267-70" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-71"><a href="part-ii-practical-application.html#cb267-71" tabindex="-1"></a><span class="co"># Compute profile-level mean predicted SOC for 0-30 cm</span></span>
+<span id="cb267-72"><a href="part-ii-practical-application.html#cb267-72" tabindex="-1"></a><span class="co"># using overlap with the target interval as weights</span></span>
+<span id="cb267-73"><a href="part-ii-practical-application.html#cb267-73" tabindex="-1"></a><span class="co"># Profiles that do not fully cover 0-30 cm return NA</span></span>
+<span id="cb267-74"><a href="part-ii-practical-application.html#cb267-74" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-75"><a href="part-ii-practical-application.html#cb267-75" tabindex="-1"></a></span>
+<span id="cb267-76"><a href="part-ii-practical-application.html#cb267-76" tabindex="-1"></a>soc_mean_vals <span class="ot">&lt;-</span> <span class="fu">profileApply</span>(dat, <span class="cf">function</span>(p) {</span>
+<span id="cb267-77"><a href="part-ii-practical-application.html#cb267-77" tabindex="-1"></a>  x <span class="ot">&lt;-</span> <span class="fu">horizons</span>(p)</span>
+<span id="cb267-78"><a href="part-ii-practical-application.html#cb267-78" tabindex="-1"></a>  </span>
+<span id="cb267-79"><a href="part-ii-practical-application.html#cb267-79" tabindex="-1"></a>  overlap <span class="ot">&lt;-</span> <span class="fu">pmax</span>(<span class="dv">0</span>, <span class="fu">pmin</span>(x<span class="sc">$</span>Bottom_depth_cm.x, <span class="dv">30</span>) <span class="sc">-</span> <span class="fu">pmax</span>(x<span class="sc">$</span>Top_depth_cm.x, <span class="dv">0</span>))</span>
+<span id="cb267-80"><a href="part-ii-practical-application.html#cb267-80" tabindex="-1"></a>  keep <span class="ot">&lt;-</span> overlap <span class="sc">&gt;</span> <span class="dv">0</span> <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(x<span class="sc">$</span>SOC_predRF)</span>
+<span id="cb267-81"><a href="part-ii-practical-application.html#cb267-81" tabindex="-1"></a>  </span>
+<span id="cb267-82"><a href="part-ii-practical-application.html#cb267-82" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">sum</span>(overlap[keep]) <span class="sc">&lt;</span> <span class="dv">30</span>) <span class="fu">return</span>(<span class="cn">NA_real_</span>)</span>
+<span id="cb267-83"><a href="part-ii-practical-application.html#cb267-83" tabindex="-1"></a>  </span>
+<span id="cb267-84"><a href="part-ii-practical-application.html#cb267-84" tabindex="-1"></a>  <span class="fu">sum</span>(overlap[keep] <span class="sc">*</span> x<span class="sc">$</span>SOC_predRF[keep]) <span class="sc">/</span> <span class="fu">sum</span>(overlap[keep])</span>
+<span id="cb267-85"><a href="part-ii-practical-application.html#cb267-85" tabindex="-1"></a>})</span>
+<span id="cb267-86"><a href="part-ii-practical-application.html#cb267-86" tabindex="-1"></a></span>
+<span id="cb267-87"><a href="part-ii-practical-application.html#cb267-87" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-88"><a href="part-ii-practical-application.html#cb267-88" tabindex="-1"></a><span class="co"># Combine mean prediction and uncertainty into one table</span></span>
+<span id="cb267-89"><a href="part-ii-practical-application.html#cb267-89" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-90"><a href="part-ii-practical-application.html#cb267-90" tabindex="-1"></a></span>
+<span id="cb267-91"><a href="part-ii-practical-application.html#cb267-91" tabindex="-1"></a>soc_0_30 <span class="ot">&lt;-</span> soc_sd_0_30 <span class="sc">%&gt;%</span></span>
+<span id="cb267-92"><a href="part-ii-practical-application.html#cb267-92" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">SOC_predRF_0_30 =</span> soc_mean_vals) <span class="sc">%&gt;%</span></span>
+<span id="cb267-93"><a href="part-ii-practical-application.html#cb267-93" tabindex="-1"></a>  <span class="fu">select</span>(ProfID, SOC_predRF_0_30, SOC_sdRF_0_30, SOC_sdLAB_0_30)</span>
+<span id="cb267-94"><a href="part-ii-practical-application.html#cb267-94" tabindex="-1"></a></span>
+<span id="cb267-95"><a href="part-ii-practical-application.html#cb267-95" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-96"><a href="part-ii-practical-application.html#cb267-96" tabindex="-1"></a><span class="co"># Extract one set of coordinates per profile</span></span>
+<span id="cb267-97"><a href="part-ii-practical-application.html#cb267-97" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-98"><a href="part-ii-practical-application.html#cb267-98" tabindex="-1"></a></span>
+<span id="cb267-99"><a href="part-ii-practical-application.html#cb267-99" tabindex="-1"></a>dat_sub <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(dat)[, <span class="fu">c</span>(<span class="st">&quot;ProfID&quot;</span>, <span class="st">&quot;SOC&quot;</span>, <span class="st">&quot;Lat_Site.x&quot;</span>, <span class="st">&quot;Long_Site.x&quot;</span>)]</span>
+<span id="cb267-100"><a href="part-ii-practical-application.html#cb267-100" tabindex="-1"></a>coords  <span class="ot">&lt;-</span> dat_sub[<span class="sc">!</span><span class="fu">duplicated</span>(dat_sub<span class="sc">$</span>ProfID), ]</span>
+<span id="cb267-101"><a href="part-ii-practical-application.html#cb267-101" tabindex="-1"></a></span>
+<span id="cb267-102"><a href="part-ii-practical-application.html#cb267-102" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-103"><a href="part-ii-practical-application.html#cb267-103" tabindex="-1"></a><span class="co"># Attach coordinates to the 0-30 cm summary table</span></span>
+<span id="cb267-104"><a href="part-ii-practical-application.html#cb267-104" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb267-105"><a href="part-ii-practical-application.html#cb267-105" tabindex="-1"></a></span>
+<span id="cb267-106"><a href="part-ii-practical-application.html#cb267-106" tabindex="-1"></a>soc_0_30_xy <span class="ot">&lt;-</span> <span class="fu">merge</span>(</span>
+<span id="cb267-107"><a href="part-ii-practical-application.html#cb267-107" tabindex="-1"></a>  soc_0_30,</span>
+<span id="cb267-108"><a href="part-ii-practical-application.html#cb267-108" tabindex="-1"></a>  coords,</span>
+<span id="cb267-109"><a href="part-ii-practical-application.html#cb267-109" tabindex="-1"></a>  <span class="at">by =</span> <span class="st">&quot;ProfID&quot;</span>,</span>
+<span id="cb267-110"><a href="part-ii-practical-application.html#cb267-110" tabindex="-1"></a>  <span class="at">all.x =</span> <span class="cn">TRUE</span></span>
+<span id="cb267-111"><a href="part-ii-practical-application.html#cb267-111" tabindex="-1"></a>)</span>
+<span id="cb267-112"><a href="part-ii-practical-application.html#cb267-112" tabindex="-1"></a></span>
+<span id="cb267-113"><a href="part-ii-practical-application.html#cb267-113" tabindex="-1"></a><span class="co"># Display the first profile-level results</span></span>
+<span id="cb267-114"><a href="part-ii-practical-application.html#cb267-114" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">head</span>(soc_0_30_xy))</span></code></pre></div>
 </div>
 </div>
 <div id="preparation-of-the-covariates" class="section level2 hasAnchor" number="6.3">
@@ -930,41 +929,41 @@ div.csl-indent {
 * reprojecting the points so that they match the coordinate reference system of the covariates,
 * extracting raster values at each soil observation location and attaching them to the point data.</p>
 <p>This produces a spatial dataset in which each soil observation is associated with the full set of environmental predictors.</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="part-ii-practical-application.html#cb264-1" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
-<span id="cb264-2"><a href="part-ii-practical-application.html#cb264-2" tabindex="-1"></a></span>
-<span id="cb264-3"><a href="part-ii-practical-application.html#cb264-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb264-4"><a href="part-ii-practical-application.html#cb264-4" tabindex="-1"></a><span class="co"># Load environmental covariates</span></span>
-<span id="cb264-5"><a href="part-ii-practical-application.html#cb264-5" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb264-6"><a href="part-ii-practical-application.html#cb264-6" tabindex="-1"></a></span>
-<span id="cb264-7"><a href="part-ii-practical-application.html#cb264-7" tabindex="-1"></a>covs <span class="ot">&lt;-</span> <span class="fu">rast</span>(</span>
-<span id="cb264-8"><a href="part-ii-practical-application.html#cb264-8" tabindex="-1"></a>  <span class="st">&quot;01_data/module1/training_data/data/Environmental_Covariates_250m_KANSAS.tif&quot;</span></span>
-<span id="cb264-9"><a href="part-ii-practical-application.html#cb264-9" tabindex="-1"></a>)</span>
-<span id="cb264-10"><a href="part-ii-practical-application.html#cb264-10" tabindex="-1"></a>cov_names <span class="ot">&lt;-</span> <span class="fu">names</span>(covs)</span>
-<span id="cb264-11"><a href="part-ii-practical-application.html#cb264-11" tabindex="-1"></a></span>
-<span id="cb264-12"><a href="part-ii-practical-application.html#cb264-12" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb264-13"><a href="part-ii-practical-application.html#cb264-13" tabindex="-1"></a><span class="co"># Convert the 0-30 cm soil summary table to spatial points</span></span>
-<span id="cb264-14"><a href="part-ii-practical-application.html#cb264-14" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb264-15"><a href="part-ii-practical-application.html#cb264-15" tabindex="-1"></a></span>
-<span id="cb264-16"><a href="part-ii-practical-application.html#cb264-16" tabindex="-1"></a>soil_pts <span class="ot">&lt;-</span> <span class="fu">vect</span>(</span>
-<span id="cb264-17"><a href="part-ii-practical-application.html#cb264-17" tabindex="-1"></a>  soc_0_30_xy,</span>
-<span id="cb264-18"><a href="part-ii-practical-application.html#cb264-18" tabindex="-1"></a>  <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">&quot;Long_Site.x&quot;</span>, <span class="st">&quot;Lat_Site.x&quot;</span>),</span>
-<span id="cb264-19"><a href="part-ii-practical-application.html#cb264-19" tabindex="-1"></a>  <span class="at">crs =</span> <span class="st">&quot;EPSG:4326&quot;</span></span>
-<span id="cb264-20"><a href="part-ii-practical-application.html#cb264-20" tabindex="-1"></a>)</span>
-<span id="cb264-21"><a href="part-ii-practical-application.html#cb264-21" tabindex="-1"></a></span>
-<span id="cb264-22"><a href="part-ii-practical-application.html#cb264-22" tabindex="-1"></a><span class="co"># Reproject points to match the raster covariate stack</span></span>
-<span id="cb264-23"><a href="part-ii-practical-application.html#cb264-23" tabindex="-1"></a>soil_pts <span class="ot">&lt;-</span> <span class="fu">project</span>(soil_pts, covs)</span>
-<span id="cb264-24"><a href="part-ii-practical-application.html#cb264-24" tabindex="-1"></a></span>
-<span id="cb264-25"><a href="part-ii-practical-application.html#cb264-25" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb264-26"><a href="part-ii-practical-application.html#cb264-26" tabindex="-1"></a><span class="co"># Extract covariate values at each soil point</span></span>
-<span id="cb264-27"><a href="part-ii-practical-application.html#cb264-27" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb264-28"><a href="part-ii-practical-application.html#cb264-28" tabindex="-1"></a></span>
-<span id="cb264-29"><a href="part-ii-practical-application.html#cb264-29" tabindex="-1"></a>covs_extracted <span class="ot">&lt;-</span> <span class="fu">extract</span>(covs, soil_pts)</span>
-<span id="cb264-30"><a href="part-ii-practical-application.html#cb264-30" tabindex="-1"></a></span>
-<span id="cb264-31"><a href="part-ii-practical-application.html#cb264-31" tabindex="-1"></a><span class="co"># Remove the ID column returned by extract() and attach predictors</span></span>
-<span id="cb264-32"><a href="part-ii-practical-application.html#cb264-32" tabindex="-1"></a>soil_pts <span class="ot">&lt;-</span> <span class="fu">cbind</span>(soil_pts, covs_extracted[, <span class="sc">-</span><span class="dv">1</span>])</span>
-<span id="cb264-33"><a href="part-ii-practical-application.html#cb264-33" tabindex="-1"></a></span>
-<span id="cb264-34"><a href="part-ii-practical-application.html#cb264-34" tabindex="-1"></a><span class="co"># Optional check: plot sample locations</span></span>
-<span id="cb264-35"><a href="part-ii-practical-application.html#cb264-35" tabindex="-1"></a><span class="fu">plot</span>(soil_pts, <span class="at">cex =</span> <span class="fl">0.7</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="part-ii-practical-application.html#cb268-1" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb268-2"><a href="part-ii-practical-application.html#cb268-2" tabindex="-1"></a></span>
+<span id="cb268-3"><a href="part-ii-practical-application.html#cb268-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-4"><a href="part-ii-practical-application.html#cb268-4" tabindex="-1"></a><span class="co"># Load environmental covariates</span></span>
+<span id="cb268-5"><a href="part-ii-practical-application.html#cb268-5" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-6"><a href="part-ii-practical-application.html#cb268-6" tabindex="-1"></a></span>
+<span id="cb268-7"><a href="part-ii-practical-application.html#cb268-7" tabindex="-1"></a>covs <span class="ot">&lt;-</span> <span class="fu">rast</span>(</span>
+<span id="cb268-8"><a href="part-ii-practical-application.html#cb268-8" tabindex="-1"></a>  <span class="st">&quot;01_data/module1/training_data/data/Environmental_Covariates_250m_KANSAS.tif&quot;</span></span>
+<span id="cb268-9"><a href="part-ii-practical-application.html#cb268-9" tabindex="-1"></a>)</span>
+<span id="cb268-10"><a href="part-ii-practical-application.html#cb268-10" tabindex="-1"></a>cov_names <span class="ot">&lt;-</span> <span class="fu">names</span>(covs)</span>
+<span id="cb268-11"><a href="part-ii-practical-application.html#cb268-11" tabindex="-1"></a></span>
+<span id="cb268-12"><a href="part-ii-practical-application.html#cb268-12" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-13"><a href="part-ii-practical-application.html#cb268-13" tabindex="-1"></a><span class="co"># Convert the 0-30 cm soil summary table to spatial points</span></span>
+<span id="cb268-14"><a href="part-ii-practical-application.html#cb268-14" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-15"><a href="part-ii-practical-application.html#cb268-15" tabindex="-1"></a></span>
+<span id="cb268-16"><a href="part-ii-practical-application.html#cb268-16" tabindex="-1"></a>soil_pts <span class="ot">&lt;-</span> <span class="fu">vect</span>(</span>
+<span id="cb268-17"><a href="part-ii-practical-application.html#cb268-17" tabindex="-1"></a>  soc_0_30_xy,</span>
+<span id="cb268-18"><a href="part-ii-practical-application.html#cb268-18" tabindex="-1"></a>  <span class="at">geom =</span> <span class="fu">c</span>(<span class="st">&quot;Long_Site.x&quot;</span>, <span class="st">&quot;Lat_Site.x&quot;</span>),</span>
+<span id="cb268-19"><a href="part-ii-practical-application.html#cb268-19" tabindex="-1"></a>  <span class="at">crs =</span> <span class="st">&quot;EPSG:4326&quot;</span></span>
+<span id="cb268-20"><a href="part-ii-practical-application.html#cb268-20" tabindex="-1"></a>)</span>
+<span id="cb268-21"><a href="part-ii-practical-application.html#cb268-21" tabindex="-1"></a></span>
+<span id="cb268-22"><a href="part-ii-practical-application.html#cb268-22" tabindex="-1"></a><span class="co"># Reproject points to match the raster covariate stack</span></span>
+<span id="cb268-23"><a href="part-ii-practical-application.html#cb268-23" tabindex="-1"></a>soil_pts <span class="ot">&lt;-</span> <span class="fu">project</span>(soil_pts, covs)</span>
+<span id="cb268-24"><a href="part-ii-practical-application.html#cb268-24" tabindex="-1"></a></span>
+<span id="cb268-25"><a href="part-ii-practical-application.html#cb268-25" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-26"><a href="part-ii-practical-application.html#cb268-26" tabindex="-1"></a><span class="co"># Extract covariate values at each soil point</span></span>
+<span id="cb268-27"><a href="part-ii-practical-application.html#cb268-27" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb268-28"><a href="part-ii-practical-application.html#cb268-28" tabindex="-1"></a></span>
+<span id="cb268-29"><a href="part-ii-practical-application.html#cb268-29" tabindex="-1"></a>covs_extracted <span class="ot">&lt;-</span> <span class="fu">extract</span>(covs, soil_pts)</span>
+<span id="cb268-30"><a href="part-ii-practical-application.html#cb268-30" tabindex="-1"></a></span>
+<span id="cb268-31"><a href="part-ii-practical-application.html#cb268-31" tabindex="-1"></a><span class="co"># Remove the ID column returned by extract() and attach predictors</span></span>
+<span id="cb268-32"><a href="part-ii-practical-application.html#cb268-32" tabindex="-1"></a>soil_pts <span class="ot">&lt;-</span> <span class="fu">cbind</span>(soil_pts, covs_extracted[, <span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb268-33"><a href="part-ii-practical-application.html#cb268-33" tabindex="-1"></a></span>
+<span id="cb268-34"><a href="part-ii-practical-application.html#cb268-34" tabindex="-1"></a><span class="co"># Optional check: plot sample locations</span></span>
+<span id="cb268-35"><a href="part-ii-practical-application.html#cb268-35" tabindex="-1"></a><span class="fu">plot</span>(soil_pts, <span class="at">cex =</span> <span class="fl">0.7</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 </div>
 <div id="dsm-model-training-with-spectroscopic-data" class="section level2 hasAnchor" number="6.4">
 <h2><span class="header-section-number">6.4</span> DSM model training with spectroscopic data<a href="part-ii-practical-application.html#dsm-model-training-with-spectroscopic-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -980,16 +979,16 @@ This uncertainty can be used to control the relative influence of each observati
 * spectroscopic predictions (based on prediction standard deviation), and
 * laboratory measurements (based on analytical uncertainty).</p>
 <p>Inspecting the distribution of these weights helps to understand the relative precision of the two data sources and to detect potential extreme values before model fitting.</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="part-ii-practical-application.html#cb265-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb265-2"><a href="part-ii-practical-application.html#cb265-2" tabindex="-1"></a><span class="co"># Define inverse-variance weights for modelling</span></span>
-<span id="cb265-3"><a href="part-ii-practical-application.html#cb265-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb265-4"><a href="part-ii-practical-application.html#cb265-4" tabindex="-1"></a></span>
-<span id="cb265-5"><a href="part-ii-practical-application.html#cb265-5" tabindex="-1"></a>soil_pts<span class="sc">$</span>w_RF_raw  <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (soil_pts<span class="sc">$</span>SOC_sdRF_0_30<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb265-6"><a href="part-ii-practical-application.html#cb265-6" tabindex="-1"></a>soil_pts<span class="sc">$</span>w_LAB_raw <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (soil_pts<span class="sc">$</span>SOC_sdLAB_0_30<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb265-7"><a href="part-ii-practical-application.html#cb265-7" tabindex="-1"></a></span>
-<span id="cb265-8"><a href="part-ii-practical-application.html#cb265-8" tabindex="-1"></a><span class="co"># Optional: check weight distributions</span></span>
-<span id="cb265-9"><a href="part-ii-practical-application.html#cb265-9" tabindex="-1"></a><span class="fu">summary</span>(soil_pts<span class="sc">$</span>w_RF_raw)</span>
-<span id="cb265-10"><a href="part-ii-practical-application.html#cb265-10" tabindex="-1"></a><span class="fu">summary</span>(soil_pts<span class="sc">$</span>w_LAB_raw)</span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="part-ii-practical-application.html#cb269-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb269-2"><a href="part-ii-practical-application.html#cb269-2" tabindex="-1"></a><span class="co"># Define inverse-variance weights for modelling</span></span>
+<span id="cb269-3"><a href="part-ii-practical-application.html#cb269-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb269-4"><a href="part-ii-practical-application.html#cb269-4" tabindex="-1"></a></span>
+<span id="cb269-5"><a href="part-ii-practical-application.html#cb269-5" tabindex="-1"></a>soil_pts<span class="sc">$</span>w_RF_raw  <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (soil_pts<span class="sc">$</span>SOC_sdRF_0_30<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb269-6"><a href="part-ii-practical-application.html#cb269-6" tabindex="-1"></a>soil_pts<span class="sc">$</span>w_LAB_raw <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> (soil_pts<span class="sc">$</span>SOC_sdLAB_0_30<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb269-7"><a href="part-ii-practical-application.html#cb269-7" tabindex="-1"></a></span>
+<span id="cb269-8"><a href="part-ii-practical-application.html#cb269-8" tabindex="-1"></a><span class="co"># Optional: check weight distributions</span></span>
+<span id="cb269-9"><a href="part-ii-practical-application.html#cb269-9" tabindex="-1"></a><span class="fu">summary</span>(soil_pts<span class="sc">$</span>w_RF_raw)</span>
+<span id="cb269-10"><a href="part-ii-practical-application.html#cb269-10" tabindex="-1"></a><span class="fu">summary</span>(soil_pts<span class="sc">$</span>w_LAB_raw)</span></code></pre></div>
 </div>
 <div id="baseline-dsm-model-using-laboratory-data" class="section level3 hasAnchor" number="6.4.2">
 <h3><span class="header-section-number">6.4.2</span> Baseline DSM model using laboratory data<a href="part-ii-practical-application.html#baseline-dsm-model-using-laboratory-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1003,76 +1002,76 @@ This uncertainty can be used to control the relative influence of each observati
 <p>After removing incomplete or invalid cases, a weighted random forest model is fitted. The case weights ensure that observations contribute according to their estimated reliability, rather than simply according to their number.</p>
 <p>Spatial predictions are then generated and compared with the baseline laboratory-only model. Mapping the difference between predictions helps to visualise how the inclusion of spectroscopic data influences the spatial distribution of SOC.</p>
 <p>This exercise illustrates a practical strategy for integrating heterogeneous soil information sources in DSM. The same principles can be applied to other soil properties and modelling approaches, such as with geostatistics or other machine learning techniques commonly used in DSM.</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="part-ii-practical-application.html#cb266-1" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
-<span id="cb266-2"><a href="part-ii-practical-application.html#cb266-2" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
-<span id="cb266-3"><a href="part-ii-practical-application.html#cb266-3" tabindex="-1"></a></span>
-<span id="cb266-4"><a href="part-ii-practical-application.html#cb266-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb266-5"><a href="part-ii-practical-application.html#cb266-5" tabindex="-1"></a></span>
-<span id="cb266-6"><a href="part-ii-practical-application.html#cb266-6" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb266-7"><a href="part-ii-practical-application.html#cb266-7" tabindex="-1"></a><span class="co"># Create a mixed dataset with 25% spectroscopic observations</span></span>
-<span id="cb266-8"><a href="part-ii-practical-application.html#cb266-8" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb266-9"><a href="part-ii-practical-application.html#cb266-9" tabindex="-1"></a></span>
-<span id="cb266-10"><a href="part-ii-practical-application.html#cb266-10" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(soil_df)</span>
-<span id="cb266-11"><a href="part-ii-practical-application.html#cb266-11" tabindex="-1"></a></span>
-<span id="cb266-12"><a href="part-ii-practical-application.html#cb266-12" tabindex="-1"></a><span class="co"># Randomly select 25% of observations to be replaced by RF predictions</span></span>
-<span id="cb266-13"><a href="part-ii-practical-application.html#cb266-13" tabindex="-1"></a>idx_rf <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(n), <span class="at">size =</span> <span class="fu">round</span>(<span class="fl">0.25</span> <span class="sc">*</span> n))</span>
-<span id="cb266-14"><a href="part-ii-practical-application.html#cb266-14" tabindex="-1"></a></span>
-<span id="cb266-15"><a href="part-ii-practical-application.html#cb266-15" tabindex="-1"></a><span class="co"># Mixed response variable:</span></span>
-<span id="cb266-16"><a href="part-ii-practical-application.html#cb266-16" tabindex="-1"></a><span class="co"># keep lab SOC by default, replace selected points with RF-based SOC</span></span>
-<span id="cb266-17"><a href="part-ii-practical-application.html#cb266-17" tabindex="-1"></a>soil_df<span class="sc">$</span>SOC_mix <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>SOC</span>
-<span id="cb266-18"><a href="part-ii-practical-application.html#cb266-18" tabindex="-1"></a>soil_df<span class="sc">$</span>SOC_mix[idx_rf] <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>SOC_predRF_0_30[idx_rf]</span>
-<span id="cb266-19"><a href="part-ii-practical-application.html#cb266-19" tabindex="-1"></a></span>
-<span id="cb266-20"><a href="part-ii-practical-application.html#cb266-20" tabindex="-1"></a><span class="co"># Matching weights:</span></span>
-<span id="cb266-21"><a href="part-ii-practical-application.html#cb266-21" tabindex="-1"></a><span class="co"># lab points keep lab weights, RF points receive RF-based weights</span></span>
-<span id="cb266-22"><a href="part-ii-practical-application.html#cb266-22" tabindex="-1"></a>soil_df<span class="sc">$</span>w_mix <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>w_LAB_raw</span>
-<span id="cb266-23"><a href="part-ii-practical-application.html#cb266-23" tabindex="-1"></a>soil_df<span class="sc">$</span>w_mix[idx_rf] <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>w_RF_raw[idx_rf]</span>
-<span id="cb266-24"><a href="part-ii-practical-application.html#cb266-24" tabindex="-1"></a></span>
-<span id="cb266-25"><a href="part-ii-practical-application.html#cb266-25" tabindex="-1"></a><span class="co"># Optional indicator showing the source of each observation</span></span>
-<span id="cb266-26"><a href="part-ii-practical-application.html#cb266-26" tabindex="-1"></a>soil_df<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">&quot;LAB&quot;</span></span>
-<span id="cb266-27"><a href="part-ii-practical-application.html#cb266-27" tabindex="-1"></a>soil_df<span class="sc">$</span>source[idx_rf] <span class="ot">&lt;-</span> <span class="st">&quot;RF&quot;</span></span>
-<span id="cb266-28"><a href="part-ii-practical-application.html#cb266-28" tabindex="-1"></a></span>
-<span id="cb266-29"><a href="part-ii-practical-application.html#cb266-29" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb266-30"><a href="part-ii-practical-application.html#cb266-30" tabindex="-1"></a><span class="co"># Keep only valid rows for modelling</span></span>
-<span id="cb266-31"><a href="part-ii-practical-application.html#cb266-31" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb266-32"><a href="part-ii-practical-application.html#cb266-32" tabindex="-1"></a></span>
-<span id="cb266-33"><a href="part-ii-practical-application.html#cb266-33" tabindex="-1"></a>vars_needed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SOC_mix&quot;</span>, <span class="st">&quot;w_mix&quot;</span>, cov_names)</span>
-<span id="cb266-34"><a href="part-ii-practical-application.html#cb266-34" tabindex="-1"></a></span>
-<span id="cb266-35"><a href="part-ii-practical-application.html#cb266-35" tabindex="-1"></a>soil_df2 <span class="ot">&lt;-</span> soil_df[</span>
-<span id="cb266-36"><a href="part-ii-practical-application.html#cb266-36" tabindex="-1"></a>  <span class="fu">complete.cases</span>(soil_df[, vars_needed]) <span class="sc">&amp;</span></span>
-<span id="cb266-37"><a href="part-ii-practical-application.html#cb266-37" tabindex="-1"></a>    <span class="fu">is.finite</span>(soil_df<span class="sc">$</span>w_mix) <span class="sc">&amp;</span></span>
-<span id="cb266-38"><a href="part-ii-practical-application.html#cb266-38" tabindex="-1"></a>    soil_df<span class="sc">$</span>w_mix <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
-<span id="cb266-39"><a href="part-ii-practical-application.html#cb266-39" tabindex="-1"></a>]</span>
-<span id="cb266-40"><a href="part-ii-practical-application.html#cb266-40" tabindex="-1"></a></span>
-<span id="cb266-41"><a href="part-ii-practical-application.html#cb266-41" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb266-42"><a href="part-ii-practical-application.html#cb266-42" tabindex="-1"></a><span class="co"># Fit weighted random forest model</span></span>
-<span id="cb266-43"><a href="part-ii-practical-application.html#cb266-43" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb266-44"><a href="part-ii-practical-application.html#cb266-44" tabindex="-1"></a></span>
-<span id="cb266-45"><a href="part-ii-practical-application.html#cb266-45" tabindex="-1"></a>form_mix <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(</span>
-<span id="cb266-46"><a href="part-ii-practical-application.html#cb266-46" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">&quot;SOC_mix ~&quot;</span>, <span class="fu">paste</span>(cov_names, <span class="at">collapse =</span> <span class="st">&quot; + &quot;</span>))</span>
-<span id="cb266-47"><a href="part-ii-practical-application.html#cb266-47" tabindex="-1"></a>)</span>
-<span id="cb266-48"><a href="part-ii-practical-application.html#cb266-48" tabindex="-1"></a></span>
-<span id="cb266-49"><a href="part-ii-practical-application.html#cb266-49" tabindex="-1"></a>mod_mix25 <span class="ot">&lt;-</span> <span class="fu">ranger</span>(</span>
-<span id="cb266-50"><a href="part-ii-practical-application.html#cb266-50" tabindex="-1"></a>  <span class="at">formula =</span> form_mix,</span>
-<span id="cb266-51"><a href="part-ii-practical-application.html#cb266-51" tabindex="-1"></a>  <span class="at">data =</span> soil_df2,</span>
-<span id="cb266-52"><a href="part-ii-practical-application.html#cb266-52" tabindex="-1"></a>  <span class="at">case.weights =</span> soil_df2<span class="sc">$</span>w_mix,</span>
-<span id="cb266-53"><a href="part-ii-practical-application.html#cb266-53" tabindex="-1"></a>  <span class="at">num.trees =</span> <span class="dv">100</span></span>
-<span id="cb266-54"><a href="part-ii-practical-application.html#cb266-54" tabindex="-1"></a>)</span>
-<span id="cb266-55"><a href="part-ii-practical-application.html#cb266-55" tabindex="-1"></a></span>
-<span id="cb266-56"><a href="part-ii-practical-application.html#cb266-56" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb266-57"><a href="part-ii-practical-application.html#cb266-57" tabindex="-1"></a><span class="co"># Predict SOC map for the mixed scenario</span></span>
-<span id="cb266-58"><a href="part-ii-practical-application.html#cb266-58" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb266-59"><a href="part-ii-practical-application.html#cb266-59" tabindex="-1"></a></span>
-<span id="cb266-60"><a href="part-ii-practical-application.html#cb266-60" tabindex="-1"></a>soc_map_mix25 <span class="ot">&lt;-</span> <span class="fu">predict</span>(covs, mod_mix25, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb266-61"><a href="part-ii-practical-application.html#cb266-61" tabindex="-1"></a></span>
-<span id="cb266-62"><a href="part-ii-practical-application.html#cb266-62" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb266-63"><a href="part-ii-practical-application.html#cb266-63" tabindex="-1"></a><span class="co"># Compare baseline and mixed maps</span></span>
-<span id="cb266-64"><a href="part-ii-practical-application.html#cb266-64" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb266-65"><a href="part-ii-practical-application.html#cb266-65" tabindex="-1"></a></span>
-<span id="cb266-66"><a href="part-ii-practical-application.html#cb266-66" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
-<span id="cb266-67"><a href="part-ii-practical-application.html#cb266-67" tabindex="-1"></a></span>
-<span id="cb266-68"><a href="part-ii-practical-application.html#cb266-68" tabindex="-1"></a><span class="fu">plot</span>(soc_map, <span class="at">main =</span> <span class="st">&quot;SOC map: lab only&quot;</span>)</span>
-<span id="cb266-69"><a href="part-ii-practical-application.html#cb266-69" tabindex="-1"></a><span class="fu">plot</span>(soc_map_mix25, <span class="at">main =</span> <span class="st">&quot;SOC map: 25% spectro&quot;</span>)</span>
-<span id="cb266-70"><a href="part-ii-practical-application.html#cb266-70" tabindex="-1"></a><span class="fu">plot</span>(soc_map <span class="sc">-</span> soc_map_mix25, <span class="at">main =</span> <span class="st">&quot;Difference&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="part-ii-practical-application.html#cb270-1" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
+<span id="cb270-2"><a href="part-ii-practical-application.html#cb270-2" tabindex="-1"></a><span class="fu">library</span>(terra)</span>
+<span id="cb270-3"><a href="part-ii-practical-application.html#cb270-3" tabindex="-1"></a></span>
+<span id="cb270-4"><a href="part-ii-practical-application.html#cb270-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb270-5"><a href="part-ii-practical-application.html#cb270-5" tabindex="-1"></a></span>
+<span id="cb270-6"><a href="part-ii-practical-application.html#cb270-6" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb270-7"><a href="part-ii-practical-application.html#cb270-7" tabindex="-1"></a><span class="co"># Create a mixed dataset with 25% spectroscopic observations</span></span>
+<span id="cb270-8"><a href="part-ii-practical-application.html#cb270-8" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb270-9"><a href="part-ii-practical-application.html#cb270-9" tabindex="-1"></a></span>
+<span id="cb270-10"><a href="part-ii-practical-application.html#cb270-10" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(soil_df)</span>
+<span id="cb270-11"><a href="part-ii-practical-application.html#cb270-11" tabindex="-1"></a></span>
+<span id="cb270-12"><a href="part-ii-practical-application.html#cb270-12" tabindex="-1"></a><span class="co"># Randomly select 25% of observations to be replaced by RF predictions</span></span>
+<span id="cb270-13"><a href="part-ii-practical-application.html#cb270-13" tabindex="-1"></a>idx_rf <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(n), <span class="at">size =</span> <span class="fu">round</span>(<span class="fl">0.25</span> <span class="sc">*</span> n))</span>
+<span id="cb270-14"><a href="part-ii-practical-application.html#cb270-14" tabindex="-1"></a></span>
+<span id="cb270-15"><a href="part-ii-practical-application.html#cb270-15" tabindex="-1"></a><span class="co"># Mixed response variable:</span></span>
+<span id="cb270-16"><a href="part-ii-practical-application.html#cb270-16" tabindex="-1"></a><span class="co"># keep lab SOC by default, replace selected points with RF-based SOC</span></span>
+<span id="cb270-17"><a href="part-ii-practical-application.html#cb270-17" tabindex="-1"></a>soil_df<span class="sc">$</span>SOC_mix <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>SOC</span>
+<span id="cb270-18"><a href="part-ii-practical-application.html#cb270-18" tabindex="-1"></a>soil_df<span class="sc">$</span>SOC_mix[idx_rf] <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>SOC_predRF_0_30[idx_rf]</span>
+<span id="cb270-19"><a href="part-ii-practical-application.html#cb270-19" tabindex="-1"></a></span>
+<span id="cb270-20"><a href="part-ii-practical-application.html#cb270-20" tabindex="-1"></a><span class="co"># Matching weights:</span></span>
+<span id="cb270-21"><a href="part-ii-practical-application.html#cb270-21" tabindex="-1"></a><span class="co"># lab points keep lab weights, RF points receive RF-based weights</span></span>
+<span id="cb270-22"><a href="part-ii-practical-application.html#cb270-22" tabindex="-1"></a>soil_df<span class="sc">$</span>w_mix <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>w_LAB_raw</span>
+<span id="cb270-23"><a href="part-ii-practical-application.html#cb270-23" tabindex="-1"></a>soil_df<span class="sc">$</span>w_mix[idx_rf] <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>w_RF_raw[idx_rf]</span>
+<span id="cb270-24"><a href="part-ii-practical-application.html#cb270-24" tabindex="-1"></a></span>
+<span id="cb270-25"><a href="part-ii-practical-application.html#cb270-25" tabindex="-1"></a><span class="co"># Optional indicator showing the source of each observation</span></span>
+<span id="cb270-26"><a href="part-ii-practical-application.html#cb270-26" tabindex="-1"></a>soil_df<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">&quot;LAB&quot;</span></span>
+<span id="cb270-27"><a href="part-ii-practical-application.html#cb270-27" tabindex="-1"></a>soil_df<span class="sc">$</span>source[idx_rf] <span class="ot">&lt;-</span> <span class="st">&quot;RF&quot;</span></span>
+<span id="cb270-28"><a href="part-ii-practical-application.html#cb270-28" tabindex="-1"></a></span>
+<span id="cb270-29"><a href="part-ii-practical-application.html#cb270-29" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb270-30"><a href="part-ii-practical-application.html#cb270-30" tabindex="-1"></a><span class="co"># Keep only valid rows for modelling</span></span>
+<span id="cb270-31"><a href="part-ii-practical-application.html#cb270-31" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb270-32"><a href="part-ii-practical-application.html#cb270-32" tabindex="-1"></a></span>
+<span id="cb270-33"><a href="part-ii-practical-application.html#cb270-33" tabindex="-1"></a>vars_needed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SOC_mix&quot;</span>, <span class="st">&quot;w_mix&quot;</span>, cov_names)</span>
+<span id="cb270-34"><a href="part-ii-practical-application.html#cb270-34" tabindex="-1"></a></span>
+<span id="cb270-35"><a href="part-ii-practical-application.html#cb270-35" tabindex="-1"></a>soil_df2 <span class="ot">&lt;-</span> soil_df[</span>
+<span id="cb270-36"><a href="part-ii-practical-application.html#cb270-36" tabindex="-1"></a>  <span class="fu">complete.cases</span>(soil_df[, vars_needed]) <span class="sc">&amp;</span></span>
+<span id="cb270-37"><a href="part-ii-practical-application.html#cb270-37" tabindex="-1"></a>    <span class="fu">is.finite</span>(soil_df<span class="sc">$</span>w_mix) <span class="sc">&amp;</span></span>
+<span id="cb270-38"><a href="part-ii-practical-application.html#cb270-38" tabindex="-1"></a>    soil_df<span class="sc">$</span>w_mix <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb270-39"><a href="part-ii-practical-application.html#cb270-39" tabindex="-1"></a>]</span>
+<span id="cb270-40"><a href="part-ii-practical-application.html#cb270-40" tabindex="-1"></a></span>
+<span id="cb270-41"><a href="part-ii-practical-application.html#cb270-41" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb270-42"><a href="part-ii-practical-application.html#cb270-42" tabindex="-1"></a><span class="co"># Fit weighted random forest model</span></span>
+<span id="cb270-43"><a href="part-ii-practical-application.html#cb270-43" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb270-44"><a href="part-ii-practical-application.html#cb270-44" tabindex="-1"></a></span>
+<span id="cb270-45"><a href="part-ii-practical-application.html#cb270-45" tabindex="-1"></a>form_mix <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(</span>
+<span id="cb270-46"><a href="part-ii-practical-application.html#cb270-46" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">&quot;SOC_mix ~&quot;</span>, <span class="fu">paste</span>(cov_names, <span class="at">collapse =</span> <span class="st">&quot; + &quot;</span>))</span>
+<span id="cb270-47"><a href="part-ii-practical-application.html#cb270-47" tabindex="-1"></a>)</span>
+<span id="cb270-48"><a href="part-ii-practical-application.html#cb270-48" tabindex="-1"></a></span>
+<span id="cb270-49"><a href="part-ii-practical-application.html#cb270-49" tabindex="-1"></a>mod_mix25 <span class="ot">&lt;-</span> <span class="fu">ranger</span>(</span>
+<span id="cb270-50"><a href="part-ii-practical-application.html#cb270-50" tabindex="-1"></a>  <span class="at">formula =</span> form_mix,</span>
+<span id="cb270-51"><a href="part-ii-practical-application.html#cb270-51" tabindex="-1"></a>  <span class="at">data =</span> soil_df2,</span>
+<span id="cb270-52"><a href="part-ii-practical-application.html#cb270-52" tabindex="-1"></a>  <span class="at">case.weights =</span> soil_df2<span class="sc">$</span>w_mix,</span>
+<span id="cb270-53"><a href="part-ii-practical-application.html#cb270-53" tabindex="-1"></a>  <span class="at">num.trees =</span> <span class="dv">100</span></span>
+<span id="cb270-54"><a href="part-ii-practical-application.html#cb270-54" tabindex="-1"></a>)</span>
+<span id="cb270-55"><a href="part-ii-practical-application.html#cb270-55" tabindex="-1"></a></span>
+<span id="cb270-56"><a href="part-ii-practical-application.html#cb270-56" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb270-57"><a href="part-ii-practical-application.html#cb270-57" tabindex="-1"></a><span class="co"># Predict SOC map for the mixed scenario</span></span>
+<span id="cb270-58"><a href="part-ii-practical-application.html#cb270-58" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb270-59"><a href="part-ii-practical-application.html#cb270-59" tabindex="-1"></a></span>
+<span id="cb270-60"><a href="part-ii-practical-application.html#cb270-60" tabindex="-1"></a>soc_map_mix25 <span class="ot">&lt;-</span> <span class="fu">predict</span>(covs, mod_mix25, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb270-61"><a href="part-ii-practical-application.html#cb270-61" tabindex="-1"></a></span>
+<span id="cb270-62"><a href="part-ii-practical-application.html#cb270-62" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb270-63"><a href="part-ii-practical-application.html#cb270-63" tabindex="-1"></a><span class="co"># Compare baseline and mixed maps</span></span>
+<span id="cb270-64"><a href="part-ii-practical-application.html#cb270-64" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb270-65"><a href="part-ii-practical-application.html#cb270-65" tabindex="-1"></a></span>
+<span id="cb270-66"><a href="part-ii-practical-application.html#cb270-66" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>))</span>
+<span id="cb270-67"><a href="part-ii-practical-application.html#cb270-67" tabindex="-1"></a></span>
+<span id="cb270-68"><a href="part-ii-practical-application.html#cb270-68" tabindex="-1"></a><span class="fu">plot</span>(soc_map, <span class="at">main =</span> <span class="st">&quot;SOC map: lab only&quot;</span>)</span>
+<span id="cb270-69"><a href="part-ii-practical-application.html#cb270-69" tabindex="-1"></a><span class="fu">plot</span>(soc_map_mix25, <span class="at">main =</span> <span class="st">&quot;SOC map: 25% spectro&quot;</span>)</span>
+<span id="cb270-70"><a href="part-ii-practical-application.html#cb270-70" tabindex="-1"></a><span class="fu">plot</span>(soc_map <span class="sc">-</span> soc_map_mix25, <span class="at">main =</span> <span class="st">&quot;Difference&quot;</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="model-validation" class="section level2 hasAnchor" number="6.5">
@@ -1114,129 +1113,129 @@ NSE_w =
 }
 \]</span>
 Simple functions can be defined to compute these metrics from vectors of observations, predictions, and associated weights. These functions will be used throughout the validation exercises.</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="part-ii-practical-application.html#cb267-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb267-2"><a href="part-ii-practical-application.html#cb267-2" tabindex="-1"></a><span class="co"># Weighted validation metrics</span></span>
-<span id="cb267-3"><a href="part-ii-practical-application.html#cb267-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb267-4"><a href="part-ii-practical-application.html#cb267-4" tabindex="-1"></a></span>
-<span id="cb267-5"><a href="part-ii-practical-application.html#cb267-5" tabindex="-1"></a><span class="co"># Weighted Mean Error (bias)</span></span>
-<span id="cb267-6"><a href="part-ii-practical-application.html#cb267-6" tabindex="-1"></a>wME <span class="ot">&lt;-</span> <span class="cf">function</span>(obs, pred, w) {</span>
-<span id="cb267-7"><a href="part-ii-practical-application.html#cb267-7" tabindex="-1"></a>  <span class="fu">sum</span>(w <span class="sc">*</span> (pred <span class="sc">-</span> obs), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span></span>
-<span id="cb267-8"><a href="part-ii-practical-application.html#cb267-8" tabindex="-1"></a>    <span class="fu">sum</span>(w, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb267-9"><a href="part-ii-practical-application.html#cb267-9" tabindex="-1"></a>}</span>
-<span id="cb267-10"><a href="part-ii-practical-application.html#cb267-10" tabindex="-1"></a></span>
-<span id="cb267-11"><a href="part-ii-practical-application.html#cb267-11" tabindex="-1"></a><span class="co"># Weighted Root Mean Squared Error</span></span>
-<span id="cb267-12"><a href="part-ii-practical-application.html#cb267-12" tabindex="-1"></a>wRMSE <span class="ot">&lt;-</span> <span class="cf">function</span>(obs, pred, w) {</span>
-<span id="cb267-13"><a href="part-ii-practical-application.html#cb267-13" tabindex="-1"></a>  <span class="fu">sqrt</span>(</span>
-<span id="cb267-14"><a href="part-ii-practical-application.html#cb267-14" tabindex="-1"></a>    <span class="fu">sum</span>(w <span class="sc">*</span> (pred <span class="sc">-</span> obs)<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span></span>
-<span id="cb267-15"><a href="part-ii-practical-application.html#cb267-15" tabindex="-1"></a>      <span class="fu">sum</span>(w, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb267-16"><a href="part-ii-practical-application.html#cb267-16" tabindex="-1"></a>  )</span>
-<span id="cb267-17"><a href="part-ii-practical-application.html#cb267-17" tabindex="-1"></a>}</span>
-<span id="cb267-18"><a href="part-ii-practical-application.html#cb267-18" tabindex="-1"></a></span>
-<span id="cb267-19"><a href="part-ii-practical-application.html#cb267-19" tabindex="-1"></a><span class="co"># Weighted Nash–Sutcliffe Efficiency</span></span>
-<span id="cb267-20"><a href="part-ii-practical-application.html#cb267-20" tabindex="-1"></a>wNSE <span class="ot">&lt;-</span> <span class="cf">function</span>(obs, pred, w) {</span>
-<span id="cb267-21"><a href="part-ii-practical-application.html#cb267-21" tabindex="-1"></a>  </span>
-<span id="cb267-22"><a href="part-ii-practical-application.html#cb267-22" tabindex="-1"></a>  <span class="co"># weighted mean of observations</span></span>
-<span id="cb267-23"><a href="part-ii-practical-application.html#cb267-23" tabindex="-1"></a>  zbar_w <span class="ot">&lt;-</span> <span class="fu">sum</span>(w <span class="sc">*</span> obs, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span></span>
-<span id="cb267-24"><a href="part-ii-practical-application.html#cb267-24" tabindex="-1"></a>            <span class="fu">sum</span>(w, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb267-25"><a href="part-ii-practical-application.html#cb267-25" tabindex="-1"></a>  </span>
-<span id="cb267-26"><a href="part-ii-practical-application.html#cb267-26" tabindex="-1"></a>  <span class="co"># weighted residual sum of squares</span></span>
-<span id="cb267-27"><a href="part-ii-practical-application.html#cb267-27" tabindex="-1"></a>  num <span class="ot">&lt;-</span> <span class="fu">sum</span>(w <span class="sc">*</span> (pred <span class="sc">-</span> obs)<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb267-28"><a href="part-ii-practical-application.html#cb267-28" tabindex="-1"></a>  </span>
-<span id="cb267-29"><a href="part-ii-practical-application.html#cb267-29" tabindex="-1"></a>  <span class="co"># weighted total sum of squares</span></span>
-<span id="cb267-30"><a href="part-ii-practical-application.html#cb267-30" tabindex="-1"></a>  den <span class="ot">&lt;-</span> <span class="fu">sum</span>(w <span class="sc">*</span> (obs <span class="sc">-</span> zbar_w)<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb267-31"><a href="part-ii-practical-application.html#cb267-31" tabindex="-1"></a>  </span>
-<span id="cb267-32"><a href="part-ii-practical-application.html#cb267-32" tabindex="-1"></a>  <span class="dv">1</span> <span class="sc">-</span> num <span class="sc">/</span> den</span>
-<span id="cb267-33"><a href="part-ii-practical-application.html#cb267-33" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="part-ii-practical-application.html#cb271-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb271-2"><a href="part-ii-practical-application.html#cb271-2" tabindex="-1"></a><span class="co"># Weighted validation metrics</span></span>
+<span id="cb271-3"><a href="part-ii-practical-application.html#cb271-3" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb271-4"><a href="part-ii-practical-application.html#cb271-4" tabindex="-1"></a></span>
+<span id="cb271-5"><a href="part-ii-practical-application.html#cb271-5" tabindex="-1"></a><span class="co"># Weighted Mean Error (bias)</span></span>
+<span id="cb271-6"><a href="part-ii-practical-application.html#cb271-6" tabindex="-1"></a>wME <span class="ot">&lt;-</span> <span class="cf">function</span>(obs, pred, w) {</span>
+<span id="cb271-7"><a href="part-ii-practical-application.html#cb271-7" tabindex="-1"></a>  <span class="fu">sum</span>(w <span class="sc">*</span> (pred <span class="sc">-</span> obs), <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span></span>
+<span id="cb271-8"><a href="part-ii-practical-application.html#cb271-8" tabindex="-1"></a>    <span class="fu">sum</span>(w, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb271-9"><a href="part-ii-practical-application.html#cb271-9" tabindex="-1"></a>}</span>
+<span id="cb271-10"><a href="part-ii-practical-application.html#cb271-10" tabindex="-1"></a></span>
+<span id="cb271-11"><a href="part-ii-practical-application.html#cb271-11" tabindex="-1"></a><span class="co"># Weighted Root Mean Squared Error</span></span>
+<span id="cb271-12"><a href="part-ii-practical-application.html#cb271-12" tabindex="-1"></a>wRMSE <span class="ot">&lt;-</span> <span class="cf">function</span>(obs, pred, w) {</span>
+<span id="cb271-13"><a href="part-ii-practical-application.html#cb271-13" tabindex="-1"></a>  <span class="fu">sqrt</span>(</span>
+<span id="cb271-14"><a href="part-ii-practical-application.html#cb271-14" tabindex="-1"></a>    <span class="fu">sum</span>(w <span class="sc">*</span> (pred <span class="sc">-</span> obs)<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span></span>
+<span id="cb271-15"><a href="part-ii-practical-application.html#cb271-15" tabindex="-1"></a>      <span class="fu">sum</span>(w, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb271-16"><a href="part-ii-practical-application.html#cb271-16" tabindex="-1"></a>  )</span>
+<span id="cb271-17"><a href="part-ii-practical-application.html#cb271-17" tabindex="-1"></a>}</span>
+<span id="cb271-18"><a href="part-ii-practical-application.html#cb271-18" tabindex="-1"></a></span>
+<span id="cb271-19"><a href="part-ii-practical-application.html#cb271-19" tabindex="-1"></a><span class="co"># Weighted Nash–Sutcliffe Efficiency</span></span>
+<span id="cb271-20"><a href="part-ii-practical-application.html#cb271-20" tabindex="-1"></a>wNSE <span class="ot">&lt;-</span> <span class="cf">function</span>(obs, pred, w) {</span>
+<span id="cb271-21"><a href="part-ii-practical-application.html#cb271-21" tabindex="-1"></a>  </span>
+<span id="cb271-22"><a href="part-ii-practical-application.html#cb271-22" tabindex="-1"></a>  <span class="co"># weighted mean of observations</span></span>
+<span id="cb271-23"><a href="part-ii-practical-application.html#cb271-23" tabindex="-1"></a>  zbar_w <span class="ot">&lt;-</span> <span class="fu">sum</span>(w <span class="sc">*</span> obs, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">/</span></span>
+<span id="cb271-24"><a href="part-ii-practical-application.html#cb271-24" tabindex="-1"></a>            <span class="fu">sum</span>(w, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb271-25"><a href="part-ii-practical-application.html#cb271-25" tabindex="-1"></a>  </span>
+<span id="cb271-26"><a href="part-ii-practical-application.html#cb271-26" tabindex="-1"></a>  <span class="co"># weighted residual sum of squares</span></span>
+<span id="cb271-27"><a href="part-ii-practical-application.html#cb271-27" tabindex="-1"></a>  num <span class="ot">&lt;-</span> <span class="fu">sum</span>(w <span class="sc">*</span> (pred <span class="sc">-</span> obs)<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb271-28"><a href="part-ii-practical-application.html#cb271-28" tabindex="-1"></a>  </span>
+<span id="cb271-29"><a href="part-ii-practical-application.html#cb271-29" tabindex="-1"></a>  <span class="co"># weighted total sum of squares</span></span>
+<span id="cb271-30"><a href="part-ii-practical-application.html#cb271-30" tabindex="-1"></a>  den <span class="ot">&lt;-</span> <span class="fu">sum</span>(w <span class="sc">*</span> (obs <span class="sc">-</span> zbar_w)<span class="sc">^</span><span class="dv">2</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb271-31"><a href="part-ii-practical-application.html#cb271-31" tabindex="-1"></a>  </span>
+<span id="cb271-32"><a href="part-ii-practical-application.html#cb271-32" tabindex="-1"></a>  <span class="dv">1</span> <span class="sc">-</span> num <span class="sc">/</span> den</span>
+<span id="cb271-33"><a href="part-ii-practical-application.html#cb271-33" tabindex="-1"></a>}</span></code></pre></div>
 </div>
 <div id="cross-validating-the-models" class="section level3 hasAnchor" number="6.5.2">
 <h3><span class="header-section-number">6.5.2</span> Cross-validating the models<a href="part-ii-practical-application.html#cross-validating-the-models" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To obtain robust validation statistics, model performance is assessed using <span class="math inline">\(k\)</span>-fold cross-validation. In this example, a mixed dataset is first constructed by combining laboratory SOC observations with a subset of spectroscopically predicted values. Matching uncertainty-based weights are assigned to each observation according to its data source.</p>
 <p>The dataset is then partitioned into several folds. For each fold, the model is calibrated on the remaining data and used to predict SOC for the withheld observations. This procedure ensures that validation statistics reflect the model’s ability to generalise to unseen locations.</p>
 <p>Predicted values, observed values, and associated weights are stored and subsequently used to compute weighted ME, RMSE, and NSE. These statistics provide a quantitative summary of model performance when spectroscopic data are integrated into the calibration process.</p>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="part-ii-practical-application.html#cb268-1" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
-<span id="cb268-2"><a href="part-ii-practical-application.html#cb268-2" tabindex="-1"></a></span>
-<span id="cb268-3"><a href="part-ii-practical-application.html#cb268-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb268-4"><a href="part-ii-practical-application.html#cb268-4" tabindex="-1"></a></span>
-<span id="cb268-5"><a href="part-ii-practical-application.html#cb268-5" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb268-6"><a href="part-ii-practical-application.html#cb268-6" tabindex="-1"></a><span class="co"># Create mixed response (25% spectroscopic observations)</span></span>
-<span id="cb268-7"><a href="part-ii-practical-application.html#cb268-7" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb268-8"><a href="part-ii-practical-application.html#cb268-8" tabindex="-1"></a></span>
-<span id="cb268-9"><a href="part-ii-practical-application.html#cb268-9" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(soil_df)</span>
-<span id="cb268-10"><a href="part-ii-practical-application.html#cb268-10" tabindex="-1"></a></span>
-<span id="cb268-11"><a href="part-ii-practical-application.html#cb268-11" tabindex="-1"></a>idx_rf <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(n), <span class="at">size =</span> <span class="fu">round</span>(<span class="fl">0.25</span> <span class="sc">*</span> n))</span>
-<span id="cb268-12"><a href="part-ii-practical-application.html#cb268-12" tabindex="-1"></a></span>
-<span id="cb268-13"><a href="part-ii-practical-application.html#cb268-13" tabindex="-1"></a>soil_df<span class="sc">$</span>SOC_mix <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>SOC</span>
-<span id="cb268-14"><a href="part-ii-practical-application.html#cb268-14" tabindex="-1"></a>soil_df<span class="sc">$</span>SOC_mix[idx_rf] <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>SOC_predRF_0_30[idx_rf]</span>
-<span id="cb268-15"><a href="part-ii-practical-application.html#cb268-15" tabindex="-1"></a></span>
-<span id="cb268-16"><a href="part-ii-practical-application.html#cb268-16" tabindex="-1"></a>soil_df<span class="sc">$</span>w_mix <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>w_LAB_raw</span>
-<span id="cb268-17"><a href="part-ii-practical-application.html#cb268-17" tabindex="-1"></a>soil_df<span class="sc">$</span>w_mix[idx_rf] <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>w_RF_raw[idx_rf]</span>
-<span id="cb268-18"><a href="part-ii-practical-application.html#cb268-18" tabindex="-1"></a></span>
-<span id="cb268-19"><a href="part-ii-practical-application.html#cb268-19" tabindex="-1"></a>soil_df<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">&quot;LAB&quot;</span></span>
-<span id="cb268-20"><a href="part-ii-practical-application.html#cb268-20" tabindex="-1"></a>soil_df<span class="sc">$</span>source[idx_rf] <span class="ot">&lt;-</span> <span class="st">&quot;RF&quot;</span></span>
-<span id="cb268-21"><a href="part-ii-practical-application.html#cb268-21" tabindex="-1"></a></span>
-<span id="cb268-22"><a href="part-ii-practical-application.html#cb268-22" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb268-23"><a href="part-ii-practical-application.html#cb268-23" tabindex="-1"></a><span class="co"># Keep valid rows for modelling</span></span>
-<span id="cb268-24"><a href="part-ii-practical-application.html#cb268-24" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb268-25"><a href="part-ii-practical-application.html#cb268-25" tabindex="-1"></a></span>
-<span id="cb268-26"><a href="part-ii-practical-application.html#cb268-26" tabindex="-1"></a>vars_needed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SOC_mix&quot;</span>, <span class="st">&quot;w_mix&quot;</span>, cov_names)</span>
-<span id="cb268-27"><a href="part-ii-practical-application.html#cb268-27" tabindex="-1"></a></span>
-<span id="cb268-28"><a href="part-ii-practical-application.html#cb268-28" tabindex="-1"></a>soil_df2 <span class="ot">&lt;-</span> soil_df[</span>
-<span id="cb268-29"><a href="part-ii-practical-application.html#cb268-29" tabindex="-1"></a>  <span class="fu">complete.cases</span>(soil_df[, vars_needed]) <span class="sc">&amp;</span></span>
-<span id="cb268-30"><a href="part-ii-practical-application.html#cb268-30" tabindex="-1"></a>    <span class="fu">is.finite</span>(soil_df<span class="sc">$</span>w_mix) <span class="sc">&amp;</span></span>
-<span id="cb268-31"><a href="part-ii-practical-application.html#cb268-31" tabindex="-1"></a>    soil_df<span class="sc">$</span>w_mix <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
-<span id="cb268-32"><a href="part-ii-practical-application.html#cb268-32" tabindex="-1"></a>]</span>
-<span id="cb268-33"><a href="part-ii-practical-application.html#cb268-33" tabindex="-1"></a></span>
-<span id="cb268-34"><a href="part-ii-practical-application.html#cb268-34" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb268-35"><a href="part-ii-practical-application.html#cb268-35" tabindex="-1"></a><span class="co"># Define 10-fold cross-validation structure</span></span>
-<span id="cb268-36"><a href="part-ii-practical-application.html#cb268-36" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb268-37"><a href="part-ii-practical-application.html#cb268-37" tabindex="-1"></a></span>
-<span id="cb268-38"><a href="part-ii-practical-application.html#cb268-38" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb268-39"><a href="part-ii-practical-application.html#cb268-39" tabindex="-1"></a>fold_id <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>k, <span class="at">length.out =</span> <span class="fu">nrow</span>(soil_df2)))</span>
-<span id="cb268-40"><a href="part-ii-practical-application.html#cb268-40" tabindex="-1"></a></span>
-<span id="cb268-41"><a href="part-ii-practical-application.html#cb268-41" tabindex="-1"></a>cv_pred <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, <span class="fu">nrow</span>(soil_df2))</span>
-<span id="cb268-42"><a href="part-ii-practical-application.html#cb268-42" tabindex="-1"></a></span>
-<span id="cb268-43"><a href="part-ii-practical-application.html#cb268-43" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(</span>
-<span id="cb268-44"><a href="part-ii-practical-application.html#cb268-44" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">&quot;SOC_mix ~&quot;</span>, <span class="fu">paste</span>(cov_names, <span class="at">collapse =</span> <span class="st">&quot; + &quot;</span>))</span>
-<span id="cb268-45"><a href="part-ii-practical-application.html#cb268-45" tabindex="-1"></a>)</span>
-<span id="cb268-46"><a href="part-ii-practical-application.html#cb268-46" tabindex="-1"></a></span>
-<span id="cb268-47"><a href="part-ii-practical-application.html#cb268-47" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb268-48"><a href="part-ii-practical-application.html#cb268-48" tabindex="-1"></a><span class="co"># Run cross-validation loop</span></span>
-<span id="cb268-49"><a href="part-ii-practical-application.html#cb268-49" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb268-50"><a href="part-ii-practical-application.html#cb268-50" tabindex="-1"></a></span>
-<span id="cb268-51"><a href="part-ii-practical-application.html#cb268-51" tabindex="-1"></a><span class="cf">for</span> (fold <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
-<span id="cb268-52"><a href="part-ii-practical-application.html#cb268-52" tabindex="-1"></a>  </span>
-<span id="cb268-53"><a href="part-ii-practical-application.html#cb268-53" tabindex="-1"></a>  train_data <span class="ot">&lt;-</span> soil_df2[fold_id <span class="sc">!=</span> fold, ]</span>
-<span id="cb268-54"><a href="part-ii-practical-application.html#cb268-54" tabindex="-1"></a>  test_data  <span class="ot">&lt;-</span> soil_df2[fold_id <span class="sc">==</span> fold, ]</span>
-<span id="cb268-55"><a href="part-ii-practical-application.html#cb268-55" tabindex="-1"></a>  </span>
-<span id="cb268-56"><a href="part-ii-practical-application.html#cb268-56" tabindex="-1"></a>  mod_cv <span class="ot">&lt;-</span> <span class="fu">ranger</span>(</span>
-<span id="cb268-57"><a href="part-ii-practical-application.html#cb268-57" tabindex="-1"></a>    <span class="at">formula =</span> form,</span>
-<span id="cb268-58"><a href="part-ii-practical-application.html#cb268-58" tabindex="-1"></a>    <span class="at">data =</span> train_data,</span>
-<span id="cb268-59"><a href="part-ii-practical-application.html#cb268-59" tabindex="-1"></a>    <span class="at">case.weights =</span> train_data<span class="sc">$</span>w_mix,</span>
-<span id="cb268-60"><a href="part-ii-practical-application.html#cb268-60" tabindex="-1"></a>    <span class="at">num.trees =</span> <span class="dv">100</span></span>
-<span id="cb268-61"><a href="part-ii-practical-application.html#cb268-61" tabindex="-1"></a>  )</span>
-<span id="cb268-62"><a href="part-ii-practical-application.html#cb268-62" tabindex="-1"></a>  </span>
-<span id="cb268-63"><a href="part-ii-practical-application.html#cb268-63" tabindex="-1"></a>  cv_pred[fold_id <span class="sc">==</span> fold] <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_cv, <span class="at">data =</span> test_data)<span class="sc">$</span>predictions</span>
-<span id="cb268-64"><a href="part-ii-practical-application.html#cb268-64" tabindex="-1"></a>}</span>
-<span id="cb268-65"><a href="part-ii-practical-application.html#cb268-65" tabindex="-1"></a></span>
-<span id="cb268-66"><a href="part-ii-practical-application.html#cb268-66" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb268-67"><a href="part-ii-practical-application.html#cb268-67" tabindex="-1"></a><span class="co"># Store CV predictions and compute weighted metrics</span></span>
-<span id="cb268-68"><a href="part-ii-practical-application.html#cb268-68" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
-<span id="cb268-69"><a href="part-ii-practical-application.html#cb268-69" tabindex="-1"></a></span>
-<span id="cb268-70"><a href="part-ii-practical-application.html#cb268-70" tabindex="-1"></a>cv_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb268-71"><a href="part-ii-practical-application.html#cb268-71" tabindex="-1"></a>  <span class="at">obs    =</span> soil_df2<span class="sc">$</span>SOC_mix,</span>
-<span id="cb268-72"><a href="part-ii-practical-application.html#cb268-72" tabindex="-1"></a>  <span class="at">pred   =</span> cv_pred,</span>
-<span id="cb268-73"><a href="part-ii-practical-application.html#cb268-73" tabindex="-1"></a>  <span class="at">w      =</span> soil_df2<span class="sc">$</span>w_mix,</span>
-<span id="cb268-74"><a href="part-ii-practical-application.html#cb268-74" tabindex="-1"></a>  <span class="at">source =</span> soil_df2<span class="sc">$</span>source</span>
-<span id="cb268-75"><a href="part-ii-practical-application.html#cb268-75" tabindex="-1"></a>)</span>
-<span id="cb268-76"><a href="part-ii-practical-application.html#cb268-76" tabindex="-1"></a></span>
-<span id="cb268-77"><a href="part-ii-practical-application.html#cb268-77" tabindex="-1"></a>ME_w   <span class="ot">&lt;-</span> <span class="fu">wME</span>(cv_results<span class="sc">$</span>obs, cv_results<span class="sc">$</span>pred, cv_results<span class="sc">$</span>w)</span>
-<span id="cb268-78"><a href="part-ii-practical-application.html#cb268-78" tabindex="-1"></a>RMSE_w <span class="ot">&lt;-</span> <span class="fu">wRMSE</span>(cv_results<span class="sc">$</span>obs, cv_results<span class="sc">$</span>pred, cv_results<span class="sc">$</span>w)</span>
-<span id="cb268-79"><a href="part-ii-practical-application.html#cb268-79" tabindex="-1"></a>NSE_w  <span class="ot">&lt;-</span> <span class="fu">wNSE</span>(cv_results<span class="sc">$</span>obs, cv_results<span class="sc">$</span>pred, cv_results<span class="sc">$</span>w)</span>
-<span id="cb268-80"><a href="part-ii-practical-application.html#cb268-80" tabindex="-1"></a></span>
-<span id="cb268-81"><a href="part-ii-practical-application.html#cb268-81" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
-<span id="cb268-82"><a href="part-ii-practical-application.html#cb268-82" tabindex="-1"></a>  <span class="at">Metric =</span> <span class="fu">c</span>(<span class="st">&quot;wME&quot;</span>, <span class="st">&quot;wRMSE&quot;</span>, <span class="st">&quot;wNSE&quot;</span>),</span>
-<span id="cb268-83"><a href="part-ii-practical-application.html#cb268-83" tabindex="-1"></a>  <span class="at">Value  =</span> <span class="fu">round</span>(<span class="fu">c</span>(ME_w, RMSE_w, NSE_w), <span class="dv">3</span>)</span>
-<span id="cb268-84"><a href="part-ii-practical-application.html#cb268-84" tabindex="-1"></a>)</span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="part-ii-practical-application.html#cb272-1" tabindex="-1"></a><span class="fu">library</span>(ranger)</span>
+<span id="cb272-2"><a href="part-ii-practical-application.html#cb272-2" tabindex="-1"></a></span>
+<span id="cb272-3"><a href="part-ii-practical-application.html#cb272-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb272-4"><a href="part-ii-practical-application.html#cb272-4" tabindex="-1"></a></span>
+<span id="cb272-5"><a href="part-ii-practical-application.html#cb272-5" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb272-6"><a href="part-ii-practical-application.html#cb272-6" tabindex="-1"></a><span class="co"># Create mixed response (25% spectroscopic observations)</span></span>
+<span id="cb272-7"><a href="part-ii-practical-application.html#cb272-7" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb272-8"><a href="part-ii-practical-application.html#cb272-8" tabindex="-1"></a></span>
+<span id="cb272-9"><a href="part-ii-practical-application.html#cb272-9" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">nrow</span>(soil_df)</span>
+<span id="cb272-10"><a href="part-ii-practical-application.html#cb272-10" tabindex="-1"></a></span>
+<span id="cb272-11"><a href="part-ii-practical-application.html#cb272-11" tabindex="-1"></a>idx_rf <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">seq_len</span>(n), <span class="at">size =</span> <span class="fu">round</span>(<span class="fl">0.25</span> <span class="sc">*</span> n))</span>
+<span id="cb272-12"><a href="part-ii-practical-application.html#cb272-12" tabindex="-1"></a></span>
+<span id="cb272-13"><a href="part-ii-practical-application.html#cb272-13" tabindex="-1"></a>soil_df<span class="sc">$</span>SOC_mix <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>SOC</span>
+<span id="cb272-14"><a href="part-ii-practical-application.html#cb272-14" tabindex="-1"></a>soil_df<span class="sc">$</span>SOC_mix[idx_rf] <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>SOC_predRF_0_30[idx_rf]</span>
+<span id="cb272-15"><a href="part-ii-practical-application.html#cb272-15" tabindex="-1"></a></span>
+<span id="cb272-16"><a href="part-ii-practical-application.html#cb272-16" tabindex="-1"></a>soil_df<span class="sc">$</span>w_mix <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>w_LAB_raw</span>
+<span id="cb272-17"><a href="part-ii-practical-application.html#cb272-17" tabindex="-1"></a>soil_df<span class="sc">$</span>w_mix[idx_rf] <span class="ot">&lt;-</span> soil_df<span class="sc">$</span>w_RF_raw[idx_rf]</span>
+<span id="cb272-18"><a href="part-ii-practical-application.html#cb272-18" tabindex="-1"></a></span>
+<span id="cb272-19"><a href="part-ii-practical-application.html#cb272-19" tabindex="-1"></a>soil_df<span class="sc">$</span>source <span class="ot">&lt;-</span> <span class="st">&quot;LAB&quot;</span></span>
+<span id="cb272-20"><a href="part-ii-practical-application.html#cb272-20" tabindex="-1"></a>soil_df<span class="sc">$</span>source[idx_rf] <span class="ot">&lt;-</span> <span class="st">&quot;RF&quot;</span></span>
+<span id="cb272-21"><a href="part-ii-practical-application.html#cb272-21" tabindex="-1"></a></span>
+<span id="cb272-22"><a href="part-ii-practical-application.html#cb272-22" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb272-23"><a href="part-ii-practical-application.html#cb272-23" tabindex="-1"></a><span class="co"># Keep valid rows for modelling</span></span>
+<span id="cb272-24"><a href="part-ii-practical-application.html#cb272-24" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb272-25"><a href="part-ii-practical-application.html#cb272-25" tabindex="-1"></a></span>
+<span id="cb272-26"><a href="part-ii-practical-application.html#cb272-26" tabindex="-1"></a>vars_needed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;SOC_mix&quot;</span>, <span class="st">&quot;w_mix&quot;</span>, cov_names)</span>
+<span id="cb272-27"><a href="part-ii-practical-application.html#cb272-27" tabindex="-1"></a></span>
+<span id="cb272-28"><a href="part-ii-practical-application.html#cb272-28" tabindex="-1"></a>soil_df2 <span class="ot">&lt;-</span> soil_df[</span>
+<span id="cb272-29"><a href="part-ii-practical-application.html#cb272-29" tabindex="-1"></a>  <span class="fu">complete.cases</span>(soil_df[, vars_needed]) <span class="sc">&amp;</span></span>
+<span id="cb272-30"><a href="part-ii-practical-application.html#cb272-30" tabindex="-1"></a>    <span class="fu">is.finite</span>(soil_df<span class="sc">$</span>w_mix) <span class="sc">&amp;</span></span>
+<span id="cb272-31"><a href="part-ii-practical-application.html#cb272-31" tabindex="-1"></a>    soil_df<span class="sc">$</span>w_mix <span class="sc">&gt;</span> <span class="dv">0</span>,</span>
+<span id="cb272-32"><a href="part-ii-practical-application.html#cb272-32" tabindex="-1"></a>]</span>
+<span id="cb272-33"><a href="part-ii-practical-application.html#cb272-33" tabindex="-1"></a></span>
+<span id="cb272-34"><a href="part-ii-practical-application.html#cb272-34" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb272-35"><a href="part-ii-practical-application.html#cb272-35" tabindex="-1"></a><span class="co"># Define 10-fold cross-validation structure</span></span>
+<span id="cb272-36"><a href="part-ii-practical-application.html#cb272-36" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb272-37"><a href="part-ii-practical-application.html#cb272-37" tabindex="-1"></a></span>
+<span id="cb272-38"><a href="part-ii-practical-application.html#cb272-38" tabindex="-1"></a>k <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb272-39"><a href="part-ii-practical-application.html#cb272-39" tabindex="-1"></a>fold_id <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>k, <span class="at">length.out =</span> <span class="fu">nrow</span>(soil_df2)))</span>
+<span id="cb272-40"><a href="part-ii-practical-application.html#cb272-40" tabindex="-1"></a></span>
+<span id="cb272-41"><a href="part-ii-practical-application.html#cb272-41" tabindex="-1"></a>cv_pred <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA_real_</span>, <span class="fu">nrow</span>(soil_df2))</span>
+<span id="cb272-42"><a href="part-ii-practical-application.html#cb272-42" tabindex="-1"></a></span>
+<span id="cb272-43"><a href="part-ii-practical-application.html#cb272-43" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">as.formula</span>(</span>
+<span id="cb272-44"><a href="part-ii-practical-application.html#cb272-44" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">&quot;SOC_mix ~&quot;</span>, <span class="fu">paste</span>(cov_names, <span class="at">collapse =</span> <span class="st">&quot; + &quot;</span>))</span>
+<span id="cb272-45"><a href="part-ii-practical-application.html#cb272-45" tabindex="-1"></a>)</span>
+<span id="cb272-46"><a href="part-ii-practical-application.html#cb272-46" tabindex="-1"></a></span>
+<span id="cb272-47"><a href="part-ii-practical-application.html#cb272-47" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb272-48"><a href="part-ii-practical-application.html#cb272-48" tabindex="-1"></a><span class="co"># Run cross-validation loop</span></span>
+<span id="cb272-49"><a href="part-ii-practical-application.html#cb272-49" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb272-50"><a href="part-ii-practical-application.html#cb272-50" tabindex="-1"></a></span>
+<span id="cb272-51"><a href="part-ii-practical-application.html#cb272-51" tabindex="-1"></a><span class="cf">for</span> (fold <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>k) {</span>
+<span id="cb272-52"><a href="part-ii-practical-application.html#cb272-52" tabindex="-1"></a>  </span>
+<span id="cb272-53"><a href="part-ii-practical-application.html#cb272-53" tabindex="-1"></a>  train_data <span class="ot">&lt;-</span> soil_df2[fold_id <span class="sc">!=</span> fold, ]</span>
+<span id="cb272-54"><a href="part-ii-practical-application.html#cb272-54" tabindex="-1"></a>  test_data  <span class="ot">&lt;-</span> soil_df2[fold_id <span class="sc">==</span> fold, ]</span>
+<span id="cb272-55"><a href="part-ii-practical-application.html#cb272-55" tabindex="-1"></a>  </span>
+<span id="cb272-56"><a href="part-ii-practical-application.html#cb272-56" tabindex="-1"></a>  mod_cv <span class="ot">&lt;-</span> <span class="fu">ranger</span>(</span>
+<span id="cb272-57"><a href="part-ii-practical-application.html#cb272-57" tabindex="-1"></a>    <span class="at">formula =</span> form,</span>
+<span id="cb272-58"><a href="part-ii-practical-application.html#cb272-58" tabindex="-1"></a>    <span class="at">data =</span> train_data,</span>
+<span id="cb272-59"><a href="part-ii-practical-application.html#cb272-59" tabindex="-1"></a>    <span class="at">case.weights =</span> train_data<span class="sc">$</span>w_mix,</span>
+<span id="cb272-60"><a href="part-ii-practical-application.html#cb272-60" tabindex="-1"></a>    <span class="at">num.trees =</span> <span class="dv">100</span></span>
+<span id="cb272-61"><a href="part-ii-practical-application.html#cb272-61" tabindex="-1"></a>  )</span>
+<span id="cb272-62"><a href="part-ii-practical-application.html#cb272-62" tabindex="-1"></a>  </span>
+<span id="cb272-63"><a href="part-ii-practical-application.html#cb272-63" tabindex="-1"></a>  cv_pred[fold_id <span class="sc">==</span> fold] <span class="ot">&lt;-</span> <span class="fu">predict</span>(mod_cv, <span class="at">data =</span> test_data)<span class="sc">$</span>predictions</span>
+<span id="cb272-64"><a href="part-ii-practical-application.html#cb272-64" tabindex="-1"></a>}</span>
+<span id="cb272-65"><a href="part-ii-practical-application.html#cb272-65" tabindex="-1"></a></span>
+<span id="cb272-66"><a href="part-ii-practical-application.html#cb272-66" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb272-67"><a href="part-ii-practical-application.html#cb272-67" tabindex="-1"></a><span class="co"># Store CV predictions and compute weighted metrics</span></span>
+<span id="cb272-68"><a href="part-ii-practical-application.html#cb272-68" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
+<span id="cb272-69"><a href="part-ii-practical-application.html#cb272-69" tabindex="-1"></a></span>
+<span id="cb272-70"><a href="part-ii-practical-application.html#cb272-70" tabindex="-1"></a>cv_results <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb272-71"><a href="part-ii-practical-application.html#cb272-71" tabindex="-1"></a>  <span class="at">obs    =</span> soil_df2<span class="sc">$</span>SOC_mix,</span>
+<span id="cb272-72"><a href="part-ii-practical-application.html#cb272-72" tabindex="-1"></a>  <span class="at">pred   =</span> cv_pred,</span>
+<span id="cb272-73"><a href="part-ii-practical-application.html#cb272-73" tabindex="-1"></a>  <span class="at">w      =</span> soil_df2<span class="sc">$</span>w_mix,</span>
+<span id="cb272-74"><a href="part-ii-practical-application.html#cb272-74" tabindex="-1"></a>  <span class="at">source =</span> soil_df2<span class="sc">$</span>source</span>
+<span id="cb272-75"><a href="part-ii-practical-application.html#cb272-75" tabindex="-1"></a>)</span>
+<span id="cb272-76"><a href="part-ii-practical-application.html#cb272-76" tabindex="-1"></a></span>
+<span id="cb272-77"><a href="part-ii-practical-application.html#cb272-77" tabindex="-1"></a>ME_w   <span class="ot">&lt;-</span> <span class="fu">wME</span>(cv_results<span class="sc">$</span>obs, cv_results<span class="sc">$</span>pred, cv_results<span class="sc">$</span>w)</span>
+<span id="cb272-78"><a href="part-ii-practical-application.html#cb272-78" tabindex="-1"></a>RMSE_w <span class="ot">&lt;-</span> <span class="fu">wRMSE</span>(cv_results<span class="sc">$</span>obs, cv_results<span class="sc">$</span>pred, cv_results<span class="sc">$</span>w)</span>
+<span id="cb272-79"><a href="part-ii-practical-application.html#cb272-79" tabindex="-1"></a>NSE_w  <span class="ot">&lt;-</span> <span class="fu">wNSE</span>(cv_results<span class="sc">$</span>obs, cv_results<span class="sc">$</span>pred, cv_results<span class="sc">$</span>w)</span>
+<span id="cb272-80"><a href="part-ii-practical-application.html#cb272-80" tabindex="-1"></a></span>
+<span id="cb272-81"><a href="part-ii-practical-application.html#cb272-81" tabindex="-1"></a><span class="fu">data.frame</span>(</span>
+<span id="cb272-82"><a href="part-ii-practical-application.html#cb272-82" tabindex="-1"></a>  <span class="at">Metric =</span> <span class="fu">c</span>(<span class="st">&quot;wME&quot;</span>, <span class="st">&quot;wRMSE&quot;</span>, <span class="st">&quot;wNSE&quot;</span>),</span>
+<span id="cb272-83"><a href="part-ii-practical-application.html#cb272-83" tabindex="-1"></a>  <span class="at">Value  =</span> <span class="fu">round</span>(<span class="fu">c</span>(ME_w, RMSE_w, NSE_w), <span class="dv">3</span>)</span>
+<span id="cb272-84"><a href="part-ii-practical-application.html#cb272-84" tabindex="-1"></a>)</span></code></pre></div>
 </div>
 <div id="comparing-maps-produced-with-different-proportions-of-spectroscopic-data" class="section level3 hasAnchor" number="6.5.3">
 <h3><span class="header-section-number">6.5.3</span> Comparing maps produced with different proportions of spectroscopic data<a href="part-ii-practical-application.html#comparing-maps-produced-with-different-proportions-of-spectroscopic-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>

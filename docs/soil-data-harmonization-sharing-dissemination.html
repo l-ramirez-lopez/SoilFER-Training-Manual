@@ -176,10 +176,9 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-1-introduction-to-r-and-preparation-of-soil-data-for-digital-soil-mapping"><i class="fa fa-check"></i><strong>Module 1: Introduction to R and Preparation of Soil Data for Digital Soil Mapping</strong></a></li>
 <li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-2-soil-sampling-design"><i class="fa fa-check"></i><strong>Module 2: Soil Sampling Design</strong></a></li>
-<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-3-glosis-data-preparation"><i class="fa fa-check"></i><strong>Module 3: GloSIS Data Preparation</strong></a></li>
-<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-4-digital-soil-mapping"><i class="fa fa-check"></i><strong>Module 4: Digital Soil Mapping</strong></a></li>
-<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-5-soil-spectroscopy"><i class="fa fa-check"></i><strong>Module 5: Soil Spectroscopy</strong></a></li>
-<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-6-soil-data-sharing"><i class="fa fa-check"></i><strong>Module 6: Soil Data Sharing</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-3-digital-soil-mapping"><i class="fa fa-check"></i><strong>Module 3: Digital Soil Mapping</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-4-soil-spectroscopy"><i class="fa fa-check"></i><strong>Module 4: Soil Spectroscopy</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-5-soil-data-sharing"><i class="fa fa-check"></i><strong>Module 5: Soil Data Sharing</strong></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#required-downloads"><i class="fa fa-check"></i>Required downloads</a>
@@ -691,15 +690,15 @@ div.csl-indent {
 <pre><code>https://github.com/FAO-SID/glosis-etl-js</code></pre>
 <p>Click the green <strong>“Code”</strong> button, then select <strong>Download ZIP</strong> (Figure <a href="#fig:clone"><strong>??</strong></a>).</p>
 <p>Alternatively, if you have Git installed, you can clone the repository:</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb270-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb270-1" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/FAO-SID/glosis-etl-js.git</span></code></pre></div></li>
+<div class="sourceCode" id="cb274"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb274-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb274-1" tabindex="-1"></a><span class="fu">git</span> clone https://github.com/FAO-SID/glosis-etl-js.git</span></code></pre></div></li>
 <li><p><strong>Extract the ZIP file</strong> (if downloaded) to a folder on your computer (e.g., the <code>Desktop</code> folder).</p></li>
 <li><p><strong>Configure the environment variables (Oonly or production deployments).</strong>
 Environment variables (database credentials, logging level, etc.) are read from the <code>.env</code> file in the project root. The <code>.env</code> file stores configuration values that are shared between the services. The default variables are:</p></li>
 </ol>
-<div class="sourceCode" id="cb271"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb271-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb271-1" tabindex="-1"></a><span class="co"># PostgreSQL Database Configuration</span></span>
-<span id="cb271-2"><a href="soil-data-harmonization-sharing-dissemination.html#cb271-2" tabindex="-1"></a><span class="va">POSTGRES_DB</span><span class="op">=</span>glosis</span>
-<span id="cb271-3"><a href="soil-data-harmonization-sharing-dissemination.html#cb271-3" tabindex="-1"></a><span class="va">POSTGRES_USER</span><span class="op">=</span>glosis</span>
-<span id="cb271-4"><a href="soil-data-harmonization-sharing-dissemination.html#cb271-4" tabindex="-1"></a><span class="va">POSTGRES_PASSWORD</span><span class="op">=</span>glosis    <span class="co"># Change in production!</span></span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb275-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb275-1" tabindex="-1"></a><span class="co"># PostgreSQL Database Configuration</span></span>
+<span id="cb275-2"><a href="soil-data-harmonization-sharing-dissemination.html#cb275-2" tabindex="-1"></a><span class="va">POSTGRES_DB</span><span class="op">=</span>glosis</span>
+<span id="cb275-3"><a href="soil-data-harmonization-sharing-dissemination.html#cb275-3" tabindex="-1"></a><span class="va">POSTGRES_USER</span><span class="op">=</span>glosis</span>
+<span id="cb275-4"><a href="soil-data-harmonization-sharing-dissemination.html#cb275-4" tabindex="-1"></a><span class="va">POSTGRES_PASSWORD</span><span class="op">=</span>glosis    <span class="co"># Change in production!</span></span></code></pre></div>
 <p>The default values use <code>glosis</code> as the database name, user, and password. For production deployments, edit the <code>.env</code> file and change the <code>POSTGRES_PASSWORD</code> value.</p>
 <div class="warning-box">
 <p><strong>CAUTION:</strong>
@@ -709,9 +708,9 @@ Environment variables (database credentials, logging level, etc.) are read from 
 </div>
 <ol start="5" style="list-style-type: decimal">
 <li><p><strong>Open a Terminal or Command Prompt</strong> and navigate to the extracted folder:</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb272-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb272-1" tabindex="-1"></a><span class="bu">cd</span> Desktop/glosis-etl-js</span></code></pre></div></li>
+<div class="sourceCode" id="cb276"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb276-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb276-1" tabindex="-1"></a><span class="bu">cd</span> Desktop/glosis-etl-js</span></code></pre></div></li>
 <li><p><strong>Start the GloSIS services</strong> by running:</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb273-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb273-1" tabindex="-1"></a><span class="ex">docker</span> compose up <span class="at">-d</span> <span class="at">--build</span></span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb277-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb277-1" tabindex="-1"></a><span class="ex">docker</span> compose up <span class="at">-d</span> <span class="at">--build</span></span></code></pre></div>
 <blockquote>
 <p><strong>Note:</strong> The <code>--build</code> flag is required the first time to build the <code>glosis-etl-js</code> image from the Dockerfile. Subsequent runs can omit it unless the application code has changed. The first build may take <strong>2–5 minutes</strong>.</p>
 </blockquote>
@@ -730,7 +729,7 @@ Environment variables (database credentials, logging level, etc.) are read from 
 <div id="using-the-terminal" class="section level5 unnumbered hasAnchor">
 <h5>Using the Terminal<a href="soil-data-harmonization-sharing-dissemination.html#using-the-terminal" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>To manually check if the services are running, type:</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb274-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb274-1" tabindex="-1"></a><span class="ex">docker</span> ps</span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb278-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb278-1" tabindex="-1"></a><span class="ex">docker</span> ps</span></code></pre></div>
 <p>You should see an output similar to:</p>
 <pre><code>CONTAINER ID   IMAGE                          COMMAND                  CREATED        STATUS                  PORTS                    NAMES
 415f97d8a445   glosis-etl-js-glosis-etl-js    &quot;docker-entrypoint.s…&quot;   25 hours ago   Up 25 hours (healthy)   0.0.0.0:3000-&gt;3000/tcp   glosis-etl-js
@@ -740,7 +739,7 @@ cb414728ebfd   postgis/postgis:17-3.5         &quot;docker-entrypoint.s…&quot;
 <div id="stopping-the-services" class="section level5 unnumbered hasAnchor">
 <h5>Stopping the Services<a href="soil-data-harmonization-sharing-dissemination.html#stopping-the-services" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>To stop the services at any time, use:</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb276-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb276-1" tabindex="-1"></a><span class="ex">docker</span> compose down</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb280-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-1" tabindex="-1"></a><span class="ex">docker</span> compose down</span></code></pre></div>
 <p>This will stop and remove the containers, but your <strong>database data will remain intact</strong> in the Docker named volume <code>glosis-db-data</code>.</p>
 <blockquote>
 <p><strong>Tip:</strong> To completely reset the database (remove all data), run: <code>docker compose down -v</code>. This deletes the named volumes and the database will be re-initialized from the SQL scripts on the next start.</p>
@@ -750,7 +749,7 @@ cb414728ebfd   postgis/postgis:17-3.5         &quot;docker-entrypoint.s…&quot;
 <div id="pgadmin" class="section level4 hasAnchor" number="8.1.2.11">
 <h4><span class="header-section-number">8.1.2.11</span> Optional: pgAdmin Web Interface<a href="soil-data-harmonization-sharing-dissemination.html#pgadmin" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The <code>docker-compose.yml</code> file includes an optional <strong>pgAdmin 4</strong> service for direct database management. To activate it, go to the installation folder and type:</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb277-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb277-1" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">--profile</span> admin up <span class="at">-d</span></span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb281-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-1" tabindex="-1"></a><span class="ex">docker</span> compose <span class="at">--profile</span> admin up <span class="at">-d</span></span></code></pre></div>
 <p>Once running, access pgAdmin at:</p>
 <pre><code>http://localhost:5050</code></pre>
 <p>Login credentials:</p>
@@ -949,30 +948,30 @@ In this case:
 <li><p>Go to <strong>Database -&gt; SQL Window</strong>.</p></li>
 </ol>
 <p>In this window, type the query below and Execute the code:</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb280-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-1" tabindex="-1"></a><span class="kw">SELECT</span> </span>
-<span id="cb280-2"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-2" tabindex="-1"></a>  r.result_phys_chem_id <span class="kw">AS</span> gid,</span>
-<span id="cb280-3"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-3" tabindex="-1"></a>  p.name,</span>
-<span id="cb280-4"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-4" tabindex="-1"></a>  s.site_id,</span>
-<span id="cb280-5"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-5" tabindex="-1"></a>  p3.profile_id, </span>
-<span id="cb280-6"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-6" tabindex="-1"></a>  e.element_id,</span>
-<span id="cb280-7"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-7" tabindex="-1"></a>  e.upper_depth,</span>
-<span id="cb280-8"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-8" tabindex="-1"></a>  e.lower_depth,</span>
-<span id="cb280-9"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-9" tabindex="-1"></a>  r.specimen_id,</span>
-<span id="cb280-10"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-10" tabindex="-1"></a>  o.property_phys_chem_id,</span>
-<span id="cb280-11"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-11" tabindex="-1"></a>  o.procedure_phys_chem_id,</span>
-<span id="cb280-12"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-12" tabindex="-1"></a>  r.<span class="fu">value</span>,</span>
-<span id="cb280-13"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-13" tabindex="-1"></a>  o.unit_of_measure_id,</span>
-<span id="cb280-14"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-14" tabindex="-1"></a>  p2.<span class="ot">&quot;position&quot;</span> <span class="kw">AS</span> geom</span>
-<span id="cb280-15"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-15" tabindex="-1"></a><span class="kw">FROM</span> core.project p</span>
-<span id="cb280-16"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-16" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.site_project sp <span class="kw">ON</span> sp.project_id <span class="op">=</span> p.project_id</span>
-<span id="cb280-17"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-17" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.site s <span class="kw">ON</span> s.site_id <span class="op">=</span> sp.site_id</span>
-<span id="cb280-18"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-18" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.plot p2 <span class="kw">ON</span> p2.site_id <span class="op">=</span> s.site_id</span>
-<span id="cb280-19"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-19" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.<span class="kw">profile</span> p3 <span class="kw">ON</span> p3.plot_id <span class="op">=</span> p2.plot_id</span>
-<span id="cb280-20"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-20" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.<span class="ot">&quot;element&quot;</span> e <span class="kw">ON</span> e.profile_id <span class="op">=</span> p3.profile_id</span>
-<span id="cb280-21"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-21" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.specimen s2 <span class="kw">ON</span> s2.element_id <span class="op">=</span> e.element_id</span>
-<span id="cb280-22"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-22" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.result_phys_chem r <span class="kw">ON</span> r.specimen_id <span class="op">=</span> s2.specimen_id</span>
-<span id="cb280-23"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-23" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.observation_phys_chem o <span class="kw">ON</span> o.observation_phys_chem_id <span class="op">=</span> r.observation_phys_chem_id</span>
-<span id="cb280-24"><a href="soil-data-harmonization-sharing-dissemination.html#cb280-24" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> p.name, s.site_id, p3.profile_id, e.upper_depth, o.property_phys_chem_id;</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode sql"><code class="sourceCode sql"><span id="cb284-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-1" tabindex="-1"></a><span class="kw">SELECT</span> </span>
+<span id="cb284-2"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-2" tabindex="-1"></a>  r.result_phys_chem_id <span class="kw">AS</span> gid,</span>
+<span id="cb284-3"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-3" tabindex="-1"></a>  p.name,</span>
+<span id="cb284-4"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-4" tabindex="-1"></a>  s.site_id,</span>
+<span id="cb284-5"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-5" tabindex="-1"></a>  p3.profile_id, </span>
+<span id="cb284-6"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-6" tabindex="-1"></a>  e.element_id,</span>
+<span id="cb284-7"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-7" tabindex="-1"></a>  e.upper_depth,</span>
+<span id="cb284-8"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-8" tabindex="-1"></a>  e.lower_depth,</span>
+<span id="cb284-9"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-9" tabindex="-1"></a>  r.specimen_id,</span>
+<span id="cb284-10"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-10" tabindex="-1"></a>  o.property_phys_chem_id,</span>
+<span id="cb284-11"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-11" tabindex="-1"></a>  o.procedure_phys_chem_id,</span>
+<span id="cb284-12"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-12" tabindex="-1"></a>  r.<span class="fu">value</span>,</span>
+<span id="cb284-13"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-13" tabindex="-1"></a>  o.unit_of_measure_id,</span>
+<span id="cb284-14"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-14" tabindex="-1"></a>  p2.<span class="ot">&quot;position&quot;</span> <span class="kw">AS</span> geom</span>
+<span id="cb284-15"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-15" tabindex="-1"></a><span class="kw">FROM</span> core.project p</span>
+<span id="cb284-16"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-16" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.site_project sp <span class="kw">ON</span> sp.project_id <span class="op">=</span> p.project_id</span>
+<span id="cb284-17"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-17" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.site s <span class="kw">ON</span> s.site_id <span class="op">=</span> sp.site_id</span>
+<span id="cb284-18"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-18" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.plot p2 <span class="kw">ON</span> p2.site_id <span class="op">=</span> s.site_id</span>
+<span id="cb284-19"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-19" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.<span class="kw">profile</span> p3 <span class="kw">ON</span> p3.plot_id <span class="op">=</span> p2.plot_id</span>
+<span id="cb284-20"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-20" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.<span class="ot">&quot;element&quot;</span> e <span class="kw">ON</span> e.profile_id <span class="op">=</span> p3.profile_id</span>
+<span id="cb284-21"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-21" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.specimen s2 <span class="kw">ON</span> s2.element_id <span class="op">=</span> e.element_id</span>
+<span id="cb284-22"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-22" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.result_phys_chem r <span class="kw">ON</span> r.specimen_id <span class="op">=</span> s2.specimen_id</span>
+<span id="cb284-23"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-23" tabindex="-1"></a><span class="kw">LEFT</span> <span class="kw">JOIN</span> core.observation_phys_chem o <span class="kw">ON</span> o.observation_phys_chem_id <span class="op">=</span> r.observation_phys_chem_id</span>
+<span id="cb284-24"><a href="soil-data-harmonization-sharing-dissemination.html#cb284-24" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> p.name, s.site_id, p3.profile_id, e.upper_depth, o.property_phys_chem_id;</span></code></pre></div>
 <p>Check on the mark on <code>Load as a New Layer</code> and click on the <code>Load</code> button (Figure <a href="#fig:qgis-dbquery"><strong>??</strong></a>).</p>
 <p>A layer named <code>QueryLayer</code> will appear in the Layers Panel in QGIS (Figure <a href="#fig:qgis-querylayer"><strong>??</strong></a>).</p>
 <p>This layer contains point data from the cleaned <code>kssl</code> database in <em>long</em> format, where each row represents a single observation of a soil property measured at a specific site, profile, depth interval, and specimen. The columns describe the context of each observation (e.g., site, profile, element, and depth), along with the measured property, the analytical method used, the observed value, and its unit of measurement.</p>
@@ -980,197 +979,197 @@ In this case:
 <p>The PostgreSQL GloSIS database can be connected to R using appropriate packages and SQL queries.</p>
 <p>In this section, the <code>kssl</code> database is accessed from R, and the results are exported as a GeoPackage. This format is used because it preserves full column names, allowing soil analytical properties and their units of measurement to remain clearly described in the output.</p>
 <p>The resulting file is saved in <code>03_outputs/module3/</code> and can be directly loaded into GIS software such as QGIS for further visualization and analysis.</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-1" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-2"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-2" tabindex="-1"></a><span class="co"># Load packages</span></span>
-<span id="cb281-3"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-3" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-4"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-4" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
-<span id="cb281-5"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-5" tabindex="-1"></a><span class="fu">library</span>(RPostgres)</span>
-<span id="cb281-6"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-6" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb281-7"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-7" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
-<span id="cb281-8"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-8" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
-<span id="cb281-9"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-9" tabindex="-1"></a></span>
-<span id="cb281-10"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-10" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-11"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-11" tabindex="-1"></a><span class="co"># Connect to the PostgreSQL database</span></span>
-<span id="cb281-12"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-12" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-13"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-13" tabindex="-1"></a><span class="co"># This connection uses the database exposed on localhost:5442,</span></span>
-<span id="cb281-14"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-14" tabindex="-1"></a><span class="co"># which is the port mapped from the Docker PostgreSQL container.</span></span>
-<span id="cb281-15"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-15" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(</span>
-<span id="cb281-16"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-16" tabindex="-1"></a>  RPostgres<span class="sc">::</span><span class="fu">Postgres</span>(),</span>
-<span id="cb281-17"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-17" tabindex="-1"></a>  <span class="at">dbname   =</span> <span class="st">&quot;kssl&quot;</span>,</span>
-<span id="cb281-18"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-18" tabindex="-1"></a>  <span class="at">host     =</span> <span class="st">&quot;localhost&quot;</span>,</span>
-<span id="cb281-19"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-19" tabindex="-1"></a>  <span class="at">port     =</span> <span class="dv">5442</span>,</span>
-<span id="cb281-20"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-20" tabindex="-1"></a>  <span class="at">user     =</span> <span class="st">&quot;glosis&quot;</span>,</span>
-<span id="cb281-21"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-21" tabindex="-1"></a>  <span class="at">password =</span> <span class="st">&quot;glosis&quot;</span></span>
-<span id="cb281-22"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-22" tabindex="-1"></a>)</span>
-<span id="cb281-23"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-23" tabindex="-1"></a></span>
-<span id="cb281-24"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-24" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-25"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-25" tabindex="-1"></a><span class="co"># SQL Query 1: retrieve soil point / profile / horizon metadata</span></span>
-<span id="cb281-26"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-26" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-27"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-27" tabindex="-1"></a><span class="co"># This query extracts the structural information for each soil specimen:</span></span>
-<span id="cb281-28"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-28" tabindex="-1"></a><span class="co"># - project and site identifiers</span></span>
-<span id="cb281-29"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-29" tabindex="-1"></a><span class="co"># - plot and profile identifiers</span></span>
-<span id="cb281-30"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-30" tabindex="-1"></a><span class="co"># - horizon/element depth information</span></span>
-<span id="cb281-31"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-31" tabindex="-1"></a><span class="co"># - specimen code</span></span>
-<span id="cb281-32"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-32" tabindex="-1"></a><span class="co"># - longitude and latitude from the plot geometry</span></span>
-<span id="cb281-33"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-33" tabindex="-1"></a></span>
-<span id="cb281-34"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-34" tabindex="-1"></a>query_points <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
-<span id="cb281-35"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-35" tabindex="-1"></a><span class="st">SELECT</span></span>
-<span id="cb281-36"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-36" tabindex="-1"></a><span class="st">  p.project_id,</span></span>
-<span id="cb281-37"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-37" tabindex="-1"></a><span class="st">  p.name AS project_name,</span></span>
-<span id="cb281-38"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-38" tabindex="-1"></a><span class="st">  s.site_id,</span></span>
-<span id="cb281-39"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-39" tabindex="-1"></a><span class="st">  s.site_code,</span></span>
-<span id="cb281-40"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-40" tabindex="-1"></a><span class="st">  pl.plot_id,</span></span>
-<span id="cb281-41"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-41" tabindex="-1"></a><span class="st">  pf.profile_id,</span></span>
-<span id="cb281-42"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-42" tabindex="-1"></a><span class="st">  e.element_id,</span></span>
-<span id="cb281-43"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-43" tabindex="-1"></a><span class="st">  e.order_element,</span></span>
-<span id="cb281-44"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-44" tabindex="-1"></a><span class="st">  e.upper_depth,</span></span>
-<span id="cb281-45"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-45" tabindex="-1"></a><span class="st">  e.lower_depth,</span></span>
-<span id="cb281-46"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-46" tabindex="-1"></a><span class="st">  e.type,</span></span>
-<span id="cb281-47"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-47" tabindex="-1"></a><span class="st">  sp.specimen_id,</span></span>
-<span id="cb281-48"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-48" tabindex="-1"></a><span class="st">  sp.code AS specimen_code,</span></span>
-<span id="cb281-49"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-49" tabindex="-1"></a><span class="st">  ST_X(pl.position::geometry) AS longitude,</span></span>
-<span id="cb281-50"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-50" tabindex="-1"></a><span class="st">  ST_Y(pl.position::geometry) AS latitude</span></span>
-<span id="cb281-51"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-51" tabindex="-1"></a><span class="st">FROM core.project p</span></span>
-<span id="cb281-52"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-52" tabindex="-1"></a><span class="st">JOIN core.project_site ps</span></span>
-<span id="cb281-53"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-53" tabindex="-1"></a><span class="st">  ON ps.project_id = p.project_id</span></span>
-<span id="cb281-54"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-54" tabindex="-1"></a><span class="st">JOIN core.site s</span></span>
-<span id="cb281-55"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-55" tabindex="-1"></a><span class="st">  ON s.site_id = ps.site_id</span></span>
-<span id="cb281-56"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-56" tabindex="-1"></a><span class="st">JOIN core.plot pl</span></span>
-<span id="cb281-57"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-57" tabindex="-1"></a><span class="st">  ON pl.site_id = s.site_id</span></span>
-<span id="cb281-58"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-58" tabindex="-1"></a><span class="st">JOIN core.profile pf</span></span>
-<span id="cb281-59"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-59" tabindex="-1"></a><span class="st">  ON pf.plot_id = pl.plot_id</span></span>
-<span id="cb281-60"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-60" tabindex="-1"></a><span class="st">JOIN core.element e</span></span>
-<span id="cb281-61"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-61" tabindex="-1"></a><span class="st">  ON e.profile_id = pf.profile_id</span></span>
-<span id="cb281-62"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-62" tabindex="-1"></a><span class="st">JOIN core.specimen sp</span></span>
-<span id="cb281-63"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-63" tabindex="-1"></a><span class="st">  ON sp.element_id = e.element_id</span></span>
-<span id="cb281-64"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-64" tabindex="-1"></a><span class="st">ORDER BY</span></span>
-<span id="cb281-65"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-65" tabindex="-1"></a><span class="st">  p.name,</span></span>
-<span id="cb281-66"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-66" tabindex="-1"></a><span class="st">  s.site_id,</span></span>
-<span id="cb281-67"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-67" tabindex="-1"></a><span class="st">  pf.profile_id,</span></span>
-<span id="cb281-68"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-68" tabindex="-1"></a><span class="st">  e.order_element,</span></span>
-<span id="cb281-69"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-69" tabindex="-1"></a><span class="st">  e.upper_depth</span></span>
-<span id="cb281-70"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-70" tabindex="-1"></a><span class="st">&quot;</span></span>
-<span id="cb281-71"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-71" tabindex="-1"></a></span>
-<span id="cb281-72"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-72" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-73"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-73" tabindex="-1"></a><span class="co"># SQL Query 2: retrieve laboratory soil properties</span></span>
-<span id="cb281-74"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-74" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-75"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-75" tabindex="-1"></a><span class="co"># This query extracts the measured physico-chemical properties</span></span>
-<span id="cb281-76"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-76" tabindex="-1"></a><span class="co"># linked to each specimen, including:</span></span>
-<span id="cb281-77"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-77" tabindex="-1"></a><span class="co"># - property identifier</span></span>
-<span id="cb281-78"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-78" tabindex="-1"></a><span class="co"># - analytical procedure</span></span>
-<span id="cb281-79"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-79" tabindex="-1"></a><span class="co"># - unit of measure</span></span>
-<span id="cb281-80"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-80" tabindex="-1"></a><span class="co"># - observed value</span></span>
-<span id="cb281-81"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-81" tabindex="-1"></a></span>
-<span id="cb281-82"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-82" tabindex="-1"></a>query_properties <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
-<span id="cb281-83"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-83" tabindex="-1"></a><span class="st">SELECT</span></span>
-<span id="cb281-84"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-84" tabindex="-1"></a><span class="st">  p.name AS project_name,</span></span>
-<span id="cb281-85"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-85" tabindex="-1"></a><span class="st">  s.site_code,</span></span>
-<span id="cb281-86"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-86" tabindex="-1"></a><span class="st">  sp.specimen_id,</span></span>
-<span id="cb281-87"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-87" tabindex="-1"></a><span class="st">  sp.code AS specimen_code,</span></span>
-<span id="cb281-88"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-88" tabindex="-1"></a><span class="st">  r.result_phys_chem_id,</span></span>
-<span id="cb281-89"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-89" tabindex="-1"></a><span class="st">  o.observation_phys_chem_id,</span></span>
-<span id="cb281-90"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-90" tabindex="-1"></a><span class="st">  o.property_phys_chem_id,</span></span>
-<span id="cb281-91"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-91" tabindex="-1"></a><span class="st">  o.procedure_phys_chem_id,</span></span>
-<span id="cb281-92"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-92" tabindex="-1"></a><span class="st">  o.unit_of_measure_id,</span></span>
-<span id="cb281-93"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-93" tabindex="-1"></a><span class="st">  r.value</span></span>
-<span id="cb281-94"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-94" tabindex="-1"></a><span class="st">FROM core.result_phys_chem r</span></span>
-<span id="cb281-95"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-95" tabindex="-1"></a><span class="st">JOIN core.specimen sp</span></span>
-<span id="cb281-96"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-96" tabindex="-1"></a><span class="st">  ON r.specimen_id = sp.specimen_id</span></span>
-<span id="cb281-97"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-97" tabindex="-1"></a><span class="st">JOIN core.element e</span></span>
-<span id="cb281-98"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-98" tabindex="-1"></a><span class="st">  ON sp.element_id = e.element_id</span></span>
-<span id="cb281-99"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-99" tabindex="-1"></a><span class="st">JOIN core.profile pf</span></span>
-<span id="cb281-100"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-100" tabindex="-1"></a><span class="st">  ON e.profile_id = pf.profile_id</span></span>
-<span id="cb281-101"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-101" tabindex="-1"></a><span class="st">JOIN core.plot pl</span></span>
-<span id="cb281-102"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-102" tabindex="-1"></a><span class="st">  ON pf.plot_id = pl.plot_id</span></span>
-<span id="cb281-103"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-103" tabindex="-1"></a><span class="st">JOIN core.site s</span></span>
-<span id="cb281-104"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-104" tabindex="-1"></a><span class="st">  ON pl.site_id = s.site_id</span></span>
-<span id="cb281-105"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-105" tabindex="-1"></a><span class="st">JOIN core.project_site ps</span></span>
-<span id="cb281-106"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-106" tabindex="-1"></a><span class="st">  ON s.site_id = ps.site_id</span></span>
-<span id="cb281-107"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-107" tabindex="-1"></a><span class="st">JOIN core.project p</span></span>
-<span id="cb281-108"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-108" tabindex="-1"></a><span class="st">  ON ps.project_id = p.project_id</span></span>
-<span id="cb281-109"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-109" tabindex="-1"></a><span class="st">JOIN core.observation_phys_chem o</span></span>
-<span id="cb281-110"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-110" tabindex="-1"></a><span class="st">  ON o.observation_phys_chem_id = r.observation_phys_chem_id</span></span>
-<span id="cb281-111"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-111" tabindex="-1"></a><span class="st">ORDER BY</span></span>
-<span id="cb281-112"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-112" tabindex="-1"></a><span class="st">  p.name,</span></span>
-<span id="cb281-113"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-113" tabindex="-1"></a><span class="st">  s.site_code,</span></span>
-<span id="cb281-114"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-114" tabindex="-1"></a><span class="st">  sp.specimen_id,</span></span>
-<span id="cb281-115"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-115" tabindex="-1"></a><span class="st">  o.property_phys_chem_id</span></span>
-<span id="cb281-116"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-116" tabindex="-1"></a><span class="st">&quot;</span></span>
-<span id="cb281-117"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-117" tabindex="-1"></a></span>
-<span id="cb281-118"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-118" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-119"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-119" tabindex="-1"></a><span class="co"># Execute the SQL queries and store results in R objects</span></span>
-<span id="cb281-120"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-120" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-121"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-121" tabindex="-1"></a>soil_points <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, query_points)</span>
-<span id="cb281-122"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-122" tabindex="-1"></a>soil_properties <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, query_properties)</span>
-<span id="cb281-123"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-123" tabindex="-1"></a></span>
-<span id="cb281-124"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-124" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-125"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-125" tabindex="-1"></a><span class="co"># Convert soil properties from long to wide format</span></span>
-<span id="cb281-126"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-126" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-127"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-127" tabindex="-1"></a><span class="co"># A new field called &#39;property_unit&#39; is created by concatenating:</span></span>
-<span id="cb281-128"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-128" tabindex="-1"></a><span class="co"># - property_phys_chem_id</span></span>
-<span id="cb281-129"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-129" tabindex="-1"></a><span class="co"># - unit_of_measure_id</span></span>
-<span id="cb281-130"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-130" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb281-131"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-131" tabindex="-1"></a><span class="co"># This ensures that each output column clearly represents both</span></span>
-<span id="cb281-132"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-132" tabindex="-1"></a><span class="co"># the property and its measurement unit.</span></span>
-<span id="cb281-133"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-133" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb281-134"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-134" tabindex="-1"></a><span class="co"># Then the table is grouped by specimen and reshaped to wide format so that:</span></span>
-<span id="cb281-135"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-135" tabindex="-1"></a><span class="co"># - each row corresponds to one specimen</span></span>
-<span id="cb281-136"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-136" tabindex="-1"></a><span class="co"># - each property becomes a separate column</span></span>
-<span id="cb281-137"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-137" tabindex="-1"></a>soil_properties <span class="ot">&lt;-</span> soil_properties <span class="sc">%&gt;%</span></span>
-<span id="cb281-138"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-138" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb281-139"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-139" tabindex="-1"></a>    <span class="at">property_unit =</span> <span class="fu">paste0</span>(property_phys_chem_id, <span class="st">&quot;_&quot;</span>, unit_of_measure_id)</span>
-<span id="cb281-140"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-140" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb281-141"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-141" tabindex="-1"></a>  <span class="fu">group_by</span>(project_name, site_code, specimen_id, specimen_code, property_unit) <span class="sc">%&gt;%</span></span>
-<span id="cb281-142"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-142" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">mean</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb281-143"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-143" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
-<span id="cb281-144"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-144" tabindex="-1"></a>    <span class="at">names_from =</span> property_unit,</span>
-<span id="cb281-145"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-145" tabindex="-1"></a>    <span class="at">values_from =</span> value</span>
-<span id="cb281-146"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-146" tabindex="-1"></a>  )</span>
-<span id="cb281-147"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-147" tabindex="-1"></a></span>
-<span id="cb281-148"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-148" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-149"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-149" tabindex="-1"></a><span class="co"># Join specimen metadata with laboratory properties</span></span>
-<span id="cb281-150"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-150" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-151"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-151" tabindex="-1"></a><span class="co"># The project name is removed from the properties table before joining</span></span>
-<span id="cb281-152"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-152" tabindex="-1"></a><span class="co"># to avoid duplicated columns such as project_name.x / project_name.y.</span></span>
-<span id="cb281-153"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-153" tabindex="-1"></a><span class="co">#</span></span>
-<span id="cb281-154"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-154" tabindex="-1"></a><span class="co"># The join is performed using:</span></span>
-<span id="cb281-155"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-155" tabindex="-1"></a><span class="co"># - site_code</span></span>
-<span id="cb281-156"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-156" tabindex="-1"></a><span class="co"># - specimen_id</span></span>
-<span id="cb281-157"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-157" tabindex="-1"></a><span class="co"># - specimen_code</span></span>
-<span id="cb281-158"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-158" tabindex="-1"></a>soil_points_with_properties <span class="ot">&lt;-</span> soil_points <span class="sc">%&gt;%</span></span>
-<span id="cb281-159"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-159" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
-<span id="cb281-160"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-160" tabindex="-1"></a>    soil_properties <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>project_name),</span>
-<span id="cb281-161"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-161" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;site_code&quot;</span>, <span class="st">&quot;specimen_id&quot;</span>, <span class="st">&quot;specimen_code&quot;</span>)</span>
-<span id="cb281-162"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-162" tabindex="-1"></a>  )</span>
-<span id="cb281-163"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-163" tabindex="-1"></a></span>
-<span id="cb281-164"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-164" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-165"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-165" tabindex="-1"></a><span class="co"># Convert the final table to an sf spatial object</span></span>
-<span id="cb281-166"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-166" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-167"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-167" tabindex="-1"></a><span class="co"># Longitude and latitude are used to create point geometries.</span></span>
-<span id="cb281-168"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-168" tabindex="-1"></a><span class="co"># The coordinate reference system is WGS84 (EPSG:4326).</span></span>
-<span id="cb281-169"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-169" tabindex="-1"></a>soil_points_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(</span>
-<span id="cb281-170"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-170" tabindex="-1"></a>  soil_points_with_properties,</span>
-<span id="cb281-171"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-171" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>),</span>
-<span id="cb281-172"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-172" tabindex="-1"></a>  <span class="at">crs =</span> <span class="dv">4326</span></span>
-<span id="cb281-173"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-173" tabindex="-1"></a>)</span>
-<span id="cb281-174"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-174" tabindex="-1"></a></span>
-<span id="cb281-175"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-175" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-176"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-176" tabindex="-1"></a><span class="co"># Export the spatial dataset to a GeoPackage file</span></span>
-<span id="cb281-177"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-177" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-178"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-178" tabindex="-1"></a><span class="co"># GeoPackage is used instead of Shapefile because it preserves:</span></span>
-<span id="cb281-179"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-179" tabindex="-1"></a><span class="co"># - full column names</span></span>
-<span id="cb281-180"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-180" tabindex="-1"></a><span class="co"># - special characters</span></span>
-<span id="cb281-181"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-181" tabindex="-1"></a><span class="co"># - a larger number of fields</span></span>
-<span id="cb281-182"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-182" tabindex="-1"></a><span class="fu">st_write</span>(</span>
-<span id="cb281-183"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-183" tabindex="-1"></a>  soil_points_sf,</span>
-<span id="cb281-184"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-184" tabindex="-1"></a>  <span class="st">&quot;03_outputs/module3/kssl_points_with_properties.gpkg&quot;</span>,</span>
-<span id="cb281-185"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-185" tabindex="-1"></a>  <span class="at">delete_dsn =</span> <span class="cn">TRUE</span></span>
-<span id="cb281-186"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-186" tabindex="-1"></a>)</span>
-<span id="cb281-187"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-187" tabindex="-1"></a></span>
-<span id="cb281-188"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-188" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-189"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-189" tabindex="-1"></a><span class="co"># Optional: close the database connection when finished</span></span>
-<span id="cb281-190"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-190" tabindex="-1"></a><span class="co"># =========================================================</span></span>
-<span id="cb281-191"><a href="soil-data-harmonization-sharing-dissemination.html#cb281-191" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-1" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-2"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-2" tabindex="-1"></a><span class="co"># Load packages</span></span>
+<span id="cb285-3"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-3" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-4"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-4" tabindex="-1"></a><span class="fu">library</span>(DBI)</span>
+<span id="cb285-5"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-5" tabindex="-1"></a><span class="fu">library</span>(RPostgres)</span>
+<span id="cb285-6"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-6" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb285-7"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-7" tabindex="-1"></a><span class="fu">library</span>(tidyr)</span>
+<span id="cb285-8"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-8" tabindex="-1"></a><span class="fu">library</span>(sf)</span>
+<span id="cb285-9"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-9" tabindex="-1"></a></span>
+<span id="cb285-10"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-10" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-11"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-11" tabindex="-1"></a><span class="co"># Connect to the PostgreSQL database</span></span>
+<span id="cb285-12"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-12" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-13"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-13" tabindex="-1"></a><span class="co"># This connection uses the database exposed on localhost:5442,</span></span>
+<span id="cb285-14"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-14" tabindex="-1"></a><span class="co"># which is the port mapped from the Docker PostgreSQL container.</span></span>
+<span id="cb285-15"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-15" tabindex="-1"></a>con <span class="ot">&lt;-</span> <span class="fu">dbConnect</span>(</span>
+<span id="cb285-16"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-16" tabindex="-1"></a>  RPostgres<span class="sc">::</span><span class="fu">Postgres</span>(),</span>
+<span id="cb285-17"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-17" tabindex="-1"></a>  <span class="at">dbname   =</span> <span class="st">&quot;kssl&quot;</span>,</span>
+<span id="cb285-18"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-18" tabindex="-1"></a>  <span class="at">host     =</span> <span class="st">&quot;localhost&quot;</span>,</span>
+<span id="cb285-19"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-19" tabindex="-1"></a>  <span class="at">port     =</span> <span class="dv">5442</span>,</span>
+<span id="cb285-20"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-20" tabindex="-1"></a>  <span class="at">user     =</span> <span class="st">&quot;glosis&quot;</span>,</span>
+<span id="cb285-21"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-21" tabindex="-1"></a>  <span class="at">password =</span> <span class="st">&quot;glosis&quot;</span></span>
+<span id="cb285-22"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-22" tabindex="-1"></a>)</span>
+<span id="cb285-23"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-23" tabindex="-1"></a></span>
+<span id="cb285-24"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-24" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-25"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-25" tabindex="-1"></a><span class="co"># SQL Query 1: retrieve soil point / profile / horizon metadata</span></span>
+<span id="cb285-26"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-26" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-27"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-27" tabindex="-1"></a><span class="co"># This query extracts the structural information for each soil specimen:</span></span>
+<span id="cb285-28"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-28" tabindex="-1"></a><span class="co"># - project and site identifiers</span></span>
+<span id="cb285-29"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-29" tabindex="-1"></a><span class="co"># - plot and profile identifiers</span></span>
+<span id="cb285-30"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-30" tabindex="-1"></a><span class="co"># - horizon/element depth information</span></span>
+<span id="cb285-31"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-31" tabindex="-1"></a><span class="co"># - specimen code</span></span>
+<span id="cb285-32"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-32" tabindex="-1"></a><span class="co"># - longitude and latitude from the plot geometry</span></span>
+<span id="cb285-33"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-33" tabindex="-1"></a></span>
+<span id="cb285-34"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-34" tabindex="-1"></a>query_points <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb285-35"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-35" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb285-36"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-36" tabindex="-1"></a><span class="st">  p.project_id,</span></span>
+<span id="cb285-37"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-37" tabindex="-1"></a><span class="st">  p.name AS project_name,</span></span>
+<span id="cb285-38"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-38" tabindex="-1"></a><span class="st">  s.site_id,</span></span>
+<span id="cb285-39"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-39" tabindex="-1"></a><span class="st">  s.site_code,</span></span>
+<span id="cb285-40"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-40" tabindex="-1"></a><span class="st">  pl.plot_id,</span></span>
+<span id="cb285-41"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-41" tabindex="-1"></a><span class="st">  pf.profile_id,</span></span>
+<span id="cb285-42"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-42" tabindex="-1"></a><span class="st">  e.element_id,</span></span>
+<span id="cb285-43"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-43" tabindex="-1"></a><span class="st">  e.order_element,</span></span>
+<span id="cb285-44"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-44" tabindex="-1"></a><span class="st">  e.upper_depth,</span></span>
+<span id="cb285-45"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-45" tabindex="-1"></a><span class="st">  e.lower_depth,</span></span>
+<span id="cb285-46"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-46" tabindex="-1"></a><span class="st">  e.type,</span></span>
+<span id="cb285-47"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-47" tabindex="-1"></a><span class="st">  sp.specimen_id,</span></span>
+<span id="cb285-48"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-48" tabindex="-1"></a><span class="st">  sp.code AS specimen_code,</span></span>
+<span id="cb285-49"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-49" tabindex="-1"></a><span class="st">  ST_X(pl.position::geometry) AS longitude,</span></span>
+<span id="cb285-50"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-50" tabindex="-1"></a><span class="st">  ST_Y(pl.position::geometry) AS latitude</span></span>
+<span id="cb285-51"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-51" tabindex="-1"></a><span class="st">FROM core.project p</span></span>
+<span id="cb285-52"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-52" tabindex="-1"></a><span class="st">JOIN core.project_site ps</span></span>
+<span id="cb285-53"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-53" tabindex="-1"></a><span class="st">  ON ps.project_id = p.project_id</span></span>
+<span id="cb285-54"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-54" tabindex="-1"></a><span class="st">JOIN core.site s</span></span>
+<span id="cb285-55"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-55" tabindex="-1"></a><span class="st">  ON s.site_id = ps.site_id</span></span>
+<span id="cb285-56"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-56" tabindex="-1"></a><span class="st">JOIN core.plot pl</span></span>
+<span id="cb285-57"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-57" tabindex="-1"></a><span class="st">  ON pl.site_id = s.site_id</span></span>
+<span id="cb285-58"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-58" tabindex="-1"></a><span class="st">JOIN core.profile pf</span></span>
+<span id="cb285-59"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-59" tabindex="-1"></a><span class="st">  ON pf.plot_id = pl.plot_id</span></span>
+<span id="cb285-60"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-60" tabindex="-1"></a><span class="st">JOIN core.element e</span></span>
+<span id="cb285-61"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-61" tabindex="-1"></a><span class="st">  ON e.profile_id = pf.profile_id</span></span>
+<span id="cb285-62"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-62" tabindex="-1"></a><span class="st">JOIN core.specimen sp</span></span>
+<span id="cb285-63"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-63" tabindex="-1"></a><span class="st">  ON sp.element_id = e.element_id</span></span>
+<span id="cb285-64"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-64" tabindex="-1"></a><span class="st">ORDER BY</span></span>
+<span id="cb285-65"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-65" tabindex="-1"></a><span class="st">  p.name,</span></span>
+<span id="cb285-66"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-66" tabindex="-1"></a><span class="st">  s.site_id,</span></span>
+<span id="cb285-67"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-67" tabindex="-1"></a><span class="st">  pf.profile_id,</span></span>
+<span id="cb285-68"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-68" tabindex="-1"></a><span class="st">  e.order_element,</span></span>
+<span id="cb285-69"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-69" tabindex="-1"></a><span class="st">  e.upper_depth</span></span>
+<span id="cb285-70"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-70" tabindex="-1"></a><span class="st">&quot;</span></span>
+<span id="cb285-71"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-71" tabindex="-1"></a></span>
+<span id="cb285-72"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-72" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-73"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-73" tabindex="-1"></a><span class="co"># SQL Query 2: retrieve laboratory soil properties</span></span>
+<span id="cb285-74"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-74" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-75"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-75" tabindex="-1"></a><span class="co"># This query extracts the measured physico-chemical properties</span></span>
+<span id="cb285-76"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-76" tabindex="-1"></a><span class="co"># linked to each specimen, including:</span></span>
+<span id="cb285-77"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-77" tabindex="-1"></a><span class="co"># - property identifier</span></span>
+<span id="cb285-78"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-78" tabindex="-1"></a><span class="co"># - analytical procedure</span></span>
+<span id="cb285-79"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-79" tabindex="-1"></a><span class="co"># - unit of measure</span></span>
+<span id="cb285-80"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-80" tabindex="-1"></a><span class="co"># - observed value</span></span>
+<span id="cb285-81"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-81" tabindex="-1"></a></span>
+<span id="cb285-82"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-82" tabindex="-1"></a>query_properties <span class="ot">&lt;-</span> <span class="st">&quot;</span></span>
+<span id="cb285-83"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-83" tabindex="-1"></a><span class="st">SELECT</span></span>
+<span id="cb285-84"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-84" tabindex="-1"></a><span class="st">  p.name AS project_name,</span></span>
+<span id="cb285-85"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-85" tabindex="-1"></a><span class="st">  s.site_code,</span></span>
+<span id="cb285-86"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-86" tabindex="-1"></a><span class="st">  sp.specimen_id,</span></span>
+<span id="cb285-87"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-87" tabindex="-1"></a><span class="st">  sp.code AS specimen_code,</span></span>
+<span id="cb285-88"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-88" tabindex="-1"></a><span class="st">  r.result_phys_chem_id,</span></span>
+<span id="cb285-89"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-89" tabindex="-1"></a><span class="st">  o.observation_phys_chem_id,</span></span>
+<span id="cb285-90"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-90" tabindex="-1"></a><span class="st">  o.property_phys_chem_id,</span></span>
+<span id="cb285-91"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-91" tabindex="-1"></a><span class="st">  o.procedure_phys_chem_id,</span></span>
+<span id="cb285-92"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-92" tabindex="-1"></a><span class="st">  o.unit_of_measure_id,</span></span>
+<span id="cb285-93"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-93" tabindex="-1"></a><span class="st">  r.value</span></span>
+<span id="cb285-94"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-94" tabindex="-1"></a><span class="st">FROM core.result_phys_chem r</span></span>
+<span id="cb285-95"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-95" tabindex="-1"></a><span class="st">JOIN core.specimen sp</span></span>
+<span id="cb285-96"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-96" tabindex="-1"></a><span class="st">  ON r.specimen_id = sp.specimen_id</span></span>
+<span id="cb285-97"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-97" tabindex="-1"></a><span class="st">JOIN core.element e</span></span>
+<span id="cb285-98"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-98" tabindex="-1"></a><span class="st">  ON sp.element_id = e.element_id</span></span>
+<span id="cb285-99"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-99" tabindex="-1"></a><span class="st">JOIN core.profile pf</span></span>
+<span id="cb285-100"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-100" tabindex="-1"></a><span class="st">  ON e.profile_id = pf.profile_id</span></span>
+<span id="cb285-101"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-101" tabindex="-1"></a><span class="st">JOIN core.plot pl</span></span>
+<span id="cb285-102"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-102" tabindex="-1"></a><span class="st">  ON pf.plot_id = pl.plot_id</span></span>
+<span id="cb285-103"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-103" tabindex="-1"></a><span class="st">JOIN core.site s</span></span>
+<span id="cb285-104"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-104" tabindex="-1"></a><span class="st">  ON pl.site_id = s.site_id</span></span>
+<span id="cb285-105"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-105" tabindex="-1"></a><span class="st">JOIN core.project_site ps</span></span>
+<span id="cb285-106"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-106" tabindex="-1"></a><span class="st">  ON s.site_id = ps.site_id</span></span>
+<span id="cb285-107"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-107" tabindex="-1"></a><span class="st">JOIN core.project p</span></span>
+<span id="cb285-108"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-108" tabindex="-1"></a><span class="st">  ON ps.project_id = p.project_id</span></span>
+<span id="cb285-109"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-109" tabindex="-1"></a><span class="st">JOIN core.observation_phys_chem o</span></span>
+<span id="cb285-110"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-110" tabindex="-1"></a><span class="st">  ON o.observation_phys_chem_id = r.observation_phys_chem_id</span></span>
+<span id="cb285-111"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-111" tabindex="-1"></a><span class="st">ORDER BY</span></span>
+<span id="cb285-112"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-112" tabindex="-1"></a><span class="st">  p.name,</span></span>
+<span id="cb285-113"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-113" tabindex="-1"></a><span class="st">  s.site_code,</span></span>
+<span id="cb285-114"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-114" tabindex="-1"></a><span class="st">  sp.specimen_id,</span></span>
+<span id="cb285-115"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-115" tabindex="-1"></a><span class="st">  o.property_phys_chem_id</span></span>
+<span id="cb285-116"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-116" tabindex="-1"></a><span class="st">&quot;</span></span>
+<span id="cb285-117"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-117" tabindex="-1"></a></span>
+<span id="cb285-118"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-118" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-119"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-119" tabindex="-1"></a><span class="co"># Execute the SQL queries and store results in R objects</span></span>
+<span id="cb285-120"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-120" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-121"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-121" tabindex="-1"></a>soil_points <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, query_points)</span>
+<span id="cb285-122"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-122" tabindex="-1"></a>soil_properties <span class="ot">&lt;-</span> <span class="fu">dbGetQuery</span>(con, query_properties)</span>
+<span id="cb285-123"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-123" tabindex="-1"></a></span>
+<span id="cb285-124"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-124" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-125"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-125" tabindex="-1"></a><span class="co"># Convert soil properties from long to wide format</span></span>
+<span id="cb285-126"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-126" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-127"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-127" tabindex="-1"></a><span class="co"># A new field called &#39;property_unit&#39; is created by concatenating:</span></span>
+<span id="cb285-128"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-128" tabindex="-1"></a><span class="co"># - property_phys_chem_id</span></span>
+<span id="cb285-129"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-129" tabindex="-1"></a><span class="co"># - unit_of_measure_id</span></span>
+<span id="cb285-130"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-130" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb285-131"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-131" tabindex="-1"></a><span class="co"># This ensures that each output column clearly represents both</span></span>
+<span id="cb285-132"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-132" tabindex="-1"></a><span class="co"># the property and its measurement unit.</span></span>
+<span id="cb285-133"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-133" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb285-134"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-134" tabindex="-1"></a><span class="co"># Then the table is grouped by specimen and reshaped to wide format so that:</span></span>
+<span id="cb285-135"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-135" tabindex="-1"></a><span class="co"># - each row corresponds to one specimen</span></span>
+<span id="cb285-136"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-136" tabindex="-1"></a><span class="co"># - each property becomes a separate column</span></span>
+<span id="cb285-137"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-137" tabindex="-1"></a>soil_properties <span class="ot">&lt;-</span> soil_properties <span class="sc">%&gt;%</span></span>
+<span id="cb285-138"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-138" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb285-139"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-139" tabindex="-1"></a>    <span class="at">property_unit =</span> <span class="fu">paste0</span>(property_phys_chem_id, <span class="st">&quot;_&quot;</span>, unit_of_measure_id)</span>
+<span id="cb285-140"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-140" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb285-141"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-141" tabindex="-1"></a>  <span class="fu">group_by</span>(project_name, site_code, specimen_id, specimen_code, property_unit) <span class="sc">%&gt;%</span></span>
+<span id="cb285-142"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-142" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">value =</span> <span class="fu">mean</span>(value, <span class="at">na.rm =</span> <span class="cn">TRUE</span>), <span class="at">.groups =</span> <span class="st">&quot;drop&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb285-143"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-143" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(</span>
+<span id="cb285-144"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-144" tabindex="-1"></a>    <span class="at">names_from =</span> property_unit,</span>
+<span id="cb285-145"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-145" tabindex="-1"></a>    <span class="at">values_from =</span> value</span>
+<span id="cb285-146"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-146" tabindex="-1"></a>  )</span>
+<span id="cb285-147"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-147" tabindex="-1"></a></span>
+<span id="cb285-148"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-148" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-149"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-149" tabindex="-1"></a><span class="co"># Join specimen metadata with laboratory properties</span></span>
+<span id="cb285-150"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-150" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-151"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-151" tabindex="-1"></a><span class="co"># The project name is removed from the properties table before joining</span></span>
+<span id="cb285-152"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-152" tabindex="-1"></a><span class="co"># to avoid duplicated columns such as project_name.x / project_name.y.</span></span>
+<span id="cb285-153"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-153" tabindex="-1"></a><span class="co">#</span></span>
+<span id="cb285-154"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-154" tabindex="-1"></a><span class="co"># The join is performed using:</span></span>
+<span id="cb285-155"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-155" tabindex="-1"></a><span class="co"># - site_code</span></span>
+<span id="cb285-156"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-156" tabindex="-1"></a><span class="co"># - specimen_id</span></span>
+<span id="cb285-157"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-157" tabindex="-1"></a><span class="co"># - specimen_code</span></span>
+<span id="cb285-158"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-158" tabindex="-1"></a>soil_points_with_properties <span class="ot">&lt;-</span> soil_points <span class="sc">%&gt;%</span></span>
+<span id="cb285-159"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-159" tabindex="-1"></a>  <span class="fu">left_join</span>(</span>
+<span id="cb285-160"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-160" tabindex="-1"></a>    soil_properties <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>project_name),</span>
+<span id="cb285-161"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-161" tabindex="-1"></a>    <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;site_code&quot;</span>, <span class="st">&quot;specimen_id&quot;</span>, <span class="st">&quot;specimen_code&quot;</span>)</span>
+<span id="cb285-162"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-162" tabindex="-1"></a>  )</span>
+<span id="cb285-163"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-163" tabindex="-1"></a></span>
+<span id="cb285-164"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-164" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-165"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-165" tabindex="-1"></a><span class="co"># Convert the final table to an sf spatial object</span></span>
+<span id="cb285-166"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-166" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-167"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-167" tabindex="-1"></a><span class="co"># Longitude and latitude are used to create point geometries.</span></span>
+<span id="cb285-168"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-168" tabindex="-1"></a><span class="co"># The coordinate reference system is WGS84 (EPSG:4326).</span></span>
+<span id="cb285-169"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-169" tabindex="-1"></a>soil_points_sf <span class="ot">&lt;-</span> <span class="fu">st_as_sf</span>(</span>
+<span id="cb285-170"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-170" tabindex="-1"></a>  soil_points_with_properties,</span>
+<span id="cb285-171"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-171" tabindex="-1"></a>  <span class="at">coords =</span> <span class="fu">c</span>(<span class="st">&quot;longitude&quot;</span>, <span class="st">&quot;latitude&quot;</span>),</span>
+<span id="cb285-172"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-172" tabindex="-1"></a>  <span class="at">crs =</span> <span class="dv">4326</span></span>
+<span id="cb285-173"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-173" tabindex="-1"></a>)</span>
+<span id="cb285-174"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-174" tabindex="-1"></a></span>
+<span id="cb285-175"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-175" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-176"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-176" tabindex="-1"></a><span class="co"># Export the spatial dataset to a GeoPackage file</span></span>
+<span id="cb285-177"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-177" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-178"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-178" tabindex="-1"></a><span class="co"># GeoPackage is used instead of Shapefile because it preserves:</span></span>
+<span id="cb285-179"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-179" tabindex="-1"></a><span class="co"># - full column names</span></span>
+<span id="cb285-180"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-180" tabindex="-1"></a><span class="co"># - special characters</span></span>
+<span id="cb285-181"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-181" tabindex="-1"></a><span class="co"># - a larger number of fields</span></span>
+<span id="cb285-182"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-182" tabindex="-1"></a><span class="fu">st_write</span>(</span>
+<span id="cb285-183"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-183" tabindex="-1"></a>  soil_points_sf,</span>
+<span id="cb285-184"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-184" tabindex="-1"></a>  <span class="st">&quot;03_outputs/module3/kssl_points_with_properties.gpkg&quot;</span>,</span>
+<span id="cb285-185"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-185" tabindex="-1"></a>  <span class="at">delete_dsn =</span> <span class="cn">TRUE</span></span>
+<span id="cb285-186"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-186" tabindex="-1"></a>)</span>
+<span id="cb285-187"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-187" tabindex="-1"></a></span>
+<span id="cb285-188"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-188" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-189"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-189" tabindex="-1"></a><span class="co"># Optional: close the database connection when finished</span></span>
+<span id="cb285-190"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-190" tabindex="-1"></a><span class="co"># =========================================================</span></span>
+<span id="cb285-191"><a href="soil-data-harmonization-sharing-dissemination.html#cb285-191" tabindex="-1"></a><span class="fu">dbDisconnect</span>(con)</span></code></pre></div>
 </div>
 </div>
 </div>

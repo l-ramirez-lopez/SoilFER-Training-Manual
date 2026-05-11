@@ -177,18 +177,7 @@ Establishes the theoretical foundation for representative soil sampling through 
 Provides hands-on training in implementing the SoilFER sampling protocol through a complete R workflow. The session guides participants through calculating minimum sample size, applying CSC sampling algorithms to identify Primary Sampling Units, generating Secondary and Tertiary Sampling Units through stratified random sampling, and establishing systematic site identification codes that maintain traceability throughout the sampling hierarchy..
 
 
-#### **Module 3: GloSIS Data Preparation** {-}
-
-This module covers the Global Soil Information System (GloSIS) framework and database specifications for standardizing soil data to international standards, enabling global interoperability and exchange through web services.
-
-**Session 3.1 - Harmonization of Soil Data for GloSIS**  
-Introduces the ISO-28258 standards and GloSIS database model, focusing on Features of Interest that define how soil observations are structured in the system. Participants learn to harmonize soil property units and measurement methods across different laboratory protocols using the GloSIS template, a structured spreadsheet format designed to standardize heterogeneous national datasets. The session demonstrates automated harmonization tools that convert legacy soil data into GloSIS-compliant formats, addressing common challenges such as unit conversions, classification system mapping, and quality flag assignment. This preparation ensures datasets become compatible with FAO reporting requirements and accessible through international soil information platforms.
-
-**Session 3.2 - GloSIS Web Services and Deployment**  
-Provides hands-on training in deploying the complete GloSIS software stack using Docker containerization. Participants configure a PostgreSQL database with PostGIS spatial extension for storing harmonized soil data, implement Extract-Transform-Load (ETL), establish a metadata catalog service that enables dataset discovery through standardized search protocols, and deploy web mapping interfaces for interactive spatial visualization. 
-
-
-#### **Module 4: Digital Soil Mapping** {-}
+#### **Module 3: Digital Soil Mapping** {-}
 
 This module provides comprehensive training in digital soil mapping (DSM) theory and practice, progressing from fundamental concepts through practical implementation using the standardized dataset produced in Module 1.
 
@@ -199,25 +188,25 @@ Introduces feature selection techniques for identifying relevant environmental i
 The session provides hands-on experience building prediction models for three variable types: continuous properties such as pH using regression approaches, nominal classes representing unordered categories combining clay content and pH, and ordinal soil pH classes. Each workflow produces raster prediction maps with associated uncertainty estimates and accuracy assessments.
 
 
-#### **Module 5: Soil Spectroscopy** {-}
+#### **Module 4: Soil Spectroscopy** {-}
 
 This module introduces soil infrared spectroscopy as a rapid, cost-effective method for predicting soil properties and demonstrates its integration into DSM workflows.
 
-**Session 5.1 - Spectroscopy Fundamentals and Calibration**  
+**Session 4.1 - Spectroscopy Fundamentals and Calibration**  
 The session introduces essential spectral data preprocessing techniques, quality control procedures and advanced chemometric modeling approaches for building spectral calibration models.
 
-**Session 5.2 - Practical Spectroscopy Workflows**  
+**Session 4.2 - Practical Spectroscopy Workflows**  
 Provides hands-on experience processing raw spectral scans from the KSSL dataset, build calibration models for soil properties, and integrate spectral predictions into complete DSM workflows.
 
 
-#### **Module 6: Soil Data Sharing** {-}
+#### **Module 5: Soil Data Sharing** {-}
 
 This module covers the technical and organizational aspects of making soil data discoverable, accessible, and interoperable through web services and international platforms.
 
-**Session 6.1 - Standards, Metadata, and Interoperability**  
+**Session 5.1 - Standards, Metadata, and Interoperability**  
 Introduces ISO 19115/19139 standards for creating spatial metadata that enables dataset discovery and proper documentation. The session covers deploying web services for standardized data access, establishing appropriate data licensing and data attribution. 
 
-**Session 6.2 - Web Services Deployment**  
+**Session 5.2 - Web Services Deployment**  
 Demonstrates configuring web map servers for interactive soil data visualization and publishing datasets. The session provides practical training in establishing complete data sharing infrastructure, from database configuration through web service endpoints, ensuring participants can make their soil information FAIR (Findable, Accessible, Interoperable, Reusable) and contribute to global soil information systems while maintaining data quality and provenance.
 
 
