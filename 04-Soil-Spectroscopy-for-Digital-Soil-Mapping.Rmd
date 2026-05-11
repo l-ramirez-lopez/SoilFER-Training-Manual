@@ -22,162 +22,141 @@ knitr::opts_chunk$set(
 
 ### Introduction 
 
-Digital soil mapping (DSM) relies heavily on laboratory analyses to measure and characterize soil properties at sampled locations, which are then used as reference observations for training and validating spatial prediction models. Although highly accurate, conventional laboratory methods are slow and costly, creating a bottleneck that restricts timely data production for DSM. In this context, sensing technologies such as diffuse reflectance spectroscopy can complement laboratory analysis by reducing analytical costs and enabling soil property observations to be generated more rapidly and at greater spatial density. For these reasons, diffuse reflectance spectroscopy has gained substantial attention in the soil science community as a tool for enhancing soil characterization [@peng2025spectroscopic].
+Digital soil mapping (DSM) relies heavily on laboratory analyses to measure and characterize soil properties at sampled locations, which are then used as reference observations for training and validating spatial prediction models. Although highly accurate, conventional laboratory methods are slow and costly, creating a bottleneck that restricts timely data production for DSM. For example, conventional soil organic carbon reference methods, such as dry combustion and wet oxidation, require specialized infrastructure, trained personnel, and consumables, leading to long turnaround times and substantial per-sample costs [@wu2025assessing]. In this context, sensing technologies such as diffuse reflectance spectroscopy can complement laboratory analysis by reducing analytical costs and enabling soil property observations to be generated more rapidly and at greater spatial density. For these reasons, diffuse reflectance spectroscopy has gained substantial attention in the soil science community as a tool for enhancing soil characterization [@peng2025spectroscopic].
 
-In soil applications, diffuse reflectance spectroscopy (DRS) is a maturing spectroscopic approach focused on extracting information from the interaction between soil samples and electromagnetic radiation. The chemical composition and physical structure of soil determine how electromagnetic radiation is absorbed and scattered. Consequently, soil composition and physical properties can be inferred by analyzing reflected energy. DRS sensors record reflected energy across multiple wavelengths, producing spectra that are typically converted from reflectance to absorbance. Soil property quantification with DRS relies on empirical calibration models, usually built with regression methods that link spectral measurements to laboratory reference data. 
+In soil applications, diffuse reflectance spectroscopy (DRS) is a maturing spectroscopic approach focused on extracting information from the interaction between soil samples and electromagnetic radiation. The chemical composition and physical structure of soil determine how electromagnetic radiation is absorbed and scattered. Consequently, soil composition and physical properties can be inferred by analyzing reflected energy. DRS sensors record reflected energy across multiple wavelengths, producing spectra that are typically converted from reflectance to absorbance. Soil property quantification with DRS relies on empirical calibration models, usually built with regression methods that link spectral measurements to laboratory reference data. Once suitable calibration models are available for multiple soil properties, they can be applied to a new soil spectrum to predict those properties simultaneously.
 
 DRS methods used in soil science are commonly grouped into visible–near infrared (vis–NIR), shortwave infrared (SWIR), and mid-infrared (MIR) regions. The vis–NIR and SWIR regions are used in both laboratory and field applications, supported by the availability of portable instruments. These regions show a high sensitivity to soil organic matter, moisture, iron oxides, and texture-related features. MIR spectroscopy is more commonly conducted under laboratory conditions and often provides sharper absorption features associated with mineralogical and chemical soil attributes. In all these regions, spectral measurements of a soil sample can typically be acquired within seconds to a few minutes.
 
-There is broad consensus that DRS complements rather than replaces soil laboratory analyses [@viscarra2022diffuse], increasing analytical throughput while retaining the validity of reference procedures. For DSM, this means that spectroscopy can expand soil property datasets and improve mapping workflows while reducing cost and logistical constraints. This is true when the empirical models that translate spectra into soil property predictions have been properly calibrated and validated. It is important to note, however, that developing these models can still be laborious, time-consuming, and costly, a limitation that is rarely acknowledged in the soil spectroscopy literature. In this respect, pre-existing soil spectral libraries containing reference samples offer an opportunity to reduce calibration effort when developing new models for a specific area or application.
+There is broad consensus that DRS complements rather than replaces soil laboratory analyses [@viscarra2022diffuse, @chen2023integrating], increasing analytical throughput while retaining the validity of reference procedures. For DSM, this means that spectroscopy can expand soil property datasets and improve mapping workflows while reducing cost and logistical constraints. This is true when the empirical models that translate spectra into soil property predictions have been properly calibrated and validated. It is important to note, however, that developing these models can still be laborious, time-consuming, and costly, a limitation that is rarely acknowledged in the soil spectroscopy literature. In this respect, pre-existing soil spectral libraries containing reference samples offer an opportunity to reduce calibration effort when developing new models for a specific area or application.
 
 
+### Rationale 
 
-### Rational 
+The use of DRS-inferred soil properties offers a cost- and time-efficient pathway to substantially increase the number of observations available for DSM model calibration [@ramirez2019robust]. This directly supports the collection of spatially dense datasets at field to regional scales. By augmenting conventional laboratory datasets with larger volumes of DRS-inferred observations, DSM workflows can benefit from more input data, which may improve map accuracy at lower overall cost.
 
-DSM is typically based on the geostatistical or machine-learning relationships established between environmental covariates and point-measured soil properties such as soil organic carbon, pH, texture, or nutrient content [@mcbratney2003digital]. These reference soil measurements are commonly obtained through conventional field sampling followed by laboratory analyses. While such measurements provide high analytical accuracy, they are often costly and time-consuming to obtain. For instance, wet-chemistry determination of soil organic carbon requires sample preparation, chemical reagents, specialised laboratory infrastructure, and skilled personnel, with analyses often taking several hours per batch and incurring substantial per-sample costs [@wu2025assessing]. As a result, the spatial density of high-quality soil observations is frequently limited.
-
-The use of spectroscopically-inferred soil properties offers a pathway to increase the number of observations available for DSM model calibration [@ramirez2019robust]. Spectroscopic sensing allows rapid, relatively inexpensive estimation of multiple soil attributes from a single measurement. This directly supports the collection of dense datasets at field to regional scales. By augmenting conventional laboratory datasets with larger volumes of spectroscopically-inferred observations, DSM can benefit from more input data, which can in turn yield more accurate maps for a smaller total cost. In this context, spectroscopic data is a mean of enhancing the information provided for DSM model training rather than replacing traditional reference analyses [@chen2023integrating].
-
-However, the integration of spectroscopically inferred soil properties into DSM requires careful consideration of the nature of these data. Unlike conventional laboratory analyses, spectroscopy does not directly measure soil properties but provides statistical predictions based on calibrated relationships between spectral responses and reference measurements. Consequently, each spectroscopic estimate is associated with a uncertainty that is usually larger than that of wet-chemistry measurements. When spectroscopically-inferred data are incorporated into DSM workflows, it is therefore needed to explicitly acknowledge this additional source of uncertainty [@takoutsing2022accounting].
 
 ### Including spectroscopic prediction in digital soil mapping
 
-A number of studies have explained the need to explicitly account for measurement errors in DSM, particularly when integrating soil properties predicted from spectroscopic predictions. Because spectroscopic techniques provide indirect, model-based estimates rather than direct analytical measurements, each predicted value is associated with a prediction uncertainty that may affect the spatial modelling process, that is, both map accuracy and the predicted pattern. Ignoring measurement error can lead to poor DSM model calibration and overconfident spatial predictions [@van2022measurement].
+In DSM workflows that incorporate DRS, spectroscopically derived soil-property estimates should be treated as model-based predictions with associated uncertainty, rather than as error-free measurements. Unlike conventional laboratory analyses, spectroscopy does not directly measure soil properties; it generates predictions from statistical models calibrated to capture relationships between spectral responses and reference measurements. Consequently, each DRS estimate is associated with an uncertainty that is usually larger than that of wet-chemistry measurements. When DRS-inferred data are incorporated into DSM workflows, this additional source of uncertainty should therefore be explicitly acknowledged [@takoutsing2022accounting]. Treating DRS predictions as error-free measurements may result in biased spatial models, propagation of systematic spectroscopic errors, and overconfident DSM predictions [@van2022measurement].
 
-Different methodological strategies have been proposed to address this issue, depending on the model used for DSM. In geostatistical mapping, measurement error variances have been incorporated into spatial covariance structures [@takoutsing2022accounting]. An example is @ramirez2019robust, which used the measurment error variance for the spectroscopic prediction into the covariance matrix fo the kriging prediciton. This led smoother maps overall. In machine-learning based DSM, the literature remains relatively limited but several studies have explored weighting schemes to reflect varying data quality. For example, weights derived from spectroscopic prediction uncertainty have been used in convolutional neural networks or random forest models by modifying the loss function during model calibration [@wadoux2019multi, @hengl2018random]. More recently, error-filtered ML frameworks have been proposed in which measurement error variance is explicitly integrated into likelihood-based estimation, showing improvements in predictive performance when observation errors are substantial [@van2022measurement].
 
-A central prerequisite across these approaches is the availability of sample-specific estimates of measurement error variance for all spectroscopically inferred soil observations. In practice, this means that for each soil sample, spectroscopy provides not only a predicted soil property value (e.g. soil organic carbon content) but also an associated uncertainty metric, often expressed as a prediction standard deviation or variance derived from prediction. 
+Different methodological strategies have been proposed to propagate or account for uncertainty in soil-property observations used in DSM, depending on the modelling framework adopted. In geostatistical mapping, observation-level uncertainty in soil-property data has been incorporated into spatial covariance structures [@ramirez2019robust, @takoutsing2022accounting]. In machine-learning based DSM, the literature remains relatively limited but several studies have explored weighting schemes to reflect varying data quality. For example, weights derived from DRS prediction uncertainty have been used in convolutional neural networks and random forest models by modifying the loss function during model calibration [@wadoux2019multi, @hengl2018random]. More recently, error-filtered ML frameworks have been proposed in which observation-level uncertainty is explicitly integrated into likelihood-based estimation, showing improvements in predictive performance when observation errors are substantial [@van2022measurement].
 
-This is illustrated in Figure \@ref(fig:fig-uncertainty), showing a conceptual representation of soil property observations obtained using wet-chemistry analysis and infrared spectroscopy. The wet-chemistry measurement is depicted as a narrow probability distribution centered on the observed value, reflecting relatively low uncertainty, whereas the spectroscopically-inferred value is represented by a wider distribution centered on the predicted value, indicating the larger uncertainty associated with the spectroscopic prediction. The dashed vertical lines denote the point estimates, and the horizontal arrows represent the corresponding standard deviations, $\sigma_{\mathrm{wet}}$ and ( $\sigma_{\mathrm{spectroscopy}}$, respectively. This illustration shows the uncertainty of a soil property value through a sample-specific measure uncertainty, typically expressed as a variance or standard deviation derived from the calibration model. Although spectroscopic observations are generally less precise than laboratory measurements, their lower cost enables the acquisition of denser datasets, which is often advantageous in DSM because increased data availability improves the characterization of spatial variation and environmental relationships, provided that the associated uncertainty is explicitly accounted for. In the practical section that follows, we illustrate the concept using an example of DSM implemented with a random forest model.
+A prerequisite for accounting for uncertainty in DRS predictions within DSM is that each observation includes an associated uncertainty estimate. In practice, DRS should provide not only a predicted soil-property value, such as soil organic carbon content, but also an uncertainty metric, typically expressed as a prediction standard deviation or variance.
 
-```{r fig-uncertainty, echo=FALSE, fig.cap="Conceptual illustration of measurement and prediction uncertainty. Narrow distributions represent wet-chemistry observations with lower analytical uncertainty, whereas wider distributions represent spectroscopic predictions with larger associated standard deviations. Horizontal arrows indicate one standard deviation around the estimated value.", fig.width=6.5, fig.height=4.5}
+
+This is illustrated in Figure \@ref(fig:fig-uncertainty), which provides a conceptual representation of soil property observations obtained using wet-chemistry analysis and DRS. The wet-chemistry measurements are shown with a narrow probability distribution centered on the reference value, reflecting relatively low analytical uncertainty. In contrast, the DRS-inferred values are represented by a wider probability distribution centered on the model prediction, reflecting its larger uncertainty. The dashed vertical lines denote the corresponding point estimates, while the horizontal arrows represent their standard deviations, $\sigma_{\mathrm{wet}}$ and $\sigma_{\mathrm{spectroscopy}}$. The displacement between the two distributions illustrates that spectroscopic predictions may differ systematically from reference measurements, introducing prediction bias in addition to random uncertainty. DRS predictions of sol properties are generally less accurate than conventional laboratory measurements. However, their lower cost and higher analytical throughput can enable the acquisition of spatially denser datasets, which may improve the characterization of spatial variation and soil–environment relationships, provided that the associated prediction uncertainty is explicitly considered. In the practical section that follows, we illustrate this concept using an example of DSM implemented with a random forest model.
+
+```{r fig-uncertainty, echo = FALSE, fig.cap="Conceptual illustration of measurement and prediction uncertainty. Narrow distributions represent wet-chemistry observations with lower analytical uncertainty, whereas wider distributions represent DRS predictions with larger associated standard deviations. Horizontal arrows indicate one standard deviation around the estimated value.", fig.width=6.5, fig.height=4.5}
 
 library(ggplot2)
 
 wet_mean <- 18.5
-wet_sd   <- 0.4
-
+wet_sd <- 0.4
 spec_mean <- 17.8
-spec_sd   <- 1.2
+spec_sd <- 1.2
 
-x_min <- min(wet_mean - 4 * wet_sd, spec_mean - 4 * spec_sd)
-x_max <- max(wet_mean + 4 * wet_sd, spec_mean + 4 * spec_sd)
-x <- seq(x_min, x_max, length.out = 1000)
+x <- seq(
+  min(wet_mean - 4*wet_sd, spec_mean - 4*spec_sd),
+  max(wet_mean + 4*wet_sd, spec_mean + 4*spec_sd),
+  length.out = 1000
+)
+
+col_wet <- "#4E84A8" # steel blue
+col_spec <- "#C1614A" # muted terracotta
 
 df <- rbind(
-  data.frame(
-    x = x,
-    density = dnorm(x, wet_mean, wet_sd),
-    method = "Wet chemistry"
-  ),
-  data.frame(
-    x = x,
-    density = dnorm(x, spec_mean, spec_sd),
-    method = "Spectroscopy prediction"
-  )
+  data.frame(x = x, density = dnorm(x, wet_mean, wet_sd), method = "Wet chemistry"),
+  data.frame(x = x, density = dnorm(x, spec_mean, spec_sd), method = "DRS predictions")
 )
 
 means_df <- data.frame(
   mean = c(wet_mean, spec_mean),
-  sd   = c(wet_sd, spec_sd),
-  method = c("Wet chemistry", "Spectroscopy prediction")
+  sd = c(wet_sd, spec_sd),
+  method = c("Wet chemistry", "DRS predictions")
 )
 
 ymax <- max(df$density)
 
-ggplot(df, aes(x = x, y = density, color = method, fill = method)) +
+ggplot(df, aes(x = x, y = density, colour = method, fill = method)) +
   
-  # SD shaded band
   geom_rect(
     data = means_df,
-    aes(
-      xmin = mean - sd,
-      xmax = mean + sd,
-      ymin = 0,
-      ymax = Inf,
-      fill = method
-    ),
-    alpha = 0.15,
-    inherit.aes = FALSE
+    aes(xmin = mean - sd, xmax = mean + sd, ymin = 0, ymax = Inf, fill = method),
+    alpha = 0.12, inherit.aes = FALSE
   ) +
   
-  geom_area(alpha = 0.25, position = "identity") +
-  geom_line(linewidth = 1.1) +
+  geom_area(alpha = 0.20, position = "identity") +
+  geom_line(linewidth = 1.0) +
   
   geom_vline(
     data = means_df,
-    aes(xintercept = mean, color = method),
-    linetype = "dashed",
-    linewidth = 0.9,
-    show.legend = FALSE
+    aes(xintercept = mean, colour = method),
+    linetype = "dashed", linewidth = 0.7, show.legend = FALSE
   ) +
   
-  # horizontal arrow spectroscopy
-  annotate("segment",
-           x = spec_mean - spec_sd,
-           xend = spec_mean + spec_sd,
-           y = ymax * 0.55,
-           yend = ymax * 0.55,
-           colour = "#F4A582",
-           linewidth = 1,
-           arrow = arrow(ends = "both", length = unit(0.15,"cm"))
+  # sigma_DRS arrow — placed low, well left of the wet-chem peak
+  annotate(
+    "segment",
+    x = spec_mean - spec_sd, xend = spec_mean + spec_sd,
+    y = ymax * 0.38, yend = ymax * 0.38,
+    colour = col_spec, linewidth = 0.8,
+    arrow = arrow(ends = "both", length = unit(0.12, "cm"), type = "closed")
+  ) +
+  annotate(
+    "text",
+    x = spec_mean - spec_sd - 0.15, y = ymax * 0.38,
+    label = expression(sigma[DRS]),
+    colour = col_spec, size = 4.2, hjust = 1
   ) +
   
-  annotate("text",
-           x = spec_mean,
-           y = ymax * 0.60,
-           label = expression(sigma[spectroscopy]),
-           colour = "#F4A582",
-           size = 5
+  # sigma_wet arrow — placed high, anchored right of its own peak
+  annotate(
+    "segment",
+    x = wet_mean - wet_sd, xend = wet_mean + wet_sd,
+    y = ymax * 0.72, yend = ymax * 0.72,
+    colour = col_wet, linewidth = 0.8,
+    arrow = arrow(ends = "both", length = unit(0.12, "cm"), type = "closed")
+  ) +
+  annotate(
+    "text",
+    x = wet_mean + wet_sd + 0.15, y = ymax * 0.72,
+    label = expression(sigma["wet chem."]),
+    colour = col_wet, size = 4.2, hjust = 0
   ) +
   
-  # horizontal arrow wet chemistry
-  annotate("segment",
-           x = wet_mean - wet_sd,
-           xend = wet_mean + wet_sd,
-           y = ymax * 0.80,
-           yend = ymax * 0.80,
-           colour = "#6BAED6",
-           linewidth = 1,
-           arrow = arrow(ends = "both", length = unit(0.15,"cm"))
+  scale_colour_manual(
+    values = c("Wet chemistry" = col_wet, "DRS predictions" = col_spec)
   ) +
-  
-  annotate("text",
-           x = wet_mean,
-           y = ymax * 0.85,
-           label = expression(sigma[wet]),
-           colour = "#6BAED6",
-           size = 5
+  scale_fill_manual(
+    values = c("Wet chemistry" = col_wet, "DRS predictions" = col_spec)
   ) +
-  
-  scale_color_manual(values = c(
-    "Wet chemistry" = "#6BAED6",
-    "Spectroscopy prediction" = "#F4A582"
-  )) +
-  scale_fill_manual(values = c(
-    "Wet chemistry" = "#6BAED6",
-    "Spectroscopy prediction" = "#F4A582"
-  )) +
   
   labs(
-    x = "Soil property value",
-    y = "Probability density",
-    color = NULL,
-    fill = NULL,
-    title = ""
+    x = "Soil property value", 
+    y = "Probability density", 
+    colour = NULL, 
+    fill = NULL
   ) +
   
   theme_classic(base_size = 13) +
   theme(
     legend.position = "top",
-    plot.title = element_text(face = "bold")
+    legend.key.size = unit(0.9, "lines"),
+    legend.text = element_text(size = 11),
+    axis.line = element_line(colour = "grey40"),
+    panel.grid.major.y = element_line(colour = "grey92", linewidth = 0.4), 
+    axis.text = element_blank(),
+    axis.ticks = element_blank()
   )
 ```
 
 
 
-## Part II – Practical application
-### Workflow overview
+## Part II – Practical application  
+
+### Workflow overview  
 
 In this practical section we illustrate how soil spectroscopic data can be integrated into DSM. The main objective is to use spectroscopy to complement conventional laboratory soil analyses. This allows an increase in the amount of usable soil information without a proportional increase in laboratory effort.
 
