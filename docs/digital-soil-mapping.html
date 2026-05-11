@@ -1045,7 +1045,6 @@ Figure 3.1: Boruta feature selection for SOC. Green = confirmed, red = rejected,
 <blockquote>
 <p><strong>Feature selection in DSM: two schools of thought.</strong> The field is divided on how to approach predictor selection. One tradition favours <em>expert-guided selection</em>: the practitioner chooses covariates based on known soil-forming processes, keeping the predictor set small, interpretable, and grounded in pedological theory. The opposing view argues for <em>data-driven inclusion</em>: feed all available covariates to the model and let the algorithm determine relevance — a pragmatic position when the environmental drivers of a given soil property are poorly understood or when the goal is purely predictive accuracy. Boruta sits between these extremes: it is automated and data-driven, but its output can still be audited against expert knowledge (e.g. rejecting a confirmed variable that has no plausible mechanistic link to the target, or overriding a rejection for a variable known to be important). In practice, the best approach depends on the study objective, the quality of the covariates, and the sample size available for model training.</p>
 </blockquote>
-<p>Here is the revised Section 6 with a proper QRF introduction:</p>
 <hr />
 </div>
 <div id="train-the-quantile-regression-forest-model" class="section level3 hasAnchor" number="3.2.7">
@@ -1145,7 +1144,7 @@ Figure 3.2: Permutation-based variable importance for the SOC model. Longer bars
 <span id="cb253-5"><a href="digital-soil-mapping.html#cb253-5" tabindex="-1"></a></span>
 <span id="cb253-6"><a href="digital-soil-mapping.html#cb253-6" tabindex="-1"></a>obs_vals  <span class="ot">&lt;-</span> cv_preds<span class="sc">$</span>obs</span>
 <span id="cb253-7"><a href="digital-soil-mapping.html#cb253-7" tabindex="-1"></a>pred_vals <span class="ot">&lt;-</span> cv_preds<span class="sc">$</span>pred</span></code></pre></div>
-<p>The <code>eval()</code> function, loaded from <code>eval.RData</code>, implements the accuracy framework proposed by <span class="citation">(<a href="#ref-wadoux2021integrated"><strong>wadoux2021integrated?</strong></a>)</span>. It computes six complementary metrics from the vectors of observed (z) and predicted (ẑ) values:</p>
+<p>The <code>eval()</code> function, loaded from <code>eval.RData</code>, implements the accuracy framework proposed by <span class="citation">Wadoux <em>et al.</em> (<a href="#ref-Wadoux2021integrated">2021</a>)</span>. It computes six complementary metrics from the vectors of observed (z) and predicted (ẑ) values:</p>
 <div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="digital-soil-mapping.html#cb254-1" tabindex="-1"></a><span class="fu">load</span>(<span class="st">&quot;02_scripts/module3/eval.RData&quot;</span>)</span>
 <span id="cb254-2"><a href="digital-soil-mapping.html#cb254-2" tabindex="-1"></a>accuracy <span class="ot">&lt;-</span> <span class="fu">eval</span>(pred_vals, obs_vals)[, <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>]</span>
 <span id="cb254-3"><a href="digital-soil-mapping.html#cb254-3" tabindex="-1"></a>accuracy</span></code></pre></div>
@@ -1432,6 +1431,9 @@ Figure 3.5: SOC prediction uncertainty (SD) for tile 1 (g/kg).
 </div>
 <div id="ref-Styc2021" class="csl-entry">
 <strong>Styc, Q. &amp; Lagacherie, P.</strong> 2021. Combining spatial-environmental covariates and soil input data types to predict soil available water holding capacity. <em>Geoderma</em>, 401: 115171. <a href="https://doi.org/10.1016/j.geoderma.2021.115171">https://doi.org/10.1016/j.geoderma.2021.115171</a>
+</div>
+<div id="ref-Wadoux2021integrated" class="csl-entry">
+<strong>Wadoux, A.M.J.-C., Heuvelink, G.B.M., Bruin, S. de &amp; Brus, D.J.</strong> 2021. Spatial cross-validation is not the right way to evaluate map accuracy, 457: 109692. <a href="https://doi.org/10.1016/j.ecolmodel.2021.109692">https://doi.org/10.1016/j.ecolmodel.2021.109692</a>
 </div>
 <div id="ref-Wadoux2021" class="csl-entry">
 <strong>Wadoux, A.M.J.-C., Minasny, B. &amp; McBratney, A.B.</strong> 2021. Machine learning for digital soil mapping: Applications, challenges and suggested solutions. <em>Earth-Science Reviews</em>, 210: 103359. <a href="https://doi.org/10.1016/j.earscirev.2020.103359">https://doi.org/10.1016/j.earscirev.2020.103359</a>
