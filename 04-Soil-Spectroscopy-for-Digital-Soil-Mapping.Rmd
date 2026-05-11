@@ -3,18 +3,34 @@
 *Alexandre Wadoux and Leonardo Ramirez-Lopez*
 
 ```{r setup, include=FALSE}
+required_packages <- c(
+  "terra", "ranger", "dplyr", "ggplot2",
+  "prospectr", "matrixStats", "DiagrammeR",
+  "DiagrammeRsvg", "rsvg"
+)
+
+dir.create("images/module4", recursive = TRUE, showWarnings = FALSE)
+
+missing <- required_packages[!sapply(required_packages, requireNamespace, quietly = TRUE)]
+if (length(missing) > 0) install.packages(missing)
+
+
 library(terra)
 library(ranger)
 library(dplyr)
 library(ggplot2)
 library(prospectr)
 library(matrixStats)
+library(DiagrammeR)
+library(DiagrammeRsvg)
+library(rsvg)
 
 knitr::opts_chunk$set(
   echo = TRUE,
   eval = FALSE,
   message = FALSE,
-  warning = FALSE
+  warning = FALSE, 
+  fig.align = 'center'
 )
 ```
 
@@ -35,20 +51,19 @@ There is broad consensus that DRS complements rather than replaces soil laborato
 
 The use of DRS-inferred soil properties offers a cost- and time-efficient pathway to substantially increase the number of observations available for DSM model calibration [@ramirez2019robust]. This directly supports the collection of spatially dense datasets at field to regional scales. By augmenting conventional laboratory datasets with larger volumes of DRS-inferred observations, DSM workflows can benefit from more input data, which may improve map accuracy at lower overall cost.
 
+### Including Spectroscopic Predictions in Digital Soil Mapping
 
-### Including spectroscopic prediction in digital soil mapping
+In DSM workflows that incorporate DRS, spectroscopically derived soil property estimates should be treated as model-based predictions with associated uncertainty, rather than as error-free measurements. Unlike conventional laboratory analyses, spectroscopy does not directly measure soil properties; it generates predictions from statistical models calibrated to capture relationships between spectral responses and reference measurements. Consequently, each DRS estimate is associated with uncertainty that is usually larger than that of conventional laboratory measurements. When DRS-inferred data are incorporated into DSM workflows, this additional source of uncertainty should therefore be explicitly acknowledged [@takoutsing2022accounting]. Treating DRS predictions as error-free observations may lead to biased spatial models, propagation of systematic spectroscopic errors, and overconfident DSM predictions [@van2022measurement].
 
-In DSM workflows that incorporate DRS, spectroscopically derived soil-property estimates should be treated as model-based predictions with associated uncertainty, rather than as error-free measurements. Unlike conventional laboratory analyses, spectroscopy does not directly measure soil properties; it generates predictions from statistical models calibrated to capture relationships between spectral responses and reference measurements. Consequently, each DRS estimate is associated with an uncertainty that is usually larger than that of wet-chemistry measurements. When DRS-inferred data are incorporated into DSM workflows, this additional source of uncertainty should therefore be explicitly acknowledged [@takoutsing2022accounting]. Treating DRS predictions as error-free measurements may result in biased spatial models, propagation of systematic spectroscopic errors, and overconfident DSM predictions [@van2022measurement].
+Different methodological strategies have been proposed to propagate or account for uncertainty in soil property observations used in DSM, depending on the modeling framework adopted. In geostatistical mapping, observation-level uncertainty in soil property data has been incorporated into spatial covariance structures [@ramirez2019robust; @takoutsing2022accounting]. In machine-learning-based DSM, the literature remains more limited, although several studies have explored weighting schemes to reflect differences in data quality. For example, weights derived from DRS prediction uncertainty have been used in convolutional neural networks and random forest models by modifying the loss function during model calibration [@wadoux2019multi; @hengl2018random]. More recently, error-filtered machine learning frameworks have been proposed in which observation-level uncertainty is explicitly integrated into likelihood-based estimation, with improved predictive performance when observation errors are substantial [@van2022measurement].
 
+A prerequisite for accounting for uncertainty in DRS predictions within DSM is that each observation includes an associated uncertainty estimate. In practice, DRS should provide not only a predicted soil property value, such as soil organic carbon content, but also an uncertainty metric, typically expressed as a prediction standard deviation or variance.
 
-Different methodological strategies have been proposed to propagate or account for uncertainty in soil-property observations used in DSM, depending on the modelling framework adopted. In geostatistical mapping, observation-level uncertainty in soil-property data has been incorporated into spatial covariance structures [@ramirez2019robust, @takoutsing2022accounting]. In machine-learning based DSM, the literature remains relatively limited but several studies have explored weighting schemes to reflect varying data quality. For example, weights derived from DRS prediction uncertainty have been used in convolutional neural networks and random forest models by modifying the loss function during model calibration [@wadoux2019multi, @hengl2018random]. More recently, error-filtered ML frameworks have been proposed in which observation-level uncertainty is explicitly integrated into likelihood-based estimation, showing improvements in predictive performance when observation errors are substantial [@van2022measurement].
+This is illustrated in Figure \@ref(fig:fig-uncertainty), which provides a conceptual representation of soil property observations obtained using conventional laboratory analysis and DRS. The laboratory measurement is shown as a narrow probability distribution centered on the reference value, reflecting relatively low analytical uncertainty. In contrast, the DRS-inferred value is represented by a wider probability distribution centered on the model prediction, reflecting larger prediction uncertainty. The dashed vertical lines denote the corresponding point estimates, while the horizontal arrows represent their standard deviations, $\sigma_{\mathrm{lab}}$ and $\sigma_{\mathrm{spectroscopy}}$. The displacement between the two distributions illustrates that spectroscopic predictions may differ systematically from reference measurements, introducing prediction bias in addition to random uncertainty.
 
-A prerequisite for accounting for uncertainty in DRS predictions within DSM is that each observation includes an associated uncertainty estimate. In practice, DRS should provide not only a predicted soil-property value, such as soil organic carbon content, but also an uncertainty metric, typically expressed as a prediction standard deviation or variance.
+DRS predictions of soil properties are generally less accurate than conventional laboratory measurements. However, their lower cost and higher analytical throughput can enable the acquisition of spatially denser datasets, which may improve the characterization of spatial variation and soil–environment relationships, provided that the associated prediction uncertainty is explicitly considered. In the practical section that follows, we illustrate this concept using an example of DSM implemented with a random forest model.
 
-
-This is illustrated in Figure \@ref(fig:fig-uncertainty), which provides a conceptual representation of soil property observations obtained using wet-chemistry analysis and DRS. The wet-chemistry measurements are shown with a narrow probability distribution centered on the reference value, reflecting relatively low analytical uncertainty. In contrast, the DRS-inferred values are represented by a wider probability distribution centered on the model prediction, reflecting its larger uncertainty. The dashed vertical lines denote the corresponding point estimates, while the horizontal arrows represent their standard deviations, $\sigma_{\mathrm{wet}}$ and $\sigma_{\mathrm{spectroscopy}}$. The displacement between the two distributions illustrates that spectroscopic predictions may differ systematically from reference measurements, introducing prediction bias in addition to random uncertainty. DRS predictions of sol properties are generally less accurate than conventional laboratory measurements. However, their lower cost and higher analytical throughput can enable the acquisition of spatially denser datasets, which may improve the characterization of spatial variation and soil–environment relationships, provided that the associated prediction uncertainty is explicitly considered. In the practical section that follows, we illustrate this concept using an example of DSM implemented with a random forest model.
-
-```{r fig-uncertainty, echo = FALSE, fig.cap="Conceptual illustration of measurement and prediction uncertainty. Narrow distributions represent wet-chemistry observations with lower analytical uncertainty, whereas wider distributions represent DRS predictions with larger associated standard deviations. Horizontal arrows indicate one standard deviation around the estimated value.", fig.width=6.5, fig.height=4.5}
+```{r fig-uncertainty, echo = FALSE, eval = TRUE, fig.cap="Conceptual illustration of measurement and prediction uncertainty. Narrow distributions represent wet-chemistry observations with lower analytical uncertainty, whereas wider distributions represent DRS predictions with larger associated standard deviations. Horizontal arrows indicate one standard deviation around the estimated value.", fig.width=6.5, fig.height=4.5}
 
 library(ggplot2)
 
@@ -148,7 +163,8 @@ ggplot(df, aes(x = x, y = density, colour = method, fill = method)) +
     axis.line = element_line(colour = "grey40"),
     panel.grid.major.y = element_line(colour = "grey92", linewidth = 0.4), 
     axis.text = element_blank(),
-    axis.ticks = element_blank()
+    axis.ticks = element_blank(),
+    panel.border = element_rect(colour = "grey40", fill = NA, linewidth = 0.5)
   )
 ```
 
@@ -157,51 +173,47 @@ ggplot(df, aes(x = x, y = density, colour = method, fill = method)) +
 ## Part II – Practical application  
 
 ### Workflow overview  
+In this practical section, we illustrate how DRS-derived soil property estimates can complement conventional laboratory analyses in the production of digital soil maps. The methodology is demonstrated using the Kansas, USA, dataset introduced in Chapter \@ref(digital-soil-mapping). In addition to the soil property variables used in the DSM example, this dataset includes mid-infrared DRS measurements that were not used previously.
 
-In this practical section we illustrate how soil spectroscopic data can be integrated into DSM. The main objective is to use spectroscopy to complement conventional laboratory soil analyses. This allows an increase in the amount of usable soil information without a proportional increase in laboratory effort.
+Figure \@ref(fig:fig-dsm-workflow) presents the conceptual workflow used in this section. The colors distinguish the main groups of steps:
 
-The methodology is demonstrated using the Kansas soil dataset (USA), previously presented in Chapter 6 ("Digital Soil Mapping and Modelling"). This dataset includes wet-chemistry measurements of soil properties together with mid-infrared spectral observations collected on the same soil samples. It is therefore a suitable case study to explore the implementation of spectroscopically-enhanced DSM.
+- <span style="color:#4E84A8; font-weight:700;">Blue boxes</span> represent field sampling and laboratory reference analysis. These steps provide the measured soil property data used as calibration targets, either to fit a DRS calibration model or to support DSM.
 
-Figure \@ref{fig:fig-dsm-workflow} presents the conceptual workflow used in this section. The colours help to distinguish the main groups of steps.
+- <span style="color:#C1614A; font-weight:700;">Terracotta boxes</span> correspond to the DRS component. This includes spectral acquisition, calibration modeling, and the generation of spectroscopically predicted soil properties with associated uncertainty, expressed as the prediction error standard deviation. These predictions are treated as an additional source of soil information in the DSM step.
 
-<span style="color:blue;">Blue boxes</span> represent the field sampling and laboratory reference analysis. These steps provide the measured soil property data that serve as the calibration target, either to fit a spectroscopic calibration model or to be used for DSM. 
+- <span style="color:#7B6D9E; font-weight:700;">Purple boxes</span> indicate the data integration stage. Here, laboratory observations and DRS predictions are combined into a single dataset.
 
-<span style="color:orange;">Orange boxes</span> correspond to the spectroscopic component. This includes spectral acquisition, calibration modelling, and the generation of spectroscopically predicted soil properties with associated uncertainty, expressed as prediction error standard deviation.These predictions are treated as an additional source of soil information in the DSM step.
+- <span style="color:#4E8A6A; font-weight:700;">Green boxes</span> represent the spatial modeling stage, or DSM. Environmental covariates are used together with soil observations to fit spatial prediction models. The uncertainty associated with spectroscopic predictions is used to down-weight these observations relative to laboratory measurements. The final outputs are continuous soil property maps and corresponding uncertainty maps.
 
-<span style="color:purple;">Purple boxes</span> indicate the data integration stage. Here, laboratory observations and spectroscopic predictions are combined, into a single dataset. 
+All main steps in this workflow are implemented and illustrated using R in the following subsections.
 
-<span style="color:green;">Green boxes</span> represent the spatial modelling stage, or DSM. Environmental covariates are used together with the soil observations to fit spatial prediction models. The uncertainty of the spectroscopic data are used to down-weight these observations compared to the lab-measurements. The final outputs are continuous soil property maps and corresponding uncertainty maps.
-
-All main steps of this workflow will be implemented and illustrated using R in the following subsections.
-
-```{r fig-dsm-workflow, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Conceptual workflow for integrating spectroscopically predicted soil data into digital soil mapping.", fig.width=7, fig.height=3.8}
-
-library(DiagrammeR)
-grViz("
+```{r fig-dsm-workflow, echo=FALSE, message=FALSE, warning=FALSE, out.width="80%", fig.cap="Conceptual workflow for integrating spectroscopically predicted soil data into digital soil mapping.", eval=TRUE}
+g <- grViz("
 digraph dsm_workflow {
 
-  graph [layout = dot, rankdir = LR, nodesep = 0.5, ranksep = 0.8]
+  graph [layout = dot, rankdir = TB, nodesep = 0.3, ranksep = 0.2
+         bgcolor = '#FFFFFF']
 
   node [shape = box,
-        style = filled,
-        color = '#6B6B6B',
-        fontname = Helvetica,
-        fontsize = 12,
-        margin = 0.18]
+        style = 'rounded,filled',
+        penwidth = 1.5,
+        fontname = 'Helvetica Neue',
+        fontsize = 10,
+        margin = 0.2]
 
-  edge [color = '#6B6B6B',
-        arrowsize = 0.8,
-        penwidth = 1.2]
+  edge [arrowsize = 0.7,
+        penwidth = 1.2,
+        color = '#B0B8C1']
 
-  sampling [label = 'Soil sampling', fillcolor = '#E8F1FB']
-  lab      [label = 'Lab analysis', fillcolor = '#E8F1FB']
-  spectra  [label = 'Spectral scanning', fillcolor = '#FBE7DA']
-  calib    [label = 'Calibration model', fillcolor = '#FBE7DA']
-  pred     [label = 'Spectroscopic predictions\\n(+ uncertainty)', fillcolor = '#FBE7DA']
-  harmon   [label = 'Data harmonisation\\n/ weighting', fillcolor = '#F6EAF2']
-  covars   [label = 'Environmental covariates', fillcolor = '#EAF4E6']
-  dsm      [label = 'DSM model', fillcolor = '#EAF4E6']
-  maps     [label = 'Predicted soil maps', fillcolor = '#EAF4E6']
+  sampling [label = 'Soil sampling',                              fillcolor = '#D6E8F2', color = '#4E84A8', fontcolor = '#1A3D52']
+  lab      [label = 'Lab analysis',                               fillcolor = '#D6E8F2', color = '#4E84A8', fontcolor = '#1A3D52']
+  spectra  [label = 'Spectral scanning',                          fillcolor = '#F2DDD9', color = '#C1614A', fontcolor = '#5C2518']
+  calib    [label = 'Calibration model',                          fillcolor = '#F2DDD9', color = '#C1614A', fontcolor = '#5C2518']
+  pred     [label = 'Spectroscopic predictions\\n(+ uncertainty)', fillcolor = '#F2DDD9', color = '#C1614A', fontcolor = '#5C2518']
+  harmon   [label = 'Data harmonisation\\n/ weighting',           fillcolor = '#E2DDED', color = '#7B6D9E', fontcolor = '#312650']
+  covars   [label = 'Environmental covariates',                   fillcolor = '#D8E8DF', color = '#4E8A6A', fontcolor = '#1A3D2A']
+  dsm      [label = 'DSM model',                                  fillcolor = '#D8E8DF', color = '#4E8A6A', fontcolor = '#1A3D2A']
+  maps     [label = 'Predicted soil maps',                        fillcolor = '#D8E8DF', color = '#4E8A6A', fontcolor = '#1A3D2A']
 
   sampling -> lab
   sampling -> spectra
@@ -219,187 +231,212 @@ digraph dsm_workflow {
   dsm -> maps
 }
 ")
-
+out_png <- "images/module4/fig_dsm_workflow.png"
+tmp_svg <- tempfile(fileext = ".svg")
+export_svg(g) |> writeLines(tmp_svg)
+rsvg_png(tmp_svg, out_png, width = 1400)
+knitr::include_graphics(out_png)
 ```
 
-### Making spectroscopic data ready for inclusion in DSM
+### Generating DRS-derived soil property observations for DSM
 
-In this section we prepare the spectroscopic data so that it can be used as input in a digital soil mapping. The  requirement is that the spectroscopic modelling step should provide, for each soil sample, both a prediction of the target soil property and an estimate of prediction uncertainty. This follows the approach introduced in the Soil Spectroscopy Training Material (@Wadoux2025FAO Section 4.3.3), where uncertainty is quantified at the sample level.
+In this section, we convert DRS measurements into soil property estimates that can be used as additional observations in DSM. The key requirement is that, for each soil sample, the spectroscopic modeling step provides both a predicted value of the target soil property and an estimate of prediction uncertainty. This follows the approach introduced in the Soil Spectroscopy Training Material (@Wadoux2025FAO, Section 4.3.3), where uncertainty is quantified at the sample level.
 
-For DSM applications, these outputs can be treated in a similar way to laboratory observations. However, unlike laboratory data, spectroscopic predictions are associated with an explicit model-based uncertainty. This uncertainty information can later be used in data integration and spatial modelling steps.
+For DSM applications, these outputs can be treated similarly to laboratory observations. However, unlike laboratory data, DRS predictions are associated with explicit model-based uncertainty. This uncertainty information can later be used during data integration and spatial modeling.
 
-In the following subsections we demonstrate how to (i) import and visualise the spectral data, (ii) apply basic spectral preprocessing, (iii) build a spectroscopic prediction model with uncertainty, (iv) define laboratory measurement uncertainty, and (v) harmonise soil property predictions and uncertainties to a standard depth interval. 
+In the following subsections, we demonstrate how to (i) import and visualize the spectral data, (ii) apply basic spectral preprocessing, (iii) build a spectroscopic prediction model with uncertainty, (iv) define laboratory measurement uncertainty, and (v) harmonize soil property predictions and uncertainties to a standard depth interval.
 
-#### Load and plot the spectrscopic data
+#### Load and plot the DRS data
 
-We first import the mid-infrared (MIR) spectral dataset and prepare it for analysis. The MIR spectral dataset consists of laboratory measurements of soil reflectance or absorbance in the mid-infrared region of the electromagnetic spectrum. In soil spectroscopy, this region typically covers wavelengths of approximately 2500 to 25 000 nm, which corresponds to about 4000 to 400 cm$^{-1}$ in wavenumber.
+First, we import the DRS dataset and prepare it for analysis. This dataset contains absorbance measurements collected in the mid-infrared (MIR) region of the electromagnetic spectrum, over the wavenumber range starting from apprximately 4000 cm$^{-1}$ up to apprximately 400 cm$^{-1}$ at an approximated resolution of 1.93 cm$^{-1}$. This resulted in 1764 spectral variables. Note that this region corresponds to wavelengths of approximately 2500–25000 nm. These measurements were collected under laboratory conditions using air-dried soil samples. Additional details on the DRS measurements are provided in @dangal2019accurate.
 
-MIR spectra are characterised by strong and well-defined absorption features. These features are mainly related to the fundamental vibrations of molecular bonds present in soil minerals and organic compounds. As a result, MIR spectroscopy is particularly sensitive to soil properties such as soil organic carbon, clay minerals, carbonates, and some nutrients. Compared with visible–near infrared spectroscopy, MIR measurements are usually collected on air-dried and finely ground soil samples under controlled laboratory conditions. All this tutorial could be based on the use of vis-NIR or MIR alike. 
 
-Replicate spectral measurements are averaged so that each soil sample is represented by a single spectrum. A unique profile identifier is also created to group horizons belonging to the same soil profile.
+> <span  style="font-weight:700;">NOTE:</span> _MIR spectra show strong, well-defined absorption features associated with molecular vibrations in soil minerals and organic compounds. This makes MIR spectroscopy sensitive to properties such as soil organic carbon, clay minerals, carbonates, and some nutrients.
+Although this example uses MIR spectra, the workflow can also be applied to vis–NIR or SWIR data, provided suitable calibration models and uncertainty estimates are available._
 
-Spectral variables are then separated from the rest of the soil dataset and stored as a spectral matrix. The corresponding wavenumber values are extracted and sorted to ensure the correct order in the spectral bands.
 
-```{r message=FALSE, warning=FALSE}
-# -----------------------------------------------------------
-# Read MIR spectral dataset (Kansas example)
-# -----------------------------------------------------------
+Let's start by loading the data:
 
-# Load data (keep original column names unchanged)
+```{r message=FALSE, warning=FALSE, eval=TRUE}
 library(readxl)
-
-dat <- read_excel(
-  "01_data/module1/training_data/data/MIR_KANSAS_data.xlsx",
-  .name_repair = "minimal"
-)
-
-# -----------------------------------------------------------
-# Average replicate measurements by sample ID
-# This reduces laboratory measurement noise
-# -----------------------------------------------------------
-
 library(dplyr)
 
-dat <- dat %>%
-  group_by(smp_id) %>%
-  summarise(
-    across(where(is.numeric), mean, na.rm = TRUE),
-    .groups = "drop"
-  )
-
-# -----------------------------------------------------------
-# Create a profile identifier based on spatial location
-# All horizons at the same coordinates belong to one profile
-# -----------------------------------------------------------
-
-dat <- dat %>%
-  group_by(Long_Site.x, Lat_Site.x) %>%
-  mutate(
-    ProfID = sprintf("PROF%04d", cur_group_id())
-  ) %>%
-  ungroup()
-
-# -----------------------------------------------------------
-# Identify MIR spectral columns
-# Spectral variables follow naming pattern like X3999.72758
-# -----------------------------------------------------------
-
-spectral_columns <- grep(
-  "^X[0-9]{2,10}(\\.[0-9]+)?$",
-  names(dat)
+# Read MIR spectral dataset (Kansas example)
+original_dat <- read_excel(
+  "01_data/module1/training_data/data/MIR_KANSAS_data.xlsx",
+  .name_repair = "minimal",
+  na = c("", "NA", "N/A", "NaN"),
+  progress = FALSE
 )
 
-# -----------------------------------------------------------
-# Extract spectral matrix and corresponding wavenumbers
-# -----------------------------------------------------------
+original_dat <- as.data.frame(original_dat)
 
-spc_raw <- as.matrix(dat[, spectral_columns])
+# dimensions of the dataset (number of samples and variables)
+dim(original_dat)
 
-# Convert column names to numeric wavenumber values
-wavenumber <- as.numeric(sub("^X", "", colnames(spc_raw)))
+# number of duplicate sample IDs (i.e. repeated measurements for 
+# the same soil sample)a
+sum(duplicated(original_dat$smp_id))
+```
+The loaded dataset contains both DRS variables and non-DRS variables. The first step is therefore to separate the spectral data from the rest of the soil dataset. To do this, we create a data frame containing the non-spectral variables and store the DRS variables as a spectral matrix. This structure allows the spectra to be handled separately for preprocessing and modeling, while keeping them linked to the corresponding soil samples.
 
-# Remove spectral columns from main data table
-dat <- dat[, -spectral_columns]
+The spectral variables can be identified from the column names. These can be inspected using `colnames(dat)`. In this dataset, spectral columns follow a consistent naming pattern: they start with the prefix `X`, followed by numeric values representing the original wavenumbers. For example, a column named `X3999.7` corresponds to a spectral variable measured at approximately 3999.7 cm$^{-1}$.
 
-# -----------------------------------------------------------
-# Sort spectra by increasing wavenumber
-# (Axis can later be reversed in plots following MIR convention)
-# -----------------------------------------------------------
+We use this pattern to separate the spectral variables from the remaining soil data. The `X` prefix is then removed so that the column names can be converted into numeric wavenumber values. These values are stored in `original_wavs` and used later for plotting, resampling, and spectral preprocessing.
 
-ord <- order(wavenumber)
+```{r message=FALSE, warning=FALSE, eval=TRUE}
+# Identify spectral columns
+# Spectral variables start with "X" followed by at least three digits.
+spc_cols <- grep("^X[0-9]{3,}", colnames(original_dat))
 
-wavenumber <- wavenumber[ord]
-spc_raw <- spc_raw[, ord, drop = FALSE]
+# Extract the spectral matrix
+spc_original <- original_dat[, spc_cols]
 
-# Store wavenumber values as column names
-colnames(spc_raw) <- wavenumber
+# Remove the "X" prefix from spectral column names
+colnames(spc_original) <- gsub("^X", "", colnames(spc_original))
 
-# Attach spectral matrix as list-column in main dataset
-dat$spc_raw <- spc_raw
+# Convert spectral column names to numeric wavenumber values
+original_wavs <- as.numeric(colnames(spc_original))
 
+# Check the spectral range
+range(original_wavs)
+```
+
+Because the spectra are recorded at high spectral resolution, the spectral matrix contains many highly correlated variables. Before modeling, we therefore resample the spectra to a coarser wavenumber grid. This reduces computational demand while preserving the main absorption features. In this case, we resample the spectra to a resolution of 8 cm$^{-1}$ using `prospectr::resample()`. Since the original spectra do not extend exactly to 4000 cm$^{-1}$, we avoid extrapolation (highly recommended for all cases) and resample only up to 3992 cm$^{-1}$. This results in a new spectral matrix with 425 spectral variables, which is more manageable for modeling while still capturing the key spectral information:
+
+```{r message=FALSE, warning=FALSE, eval=TRUE}
+library(prospectr)
+# Define a new regular spectral grid for resampling
+wavs <- seq(600, 3992, by = 8)
+# Resample spectra to the new wavelength grid
+spc_resampled <- prospectr::resample(
+  spc_original,
+  wav = original_wavs,
+  new.wav = wavs
+)
+# check the dimensions
+dim(spc_resampled)
+```
+
+Now we can plug this resampled spectral matrix into the non-DRS part of the dataframe:
+```{r message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+# extract non-spectral variables into a new dataframe
+repeated_dat <- original_dat[, -spc_cols]
+
+# in the main dataframe create a new variable called spc 
+# containing the matrix of spectra 
+repeated_dat$spc <- spc_resampled
+
+# make some checks
+colnames(repeated_dat)
+dim(repeated_dat)
+dim(repeated_dat$spc)
+```
+
+The data contains repeated measurements for each soil sample, which is common in spectroscopic datasets to account for measurement variability. To simplify the analysis, we start by averaging replicated spectral measurements so that each soil sample is represented by a single spectrum.
+
+```{r message=FALSE, warning=FALSE, eval=TRUE, results = 'hide'}
+# Average replicate spectra by sample ID
+spc_avg <- aggregate(
+  repeated_dat$spc,
+  by = list(smp_id = repeated_dat$smp_id),
+  FUN = mean
+)
+# order the resuslts by sample ID to ensure correct alignment with the main 
+# dataset later on
+spc_avg <- spc_avg[order(spc_avg$smp_id),  ]
+
+# aggregate() prepends smp_id as first column; extract the spectral matrix
+rownames(spc_avg) <- spc_avg$smp_id
+spc_avg <- as.matrix(spc_avg[, -1])
+
+# Drop duplicate non-spectral rows (keep first occurrence per sample)
+dat <- repeated_dat[!duplicated(repeated_dat$smp_id), ]
+dat <- dat[order(dat$smp_id), ]
+
+# Verify that sample IDs are aligned before overwriting spectra
+stopifnot(all(rownames(spc_avg) == dat$smp_id))
+
+# Overwrite spectra with the averaged matrix
+dat$spc <- spc_avg
+
+# check dimensions of the final dataset
+dim(dat)
+```
+
+Now let's plot the spectra (Figure \@ref(fig:fig-spectra)) that we have so far:
+```{r fig-spectra, message=FALSE, warning=FALSE, eval=TRUE, out.width="80%", fig.cap="Resampled and aggreagted MIR sectra."}
+matplot(
+  wavs,
+  t(dat$spc),
+  type = "l",
+  lty = 1,
+  xlim = c(4000, 500),
+  xlab = expression(Wavenumber~(cm^{-1})),
+  ylab = "Absorbance",
+  col = rgb(0.8, 0, 0, 0.3)
+)
+grid(lty = 1)
+```
+
+A unique profile identifier is also created to group horizons belonging to the same soil profile:
+
+```{r message=FALSE, warning=FALSE, eval=TRUE, results = 'hide'}
+# Create unique profile IDs for each coordinate pair
+coords <- paste(dat$Long_Site.x, dat$Lat_Site.x, sep = "_")
+prof_num <- match(coords, unique(coords))
+
+dat$ProfID <- sprintf("PROF%04d", prof_num)
 ```
 
 #### Preprocessing of spectra
 
-Raw soil spectra often contain measurement noise and may be recorded at slightly different spectral resolutions. Therefore, basic preprocessing is usually required before modelling.
+Raw soil spectra often require preprocessing before modeling. The objective is to reduce instrumental or measurement artifacts while preserving the chemical information relevant for prediction.
 
-In this exercise, spectra are first resampled to a common wavenumber. This ensures that all samples share the same spectral support. A moving-average smoothing filter is then applied to reduce high-frequency noise while preserving the main absorption features.
+A first step is always to inspect the spectra visually. This helps identify evident noise, baseline shifts, outliers, or unstable regions at the edges of the spectral range. Edge noise can occur because DRS detectors often have lower sensitivity near the limits of their operating range. When this occurs, it is common practice to trim the affected regions before modeling. In this example, we do not trim the spectra, but this should be considered for other datasets.
 
-After preprocessing, the spectra can be visualised to confirm that the signal is smoother and more consistent across samples. Plotting absorbance against wavenumber allows inspection of the general spectral patterns and potential relationships with soil properties such as soil organic carbon (SOC), which we will use hereafter. This basic exploratory step is useful for identifying outliers or inconsistencies before further processing. At this stage the dataset is ready for statistical modelling and fitting a calibration model
+Spectra can also be affected by variation in instrument response, sample presentation, particle size, packing density, and measurement conditions. These effects may introduce additive or multiplicative changes in the spectra, even when the same sample is measured more than once. Common preprocessing methods used to reduce these effects include:
+
+- **Smoothing**, such as moving average or Savitzky–Golay filtering, to reduce high-frequency noise.
+- **Scatter correction**, such as standard normal variate (SNV) or multiplicative scatter correction (MSC), to reduce multiplicative effects.
+- **Derivatives**, often combined with smoothing, to reduce baseline effects and enhance spectral features.
+
+Derivatives should be used with caution because they can also amplify noise. The choice of preprocessing method should therefore depend on the spectral region, the quality of the measurements, and the modeling objective.
+
+> <span  style="font-weight:700;">NOTE:</span> _Scatter correction methods may sometimes appear to reduce model accuracy during internal validation, especially when calibration and validation samples come from the same instrument, preparation protocol, and measurement conditions. In such cases, raw or lightly smoothed spectra may preserve dataset-specific variation that improves apparent performance. However, this variation may not be chemically meaningful and can make the model more sensitive to changes in particle size, packing density, sample presentation, instrument response, or acquisition conditions. Carefully selected scatter correction methods, such as SNV or MSC, may therefore produce models that are slightly less accurate in the short term but more robust when applied to new samples, instruments, or measurement settings. For this reason, scatter correction should be evaluated not only in terms of cross-validation accuracy, but also in terms of expected model transferability and long-term stability._
+
+In this example, we first apply standard normal variate (SNV) correction to reduce multiplicative scatter effects, followed by a Savitzky–Golay first derivative to reduce baseline effects and enhance spectral features. In `savitzkyGolay()`, `m = 1` specifies the first derivative, `p = 2` sets the polynomial order used within the moving window, and `w = 11` defines the window size in spectral variables. Note that the optimal preprocessing strategy should still be evaluated for each dataset.
 
 ```{r message=FALSE, warning=FALSE}
-# -----------------------------------------------------------
-# Define a new regular spectral grid for resampling
-# This ensures all spectra share identical wavelength spacing
-# -----------------------------------------------------------
+# apply standard normal variate (SNV) correction followed by 
+# a Savitzky–Golay first derivative
+dat$spc_processed  <- dat$spc |> 
+  prospectr::standardNormalVariate() |> 
+  prospectr::savitzkyGolay(m = 1, p = 1, w = 11)
 
-new_wavs <- seq(
-  from = round(min(as.numeric(colnames(dat$spc_raw)))),
-  to   = round(max(as.numeric(colnames(dat$spc_raw)))),
-  by   = 5   # spectral resolution in cm-1
-)
-
-# -----------------------------------------------------------
-# Resample spectra to the new wavelength grid
-# This is important for chemometric modelling and smoothing
-# -----------------------------------------------------------
-
-dat$spc <- prospectr::resample(
-  dat$spc_raw,
-  wav     = wavenumber,
-  new.wav = new_wavs
-)
-
-# -----------------------------------------------------------
-# Apply moving-average smoothing to reduce high-frequency noise
-# Window size (w = 11) is typical for MIR preprocessing
-# -----------------------------------------------------------
-
-dat$spc <- movav(dat$spc, w = 11)
-
-# Updated wavelength vector after preprocessing
-wavs <- as.numeric(colnames(dat$spc))
+# get the wavenumber values for the processed spectra
+wavs_processed <- as.numeric(colnames(dat$spc_processed))
 ```
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-# -----------------------------------------------------------
-# Convert spectral matrix to long format for visualization
-# Each spectrum becomes a set of absorbance–wavenumber pairs
-# -----------------------------------------------------------
 
-ir_long <- data.frame(
-  sample     = rep(seq_len(nrow(dat)), each = length(wavs)),
-  SOC        = rep(dat$SOC, each = length(wavs)),
-  wavenumber = rep(wavs, times = nrow(dat)),
-  absorbance = as.vector(t(dat$spc))
+Now let's visualise the processed spectra(Figure \@ref(fig:fig-spectra-processed)) that we have so far:
+```{r fig-spectra-processed, message=FALSE, warning=FALSE, eval=TRUE, out.width="80%", fig.cap = "Processed MIR spectra after standard normal variate correction and Savitzky–Golay first-derivative transformation."}
+matplot(
+  wavs_processed,
+  t(dat$spc_processed),
+  type = "l",
+  lty = 1,
+  xlim = c(4000, 500),
+  xlab = expression(Wavenumber~(cm^{-1})),
+  ylab = "First derivative of SNV-corrected absorbance", 
+  col = rgb(0.3, 0, 0.8, 0.3)
 )
-
-# -----------------------------------------------------------
-# Plot MIR spectra coloured by soil organic carbon content
-# MIR convention: wavenumber axis plotted in reverse
-# -----------------------------------------------------------
-
-library(ggplot2)
-
-plot_ir <- ggplot(
-  ir_long,
-  aes(x = wavenumber, y = absorbance, group = sample, color = SOC)
-) +
-  geom_line(alpha = 0.35, linewidth = 0.4) +
-  scale_x_reverse() +
-  scale_color_gradient(low = "blue", high = "red", na.value = "grey70") +
-  theme_minimal(base_size = 12) +
-  theme(
-  legend.position = "bottom",
-  legend.direction = "horizontal") +
-  labs(
-    x = expression(Wavenumber~(cm^{-1})),
-    y = "Absorbance",
-    color = "SOC"
-  )
-
-print(plot_ir)
+grid(lty = 1)
 ```
+
+
+This basic exploratory step helps verify that the spectra have been imported and processed correctly. In a full analysis, this stage can also be used to screen for unusual spectra or potential measurement issues before fitting the calibration model. The dataset is now ready for statistical modeling.
+
 
 #### Spectroscopic modelling with uncertainty
 
