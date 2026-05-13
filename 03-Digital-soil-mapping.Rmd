@@ -460,8 +460,6 @@ selected_features <- getSelectedAttributes(boruta_result, withTentative = TRUE)
 > **Feature selection in DSM: two schools of thought.** The field is divided on how to approach predictor selection. One tradition favours *expert-guided selection*: the practitioner chooses covariates based on known soil-forming processes, keeping the predictor set small, interpretable, and grounded in pedological theory. The opposing view argues for *data-driven inclusion*: feed all available covariates to the model and let the algorithm determine relevance — a pragmatic position when the environmental drivers of a given soil property are poorly understood or when the goal is purely predictive accuracy. Boruta sits between these extremes: it is automated and data-driven, but its output can still be audited against expert knowledge (e.g. rejecting a confirmed variable that has no plausible mechanistic link to the target, or overriding a rejection for a variable known to be important). In practice, the best approach depends on the study objective, the quality of the covariates, and the sample size available for model training.
 
 
-Here is the revised Section 6 with a proper QRF introduction:
-
 ---
 
 ### Train the Quantile Regression Forest model
@@ -557,7 +555,7 @@ obs_vals  <- cv_preds$obs
 pred_vals <- cv_preds$pred
 ```
 
-The `eval()` function, loaded from `eval.RData`, implements the accuracy framework proposed by @wadoux2021integrated. It computes six complementary metrics from the vectors of observed (z) and predicted (ẑ) values:
+The `eval()` function, loaded from `eval.RData`, implements the accuracy framework proposed by @Wadoux2021integrated. It computes six complementary metrics from the vectors of observed (z) and predicted (ẑ) values:
 
 ```{r accuracy, eval=FALSE}
 load("02_scripts/module3/eval.RData")

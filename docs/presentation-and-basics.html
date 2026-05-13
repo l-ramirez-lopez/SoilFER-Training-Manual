@@ -176,10 +176,9 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-1-introduction-to-r-and-preparation-of-soil-data-for-digital-soil-mapping"><i class="fa fa-check"></i><strong>Module 1: Introduction to R and Preparation of Soil Data for Digital Soil Mapping</strong></a></li>
 <li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-2-soil-sampling-design"><i class="fa fa-check"></i><strong>Module 2: Soil Sampling Design</strong></a></li>
-<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-3-glosis-data-preparation"><i class="fa fa-check"></i><strong>Module 3: GloSIS Data Preparation</strong></a></li>
-<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-4-digital-soil-mapping"><i class="fa fa-check"></i><strong>Module 4: Digital Soil Mapping</strong></a></li>
-<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-5-soil-spectroscopy"><i class="fa fa-check"></i><strong>Module 5: Soil Spectroscopy</strong></a></li>
-<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-6-soil-data-sharing"><i class="fa fa-check"></i><strong>Module 6: Soil Data Sharing</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-3-digital-soil-mapping"><i class="fa fa-check"></i><strong>Module 3: Digital Soil Mapping</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-4-soil-spectroscopy"><i class="fa fa-check"></i><strong>Module 4: Soil Spectroscopy</strong></a></li>
+<li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#module-5-soil-data-sharing"><i class="fa fa-check"></i><strong>Module 5: Soil Data Sharing</strong></a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="presentation-and-basics.html"><a href="presentation-and-basics.html#required-downloads"><i class="fa fa-check"></i>Required downloads</a>
@@ -769,36 +768,28 @@ Establishes the theoretical foundation for representative soil sampling through 
 <p><strong>Session 2.2 - Practical Implementation</strong><br />
 Provides hands-on training in implementing the SoilFER sampling protocol through a complete R workflow. The session guides participants through calculating minimum sample size, applying CSC sampling algorithms to identify Primary Sampling Units, generating Secondary and Tertiary Sampling Units through stratified random sampling, and establishing systematic site identification codes that maintain traceability throughout the sampling hierarchy..</p>
 </div>
-<div id="module-3-glosis-data-preparation" class="section level4 unnumbered hasAnchor">
-<h4><strong>Module 3: GloSIS Data Preparation</strong><a href="presentation-and-basics.html#module-3-glosis-data-preparation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>This module covers the Global Soil Information System (GloSIS) framework and database specifications for standardizing soil data to international standards, enabling global interoperability and exchange through web services.</p>
-<p><strong>Session 3.1 - Harmonization of Soil Data for GloSIS</strong><br />
-Introduces the ISO-28258 standards and GloSIS database model, focusing on Features of Interest that define how soil observations are structured in the system. Participants learn to harmonize soil property units and measurement methods across different laboratory protocols using the GloSIS template, a structured spreadsheet format designed to standardize heterogeneous national datasets. The session demonstrates automated harmonization tools that convert legacy soil data into GloSIS-compliant formats, addressing common challenges such as unit conversions, classification system mapping, and quality flag assignment. This preparation ensures datasets become compatible with FAO reporting requirements and accessible through international soil information platforms.</p>
-<p><strong>Session 3.2 - GloSIS Web Services and Deployment</strong><br />
-Provides hands-on training in deploying the complete GloSIS software stack using Docker containerization. Participants configure a PostgreSQL database with PostGIS spatial extension for storing harmonized soil data, implement Extract-Transform-Load (ETL), establish a metadata catalog service that enables dataset discovery through standardized search protocols, and deploy web mapping interfaces for interactive spatial visualization.</p>
-</div>
-<div id="module-4-digital-soil-mapping" class="section level4 unnumbered hasAnchor">
-<h4><strong>Module 4: Digital Soil Mapping</strong><a href="presentation-and-basics.html#module-4-digital-soil-mapping" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="module-3-digital-soil-mapping" class="section level4 unnumbered hasAnchor">
+<h4><strong>Module 3: Digital Soil Mapping</strong><a href="presentation-and-basics.html#module-3-digital-soil-mapping" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This module provides comprehensive training in digital soil mapping (DSM) theory and practice, progressing from fundamental concepts through practical implementation using the standardized dataset produced in Module 1.</p>
 <p><strong>Session 4.1 - Theoretical Foundations and Model Development</strong><br />
 Introduces feature selection techniques for identifying relevant environmental information to explain spatial patterns in soil properties. The module present several machine learning algorithms predictive models to produce raster predictions of soil properties, addresses model training, cross-validation, and quantification of the prediction uncertainties.</p>
 <p><strong>Session 4.2 - Practical Implementation Workflows</strong><br />
 The session provides hands-on experience building prediction models for three variable types: continuous properties such as pH using regression approaches, nominal classes representing unordered categories combining clay content and pH, and ordinal soil pH classes. Each workflow produces raster prediction maps with associated uncertainty estimates and accuracy assessments.</p>
 </div>
-<div id="module-5-soil-spectroscopy" class="section level4 unnumbered hasAnchor">
-<h4><strong>Module 5: Soil Spectroscopy</strong><a href="presentation-and-basics.html#module-5-soil-spectroscopy" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="module-4-soil-spectroscopy" class="section level4 unnumbered hasAnchor">
+<h4><strong>Module 4: Soil Spectroscopy</strong><a href="presentation-and-basics.html#module-4-soil-spectroscopy" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This module introduces soil infrared spectroscopy as a rapid, cost-effective method for predicting soil properties and demonstrates its integration into DSM workflows.</p>
-<p><strong>Session 5.1 - Spectroscopy Fundamentals and Calibration</strong><br />
+<p><strong>Session 4.1 - Spectroscopy Fundamentals and Calibration</strong><br />
 The session introduces essential spectral data preprocessing techniques, quality control procedures and advanced chemometric modeling approaches for building spectral calibration models.</p>
-<p><strong>Session 5.2 - Practical Spectroscopy Workflows</strong><br />
+<p><strong>Session 4.2 - Practical Spectroscopy Workflows</strong><br />
 Provides hands-on experience processing raw spectral scans from the KSSL dataset, build calibration models for soil properties, and integrate spectral predictions into complete DSM workflows.</p>
 </div>
-<div id="module-6-soil-data-sharing" class="section level4 unnumbered hasAnchor">
-<h4><strong>Module 6: Soil Data Sharing</strong><a href="presentation-and-basics.html#module-6-soil-data-sharing" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="module-5-soil-data-sharing" class="section level4 unnumbered hasAnchor">
+<h4><strong>Module 5: Soil Data Sharing</strong><a href="presentation-and-basics.html#module-5-soil-data-sharing" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>This module covers the technical and organizational aspects of making soil data discoverable, accessible, and interoperable through web services and international platforms.</p>
-<p><strong>Session 6.1 - Standards, Metadata, and Interoperability</strong><br />
+<p><strong>Session 5.1 - Standards, Metadata, and Interoperability</strong><br />
 Introduces ISO 19115/19139 standards for creating spatial metadata that enables dataset discovery and proper documentation. The session covers deploying web services for standardized data access, establishing appropriate data licensing and data attribution.</p>
-<p><strong>Session 6.2 - Web Services Deployment</strong><br />
+<p><strong>Session 5.2 - Web Services Deployment</strong><br />
 Demonstrates configuring web map servers for interactive soil data visualization and publishing datasets. The session provides practical training in establishing complete data sharing infrastructure, from database configuration through web service endpoints, ensuring participants can make their soil information FAIR (Findable, Accessible, Interoperable, Reusable) and contribute to global soil information systems while maintaining data quality and provenance.</p>
 </div>
 </div>
