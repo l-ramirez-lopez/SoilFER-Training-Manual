@@ -3,220 +3,219 @@
 *Alexandre Wadoux and Leonardo Ramirez-Lopez*
 
 ```{r setup, include=FALSE}
+required_packages <- c(
+  "terra", "ranger", "dplyr", "ggplot2",
+  "prospectr", "matrixStats", "DiagrammeR",
+  "DiagrammeRsvg", "rsvg"
+)
+
+dir.create("images/module4", recursive = TRUE, showWarnings = FALSE)
+
+missing <- required_packages[!sapply(required_packages, requireNamespace, quietly = TRUE)]
+if (length(missing) > 0) install.packages(missing)
+
 library(terra)
 library(ranger)
 library(dplyr)
 library(ggplot2)
 library(prospectr)
 library(matrixStats)
+library(DiagrammeR)
+library(DiagrammeRsvg)
+library(rsvg)
 
 knitr::opts_chunk$set(
   echo = TRUE,
   eval = FALSE,
   message = FALSE,
-  warning = FALSE
+  warning = FALSE, 
+  fig.align = 'center'
 )
 ```
 
-# Part I - Digital soil mapping with spectroscopy 
-
 ## Introduction 
-Digital Soil Mapping (DSM) has matured over the past two decades into a well-established and widely applied field within soil science and pedometrics [@wadoux2021overview]. This is because of advances in geospatial modelling, including geostatistics and machine learning, the availability of high-quality environmental covariates, and an ease of access to computational capacity. This has enabled DSM to move toward operational and spatialized soil information delivery across the globe. DSM is now routinely used to support soil fertility assessment, monitoring of soil health or precision agriculture [@lagacherie2025operational].
 
-In parallel with the maturation of DSM, there has been a rapid development of proximal soil sensing techniques [@peng2025spectroscopic]. Proximal sensing refers to the acquisition of soil information using sensors positioned in close proximity to the soil surface, typically within a distance of less than approximately 2 m. These techniques include, among others, infrared spectroscopic sensing, electromagnetic induction, and radiometric approaches [@rossel2010proximal]. They enable the direct or indirect estimation of soil properties under field conditions (e.g. portable XRF) or in the laboratory (e.g. laboratory infrared spectrometer). They usually support measurements at high sampling densities and often in real time. Overall, while soil properties are indirectly estimated, proximal sensing substantially reduces the logistical and financial constraints associated with conventional soil surveys and laboratory analyses. As a result, these technologies broadly support faster data acquisition, enable non-destructive and repeatable observations.
+Digital soil mapping (DSM) relies heavily on laboratory analyses to measure and characterize soil properties at sampled locations, which are then used as reference observations for training and validating spatial prediction models. Although highly accurate, conventional laboratory methods are slow and costly, creating a bottleneck that restricts timely data production for DSM. For example, conventional soil organic carbon reference methods, such as dry combustion and wet oxidation, require specialized infrastructure, trained personnel, and consumables, leading to long turnaround times and substantial per-sample costs [@wu2025assessing]. In this context, sensing technologies such as diffuse reflectance spectroscopy can complement laboratory analysis by reducing analytical costs and enabling soil property observations to be generated more rapidly and at greater spatial density. For these reasons, diffuse reflectance spectroscopy has gained substantial attention in the soil science community as a tool for enhancing soil characterization [@peng2025spectroscopic].
 
-Among proximal sensing approaches, infrared spectroscopy has become the most widely adopted technique for soil characterisation [@peng2025spectroscopic]. Infrared methods are commonly divided into visible–near infrared (vis–NIR), shortwave infrared (SWIR), and mid-infrared (MIR) spectral regions, each providing information on soil properties. Vis–NIR spectroscopy (approximately 400–1000 nm) and the broader vis–NIR–SWIR range (up to about 2500 nm) are frequently used in field applications due to the availability of portable sensors and their sensitivity to soil organic matter, moisture, iron oxides, and texture-related features. In contrast, MIR spectroscopy (approximately 2500–25 000 nm) is obtained conducted under laboratory conditions and offers more distinct absorption features related to fundamental molecular vibrations, often resulting in higher predictive accuracy for mineralogical and chemical soil attributes. Together, these spectral data support the rapid and cost-effective estimation of soil property [@wadoux2021soil].
+In soil applications, diffuse reflectance spectroscopy (DRS) is a maturing spectroscopic approach focused on extracting information from the interaction between soil samples and electromagnetic radiation. The chemical composition and physical structure of soil determine how electromagnetic radiation is absorbed and scattered. Consequently, soil composition and physical properties can be inferred by analyzing reflected energy. DRS sensors record reflected energy across multiple wavelengths, producing spectra that are typically converted from reflectance to absorbance. Soil property quantification with DRS relies on empirical calibration models, usually built with regression methods that link spectral measurements to laboratory reference data. Once suitable calibration models are available for multiple soil properties, they can be applied to a new soil spectrum to predict those properties simultaneously.
 
-## Rational
-DSM is typically based on the geostatistical or machine-learning relationships established between environmental covariates and point-measured soil properties such as soil organic carbon, pH, texture, or nutrient content [@mcbratney2003digital]. These reference soil measurements are commonly obtained through conventional field sampling followed by laboratory analyses. While such measurements provide high analytical accuracy, they are often costly and time-consuming to obtain. For instance, wet-chemistry determination of soil organic carbon requires sample preparation, chemical reagents, specialised laboratory infrastructure, and skilled personnel, with analyses often taking several hours per batch and incurring substantial per-sample costs [@wu2025assessing]. As a result, the spatial density of high-quality soil observations is frequently limited.
+DRS methods used in soil science are commonly grouped into visible–near infrared (vis–NIR), shortwave infrared (SWIR), and mid-infrared (MIR) regions. The vis–NIR and SWIR regions are used in both laboratory and field applications, supported by the availability of portable instruments. These regions show a high sensitivity to soil organic matter, moisture, iron oxides, and texture-related features. MIR spectroscopy is more commonly conducted under laboratory conditions and often provides sharper absorption features associated with mineralogical and chemical soil attributes. In all these regions, spectral measurements of a soil sample can typically be acquired within seconds to a few minutes.
 
-The use of spectroscopically-inferred soil properties offers a pathway to increase the number of observations available for DSM model calibration [@ramirez2019robust]. Spectroscopic sensing allows rapid, relatively inexpensive estimation of multiple soil attributes from a single measurement. This directly supports the collection of dense datasets at field to regional scales. By augmenting conventional laboratory datasets with larger volumes of spectroscopically-inferred observations, DSM can benefit from more input data, which can in turn yield more accurate maps for a smaller total cost. In this context, spectroscopic data is a mean of enhancing the information provided for DSM model training rather than replacing traditional reference analyses [@chen2023integrating].
+There is broad consensus that DRS complements rather than replaces soil laboratory analyses [@viscarra2022diffuse, @chen2023integrating], increasing analytical throughput while retaining the validity of reference procedures. For DSM, this means that spectroscopy can expand soil property datasets and improve mapping workflows while reducing cost and logistical constraints. This is true when the empirical models that translate spectra into soil property predictions have been properly calibrated and validated. It is important to note, however, that developing these models can still be laborious, time-consuming, and costly, a limitation that is rarely acknowledged in the soil spectroscopy literature. In this respect, pre-existing soil spectral libraries containing reference samples offer an opportunity to reduce calibration effort when developing new models for a specific area or application.
 
-However, the integration of spectroscopically inferred soil properties into DSM requires careful consideration of the nature of these data. Unlike conventional laboratory analyses, spectroscopy does not directly measure soil properties but provides statistical predictions based on calibrated relationships between spectral responses and reference measurements. Consequently, each spectroscopic estimate is associated with a uncertainty that is usually larger than that of wet-chemistry measurements. When spectroscopically-inferred data are incorporated into DSM workflows, it is therefore needed to explicitly acknowledge this additional source of uncertainty [@takoutsing2022accounting].
+> _DRS can be a time- and cost-effective tool for soil analysis, as numerous studies have reported. However, this is mainly true when suitable predictive models have already been calibrated and validated. When models need to be developed from scratch, the process of generating reference data, calibrating robust models, and validating their performance can itself be costly and time-consuming. This limitation is often insufficiently acknowledged in the soil spectroscopy literature [@RamirezLopez2026Liblex]._
 
-## Including spectroscopic prediction in digital soil mapping
 
-A number of studies have explained the need to explicitly account for measurement errors in DSM, particularly when integrating soil properties predicted from spectroscopic predictions. Because spectroscopic techniques provide indirect, model-based estimates rather than direct analytical measurements, each predicted value is associated with a prediction uncertainty that may affect the spatial modelling process, that is, both map accuracy and the predicted pattern. Ignoring measurement error can lead to poor DSM model calibration and overconfident spatial predictions [@van2022measurement].
+### Rationale 
 
-Different methodological strategies have been proposed to address this issue, depending on the model used for DSM. In geostatistical mapping, measurement error variances have been incorporated into spatial covariance structures [@takoutsing2022accounting]. An example is @ramirez2019robust, which used the measurment error variance for the spectroscopic prediction into the covariance matrix fo the kriging prediciton. This led smoother maps overall. In machine-learning based DSM, the literature remains relatively limited but several studies have explored weighting schemes to reflect varying data quality. For example, weights derived from spectroscopic prediction uncertainty have been used in convolutional neural networks or random forest models by modifying the loss function during model calibration [@wadoux2019multi, @hengl2018random]. More recently, error-filtered ML frameworks have been proposed in which measurement error variance is explicitly integrated into likelihood-based estimation, showing improvements in predictive performance when observation errors are substantial [@van2022measurement].
+The use of DRS-inferred soil properties offers a cost- and time-efficient pathway to substantially increase the number of observations available for DSM model calibration [@ramirez2019robust]. This directly supports the collection of spatially dense datasets at field to regional scales. By augmenting conventional laboratory datasets with larger volumes of DRS-inferred observations, DSM workflows can benefit from more input data, which may improve map accuracy at lower overall cost.
 
-A central prerequisite across these approaches is the availability of sample-specific estimates of measurement error variance for all spectroscopically inferred soil observations. In practice, this means that for each soil sample, spectroscopy provides not only a predicted soil property value (e.g. soil organic carbon content) but also an associated uncertainty metric, often expressed as a prediction standard deviation or variance derived from prediction. 
+### Including Spectroscopic Predictions in Digital Soil Mapping
 
-This is illustrated in Figure \@ref(fig:fig-uncertainty), showing a conceptual representation of soil property observations obtained using wet-chemistry analysis and infrared spectroscopy. The wet-chemistry measurement is depicted as a narrow probability distribution centered on the observed value, reflecting relatively low uncertainty, whereas the spectroscopically-inferred value is represented by a wider distribution centered on the predicted value, indicating the larger uncertainty associated with the spectroscopic prediction. The dashed vertical lines denote the point estimates, and the horizontal arrows represent the corresponding standard deviations, $\sigma_{\mathrm{wet}}$ and ( $\sigma_{\mathrm{spectroscopy}}$, respectively. This illustration shows the uncertainty of a soil property value through a sample-specific measure uncertainty, typically expressed as a variance or standard deviation derived from the calibration model. Although spectroscopic observations are generally less precise than laboratory measurements, their lower cost enables the acquisition of denser datasets, which is often advantageous in DSM because increased data availability improves the characterization of spatial variation and environmental relationships, provided that the associated uncertainty is explicitly accounted for. In the practical section that follows, we illustrate the concept using an example of DSM implemented with a random forest model.
+In DSM workflows that incorporate DRS, spectroscopically derived soil property estimates should be treated as model-based predictions with associated uncertainty, rather than as error-free measurements. Unlike conventional laboratory analyses, spectroscopy does not directly measure soil properties; it generates predictions from statistical models calibrated to capture relationships between spectral responses and reference measurements. Consequently, each DRS estimate is associated with uncertainty that is usually larger than that of conventional laboratory measurements. When DRS-inferred data are incorporated into DSM workflows, this additional source of uncertainty should therefore be explicitly acknowledged [@takoutsing2022accounting]. Treating DRS predictions as error-free observations may lead to biased spatial models, propagation of systematic spectroscopic errors, and overconfident DSM predictions [@van2022measurement].
 
-```{r fig-uncertainty, echo=FALSE, fig.cap="Conceptual illustration of measurement and prediction uncertainty. Narrow distributions represent wet-chemistry observations with lower analytical uncertainty, whereas wider distributions represent spectroscopic predictions with larger associated standard deviations. Horizontal arrows indicate one standard deviation around the estimated value.", fig.width=6.5, fig.height=4.5}
+Different methodological strategies have been proposed to propagate or account for uncertainty in soil property observations used in DSM, depending on the modeling framework adopted. In geostatistical mapping, observation-level uncertainty in soil property data has been incorporated into spatial covariance structures [@ramirez2019robust; @takoutsing2022accounting]. In machine-learning-based DSM, the literature remains more limited, although several studies have explored weighting schemes to reflect differences in data quality. For example, weights derived from DRS prediction uncertainty have been used in convolutional neural networks and random forest models by modifying the loss function during model calibration [@wadoux2019multi; @hengl2018random]. More recently, error-filtered machine learning frameworks have been proposed in which observation-level uncertainty is explicitly integrated into likelihood-based estimation, with improved predictive performance when observation errors are substantial [@van2022measurement].
+
+A prerequisite for accounting for uncertainty in DRS predictions within DSM is that each observation includes an associated uncertainty estimate. In practice, DRS should provide not only a predicted soil property value, such as soil organic carbon content, but also an uncertainty metric, typically expressed as a prediction standard deviation or variance.
+
+This is illustrated in Figure \@ref(fig:fig-uncertainty), which provides a conceptual representation of soil property observations obtained using conventional laboratory analysis and DRS. The laboratory measurement is shown as a narrow probability distribution centered on the reference value, reflecting relatively low analytical uncertainty. In contrast, the DRS-inferred value is represented by a wider probability distribution centered on the model prediction, reflecting larger prediction uncertainty. The dashed vertical lines denote the corresponding point estimates, while the horizontal arrows represent their standard deviations, $\sigma_{\mathrm{lab}}$ and $\sigma_{\mathrm{spectroscopy}}$. The displacement between the two distributions illustrates that spectroscopic predictions may differ systematically from reference measurements, introducing prediction bias in addition to random uncertainty.
+
+DRS predictions of soil properties are generally less accurate than conventional laboratory measurements. However, their lower cost and higher analytical throughput can enable the acquisition of spatially denser datasets, which may improve the characterization of spatial variation and soil–environment relationships, provided that the associated prediction uncertainty is explicitly considered. In the practical section that follows, we illustrate this concept using an example of DSM implemented with a random forest model.
+
+```{r fig-uncertainty, echo = FALSE, eval = TRUE, fig.cap="Conceptual illustration of measurement and prediction uncertainty. Narrow distributions represent wet-chemistry observations with lower analytical uncertainty, whereas wider distributions represent DRS predictions with larger associated standard deviations. Horizontal arrows indicate one standard deviation around the estimated value.", fig.width=6.5, fig.height=4.5}
 
 library(ggplot2)
 
 wet_mean <- 18.5
-wet_sd   <- 0.4
-
+wet_sd <- 0.4
 spec_mean <- 17.8
-spec_sd   <- 1.2
+spec_sd <- 1.2
 
-x_min <- min(wet_mean - 4 * wet_sd, spec_mean - 4 * spec_sd)
-x_max <- max(wet_mean + 4 * wet_sd, spec_mean + 4 * spec_sd)
-x <- seq(x_min, x_max, length.out = 1000)
+x <- seq(
+  min(wet_mean - 4*wet_sd, spec_mean - 4*spec_sd),
+  max(wet_mean + 4*wet_sd, spec_mean + 4*spec_sd),
+  length.out = 1000
+)
+
+col_wet <- "#4E84A8" # steel blue
+col_spec <- "#C1614A" # muted terracotta
 
 df <- rbind(
-  data.frame(
-    x = x,
-    density = dnorm(x, wet_mean, wet_sd),
-    method = "Wet chemistry"
-  ),
-  data.frame(
-    x = x,
-    density = dnorm(x, spec_mean, spec_sd),
-    method = "Spectroscopy prediction"
-  )
+  data.frame(x = x, density = dnorm(x, wet_mean, wet_sd), method = "Wet chemistry"),
+  data.frame(x = x, density = dnorm(x, spec_mean, spec_sd), method = "DRS predictions")
 )
 
 means_df <- data.frame(
   mean = c(wet_mean, spec_mean),
-  sd   = c(wet_sd, spec_sd),
-  method = c("Wet chemistry", "Spectroscopy prediction")
+  sd = c(wet_sd, spec_sd),
+  method = c("Wet chemistry", "DRS predictions")
 )
 
 ymax <- max(df$density)
 
-ggplot(df, aes(x = x, y = density, color = method, fill = method)) +
+ggplot(df, aes(x = x, y = density, colour = method, fill = method)) +
   
-  # SD shaded band
   geom_rect(
     data = means_df,
-    aes(
-      xmin = mean - sd,
-      xmax = mean + sd,
-      ymin = 0,
-      ymax = Inf,
-      fill = method
-    ),
-    alpha = 0.15,
-    inherit.aes = FALSE
+    aes(xmin = mean - sd, xmax = mean + sd, ymin = 0, ymax = Inf, fill = method),
+    alpha = 0.12, inherit.aes = FALSE
   ) +
   
-  geom_area(alpha = 0.25, position = "identity") +
-  geom_line(linewidth = 1.1) +
+  geom_area(alpha = 0.20, position = "identity") +
+  geom_line(linewidth = 1.0) +
   
   geom_vline(
     data = means_df,
-    aes(xintercept = mean, color = method),
-    linetype = "dashed",
-    linewidth = 0.9,
-    show.legend = FALSE
+    aes(xintercept = mean, colour = method),
+    linetype = "dashed", linewidth = 0.7, show.legend = FALSE
   ) +
   
-  # horizontal arrow spectroscopy
-  annotate("segment",
-           x = spec_mean - spec_sd,
-           xend = spec_mean + spec_sd,
-           y = ymax * 0.55,
-           yend = ymax * 0.55,
-           colour = "#F4A582",
-           linewidth = 1,
-           arrow = arrow(ends = "both", length = unit(0.15,"cm"))
+  # sigma_DRS arrow — placed low, well left of the wet-chem peak
+  annotate(
+    "segment",
+    x = spec_mean - spec_sd, xend = spec_mean + spec_sd,
+    y = ymax * 0.38, yend = ymax * 0.38,
+    colour = col_spec, linewidth = 0.8,
+    arrow = arrow(ends = "both", length = unit(0.12, "cm"), type = "closed")
+  ) +
+  annotate(
+    "text",
+    x = spec_mean - spec_sd - 0.15, y = ymax * 0.38,
+    label = expression(sigma[DRS]),
+    colour = col_spec, size = 4.2, hjust = 1
   ) +
   
-  annotate("text",
-           x = spec_mean,
-           y = ymax * 0.60,
-           label = expression(sigma[spectroscopy]),
-           colour = "#F4A582",
-           size = 5
+  # sigma_wet arrow — placed high, anchored right of its own peak
+  annotate(
+    "segment",
+    x = wet_mean - wet_sd, xend = wet_mean + wet_sd,
+    y = ymax * 0.72, yend = ymax * 0.72,
+    colour = col_wet, linewidth = 0.8,
+    arrow = arrow(ends = "both", length = unit(0.12, "cm"), type = "closed")
+  ) +
+  annotate(
+    "text",
+    x = wet_mean + wet_sd + 0.15, y = ymax * 0.72,
+    label = expression(sigma["wet chem."]),
+    colour = col_wet, size = 4.2, hjust = 0
   ) +
   
-  # horizontal arrow wet chemistry
-  annotate("segment",
-           x = wet_mean - wet_sd,
-           xend = wet_mean + wet_sd,
-           y = ymax * 0.80,
-           yend = ymax * 0.80,
-           colour = "#6BAED6",
-           linewidth = 1,
-           arrow = arrow(ends = "both", length = unit(0.15,"cm"))
+  scale_colour_manual(
+    values = c("Wet chemistry" = col_wet, "DRS predictions" = col_spec)
   ) +
-  
-  annotate("text",
-           x = wet_mean,
-           y = ymax * 0.85,
-           label = expression(sigma[wet]),
-           colour = "#6BAED6",
-           size = 5
+  scale_fill_manual(
+    values = c("Wet chemistry" = col_wet, "DRS predictions" = col_spec)
   ) +
-  
-  scale_color_manual(values = c(
-    "Wet chemistry" = "#6BAED6",
-    "Spectroscopy prediction" = "#F4A582"
-  )) +
-  scale_fill_manual(values = c(
-    "Wet chemistry" = "#6BAED6",
-    "Spectroscopy prediction" = "#F4A582"
-  )) +
   
   labs(
-    x = "Soil property value",
-    y = "Probability density",
-    color = NULL,
-    fill = NULL,
-    title = ""
+    x = "Soil property value", 
+    y = "Probability density", 
+    colour = NULL, 
+    fill = NULL
   ) +
   
   theme_classic(base_size = 13) +
   theme(
     legend.position = "top",
-    plot.title = element_text(face = "bold")
+    legend.key.size = unit(0.9, "lines"),
+    legend.text = element_text(size = 11),
+    axis.line = element_line(colour = "grey40"),
+    panel.grid.major.y = element_line(colour = "grey92", linewidth = 0.4), 
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    panel.border = element_rect(colour = "grey40", fill = NA, linewidth = 0.5)
   )
 ```
 
 
 
-# Part II – Practical application
-## Workflow overview
+## Workflow overview  
 
-In this practical section we illustrate how soil spectroscopic data can be integrated into DSM. The main objective is to use spectroscopy to complement conventional laboratory soil analyses. This allows an increase in the amount of usable soil information without a proportional increase in laboratory effort.
+In this practical section, we illustrate how DRS-derived soil property estimates can complement conventional laboratory analyses in the production of digital soil maps. The methodology is demonstrated using the Kansas, USA, dataset introduced in Chapter \@ref(digital-soil-mapping). In addition to the soil property variables used in the DSM example, this dataset includes mid-infrared DRS measurements that were not used previously.
 
-The methodology is demonstrated using the Kansas soil dataset (USA), previously presented in Chapter 6 ("Digital Soil Mapping and Modelling"). This dataset includes wet-chemistry measurements of soil properties together with mid-infrared spectral observations collected on the same soil samples. It is therefore a suitable case study to explore the implementation of spectroscopically-enhanced DSM.
+Figure \@ref(fig:fig-dsm-workflow) presents the conceptual workflow used in this section. The colors distinguish the main groups of steps:
 
-Figure \@ref{fig:fig-dsm-workflow} presents the conceptual workflow used in this section. The colours help to distinguish the main groups of steps.
+- <span style="color:#4E84A8; font-weight:700;">Blue boxes</span> represent field sampling and laboratory reference analysis. These steps provide the measured soil property data used as calibration targets, either to fit a DRS calibration model or to support DSM.
 
-<span style="color:blue;">Blue boxes</span> represent the field sampling and laboratory reference analysis. These steps provide the measured soil property data that serve as the calibration target, either to fit a spectroscopic calibration model or to be used for DSM. 
+- <span style="color:#C1614A; font-weight:700;">Terracotta boxes</span> correspond to the DRS component. This includes spectral acquisition, calibration modeling, and the generation of spectroscopically predicted soil properties with associated uncertainty, expressed as the prediction error standard deviation. These predictions are treated as an additional source of soil information in the DSM step.
 
-<span style="color:orange;">Orange boxes</span> correspond to the spectroscopic component. This includes spectral acquisition, calibration modelling, and the generation of spectroscopically predicted soil properties with associated uncertainty, expressed as prediction error standard deviation.These predictions are treated as an additional source of soil information in the DSM step.
+- <span style="color:#7B6D9E; font-weight:700;">Purple boxes</span> indicate the data integration stage. Here, laboratory observations and DRS predictions are combined into a single dataset.
 
-<span style="color:purple;">Purple boxes</span> indicate the data integration stage. Here, laboratory observations and spectroscopic predictions are combined, into a single dataset. 
+- <span style="color:#4E8A6A; font-weight:700;">Green boxes</span> represent the spatial modeling stage, or DSM. Environmental covariates are used together with soil observations to fit spatial prediction models. The uncertainty associated with spectroscopic predictions is used to down-weight these observations relative to laboratory measurements. The final outputs are continuous soil property maps and corresponding uncertainty maps.
 
-<span style="color:green;">Green boxes</span> represent the spatial modelling stage, or DSM. Environmental covariates are used together with the soil observations to fit spatial prediction models. The uncertainty of the spectroscopic data are used to down-weight these observations compared to the lab-measurements. The final outputs are continuous soil property maps and corresponding uncertainty maps.
+All main steps in this workflow are implemented and illustrated using R in the following subsections.
 
-All main steps of this workflow will be implemented and illustrated using R in the following subsections.
-
-```{r fig-dsm-workflow, echo=FALSE, message=FALSE, warning=FALSE, fig.cap="Conceptual workflow for integrating spectroscopically predicted soil data into digital soil mapping.", fig.width=7, fig.height=3.8}
-
+```{r fig-dsm-workflow, echo=FALSE, message=FALSE, warning=FALSE, out.width="80%", fig.cap="Conceptual workflow for integrating spectroscopically predicted soil data into digital soil mapping.", eval=TRUE}
 library(DiagrammeR)
-grViz("
+library(DiagrammeRsvg)
+library(rsvg)
+
+g <- grViz("
 digraph dsm_workflow {
 
-  graph [layout = dot, rankdir = LR, nodesep = 0.5, ranksep = 0.8]
+  graph [layout = dot, rankdir = TB, nodesep = 0.3, ranksep = 0.2
+         bgcolor = '#FFFFFF']
 
   node [shape = box,
-        style = filled,
-        color = '#6B6B6B',
-        fontname = Helvetica,
-        fontsize = 12,
-        margin = 0.18]
+        style = 'rounded,filled',
+        penwidth = 1.5,
+        fontname = 'Helvetica Neue',
+        fontsize = 10,
+        margin = 0.2]
 
-  edge [color = '#6B6B6B',
-        arrowsize = 0.8,
-        penwidth = 1.2]
+  edge [arrowsize = 0.7,
+        penwidth = 1.2,
+        color = '#B0B8C1']
 
-  sampling [label = 'Soil sampling', fillcolor = '#E8F1FB']
-  lab      [label = 'Lab analysis', fillcolor = '#E8F1FB']
-  spectra  [label = 'Spectral scanning', fillcolor = '#FBE7DA']
-  calib    [label = 'Calibration model', fillcolor = '#FBE7DA']
-  pred     [label = 'Spectroscopic predictions\\n(+ uncertainty)', fillcolor = '#FBE7DA']
-  harmon   [label = 'Data harmonisation\\n/ weighting', fillcolor = '#F6EAF2']
-  covars   [label = 'Environmental covariates', fillcolor = '#EAF4E6']
-  dsm      [label = 'DSM model', fillcolor = '#EAF4E6']
-  maps     [label = 'Predicted soil maps', fillcolor = '#EAF4E6']
+  sampling [label = 'Soil sampling',                              fillcolor = '#D6E8F2', color = '#4E84A8', fontcolor = '#1A3D52']
+  lab      [label = 'Lab analysis',                               fillcolor = '#D6E8F2', color = '#4E84A8', fontcolor = '#1A3D52']
+  spectra  [label = 'Spectral scanning',                          fillcolor = '#F2DDD9', color = '#C1614A', fontcolor = '#5C2518']
+  calib    [label = 'Calibration model',                          fillcolor = '#F2DDD9', color = '#C1614A', fontcolor = '#5C2518']
+  pred     [label = 'Spectroscopic predictions\\n(+ uncertainty)', fillcolor = '#F2DDD9', color = '#C1614A', fontcolor = '#5C2518']
+  harmon   [label = 'Data harmonisation\\n/ weighting',           fillcolor = '#E2DDED', color = '#7B6D9E', fontcolor = '#312650']
+  covars   [label = 'Environmental covariates',                   fillcolor = '#D8E8DF', color = '#4E8A6A', fontcolor = '#1A3D2A']
+  dsm      [label = 'DSM model',                                  fillcolor = '#D8E8DF', color = '#4E8A6A', fontcolor = '#1A3D2A']
+  maps     [label = 'Predicted soil maps',                        fillcolor = '#D8E8DF', color = '#4E8A6A', fontcolor = '#1A3D2A']
 
   sampling -> lab
   sampling -> spectra
@@ -234,1298 +233,1304 @@ digraph dsm_workflow {
   dsm -> maps
 }
 ")
-
+out_png <- "images/module4/fig_dsm_workflow.png"
+tmp_svg <- tempfile(fileext = ".svg")
+export_svg(g) |> writeLines(tmp_svg)
+rsvg_png(tmp_svg, out_png, width = 1400)
+knitr::include_graphics(out_png)
 ```
 
-## Making spectroscopic data ready for inclusion in DSM
+## Generating DRS-derived soil property observations for DSM
 
-In this section we prepare the spectroscopic data so that it can be used as input in a digital soil mapping. The  requirement is that the spectroscopic modelling step should provide, for each soil sample, both a prediction of the target soil property and an estimate of prediction uncertainty. This follows the approach introduced in the Soil Spectroscopy Training Material (@Wadoux2025FAO Section 4.3.3), where uncertainty is quantified at the sample level.
+In this section, we convert DRS measurements into soil property estimates that can be used as additional observations in DSM. The key requirement is that, for each soil sample, the spectroscopic modeling step provides both a predicted value of the target soil property and an estimate of prediction uncertainty. This follows the approach introduced in the Soil Spectroscopy Training Material (@Wadoux2025FAO, Section 4.3.3), where uncertainty is quantified at the sample level.
 
-For DSM applications, these outputs can be treated in a similar way to laboratory observations. However, unlike laboratory data, spectroscopic predictions are associated with an explicit model-based uncertainty. This uncertainty information can later be used in data integration and spatial modelling steps.
+For DSM applications, these outputs can be treated similarly to laboratory observations. However, unlike laboratory data, DRS predictions are associated with explicit model-based uncertainty. This uncertainty information can later be used during data integration and spatial modeling.
 
-In the following subsections we demonstrate how to (i) import and visualise the spectral data, (ii) apply basic spectral preprocessing, (iii) build a spectroscopic prediction model with uncertainty, (iv) define laboratory measurement uncertainty, and (v) harmonise soil property predictions and uncertainties to a standard depth interval. 
+In the following subsections, we demonstrate how to (i) import and visualize the spectral data, (ii) apply basic spectral preprocessing, (iii) build a spectroscopic prediction model with uncertainty, (iv) define laboratory measurement uncertainty, and (v) harmonize soil property predictions and uncertainties to a standard depth interval.
 
-### Load and plot the spectrscopic data
+### Load and plot the DRS data
 
-We first import the mid-infrared (MIR) spectral dataset and prepare it for analysis. The MIR spectral dataset consists of laboratory measurements of soil reflectance or absorbance in the mid-infrared region of the electromagnetic spectrum. In soil spectroscopy, this region typically covers wavelengths of approximately 2500 to 25 000 nm, which corresponds to about 4000 to 400 cm$^{-1}$ in wavenumber.
+First, we import the DRS dataset and prepare it for analysis. This dataset contains absorbance measurements collected in the mid-infrared (MIR) region of the electromagnetic spectrum, over the wavenumber range starting from apprximately 4000 cm$^{-1}$ up to apprximately 400 cm$^{-1}$ at an approximated resolution of 1.93 cm$^{-1}$. This resulted in 1764 spectral variables. Note that this region corresponds to wavelengths of approximately 2500–25000 nm. These measurements were collected under laboratory conditions using air-dried soil samples. Additional details on the DRS measurements are provided in @dangal2019accurate.
 
-MIR spectra are characterised by strong and well-defined absorption features. These features are mainly related to the fundamental vibrations of molecular bonds present in soil minerals and organic compounds. As a result, MIR spectroscopy is particularly sensitive to soil properties such as soil organic carbon, clay minerals, carbonates, and some nutrients. Compared with visible–near infrared spectroscopy, MIR measurements are usually collected on air-dried and finely ground soil samples under controlled laboratory conditions. All this tutorial could be based on the use of vis-NIR or MIR alike. 
 
-Replicate spectral measurements are averaged so that each soil sample is represented by a single spectrum. A unique profile identifier is also created to group horizons belonging to the same soil profile.
+> <span  style="font-weight:700;">NOTE:</span> _MIR spectra show strong, well-defined absorption features associated with molecular vibrations in soil minerals and organic compounds. This makes MIR spectroscopy sensitive to properties such as soil organic carbon, clay minerals, carbonates, and some nutrients.
+Although this example uses MIR spectra, the workflow can also be applied to vis–NIR or SWIR data, provided suitable calibration models and uncertainty estimates are available._
 
-Spectral variables are then separated from the rest of the soil dataset and stored as a spectral matrix. The corresponding wavenumber values are extracted and sorted to ensure the correct order in the spectral bands.
 
-```{r message=FALSE, warning=FALSE}
-# -----------------------------------------------------------
-# Read MIR spectral dataset (Kansas example)
-# -----------------------------------------------------------
+Let's start by loading the data:
 
-# Load data (keep original column names unchanged)
+```{r message=FALSE, warning=FALSE, eval=TRUE}
 library(readxl)
+library(dplyr)
 
-dat <- read_excel(
+# Read MIR spectral dataset (Kansas example)
+original_dat <- read_excel(
   "01_data/module1/training_data/data/MIR_KANSAS_data.xlsx",
-  .name_repair = "minimal"
+  .name_repair = "minimal",
+  na = c("", "NA", "N/A", "NaN"),
+  progress = FALSE
 )
 
-# -----------------------------------------------------------
-# Average replicate measurements by sample ID
-# This reduces laboratory measurement noise
-# -----------------------------------------------------------
+original_dat <- as.data.frame(original_dat)
 
-library(dplyr)
+# dimensions of the dataset (number of samples and variables)
+dim(original_dat)
 
-dat <- dat %>%
-  group_by(smp_id) %>%
-  summarise(
-    across(where(is.numeric), mean, na.rm = TRUE),
-    .groups = "drop"
-  )
+# number of duplicate sample IDs (i.e. repeated measurements for 
+# the same soil sample)a
+sum(duplicated(original_dat$smp_id))
+```
+The loaded dataset contains both DRS variables and non-DRS variables. The first step is therefore to separate the spectral data from the rest of the soil dataset. To do this, we create a data frame containing the non-spectral variables and store the DRS variables as a spectral matrix. This structure allows the spectra to be handled separately for preprocessing and modeling, while keeping them linked to the corresponding soil samples.
 
-# -----------------------------------------------------------
-# Create a profile identifier based on spatial location
-# All horizons at the same coordinates belong to one profile
-# -----------------------------------------------------------
+The spectral variables can be identified from the column names. These can be inspected using `colnames(dat)`. In this dataset, spectral columns follow a consistent naming pattern: they start with the prefix `X`, followed by numeric values representing the original wavenumbers. For example, a column named `X3999.7` corresponds to a spectral variable measured at approximately 3999.7 cm$^{-1}$.
 
-dat <- dat %>%
-  group_by(Long_Site.x, Lat_Site.x) %>%
-  mutate(
-    ProfID = sprintf("PROF%04d", cur_group_id())
-  ) %>%
-  ungroup()
+We use this pattern to separate the spectral variables from the remaining soil data. The `X` prefix is then removed so that the column names can be converted into numeric wavenumber values. These values are stored in `original_wavs` and used later for plotting, resampling, and spectral preprocessing.
 
-# -----------------------------------------------------------
-# Identify MIR spectral columns
-# Spectral variables follow naming pattern like X3999.72758
-# -----------------------------------------------------------
+```{r message=FALSE, warning=FALSE, eval=TRUE}
+# Identify spectral columns
+# Spectral variables start with "X" followed by at least three digits.
+spc_cols <- grep("^X[0-9]{3,}", colnames(original_dat))
 
-spectral_columns <- grep(
-  "^X[0-9]{2,10}(\\.[0-9]+)?$",
-  names(dat)
-)
+# Extract the spectral matrix
+spc_original <- original_dat[, spc_cols]
 
-# -----------------------------------------------------------
-# Extract spectral matrix and corresponding wavenumbers
-# -----------------------------------------------------------
+# Remove the "X" prefix from spectral column names
+colnames(spc_original) <- gsub("^X", "", colnames(spc_original))
 
-spc_raw <- as.matrix(dat[, spectral_columns])
+# Convert spectral column names to numeric wavenumber values
+original_wavs <- as.numeric(colnames(spc_original))
 
-# Convert column names to numeric wavenumber values
-wavenumber <- as.numeric(sub("^X", "", colnames(spc_raw)))
-
-# Remove spectral columns from main data table
-dat <- dat[, -spectral_columns]
-
-# -----------------------------------------------------------
-# Sort spectra by increasing wavenumber
-# (Axis can later be reversed in plots following MIR convention)
-# -----------------------------------------------------------
-
-ord <- order(wavenumber)
-
-wavenumber <- wavenumber[ord]
-spc_raw <- spc_raw[, ord, drop = FALSE]
-
-# Store wavenumber values as column names
-colnames(spc_raw) <- wavenumber
-
-# Attach spectral matrix as list-column in main dataset
-dat$spc_raw <- spc_raw
-
+# Check the spectral range
+range(original_wavs)
 ```
 
-### Preprocessing of spectra
+Because the spectra are recorded at high spectral resolution, the spectral matrix contains many highly correlated variables. Before modeling, we therefore resample the spectra to a coarser wavenumber grid. This reduces computational demand while preserving the main absorption features. In this case, we resample the spectra to a resolution of 8 cm$^{-1}$ using `prospectr::resample()`. Since the original spectra do not extend exactly to 4000 cm$^{-1}$, we avoid extrapolation (highly recommended for all cases) and resample only up to 3992 cm$^{-1}$. This results in a new spectral matrix with 425 spectral variables, which is more manageable for modeling while still capturing the key spectral information:
 
-Raw soil spectra often contain measurement noise and may be recorded at slightly different spectral resolutions. Therefore, basic preprocessing is usually required before modelling.
-
-In this exercise, spectra are first resampled to a common wavenumber. This ensures that all samples share the same spectral support. A moving-average smoothing filter is then applied to reduce high-frequency noise while preserving the main absorption features.
-
-After preprocessing, the spectra can be visualised to confirm that the signal is smoother and more consistent across samples. Plotting absorbance against wavenumber allows inspection of the general spectral patterns and potential relationships with soil properties such as soil organic carbon (SOC), which we will use hereafter. This basic exploratory step is useful for identifying outliers or inconsistencies before further processing. At this stage the dataset is ready for statistical modelling and fitting a calibration model
-
-```{r message=FALSE, warning=FALSE}
-# -----------------------------------------------------------
+```{r message=FALSE, warning=FALSE, eval=TRUE}
+library(prospectr)
 # Define a new regular spectral grid for resampling
-# This ensures all spectra share identical wavelength spacing
-# -----------------------------------------------------------
-
-new_wavs <- seq(
-  from = round(min(as.numeric(colnames(dat$spc_raw)))),
-  to   = round(max(as.numeric(colnames(dat$spc_raw)))),
-  by   = 5   # spectral resolution in cm-1
-)
-
-# -----------------------------------------------------------
+wavs <- seq(600, 3992, by = 8)
 # Resample spectra to the new wavelength grid
-# This is important for chemometric modelling and smoothing
-# -----------------------------------------------------------
-
-dat$spc <- prospectr::resample(
-  dat$spc_raw,
-  wav     = wavenumber,
-  new.wav = new_wavs
+spc_resampled <- prospectr::resample(
+  spc_original,
+  wav = original_wavs,
+  new.wav = wavs
 )
-
-# -----------------------------------------------------------
-# Apply moving-average smoothing to reduce high-frequency noise
-# Window size (w = 11) is typical for MIR preprocessing
-# -----------------------------------------------------------
-
-dat$spc <- movav(dat$spc, w = 11)
-
-# Updated wavelength vector after preprocessing
-wavs <- as.numeric(colnames(dat$spc))
+# check the dimensions
+dim(spc_resampled)
 ```
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-# -----------------------------------------------------------
-# Convert spectral matrix to long format for visualization
-# Each spectrum becomes a set of absorbance–wavenumber pairs
-# -----------------------------------------------------------
+Now we can plug this resampled spectral matrix into the non-DRS part of the dataframe:
+```{r message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+# extract non-spectral variables into a new dataframe
+repeated_dat <- original_dat[, -spc_cols]
 
-ir_long <- data.frame(
-  sample     = rep(seq_len(nrow(dat)), each = length(wavs)),
-  SOC        = rep(dat$SOC, each = length(wavs)),
-  wavenumber = rep(wavs, times = nrow(dat)),
-  absorbance = as.vector(t(dat$spc))
-)
+# in the main dataframe create a new variable called spc 
+# containing the matrix of spectra 
+repeated_dat$spc <- spc_resampled
 
-# -----------------------------------------------------------
-# Plot MIR spectra coloured by soil organic carbon content
-# MIR convention: wavenumber axis plotted in reverse
-# -----------------------------------------------------------
-
-library(ggplot2)
-
-plot_ir <- ggplot(
-  ir_long,
-  aes(x = wavenumber, y = absorbance, group = sample, color = SOC)
-) +
-  geom_line(alpha = 0.35, linewidth = 0.4) +
-  scale_x_reverse() +
-  scale_color_gradient(low = "blue", high = "red", na.value = "grey70") +
-  theme_minimal(base_size = 12) +
-  theme(
-  legend.position = "bottom",
-  legend.direction = "horizontal") +
-  labs(
-    x = expression(Wavenumber~(cm^{-1})),
-    y = "Absorbance",
-    color = "SOC"
-  )
-
-print(plot_ir)
+# make some checks
+colnames(repeated_dat)
+dim(repeated_dat)
+dim(repeated_dat$spc)
 ```
 
-### Spectroscopic modelling with uncertainty
-The next step is to build a model that predicts SOC from the preprocessed spectra. Here we use a random forest approach, called quantile regression forest. The same model type will then be used for the DSM. This model allows uncertainty to be estimated from the distribution of model predictions.
+The data contains repeated measurements for each soil sample, which is common in spectroscopic datasets to account for measurement variability. To simplify the analysis, we start by averaging replicated spectral measurements so that each soil sample is represented by a single spectrum.
 
-To obtain a realistic assessment of model performance, cross-validation is done at the soil profile level. This avoids using horizons from the same profile in both training and testing subsets. For each validation fold, the model is trained on a subset of profiles and used to predict SOC for the remaining profiles.
+```{r message=FALSE, warning=FALSE, eval=TRUE, results = 'hide'}
+# Average replicate spectra by sample ID
+spc_avg <- aggregate(
+  repeated_dat$spc,
+  by = list(smp_id = repeated_dat$smp_id),
+  FUN = mean
+)
+# order the resuslts by sample ID to ensure correct alignment with the main 
+# dataset later on
+spc_avg <- spc_avg[order(spc_avg$smp_id),  ]
 
-Prediction uncertainty is quantified by the model using the conditional distribution of the predictions. This has been extensively described for spectroscopic data in @wadoux2025uncertainty. From this model distribution, a mean predicted value, a prediction variance, and a prediction standard deviation are calculated for each soil sample. These quantities represent the required outputs of the spectroscopic modelling step for DSM.
+# aggregate() prepends smp_id as first column; extract the spectral matrix
+rownames(spc_avg) <- spc_avg$smp_id
+spc_avg <- as.matrix(spc_avg[, -1])
 
-Model performance can be first visualised by plotting predicted versus measured SOC values in a scatterplot. Validation statistics can be obtained from the function `ranger`` internal structure, where a R$^2$ is reported from a cross-validation. Error bars in the scatterplot representing the prediction standard deviation, they illustrate the level of confidence associated with each prediction.
+# Drop duplicate non-spectral rows (keep first occurrence per sample)
+dat <- repeated_dat[!duplicated(repeated_dat$smp_id), ]
+dat <- dat[order(dat$smp_id), ]
 
-```{r message=FALSE, warning=FALSE}
-# -----------------------------------------------------------
-# Quantile Random Forest with 10-fold cross-validation
-# grouped by soil profile
-# -----------------------------------------------------------
+# Verify that sample IDs are aligned before overwriting spectra
+stopifnot(all(rownames(spc_avg) == dat$smp_id))
 
-library(dplyr)
+# Overwrite spectra with the averaged matrix
+dat$spc <- spc_avg
+
+# check dimensions of the final dataset
+dim(dat)
+```
+
+Now let's plot the spectra (Figure \@ref(fig:fig-spectra)) that we have so far:
+```{r fig-spectra, message=FALSE, warning=FALSE, eval=TRUE, out.width="80%", fig.cap="Resampled and aggreagted MIR sectra."}
+matplot(
+  wavs,
+  t(dat$spc),
+  type = "l",
+  lty = 1,
+  xlim = c(4000, 500),
+  xlab = expression(Wavenumber~(cm^{-1})),
+  ylab = "Absorbance",
+  col = rgb(0.8, 0, 0, 0.3)
+)
+grid(lty = 1)
+```
+
+A unique profile identifier is also created to group horizons belonging to the same soil profile:
+
+```{r message=FALSE, warning=FALSE, eval=TRUE, results = 'hide'}
+# Create unique profile IDs for each coordinate pair
+coords <- paste(dat$Long_Site.x, dat$Lat_Site.x, sep = "_")
+prof_num <- match(coords, unique(coords))
+
+dat$ProfID <- sprintf("PROF%04d", prof_num)
+```
+
+### Preprocessing of the soil spectra
+
+Raw soil spectra often require preprocessing before modeling. The objective is to reduce instrumental or measurement artifacts while preserving the chemical information relevant for prediction.
+
+A first step is always to inspect the spectra visually. This helps identify evident noise, baseline shifts, outliers, or unstable regions at the edges of the spectral range. Edge noise can occur because DRS detectors often have lower sensitivity near the limits of their operating range. When this occurs, it is common practice to trim the affected regions before modeling. In this example, we do not trim the spectra, but this should be considered for other datasets.
+
+Spectra can also be affected by variation in instrument response, sample presentation, particle size, packing density, and measurement conditions. These effects may introduce additive or multiplicative changes in the spectra, even when the same sample is measured more than once. Common preprocessing methods used to reduce these effects include:
+
+- **Smoothing**, such as moving average or Savitzky–Golay filtering, to reduce high-frequency noise.
+- **Scatter correction**, such as standard normal variate (SNV) or multiplicative scatter correction (MSC), to reduce multiplicative effects.
+- **Derivatives**, often combined with smoothing, to reduce baseline effects and enhance spectral features.
+
+Derivatives should be used with caution because they can also amplify noise. The choice of preprocessing method should therefore depend on the spectral region, the quality of the measurements, and the modeling objective.
+
+> <span  style="font-weight:700;">NOTE:</span> _Scatter correction methods may sometimes appear to reduce model accuracy during internal validation, especially when calibration and validation samples come from the same instrument, preparation protocol, and measurement conditions. In such cases, raw or lightly smoothed spectra may preserve dataset-specific variation that improves apparent performance. However, this variation may not be chemically meaningful and can make the model more sensitive to changes in particle size, packing density, sample presentation, instrument response, or acquisition conditions. Carefully selected scatter correction methods, such as SNV or MSC, may therefore produce models that are slightly less accurate in the short term but more robust when applied to new samples, instruments, or measurement settings. For this reason, scatter correction should be evaluated not only in terms of cross-validation accuracy, but also in terms of expected model transferability and long-term stability._
+
+In this example, we first apply a Savitzky–Golay first derivative to reduce baseline effects and enhance spectral features, followed by standard normal variate (SNV) correction to reduce multiplicative scatter effects. In `savitzkyGolay()`, `m = 1` specifies the first derivative, `p = 1` sets the polynomial order used within the moving window, and `w = 25` defines the window size in spectral variables. The optimal preprocessing strategy should, however, be evaluated for each dataset.
+
+```{r message=FALSE, warning=FALSE, eval =TRUE}
+# apply standard normal variate (SNV) correction followed by 
+# a Savitzky–Golay first derivative
+dat$spc_processed  <- dat$spc |> 
+  prospectr::savitzkyGolay(m = 1, p = 1, w = 25) |> 
+  prospectr::standardNormalVariate() 
+
+# get the wavenumber values for the processed spectra
+wavs_processed <- as.numeric(colnames(dat$spc_processed))
+```
+
+
+Now let's visualise the processed spectra(Figure \@ref(fig:fig-spectra-processed)) that we have so far:
+```{r fig-spectra-processed, message=FALSE, warning=FALSE, eval=TRUE, out.width="80%", fig.cap = "Processed MIR spectra after standard normal variate correction and Savitzky–Golay first-derivative transformation."}
+matplot(
+  wavs_processed,
+  t(dat$spc_processed),
+  type = "l",
+  lty = 1,
+  xlim = c(4000, 500),
+  xlab = expression(Wavenumber~(cm^{-1})),
+  ylab = "SNV of first derivative absorbance", 
+  col = rgb(0.3, 0, 0.8, 0.3)
+)
+grid(lty = 1)
+```
+
+
+This basic exploratory step helps verify that the spectra have been imported and processed correctly. In a full analysis, this stage can also be used to screen for unusual spectra or potential measurement issues before fitting the calibration model. The dataset is now ready for statistical modeling.
+
+
+### SOC prediction from DRS spectra with uncertainty estimation
+
+#### Select a subset of calibration samples for model fitting
+
+The objective is to use a small but representative subset of samples to calibrate a DRS model for predicting SOC. The remaining samples are then treated as if their SOC content were unknown and predicted using the calibrated model. This simulates a practical scenario in which conventional laboratory analysis is performed on a limited subset, while DRS extends soil property information to a larger number of samples.
+
+> _The rationale is to simulate a cost-efficient scenario in which conventional laboratory analysis is performed only on a limited, representative subset of samples, while DRS is used to extend soil property information to a larger number of samples through model-based prediction._
+
+Here, approximately 20% of the dataset is used for calibration. The calibration subset was selected using the $k$-means sampling algorithm for spectroscopic data [@naes1987design], implemented in the `naes()` function of the `prospectr` package. This method partitions the spectral space into $k$ clusters and selects the sample closest to each cluster centroid, ensuring that the selected subset is well distributed across the main axes of spectral variation. Such a strategy has been shown to provide representative calibration sets that reduce generalization error [@ramirez2014sampling].
+
+The selection operates at the individual sample level using the first 10 principal components of the processed spectra. Once the $k$ samples are selected, all remaining horizon samples belonging to the same soil profiles as the selected samples are also included in the calibration set. This profile-completion step serves two purposes: it avoids splitting a soil profile between calibration and prediction subsets, which would constitute information leakage, and it naturally increases the calibration set size beyond $k$ since profiles typically contain multiple horizons. The target of $k = 85$ cluster centres was chosen so that the resulting profile-completed calibration set contains approximately 20% of the total samples.
+
+```{r message=FALSE, warning=FALSE, eval=TRUE}
+# Target number of cluster centres
+n_cal <- 85
+
+# Select spectrally representative samples using k-means sampling
+# in the space of the first 10 principal components
+set.seed(201909)
+kms <- prospectr::naes(
+  dat$spc_processed,
+  k = n_cal,
+  pc = 10,
+  iter.max = 1000
+)
+
+# Expand the selection to include all horizon samples from the profiles
+# of the selected samples. This avoids splitting a soil profile between
+# calibration and prediction subsets, which would constitute information
+# leakage. Profiles typically contain multiple horizons, so the final
+# calibration set will be larger than n_cal.
+kms_samples <- which(dat$ProfID %in% unique(dat$ProfID[kms$model]))
+```
+
+The `kms_samples` vector contains the indices of the samples selected for model calibration. The remaining samples are treated as if their SOC content were unknown and are predicted using the calibrated DRS model. So we split the data into calibration and prediction subsets:
+
+```{r message=FALSE, warning=FALSE, eval=TRUE}
+dat_cal <- dat[kms_samples, ]
+dat_pred <- dat[-kms_samples, ]
+```
+
+#### Model calibration
+
+In this section, we calibrate a random forest (RF) model to predict SOC from DRS spectra. The RF algorithm used is the _quantile regression forest_, which provides a prediction distribution for each sample rather than only a single point estimate. This allows us to obtain both the predicted SOC value and an associated uncertainty estimate, expressed here as the prediction standard deviation. 
+
+For the RF modeling setp, we use the `ranger` package [@wright2017ranger].
+
+Prediction uncertainty is quantified by the model using the conditional distribution of the predictions. This approach is described in detail for soil DRS data by @wadoux2025uncertainty. From this model distribution, a mean predicted value, a prediction variance, and a prediction standard deviation are calculated for each soil sample. These quantities represent the required outputs of the DRS modeling step for DSM.
+
+To obtain an assessment of model performance, cross-validation is done at the soil profile level. This avoids using horizons from the same profile in both training and testing subsets. For each validation fold, the model is trained on a subset of profiles and used to predict SOC for the remaining profiles.
+
+Model performance is evaluated using cross-validation at the soil profile level. All horizons from the same profile are assigned to the same fold, so that horizons from one profile are never split between calibration and validation subsets. In each iteration, one fold of profiles is left out, the RF model is calibrated using the remaining profiles, and SOC is predicted for the excluded profiles. This avoids pseudo-replication and provides a more realistic assessment of model performance. The predicted SOC values are then compared with the laboratory reference values to compute performance metrics such as bias, RMSE, and $R^2$. The validation results are visualized by plotting predicted SOC values against the corresponding laboratory reference measurements, with error bars indicating the prediction standard deviation for each sample.
+
+Let's first define the fold structure for cross-validation. We assign folds at the profile level to ensure that all horizons from the same soil profile are kept together in either the training or test set, preventing information leakage and providing a more realistic evaluation of model performance.
+
+```{r message=FALSE, warning=FALSE, eval=TRUE}
+# set.seed() makes the random assignment reproducible: rerunning the
+# script always produces the same fold structure. The value 123 is arbitrary.
+set.seed(14092019) # just any number
+
+# 10 folds
+nfolds <- 10
+# We assign folds at the profile level because observations within a
+# profile are depth-wise measurements of the same soil column... they
+# are not independent. Splitting at the observation level would leak
+# information from the same profile into both training and test sets.
+cal_profile_ids <- unique(dat_cal$ProfID)
+fold_index  <- sample(rep(1:nfolds, length.out = length(cal_profile_ids)))
+
+# Each observation inherits the fold of its parent profile
+dat_cal$fold <- fold_index[match(dat_cal$ProfID, cal_profile_ids)]
+```
+
+Now we can proceed with the modeling. In this implementation  for each fold we use the option `quantreg = TRUE` which enables estimation of the conditional distribution of SOC rather than only a single point prediction. The forest was grown with 3500 trees, bootstrap sampling with replacement, and a minimum node size of 10. Splits were selected using the maximally selected rank statistic (`splitrule = "maxstat"`), and a fixed seed was used for reproducibility. For each held-out sample, 100 values were drawn from the estimated conditional distribution and summarised by their mean, variance, and standard deviation. Further details on the `ranger` implementation and this uncertainty-aware modelling approach are provided by @wright2017ranger and @wadoux2025uncertainty.
+
+```{r message=FALSE, warning=FALSE, eval=TRUE, results = 'hide'}
+# Load the ranger package for quantile forest modeling 
 library(ranger)
 library(matrixStats)
 
-set.seed(123)
-
-# -----------------------------------------------------------
-# Assign entire soil profiles to CV folds
-# This avoids splitting horizons from the same profile
-# across training and testing data
-# -----------------------------------------------------------
-
-profile_ids <- unique(dat$ProfID)
-n_profiles  <- length(profile_ids)
-
-fold_table <- data.frame(
-  ProfID = profile_ids,
-  fold   = sample(rep(1:10, length.out = n_profiles))
-)
-
-# Add fold membership to the main dataset
-dat <- dat %>%
-  left_join(fold_table, by = "ProfID")
-
-# -----------------------------------------------------------
 # Prepare storage vectors for CV predictions and uncertainty
-# -----------------------------------------------------------
+SOC_predRF <- rep(NA_real_, nrow(dat_cal))  # mean prediction
+SOC_varRF <- rep(NA_real_, nrow(dat_cal))  # predictive variance
+SOC_sdRF <- rep(NA_real_, nrow(dat_cal))  # predictive standard deviation
 
-SOC_predRF <- rep(NA_real_, nrow(dat))  # mean prediction
-SOC_varRF  <- rep(NA_real_, nrow(dat))  # predictive variance
-SOC_sdRF   <- rep(NA_real_, nrow(dat))  # predictive standard deviation
-
-# -----------------------------------------------------------
 # Run 10-fold cross-validation
-# -----------------------------------------------------------
-
-for (k in 1:10) {
-  
-  cat("\rProcessing fold", k, "of 10")
-  
+for (k in seq_len(nfolds)) {
+  cat("\rProcessing fold", k, "out of 10")
   # Test set: all samples belonging to fold k
-  test_rows <- which(dat$fold == k)
-  
+  test_rows <- which(dat_cal$fold == k)
   # Training set: all remaining samples
-  train_rows <- which(dat$fold != k)
-  
+  train_rows <- which(dat_cal$fold != k)
   # Fit quantile random forest on training data
   model <- ranger(
-    x = dat$spc[train_rows, ],
-    y = dat$SOC[train_rows],
+    x = dat_cal$spc_processed[train_rows, ],
+    y = dat_cal$SOC[train_rows],
     quantreg = TRUE,
-    num.trees = 100,
+    num.trees = 3500,
     sample.fraction = 1,
     replace = TRUE,
-    min.node.size = 2
+    splitrule = "maxstat",
+    min.node.size = 10, 
+    seed = 201909
   )
   
   # Predict by drawing samples from the conditional distribution
   pred_matrix <- predict(
     model,
-    data = dat$spc[test_rows, ],
+    data = dat_cal$spc_processed[test_rows, ],
     type = "quantiles",
     what = function(x) sample(x, 100, replace = TRUE)
   )$predictions
   
   # Store prediction summary statistics
   SOC_predRF[test_rows] <- rowMeans(pred_matrix)
-  SOC_varRF[test_rows]  <- rowVars(pred_matrix)
-  SOC_sdRF[test_rows]   <- sqrt(SOC_varRF[test_rows])
+  SOC_varRF[test_rows] <- rowVars(pred_matrix)
+  SOC_sdRF[test_rows] <- sqrt(SOC_varRF[test_rows])
 }
 
-# -----------------------------------------------------------
 # Save predictions back into the dataset
-# -----------------------------------------------------------
-
-dat$SOC_predRF <- SOC_predRF
-dat$SOC_varRF  <- SOC_varRF
-dat$SOC_sdRF   <- SOC_sdRF
+dat_cal$SOC_predRF <- SOC_predRF
+dat_cal$SOC_varRF <- SOC_varRF
+dat_cal$SOC_sdRF <- SOC_sdRF
 ```
 
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-# -----------------------------------------------------------
-# Plot predicted vs measured SOC
-# Horizontal error bars represent predictive uncertainty
-# -----------------------------------------------------------
+Figure \@ref(fig:fig-val-plot) shows the validation plot of predicted SOC values against laboratory reference measurements. Error bars represent the prediction standard deviation for each sample, providing a visual representation of the uncertainty associated with each prediction. 
 
+```{r echo=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
+xy_lims <- range(dat_cal$SOC_predRF, dat_cal$SOC)
+# Validation plot
 plot(
-  x = dat$SOC_predRF,
-  y = dat$SOC,
-  xlab = "Predicted Organic Carbon (%)",
-  ylab = "Measured Organic Carbon (%)",
-  xlim = range(dat$SOC_predRF, dat$SOC, na.rm = TRUE),
-  ylim = range(dat$SOC_predRF, dat$SOC, na.rm = TRUE),
-  pch = 16,
-  col = "white"
+  x = dat_cal$SOC_predRF,
+  y = dat_cal$SOC,
+  xlab = "Predicted SOC (%)",
+  ylab = "Measured SOC (%)",
+  xlim = xy_lims,
+  ylim = xy_lims,
+  col = rgb(0, 0, 0, 0.5), 
+  pch = 16, 
+  cex = 1.5
 )
 
-# Add horizontal error bars (± 1 predictive SD)
+# add the error bars representing the prediction standard deviation
 arrows(
-  x0 = dat$SOC_predRF - dat$SOC_sdRF,
-  y0 = dat$SOC,
-  x1 = dat$SOC_predRF + dat$SOC_sdRF,
-  y1 = dat$SOC,
+  x0 = dat_cal$SOC_predRF - dat_cal$SOC_sdRF,
+  y0 = dat_cal$SOC,
+  x1 = dat_cal$SOC_predRF + dat_cal$SOC_sdRF,
+  y1 = dat_cal$SOC,
   code = 3,
-  angle = 90,
-  length = 0.02,
-  col = rgb(1, 0.65, 0, 0.7)
+  length = 0,
+  col = rgb(0, 0, 0, 0.5)
 )
 
-# Add prediction points
-points(
-  x = dat$SOC_predRF,
-  y = dat$SOC,
+abline(0, 1, col = col_ref, lwd = 1.5, lty = 2)
+grid(col = rgb(0.8, 0.8, 0.8, 0.6), lty = 1)
+```
+
+```{r fig:fig-val-plot, echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE,  fig.cap="Validation plot of predicted SOC values against laboratory reference measurements. Error bars represent the prediction standard deviation for each sample. The dashed line indicates the 1:1 relationship, which represents perfect agreement between predictions and measurements."}
+col_errbar <- rgb(0.20, 0.45, 0.70, 0.35) # steel blue, low alpha
+col_points <- rgb(0.15, 0.15, 0.15, 0.75) # near-black
+col_ref <- rgb(0.50, 0.50, 0.50, 0.90) # mid grey
+
+xy_lims <- range(dat_cal$SOC_predRF, dat_cal$SOC)
+plot(
+  x = xy_lims,
+  y = xy_lims,
+  xlab = "Predicted SOC (%)",
+  ylab = "Measured SOC (%)",
+  xlim = xy_lims,
+  ylim = xy_lims,
   pch = 16,
-  col = rgb(0, 0, 0, 0.7)
+  col = NA
 )
+arrows(
+  x0 = dat_cal$SOC_predRF - dat_cal$SOC_sdRF,
+  y0 = dat_cal$SOC,
+  x1 = dat_cal$SOC_predRF + dat_cal$SOC_sdRF,
+  y1 = dat_cal$SOC,
+  code = 3,
+  length = 0,
+  col = col_errbar
+)
+points(
+  x = dat_cal$SOC_predRF,
+  y = dat_cal$SOC,
+  pch = 16,
+  col = col_points
+)
+abline(0, 1, col = col_ref, lwd = 1.5, lty = 2)
+grid(col = rgb(0.8, 0.8, 0.8, 0.6), lty = 1)
+```
 
-# Add 1:1 reference line
-abline(0, 1, col = "red")
+The root mean squared error (RMSE) of such type of quantification models can be computed as follows:
+```{r echo=TRUE, message=FALSE, warning=FALSE, eval=TRUE}
+drs_rmse <- sqrt(mean((dat_cal$SOC_predRF - dat_cal$SOC)^2, na.rm = TRUE))
+cat("DRS model RMSE:", round(drs_rmse, 3), "% SOC\n")
+```
 
-# Add grid
-grid()
+The final model is fitted using all the calibration data at once:
+
+```{r message=FALSE, warning=FALSE, eval=TRUE}
+final_drs_model <- ranger(
+  x = dat_cal$spc_processed,
+  y = dat_cal$SOC,
+  quantreg = TRUE,
+  num.trees = 3500,
+  sample.fraction = 1,
+  replace = TRUE,
+  splitrule = "maxstat",
+  min.node.size = 10, 
+  seed = 201909
+)
 ```
 
 
-### Laboratory measurement uncertainty
-Soil organic carbon (SOC) concentrations were determined using high-temperature dry combustion. This method is widely regarded as one of the most precise laboratory approaches for SOC determination and is commonly used as a reference method.
+#### DRS-based prediction and uncertainty estimation for non-calibration samples
 
-Analytical precision for combustion-based SOC measurements is typically on the order of a few percent relative standard deviation, according to laboratory validation studies, generally around 2--3\%. Based on this information, it is possible to estimate the standard deviation associated with analytical SOC measurements.
+The prediction in the remaining 80% of the samples is done by applying the final DRS model to the processed spectra of the prediction subset. The same approach is used to obtain both predicted SOC values and associated uncertainty estimates for these samples:
 
-Measurement uncertainty in SOC analysis is usually assumed to be proportional to the magnitude of the measurement. Accordingly, the laboratory measurement error can be expressed as $\sigma_{\text{laboratory}} = CV \cdot y_i$ where $CV$ is the coefficient of variation and $y_i$ is the measured SOC value.
-
-```{r}
-# -----------------------------------------------------------
-# Approximate laboratory measurement uncertainty for SOC
-# -----------------------------------------------------------
-# We assume a relative analytical error of 3%.
-# Therefore, the measurement error standard deviation is
-# calculated as 3% of the measured SOC value.
-
-dat$SOC_sdLAB <- dat$SOC * 0.03
+```{r message=FALSE, warning=FALSE, eval=TRUE}
+# Predict for the remaining samples using the final model
+drs_soc_preds <- predict(
+  final_drs_model,
+  data = dat_pred$spc_processed,
+  type = "quantiles",
+  what = function(x) sample(x, 100, replace = TRUE)
+)$predictions
+  
+# Store prediction summary statistics
+dat_pred$SOC_predRF <- rowMeans(drs_soc_preds)
+dat_pred$SOC_varRF <- rowVars(drs_soc_preds)
+dat_pred$SOC_sdRF <- sqrt(dat_pred$SOC_varRF)
 ```
 
+## Assembling the augmented dataset of laboratory measurements and DRS-based predictions
 
-### Depth harmonisation of predictions and uncertainties
-Digital soil mapping often requires soil properties to be expressed for standard depth intervals, such as 0–30 cm. However, field observations and spectroscopic predictions are typically available at horizon level with varying thickness. 
+For DSM, we assemble a final spatial modelling dataset for SOC using two sources of information:
 
-In this step, soil profiles are converted into a structured profile object that allows depth-based calculations. Predicted SOC values are then aggregated to the target depth interval using depth-weighted averaging, taking into account the proportion of each horizon that falls within the interval.
+- **Laboratory SOC measurements** for the samples used to calibrate the DRS model. These samples represent approximately 20% of the original dataset. Because these values are assumed to be available from conventional laboratory analysis, they are retained in preference to DRS-based predictions.
 
-Uncertainty values are harmonised in a similar way. A depth-weighted approach is used to combine horizon-level prediction uncertainties and laboratory uncertainties into a single standard deviation for the 0–30 cm layer. Profiles that do not fully cover the target depth interval are excluded from the summary.
+- **DRS-based SOC predictions** for the remaining samples, which were not used in the calibration of the DRS model. As described above, these samples are treated as if laboratory SOC values were unavailable. Their SOC values are therefore estimated entirely from the DRS model. This setup simulates a realistic application scenario in which DRS is used to increase the number of SOC observations available for DSM.
 
-The final output of this preparation stage is therefore a dataset containing, for each soil profile location:
-* a depth-harmonised predicted SOC value,
-* a corresponding spectroscopic prediction uncertainty,
-* an estimated laboratory measurement uncertainty, and
-* spatial coordinates for mapping.
+```{r message=FALSE, warning=FALSE, eval=TRUE}
+# Extract metadata for the augmented dataset
+dat_augmented <- dat[, c(
+  "smp_id", "ProfID", "Long_Site.x", "Lat_Site.x", 
+  "Top_depth_cm.x", "Bottom_depth_cm.x"
+  )
+]
 
-These prepared variables can now be used as inputs in the DSM modelling.
+# Initialise SOC values and associated standard deviations
+dat_augmented$SOC <- NA
+dat_augmented$SOC_sd <- NA
 
-```{r}
-# -----------------------------------------------------------
-# Aggregate SOC predictions and uncertainties to 0-30 cm
-# using profile information
-# -----------------------------------------------------------
+# Add laboratory SOC values for the samples used to calibrate the DRS model
+dat_augmented$SOC[kms_samples] <- dat$SOC[kms_samples]
 
+# Add DRS-based SOC predictions for the remaining samples
+dat_augmented$SOC[-kms_samples] <- dat_pred$SOC_predRF 
+```
+
+Add the deviations from the DRS model as the uncertainty of the DRS-based predictions:
+```{r message=FALSE, warning=FALSE, eval=TRUE}
+dat_augmented$SOC_sd[-kms_samples] <- dat_pred$SOC_sdRF 
+```
+## Uncertainty of the conventional laboratory measurement
+
+The SOC concentrations in the dataset used here were determined by high-temperature dry combustion, one of the most precise laboratory approaches for SOC quantification and the standard reference method for this property.
+
+Quantifying laboratory measurement uncertainty in the absence of replicate measurements requires an external reference. @stevens2013prediction assessed the reproducibility of dry combustion SOC analysis across a large harmonised European soil survey and reported a standard error of laboratory (SEL) of approximately 2 g C kg⁻¹ for mineral soils overall — equivalent to 0.2% SOC. This value reflects intermediate precision under standardised conditions in an accredited laboratory and represents a realistic but optimistic estimate of the analytical component of uncertainty, excluding sampling and preparation variability.
+
+For this dataset, which was similarly analysed under standardised laboratory conditions [@dangal2019accurate], we adopt a constant absolute uncertainty of $\sigma_{\text{lab}} = 0.15$% SOC as a pragmatic approximation consistent with the published literature. A constant rather than proportional error model is used here because a proportional formulation — where $\sigma = CV \times y_i$ — causes low-SOC observations to receive disproportionately high weights during model calibration, irrespective of their actual reliability. In practical applications, laboratory-specific replicate measurements should be used to derive empirical uncertainty estimates.
+
+```{r message=FALSE, warning=FALSE, eval=TRUE}
+# Constant absolute laboratory uncertainty: 0.15% SOC
+# Based on Stevens et al. (2013), SEL ≈ 2 g C kg-1 for mineral soils
+dat$SOC_sd <- 0.15
+```
+
+The same value is assigned to the laboratory observations in the augmented dataset:
+
+```{r message=FALSE, warning=FALSE, eval=TRUE}
+dat_augmented$SOC_sd[kms_samples] <- 0.15
+```
+
+## Depth harmonization of predictions and uncertainties
+
+Digital soil mapping often requires soil properties to be expressed for standard depth intervals, such as 0–30 cm. However, field observations and DRS predictions are typically available at the horizon level, with horizons varying in thickness. In this step, SOC values and their associated uncertainties are aggregated to the 0–30 cm interval using depth-weighted averaging. Profiles that do not fully cover the target interval are excluded. This harmonization is applied to both the reference dataset, which contains laboratory measurements only, and the augmented dataset, which combines laboratory measurements with DRS-based predictions.
+
+We first load the `aqp` package and convert both datasets to `SoilProfileCollection` objects, which store horizon-level data in a structured format that supports depth-based operations:
+
+```{r dh-build-spc, message=FALSE, warning=FALSE, eval=TRUE}
 library(aqp)
-library(dplyr)
 
-# Remove spectral matrix columns before converting to an aqp object
-# This keeps only tabular horizon-level information
-dat <- dat[, !names(dat) %in% c("spc", "spc_raw")]
-
-# Build a SoilProfileCollection object
-# ProfID identifies each profile, and the top/bottom columns define horizons
 depths(dat) <- ProfID ~ Top_depth_cm.x + Bottom_depth_cm.x
+depths(dat_augmented) <- ProfID ~ Top_depth_cm.x + Bottom_depth_cm.x
+```
 
-# -----------------------------------------------------------
-# Depth-weighted mean SOC prediction for 0-30 cm
-# -----------------------------------------------------------
+Combining uncertainty estimates across horizons requires variance propagation. For a depth-weighted average $\hat{y} = \sum_i w_i y_i / \sum_i w_i$, where $w_i$ is the thickness of horizon $i$ within the target interval, the aggregated standard deviation is $\sigma = \sqrt{\sum_i w_i^2 \sigma_i^2} / \sum_i w_i$. The helper function below implements this for an arbitrary depth interval, returning `NA` for profiles that do not fully cover it:
 
-soc_mean_0_30 <- slab(
-  dat,
-  fm = ~ SOC_predRF,
-  slab.structure = c(0, 30)
-)
-
-# -----------------------------------------------------------
-# Helper function:
-# Compute a depth-weighted standard deviation over 0-30 cm
-# Only the horizon portions overlapping the target interval are used
-# Profiles that do not fully cover 0-30 cm return NA
-# -----------------------------------------------------------
-
+```{r dh-helper-fn, message=FALSE, warning=FALSE, eval=TRUE}
 weighted_sd_0_30 <- function(top, bottom, sd, z1 = 0, z2 = 30) {
-  w <- pmax(0, pmin(bottom, z2) - pmax(top, z1))
+  w    <- pmax(0, pmin(bottom, z2) - pmax(top, z1))
   keep <- w > 0 & !is.na(sd)
-  
-  w  <- w[keep]
-  sd <- sd[keep]
-  
-  if (sum(w) < (z2 - z1)) return(NA_real_)
-  
+  w    <- w[keep]
+  sd   <- sd[keep]
+  if (sum(w) < (z2 - z1)) return(NA)
   sqrt(sum((w * sd)^2)) / sum(w)
 }
+```
 
-# -----------------------------------------------------------
-# Compute profile-level uncertainty for 0-30 cm
-# for both RF prediction uncertainty and lab measurement uncertainty
-# -----------------------------------------------------------
+### Reference dataset
 
-soc_sd_0_30 <- horizons(dat) %>%
-  as.data.frame() %>%
-  group_by(ProfID) %>%
+The reference dataset contains laboratory SOC measurements only. We compute the depth-weighted mean SOC and its associated uncertainty (approximated as 3% of the measured value, as defined earlier) for the 0–30 cm interval:
+
+```{r dh-ref, message=FALSE, warning=FALSE, eval=TRUE}
+soc_mean_ref <- profileApply(dat, function(p) {
+  h <- horizons(p)
+  w <- pmax(0, pmin(h$Bottom_depth_cm.x, 30) - pmax(h$Top_depth_cm.x, 0))
+  keep <- w > 0 & !is.na(h$SOC)
+  if (sum(w[keep]) < 30) return(NA)
+  sum(w[keep] * h$SOC[keep]) / sum(w[keep])
+})
+
+soc_sd_ref <- horizons(dat) |>
+  as.data.frame() |>
+  group_by(ProfID) |>
   summarise(
-    SOC_sdRF_0_30 = weighted_sd_0_30(
-      Top_depth_cm.x,
-      Bottom_depth_cm.x,
-      SOC_sdRF,
-      0, 30
-    ),
-    SOC_sdLAB_0_30 = weighted_sd_0_30(
-      Top_depth_cm.x,
-      Bottom_depth_cm.x,
-      SOC_sdLAB,
-      0, 30
-    ),
+    SOC_sd_0_30 = weighted_sd_0_30(Top_depth_cm.x, Bottom_depth_cm.x, SOC_sd),
     .groups = "drop"
   )
 
-# -----------------------------------------------------------
-# Compute profile-level mean predicted SOC for 0-30 cm
-# using overlap with the target interval as weights
-# Profiles that do not fully cover 0-30 cm return NA
-# -----------------------------------------------------------
+coords_ref <- as.data.frame(dat)[, c("ProfID", "Lat_Site.x", "Long_Site.x")]
+coords_ref <- coords_ref[!duplicated(coords_ref$ProfID), ]
 
-soc_mean_vals <- profileApply(dat, function(p) {
-  x <- horizons(p)
-  
-  overlap <- pmax(0, pmin(x$Bottom_depth_cm.x, 30) - pmax(x$Top_depth_cm.x, 0))
-  keep <- overlap > 0 & !is.na(x$SOC_predRF)
-  
-  if (sum(overlap[keep]) < 30) return(NA_real_)
-  
-  sum(overlap[keep] * x$SOC_predRF[keep]) / sum(overlap[keep])
-})
+soc_ref_0_30_xy <- soc_sd_ref |>
+  mutate(SOC_0_30 = soc_mean_ref) |>
+  select(ProfID, SOC_0_30, SOC_sd_0_30) |>
+  merge(coords_ref, by = "ProfID", all.x = TRUE)
 
-# -----------------------------------------------------------
-# Combine mean prediction and uncertainty into one table
-# -----------------------------------------------------------
+head(soc_ref_0_30_xy)
+```
 
-soc_0_30 <- soc_sd_0_30 %>%
-  mutate(SOC_predRF_0_30 = soc_mean_vals) %>%
-  select(ProfID, SOC_predRF_0_30, SOC_sdRF_0_30, SOC_sdLAB_0_30)
+### Augmented dataset
 
-# -----------------------------------------------------------
-# Extract one set of coordinates per profile
-# -----------------------------------------------------------
+The augmented dataset combines laboratory measurements with DRS-based predictions. The single `SOC_sd` column carries the appropriate uncertainty for each observation — laboratory analytical error for reference samples, RF prediction uncertainty for DRS-predicted samples — so the same function applies without modification:
 
-dat_sub <- as.data.frame(dat)[, c("ProfID", "SOC", "Lat_Site.x", "Long_Site.x")]
-coords  <- dat_sub[!duplicated(dat_sub$ProfID), ]
-
-# -----------------------------------------------------------
-# Attach coordinates to the 0-30 cm summary table
-# -----------------------------------------------------------
-
-soc_0_30_xy <- merge(
-  soc_0_30,
-  coords,
-  by = "ProfID",
-  all.x = TRUE
+```{r dh-aug, message=FALSE, warning=FALSE, eval=TRUE}
+soc_mean_aug <- profileApply(
+  dat_augmented, 
+  function(p) {
+    h <- horizons(p)
+    w <- pmax(0, pmin(h$Bottom_depth_cm.x, 30) - pmax(h$Top_depth_cm.x, 0))
+    keep <- w > 0 & !is.na(h$SOC)
+    if (sum(w[keep]) < 30) 
+      return(NA)
+    sum(w[keep] * h$SOC[keep]) / sum(w[keep])
+  }
 )
 
-# Display the first profile-level results
-print(head(soc_0_30_xy))
+soc_sd_aug <- horizons(dat_augmented) |>
+  as.data.frame() |>
+  group_by(ProfID) |>
+  summarise(
+    SOC_sd_0_30 = weighted_sd_0_30(Top_depth_cm.x, Bottom_depth_cm.x, SOC_sd),
+    .groups = "drop"
+  )
+
+coords_aug <- as.data.frame(dat_augmented)[, c("ProfID", "Lat_Site.x", "Long_Site.x")]
+coords_aug <- coords_aug[!duplicated(coords_aug$ProfID), ]
+
+soc_aug_0_30_xy <- soc_sd_aug |>
+  mutate(SOC_0_30 = soc_mean_aug) |>
+  select(ProfID, SOC_0_30, SOC_sd_0_30) |>
+  merge(coords_aug, by = "ProfID", all.x = TRUE)
+
+head(soc_aug_0_30_xy)
+```
+Figure \@ref(fig:fig-soc-distributions) illustrates the empirical probability distributions of SOC values in the reference and augmented datasets after depth harmonization. These two distributions are very similar and have comparable means and standard deviations, indicating that the DRS-based predictions are consistent with the laboratory measurements in terms of their central tendency and variability. 
+
+```{r echo = TRUE, eval = FALSE}
+dens_ref <- density(soc_ref_0_30_xy$SOC_0_30, na.rm = TRUE)
+dens_aug <- density(soc_aug_0_30_xy$SOC_0_30, bw = dens_ref$bw, na.rm = TRUE)
+
+plot(
+  dens_ref$x, 
+  dens_ref$y, 
+  type = "l", 
+  col = "#4E84A8", 
+  lwd = 2, 
+  ylab = "Density",
+  xlab = "SOC, %"
+)
+lines(
+  dens_aug$x, 
+  dens_aug$y, 
+  col = "#C1614A", 
+  lwd = 2
+)
+legend(
+  "topright",
+  legend = c("Conventional lab", "DRS-augmented"),
+  col    = c("#4E84A8", "#C1614A"),
+  lwd    = 2,
+  bty    = "n"
+)
+```
+
+```{r fig-soc-distributions, echo = FALSE, eval = TRUE, fig.cap="Empirical distributions of depth-harmonised SOC (0–30 cm) for the reference dataset (conventional laboratory measurements only) and the augmented dataset (laboratory measurements combined with DRS-based predictions).", fig.width=6.5, fig.height=4.5}
+
+col_wet <- "#4E84A8" # steel blue
+col_spec <- "#C1614A" # muted terracotta
+
+dens_ref <- density(soc_ref_0_30_xy$SOC_0_30, na.rm = TRUE)
+dens_aug <- density(soc_aug_0_30_xy$SOC_0_30, bw = dens_ref$bw, na.rm = TRUE)
+
+df <- rbind(
+  data.frame(x = dens_ref$x, density = dens_ref$y, method = "Conventional lab"),
+  data.frame(x = dens_aug$x, density = dens_aug$y, method = "DRS-augmented")
+)
+
+means_df <- data.frame(
+  mean = c(wet_mean, spec_mean),
+  sd = c(wet_sd, spec_sd),
+  method = c("Conventional lab", "DRS-augmented")
+)
+
+ymax <- max(df$density)
+
+ggplot(df, aes(x = x, y = density, colour = method, fill = method)) +
+  geom_area(alpha = 0.20, position = "identity") +
+  geom_line(linewidth = 1.0) +
+  scale_colour_manual(
+    values = c("Conventional lab" = col_wet, "DRS-augmented" = col_spec)
+  ) +
+  scale_fill_manual(
+    values = c("Conventional lab" = col_wet, "DRS-augmented" = col_spec)
+  ) +
+  labs(
+    x = "SOC, %", 
+    y = "Probability density", 
+    colour = NULL, 
+    fill = NULL
+  ) +
+  
+  theme_classic(base_size = 13) +
+  theme(
+    legend.position = "top",
+    legend.key.size = unit(0.9, "lines"),
+    legend.text = element_text(size = 11),
+    axis.line = element_line(colour = "grey40"),
+    panel.grid.major.y = element_line(colour = "grey92", linewidth = 0.4), 
+    panel.border = element_rect(colour = "grey40", fill = NA, linewidth = 0.5)
+  )
 ```
 
 
-## Preparation of the covariates
-At this stage, the environmental covariates are prepared exactly as in the training material, so the same workflow can be followed here. The objective is to align the soil observations with the raster covariate stack and extract, for each sampling location, the values of all environmental predictors that will later be used in the modelling step.
+Note that the depth harmonisation step propagates horizon-level uncertainties through a variance-weighted formula, which reduces the aggregated standard deviation for profiles with multiple horizons as a mathematical artefact rather than a reflection of improved data quality. To avoid this distortion, the laboratory uncertainty is reassigned directly at the profile level before weighting:
+
+```{r eval=TRUE}
+# Based on Stevens et al. (2013), SEL ≈ 2 g C kg-1 for mineral soils
+soc_ref_0_30_xy$SOC_sd_0_30 <- 0.15
+soc_aug_0_30_xy$SOC_sd_0_30[!is.na(soc_aug_0_30_xy$SOC_0_30) & 
+  soc_aug_0_30_xy$ProfID %in% dat_augmented$ProfID[kms_samples]] <- 0.15
+```
+
+
+
+## Digital soil mapping 
+
+### Preparation of the covariates
+
+At this stage, the environmental covariates are prepared exactly as in the training material, so the same workflow can be followed here. The objective is to align the soil observations with the raster covariate stack and extract the values of all environmental predictors for each sampling location. These predictors will later be used in the modeling step.
 
 The procedure involves four main operations:
-* loading the raster stack of environmental covariates,
-* converting the soil profile summaries into a spatial point object,
-* reprojecting the points so that they match the coordinate reference system of the covariates,
-* extracting raster values at each soil observation location and attaching them to the point data.
+
+- loading the raster stack of environmental covariates,
+
+- converting the soil profile summaries into a spatial point object,
+
+- reprojecting the points so that they match the coordinate reference system of the covariates,
+
+- extracting raster values at each soil observation location and attaching them to the point data.
 
 This produces a spatial dataset in which each soil observation is associated with the full set of environmental predictors.
-```{r message=FALSE, warning=FALSE}
+
+```{r message=FALSE, warning=FALSE, eval=TRUE, results = 'hide'}
 library(terra)
-
-# -----------------------------------------------------------
 # Load environmental covariates
-# -----------------------------------------------------------
-
 covs <- rast(
   "01_data/module1/training_data/data/Environmental_Covariates_250m_KANSAS.tif"
 )
 cov_names <- names(covs)
 
-# -----------------------------------------------------------
-# Convert the 0-30 cm soil summary table to spatial points
-# -----------------------------------------------------------
-
-soil_pts <- vect(
-  soc_0_30_xy,
+# Reference dataset (laboratory measurements only)
+soil_pts_ref <- vect(
+  soc_ref_0_30_xy,
   geom = c("Long_Site.x", "Lat_Site.x"),
   crs = "EPSG:4326"
 )
+soil_pts_ref <- project(soil_pts_ref, covs)
+soil_pts_ref <- cbind(soil_pts_ref, terra::extract(covs, soil_pts_ref)[, -1])
 
-# Reproject points to match the raster covariate stack
-soil_pts <- project(soil_pts, covs)
-
-# -----------------------------------------------------------
-# Extract covariate values at each soil point
-# -----------------------------------------------------------
-
-covs_extracted <- extract(covs, soil_pts)
-
-# Remove the ID column returned by extract() and attach predictors
-soil_pts <- cbind(soil_pts, covs_extracted[, -1])
-
-# Optional check: plot sample locations
-plot(soil_pts, cex = 0.7, col = "red")
-
-```
-
-## DSM model training with spectroscopic data
-In this section we demonstrate how spectroscopic predictions can be integrated into the DSM modelling. The idea is that each observation, whether originating from laboratory analysis or from spectroscopy, is associated with a sample-specific uncertainty estimate.
-This uncertainty can be used to control the relative influence of each observation during model training.
-
-As introduced in Part I (Section 3), a practical way to achieve this is through case weighting. Observations with lower uncertainty are given higher statistical weight, while observations with higher uncertainty contribute less to the fitted model. This approach allows spectroscopic predictions to supplement laboratory data without treating both sources as equally reliable. 
-
-In the following example, SOC is mapped using quantile regression forests, following a workflow similar to previous DSM examples. The steps include deriving uncertainty-based weights, fitting models with and without spectroscopic data, and comparing the resulting spatial predictions.
-
-### Deriving observation weights
-Weights are derived from the uncertainty estimates obtained in the previous section. A simple and commonly used formulation is to define weights as the inverse of the variance associated with each observation.
-
-This means that observations with smaller prediction or measurement variance receive larger weights. Conversely, observations with large uncertainty contribute less to model calibration.
-
-Separate raw weights are therefore computed for:
-* spectroscopic predictions (based on prediction standard deviation), and
-* laboratory measurements (based on analytical uncertainty).
-
-Inspecting the distribution of these weights helps to understand the relative precision of the two data sources and to detect potential extreme values before model fitting.
-
-```{r message=FALSE, warning=FALSE}
-# -----------------------------------------------------------
-# Define inverse-variance weights for modelling
-# -----------------------------------------------------------
-
-soil_pts$w_RF_raw  <- 1 / (soil_pts$SOC_sdRF_0_30^2)
-soil_pts$w_LAB_raw <- 1 / (soil_pts$SOC_sdLAB_0_30^2)
-
-# Optional: check weight distributions
-summary(soil_pts$w_RF_raw)
-summary(soil_pts$w_LAB_raw)
-```
-
-### Baseline DSM model using laboratory data
-
-Before integrating spectroscopic information, a baseline DSM model can be fitted using laboratory SOC observations only. Environmental covariates representing soil-forming factors are used as predictors in a random forest model.
-
-This step provides a reference spatial prediction of SOC across the study area. The resulting map can later be compared with models that include spectroscopic information. Such comparisons help to evaluate whether the additional data source improves spatial patterns or prediction stability.
-
-```{r echo=FALSE, message=FALSE, warning=FALSE}
-library(ranger)
-library(terra)
-
-# -----------------------------------------------------------
-# Prepare modelling table
-# Keep coordinates, response, uncertainty columns, and predictors
-# -----------------------------------------------------------
-
-soil_df <- as.data.frame(soil_pts, geom = "XY")[,
-  c("x", "y", "SOC", "SOC_predRF_0_30", "w_RF_raw", "w_LAB_raw", cov_names)
-]
-
-# -----------------------------------------------------------
-# Fit baseline random forest model using laboratory SOC
-# -----------------------------------------------------------
-
-form <- as.formula(
-  paste("SOC ~", paste(cov_names, collapse = " + "))
+# Augmented dataset (laboratory + DRS-based predictions)
+soil_pts_aug <- vect(
+  soc_aug_0_30_xy,
+  geom = c("Long_Site.x", "Lat_Site.x"),
+  crs = "EPSG:4326"
 )
-
-mod <- ranger(
-  formula = form,
-  data = soil_df,
-  num.trees = 100
-)
-
-# -----------------------------------------------------------
-# Predict SOC across the covariate raster stack
-# -----------------------------------------------------------
-
-soc_map <- predict(covs, mod, na.rm = TRUE)
-
-# -----------------------------------------------------------
-# Plot baseline SOC map
-# -----------------------------------------------------------
-
-plot(soc_map, main = "Baseline SOC map (lab observations only)")
+soil_pts_aug <- project(soil_pts_aug, covs)
+soil_pts_aug <- cbind(soil_pts_aug, terra::extract(covs, soil_pts_aug)[, -1])
 ```
-
-### DSM model training integrating spectroscopic predictions
-
-To demonstrate the effect of spectroscopic supplementation, a mixed dataset is created. A subset of observations is replaced by spectroscopically predicted SOC values, together with their associated uncertainty-based weights.
-
-An indicator variable can be retained to distinguish between laboratory and spectroscopic sources if needed for later analyses.
-
-After removing incomplete or invalid cases, a weighted random forest model is fitted. The case weights ensure that observations contribute according to their estimated reliability, rather than simply according to their number.
-
-Spatial predictions are then generated and compared with the baseline laboratory-only model. Mapping the difference between predictions helps to visualise how the inclusion of spectroscopic data influences the spatial distribution of SOC.
-
-This exercise illustrates a practical strategy for integrating heterogeneous soil information sources in DSM. The same principles can be applied to other soil properties and modelling approaches, such as with geostatistics or other machine learning techniques commonly used in DSM.
-
-```{r message=FALSE, warning=FALSE}
-library(ranger)
-library(terra)
-
-set.seed(123)
-
-# -----------------------------------------------------------
-# Create a mixed dataset with 25% spectroscopic observations
-# -----------------------------------------------------------
-
-n <- nrow(soil_df)
-
-# Randomly select 25% of observations to be replaced by RF predictions
-idx_rf <- sample(seq_len(n), size = round(0.25 * n))
-
-# Mixed response variable:
-# keep lab SOC by default, replace selected points with RF-based SOC
-soil_df$SOC_mix <- soil_df$SOC
-soil_df$SOC_mix[idx_rf] <- soil_df$SOC_predRF_0_30[idx_rf]
-
-# Matching weights:
-# lab points keep lab weights, RF points receive RF-based weights
-soil_df$w_mix <- soil_df$w_LAB_raw
-soil_df$w_mix[idx_rf] <- soil_df$w_RF_raw[idx_rf]
-
-# Optional indicator showing the source of each observation
-soil_df$source <- "LAB"
-soil_df$source[idx_rf] <- "RF"
-
-# -----------------------------------------------------------
-# Keep only valid rows for modelling
-# -----------------------------------------------------------
-
-vars_needed <- c("SOC_mix", "w_mix", cov_names)
-
-soil_df2 <- soil_df[
-  complete.cases(soil_df[, vars_needed]) &
-    is.finite(soil_df$w_mix) &
-    soil_df$w_mix > 0,
-]
-
-# -----------------------------------------------------------
-# Fit weighted random forest model
-# -----------------------------------------------------------
-
-form_mix <- as.formula(
-  paste("SOC_mix ~", paste(cov_names, collapse = " + "))
-)
-
-mod_mix25 <- ranger(
-  formula = form_mix,
-  data = soil_df2,
-  case.weights = soil_df2$w_mix,
-  num.trees = 100
-)
-
-# -----------------------------------------------------------
-# Predict SOC map for the mixed scenario
-# -----------------------------------------------------------
-
-soc_map_mix25 <- predict(covs, mod_mix25, na.rm = TRUE)
-
-# -----------------------------------------------------------
-# Compare baseline and mixed maps
-# -----------------------------------------------------------
-
-par(mfrow = c(1, 3))
-
-plot(soc_map, main = "SOC map: lab only")
-plot(soc_map_mix25, main = "SOC map: 25% spectro")
-plot(soc_map - soc_map_mix25, main = "Difference")
-```
-
-## Model validation
-
-In this section we evaluate the predictive performance of the DSM models. Because the dataset combines laboratory measurements and spectroscopically derived estimates, model validation must explicitly account for observation-specific uncertainty. Ignoring these differences would treat all observations as equally reliable, which is inconsistent with the modelling strategy adopted in previous sections.
-
-To address this, validation statistics are computed using uncertainty-based weights. These weights correspond to the inverse variance of each observation and therefore reflect the relative confidence in laboratory and spectroscopic data. Weighted validation provides a more realistic assessment of model performance when heterogeneous data sources are used.
-
-### Validation statistics
-Three weighted performance metrics are considered. These metrics extend commonly used DSM validation statistics by incorporating observation weights.
-
-The weighted mean error ($ME_w$) measures the average signed prediction bias, taking into account the reliability of each observation.
-The weighted ME:
-$$
-ME_w =
-\frac{\sum_{i=1}^{n} w_i \left( \hat{z}(s_i) - z_m(s_i) \right)}
-{\sum_{i=1}^{n} w_i},
-$$
-
-The weighted root mean square error ($RMSE_w$) quantifies the overall magnitude of prediction errors while giving more importance to precise observations.
-The weighted RMSE:
-$$
-RMSE_w =
-\sqrt{
-\frac{
-\sum_{i=1}^{n} w_i \left( \hat{z}(s_i) - z_m(s_i) \right)^2
-}{
-\sum_{i=1}^{n} w_i
-}
-}
-$$
-
-Finally, the weighted Nash–Sutcliffe efficiency ($NSE_w$) evaluates predictive skill relative to the weighted mean of observed values.
-Values of $NSE_w$ close to 1 indicate good predictive performance, whereas negative values indicate poor model skill.
-The weighted NSE: 
-$$
-NSE_w =
-1 -
-\frac{
-\sum_{i=1}^{n} w_i \left( \hat{z}(s_i) - z_m(s_i) \right)^2
-}{
-\sum_{i=1}^{n} w_i \left( z_m(s_i) - \bar{z}_m \right)^2
-}
-$$
-Simple functions can be defined to compute these metrics from vectors of observations, predictions, and associated weights. These functions will be used throughout the validation exercises.
-
-
-
 
 ```{r}
-# -----------------------------------------------------------
-# Weighted validation metrics
-# -----------------------------------------------------------
+# Optional check: plot sample locations
+plot(soil_pts_ref, cex = 0.7, col = "red")
+```
 
-# Weighted Mean Error (bias)
-wME <- function(obs, pred, w) {
-  sum(w * (pred - obs), na.rm = TRUE) /
-    sum(w, na.rm = TRUE)
-}
+### DSM model training of SOC with DRS-augmented data
 
-# Weighted Root Mean Squared Error
-wRMSE <- function(obs, pred, w) {
-  sqrt(
-    sum(w * (pred - obs)^2, na.rm = TRUE) /
-      sum(w, na.rm = TRUE)
+In this section, we demonstrate how DRS predictions can be integrated into DSM modeling. The idea is that each observation, whether derived from laboratory analysis or DRS, is associated with a sample-specific uncertainty estimate. This uncertainty can be used to control the relative influence of each observation during model training. A practical way to do this is through case weighting. Observations with lower uncertainty are assigned higher statistical weight, while observations with higher uncertainty contribute less to the fitted model. 
+
+In the following example, we again use _quantile regression forests_, this time to map SOC following a workflow similar to the previous DSM examples. The workflow includes deriving uncertainty-based weights, fitting models with and without spectroscopic data, and comparing the resulting spatial predictions.
+
+#### Deriving observation weights
+
+Weights are derived from the uncertainty estimates obtained in the previous section. A simple and commonly used formulation assigns each observation a weight equal to the inverse of its variance:
+
+$$w_i = \frac{1}{\sigma_i^2}$$
+
+Observations with smaller uncertainty receive larger weights and therefore contribute more to model calibration. Weights are computed separately for each dataset:
+
+- for the reference dataset, $\sigma_i$ is the depth-harmonized laboratory analytical uncertainty;
+
+- for the augmented dataset, $\sigma_i$ is either the laboratory analytical uncertainty or the DRS prediction uncertainty, depending on the source of each observation.
+
+Weights are then normalized by dividing by the maximum weight within each dataset, so that the most precise observation receives a weight of one and all others are expressed relative to it:
+
+$$w_i^{\text{norm}} = \frac{w_i}{\max(w)}$$
+
+```{r dh-weights, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+# Compute inverse-variance weights
+soil_pts_ref$weight <- 1 / soil_pts_ref$SOC_sd_0_30^2
+soil_pts_aug$weight <- 1 / soil_pts_aug$SOC_sd_0_30^2
+
+# Normalise by the maximum weight within each dataset
+soil_pts_ref$weight <- soil_pts_ref$weight / max(soil_pts_ref$weight, na.rm = TRUE)
+soil_pts_aug$weight <- soil_pts_aug$weight / max(soil_pts_aug$weight, na.rm = TRUE)
+
+summary(soil_pts_ref$weight)
+summary(soil_pts_aug$weight)
+```
+
+
+
+#### Baseline DSM model using laboratory data
+
+Before integrating DRS-derived information, we first fit a baseline DSM model using laboratory SOC observations only. Environmental covariates representing soil-forming factors are used as predictors in a random forest model. This provides a reference spatial prediction of SOC across the study area, against which models incorporating spectroscopic data can be compared. The resulting baseline SOC map is shown in Figure \@ref(fig:fig-mod-baseline) and was generated using the following code:
+
+```{r mod-baseline, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+library(ranger)
+
+# Prepare modeling table
+soil_df_ref <- as.data.frame(soil_pts_ref, geom = "XY")[ ,
+  c("x", "y", "SOC_0_30", "SOC_sd_0_30", "weight", cov_names)
+]
+soil_df_ref <- soil_df_ref[!is.na(soil_df_ref$SOC_0_30), ]
+
+# Fit baseline random forest model using laboratory SOC
+form <- as.formula(
+  paste("SOC_0_30 ~", paste(cov_names, collapse = " + "))
+)
+
+mod_ref <- ranger(
+  formula = form,
+  data = soil_df_ref,
+  case.weights = soil_df_ref$weight,
+  replace = FALSE,
+  sample.fraction = 0.632,
+  num.trees = 500,
+  seed = 201909
+)
+
+# Predict SOC across the covariate raster stack
+soc_map_ref <- predict(covs, mod_ref, na.rm = TRUE)
+```
+
+```{r}
+# Plot baseline SOC map
+plot(soc_map_ref, main = "Baseline SOC map (laboratory observations only)", range = c(0, 4))
+```
+
+
+
+#### DSM model using DRS-augmented data
+
+The augmented dataset combines laboratory SOC measurements with DRS-based predictions, increasing the number of observations available for model calibration. The modeling procedure follows the same structure as the baseline, with one difference: observation weights derived from the unified `SOC_sd` column are passed to the model, so that laboratory measurements and DRS predictions contribute proportionally to their respective uncertainties. The resulting SOC map is shown in Figure \@ref(fig:fig-mod-augmented) and was generated using the following code:
+
+```{r mod-augmented, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+# Prepare modeling table
+soil_df_aug <- as.data.frame(soil_pts_aug, geom = "XY")[,
+  c("x", "y", "SOC_0_30", "SOC_sd_0_30", "weight", cov_names)
+]
+
+# Remove profiles with missing SOC
+soil_df_aug <- soil_df_aug[!is.na(soil_df_aug$SOC_0_30), ]
+
+# Fit random forest model using the augmented dataset
+mod_aug <- ranger(
+  formula = form,
+  data = soil_df_aug,
+  case.weights = soil_df_aug$weight,
+  replace = FALSE,
+  sample.fraction = 0.632,
+  num.trees = 500,
+  seed = 201909
+)
+
+# Predict SOC across the covariate raster stack
+soc_map_aug <- predict(covs, mod_aug, na.rm = TRUE)
+```
+
+```{r}
+# Plot augmented SOC map
+plot(soc_map_aug, main = "SOC map (DRS-augmented dataset)", range = c(0, 4))
+```
+
+The difference between the augmented and baseline SOC maps can be visualized to identify areas where the inclusion of DRS-based predictions has a notable impact on the spatial predictions. This is done by simply subtracting the baseline map from the augmented map:
+
+```{r}
+plot(soc_map_aug - soc_map_ref, main = "Difference (augmented - baseline)")
+```
+
+Figure \@ref(fig:fig-dsm-ref-aug) presents the three maps side by side for direct comparison. The left panel shows the baseline SOC predictions based on laboratory observations only, the middle panel shows the SOC predictions from the DRS-augmented model, and the right panel shows the difference between the two (augmented minus baseline). All maps use the same color scale to facilitate visual comparison.
+
+```{r fig-dsm-ref-aug, echo = FALSE, message=FALSE, warning=FALSE, eval=TRUE, fig.cap = "SOC predictions from the baseline model (top) and the DRS-augmented model (middle), and their difference (augmented minus baseline, bottom).", results='hide'}
+library(ggplot2)
+library(ggpubr)
+
+df_ref <- as.data.frame(soc_map_ref, xy = TRUE, na.rm = TRUE)
+df_aug <- as.data.frame(soc_map_aug, xy = TRUE, na.rm = TRUE)
+df_diff <- as.data.frame(soc_map_aug - soc_map_ref, xy = TRUE, na.rm = TRUE)
+
+names(df_ref)[3] <- "SOC"
+names(df_aug)[3] <- "SOC"
+names(df_diff)[3] <- "SOC"
+
+# Shared theme
+map_theme <- theme_void() +
+  theme(
+    legend.position = "right",
+    legend.key.width = unit(1.0, "cm"),
+    legend.key.height = unit(0.3, "cm"),
+    legend.text = element_text(size = 7),
+    legend.title = element_text(size = 8),
+    strip.text = element_text(size = 9),
+    plot.title = element_text(hjust = 0.5, size = 9),
+    plot.margin = margin(0, 0, 0, 0)
   )
+
+diff_lim <- max(abs(df_diff$SOC), na.rm = TRUE)
+
+p_ref <- ggplot(df_ref, aes(x, y, fill = SOC)) +
+  geom_raster() +
+  scale_fill_viridis_c(limits = c(0, 4), name = "SOC (%)") +
+  coord_equal() + map_theme + ggtitle("Baseline (lab only)")
+
+p_aug <- ggplot(df_aug, aes(x, y, fill = SOC)) +
+  geom_raster() +
+  scale_fill_viridis_c(limits = c(0, 4), name = "SOC (%)") +
+  coord_equal() + map_theme + ggtitle("Augmented (lab + DRS)")
+
+p_diff <- ggplot(df_diff, aes(x, y, fill = SOC)) +
+  geom_raster() +
+  scale_fill_gradient2(
+    low = "#2166ac",
+    mid = "white",
+    high = "#d6604d",
+    midpoint = 0,
+    limits = c(-diff_lim, diff_lim),
+    name = "Difference (%)"
+  ) +
+  coord_equal() + map_theme + ggtitle("Difference (augmented - baseline)")
+
+ggarrange(p_ref, p_aug, p_diff, ncol = 1, nrow = 3)
+```
+
+### Model validation
+
+The predictive performance of both DSM models is evaluated using cross-validation. Because the augmented dataset combines laboratory measurements and DRS-derived predictions, validation must account for observation-specific uncertainty. Treating all observations as equally reliable would be inconsistent with the weighting strategy applied during model calibration. Validation statistics are therefore computed using the same inverse-variance weights, so that precise observations contribute more to the performance assessment than uncertain ones.
+
+#### Weighted performance metrics
+
+Three weighted metrics are used. Each extends a standard DSM validation statistic by incorporating observation weights $w_i$.
+
+The weighted mean error ($\text{ME}_w$) measures signed prediction bias:
+
+$$\text{ME}_w = \frac{\sum_{i=1}^{n} w_i \left( \hat{z}(s_i) - z(s_i) \right)}{\sum_{i=1}^{n} w_i}$$
+
+The weighted root mean squared error ($\text{RMSE}_w$) quantifies overall prediction error, penalising large deviations more than small ones:
+
+$$\text{RMSE}_w = \sqrt{\frac{\sum_{i=1}^{n} w_i \left( \hat{z}(s_i) - z(s_i) \right)^2}{\sum_{i=1}^{n} w_i}}$$
+
+The weighted Nash–Sutcliffe efficiency ($\text{NSE}_w$) evaluates predictive skill relative to the weighted mean of observed values $\bar{z}_w = \sum_i w_i z(s_i) / \sum_i w_i$:
+
+$$\text{NSE}_w = 1 - \frac{\sum_{i=1}^{n} w_i \left( \hat{z}(s_i) - z(s_i) \right)^2}{\sum_{i=1}^{n} w_i \left( z(s_i) - \bar{z}_w \right)^2}$$
+
+Values of $\text{NSE}_w$ close to 1 indicate good predictive performance; negative values indicate the weighted mean is a better predictor than the model.
+
+```{r val-functions, message=FALSE, warning=FALSE, eval=TRUE}
+wME <- function(obs, pred, w) {
+  sum(w * (pred - obs), na.rm = TRUE) / sum(w, na.rm = TRUE)
 }
 
-# Weighted Nash–Sutcliffe Efficiency
+wRMSE <- function(obs, pred, w) {
+  sqrt(sum(w * (pred - obs)^2, na.rm = TRUE) / sum(w, na.rm = TRUE))
+}
+
 wNSE <- function(obs, pred, w) {
-  
-  # weighted mean of observations
-  zbar_w <- sum(w * obs, na.rm = TRUE) /
-            sum(w, na.rm = TRUE)
-  
-  # weighted residual sum of squares
+  zbar_w <- sum(w * obs, na.rm = TRUE) / sum(w, na.rm = TRUE)
   num <- sum(w * (pred - obs)^2, na.rm = TRUE)
-  
-  # weighted total sum of squares
   den <- sum(w * (obs - zbar_w)^2, na.rm = TRUE)
-  
   1 - num / den
 }
 ```
 
-### Cross-validating the models
+#### Cross-validating the models
 
-To obtain robust validation statistics, model performance is assessed using $k$-fold cross-validation. In this example, a mixed dataset is first constructed by combining laboratory SOC observations with a subset of spectroscopically predicted values. Matching uncertainty-based weights are assigned to each observation according to its data source.
+Model performance is assessed using 10-fold cross-validation, applied separately to the reference and augmented datasets. In each fold, the model is trained on the remaining observations and used to predict SOC for the withheld fold. Weighted performance metrics are then computed using the same inverse-variance weights used during model calibration, so that the validation reflects the same data quality assumptions as the fitted models.
 
-The dataset is then partitioned into several folds. For each fold, the model is calibrated on the remaining data and used to predict SOC for the withheld observations. This procedure ensures that validation statistics reflect the model's ability to generalise to unseen locations.
-
-Predicted values, observed values, and associated weights are stored and subsequently used to compute weighted ME, RMSE, and NSE. These statistics provide a quantitative summary of model performance when spectroscopic data are integrated into the calibration process.
-
-```{r message=FALSE, warning=FALSE}
-library(ranger)
-
-set.seed(123)
-
-# -----------------------------------------------------------
-# Create mixed response (25% spectroscopic observations)
-# -----------------------------------------------------------
-
-n <- nrow(soil_df)
-
-idx_rf <- sample(seq_len(n), size = round(0.25 * n))
-
-soil_df$SOC_mix <- soil_df$SOC
-soil_df$SOC_mix[idx_rf] <- soil_df$SOC_predRF_0_30[idx_rf]
-
-soil_df$w_mix <- soil_df$w_LAB_raw
-soil_df$w_mix[idx_rf] <- soil_df$w_RF_raw[idx_rf]
-
-soil_df$source <- "LAB"
-soil_df$source[idx_rf] <- "RF"
-
-# -----------------------------------------------------------
-# Keep valid rows for modelling
-# -----------------------------------------------------------
-
-vars_needed <- c("SOC_mix", "w_mix", cov_names)
-
-soil_df2 <- soil_df[
-  complete.cases(soil_df[, vars_needed]) &
-    is.finite(soil_df$w_mix) &
-    soil_df$w_mix > 0,
-]
-
-# -----------------------------------------------------------
-# Define 10-fold cross-validation structure
-# -----------------------------------------------------------
-
-k <- 10
-fold_id <- sample(rep(1:k, length.out = nrow(soil_df2)))
-
-cv_pred <- rep(NA_real_, nrow(soil_df2))
-
-form <- as.formula(
-  paste("SOC_mix ~", paste(cov_names, collapse = " + "))
-)
-
-# -----------------------------------------------------------
-# Run cross-validation loop
-# -----------------------------------------------------------
-
-for (fold in 1:k) {
+```{r val-cv, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+run_cv <- function(data, response, predictors, nfolds = 10, seed = 201909) {
+  set.seed(seed)
+  n <- nrow(data)
+  fold_id <- sample(rep(seq_len(nfolds), length.out = n))
+  cv_pred <- rep(NA_real_, n)
+  form <- as.formula(paste(response, "~", paste(predictors, collapse = " + ")))
   
-  train_data <- soil_df2[fold_id != fold, ]
-  test_data  <- soil_df2[fold_id == fold, ]
-  
-  mod_cv <- ranger(
-    formula = form,
-    data = train_data,
-    case.weights = train_data$w_mix,
-    num.trees = 100
-  )
-  
-  cv_pred[fold_id == fold] <- predict(mod_cv, data = test_data)$predictions
-}
-
-# -----------------------------------------------------------
-# Store CV predictions and compute weighted metrics
-# -----------------------------------------------------------
-
-cv_results <- data.frame(
-  obs    = soil_df2$SOC_mix,
-  pred   = cv_pred,
-  w      = soil_df2$w_mix,
-  source = soil_df2$source
-)
-
-ME_w   <- wME(cv_results$obs, cv_results$pred, cv_results$w)
-RMSE_w <- wRMSE(cv_results$obs, cv_results$pred, cv_results$w)
-NSE_w  <- wNSE(cv_results$obs, cv_results$pred, cv_results$w)
-
-data.frame(
-  Metric = c("wME", "wRMSE", "wNSE"),
-  Value  = round(c(ME_w, RMSE_w, NSE_w), 3)
-)
-
-```
-
-### Comparing maps produced with different proportions of spectroscopic data
-After model validation, spatial prediction maps can be generated. Maps derived from laboratory-only models can be compared with maps obtained from models that incorporate spectroscopic predictions. This visual comparison helps to identify changes in spatial patterns, prediction smoothness, and local variability.
-
-Differences between maps may reflect both the increased data density and the influence of uncertainty-based weighting. Such comparisons are an important step in understanding the practical impact of spectroscopic data supplementation in DSM applications.
-
-To visualise the effect of increasing the proportion of spectroscopic observations, several mixed-data scenarios can be fitted and mapped. In the example below, four proportions are considered: 10\%, 25\%, 50\%, and 75\% spectroscopic data. For each scenario, a weighted random forest is fitted, a SOC map is predicted, and the result is compared with the baseline map derived from laboratory observations only.
-
-The final figure is organised in two rows:
-* the top row shows the SOC maps for the four mixed scenarios, with sampling points coloured by source,
-* the bottom row shows the difference between each mixed map and the baseline laboratory-only map.
-
-```{r fig-mixed-maps-build, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE, fig.cap="SOC maps produced with increasing proportions of spectroscopic observations (top row) and their differences from the baseline laboratory-only SOC map (bottom row)."}
-# -----------------------------------------------------------
-# Sensitivity analysis: mapping SOC using different proportions
-# of spectroscopic observations
-# -----------------------------------------------------------
-
-library(terra)
-library(ranger)
-library(ggplot2)
-library(ggpubr)
-
-set.seed(123)
-
-# Proportions of spectroscopic observations to evaluate
-props <- c(0.10, 0.25, 0.50, 0.75)
-
-# Storage objects for maps and differences
-map_plots  <- vector("list", length(props))
-diff_plots <- vector("list", length(props))
-
-# Temporary storage to harmonise colour scales across panels
-map_vals   <- vector("list", length(props))
-diff_vals  <- vector("list", length(props))
-
-# -----------------------------------------------------------
-# Loop over spectroscopic data proportions
-# -----------------------------------------------------------
-
-for (i in seq_along(props)) {
-  
-  p <- props[i]
-  n <- nrow(soil_df)
-  
-  # Randomly select observations replaced by spectroscopic SOC
-  idx_rf <- sample(seq_len(n), size = round(p * n))
-  
-  # Create mixed SOC response variable
-  soil_df$SOC_mix <- soil_df$SOC
-  soil_df$SOC_mix[idx_rf] <- soil_df$SOC_predRF_0_30[idx_rf]
-  
-  # Assign uncertainty-based weights
-  soil_df$w_mix <- soil_df$w_LAB_raw
-  soil_df$w_mix[idx_rf] <- soil_df$w_RF_raw[idx_rf]
-  
-  # Track data source for plotting
-  soil_df$source <- "LAB"
-  soil_df$source[idx_rf] <- "RF"
-  
-  # Keep only valid rows for modelling
-  vars_needed <- c("SOC_mix", "w_mix", cov_names)
-  
-  soil_df2 <- soil_df[
-    complete.cases(soil_df[, vars_needed]) &
-      is.finite(soil_df$w_mix) &
-      soil_df$w_mix > 0,
-  ]
-  
-  # -----------------------------------------------------------
-  # Fit weighted random forest model
-  # -----------------------------------------------------------
-  
-  mod_mix <- ranger(
-    formula = as.formula(
-      paste("SOC_mix ~", paste(cov_names, collapse = " + "))
-    ),
-    data = soil_df2,
-    case.weights = soil_df2$w_mix,
-    num.trees = 50
-  )
-  
-  # Predict spatial SOC map
-  soc_map_mix <- predict(covs, mod_mix, na.rm = TRUE)
-  
-  # Compute difference from baseline laboratory-only map
-  diff_map <- soc_map_mix - soc_map
-  
-  # Convert rasters to data frames for ggplot visualisation
-  df_map  <- as.data.frame(soc_map_mix, xy = TRUE, na.rm = TRUE)
-  df_diff <- as.data.frame(diff_map,    xy = TRUE, na.rm = TRUE)
-  
-  names(df_map)[3]  <- "value"
-  names(df_diff)[3] <- "value"
-  
-  # Store values to define common colour scales later
-  map_vals[[i]]  <- df_map$value
-  diff_vals[[i]] <- df_diff$value
-  
-  # -----------------------------------------------------------
-  # Build map panels
-  # -----------------------------------------------------------
-  
-  map_plots[[i]] <- ggplot() +
-    geom_raster(data = df_map, aes(x = x, y = y, fill = value)) +
-    geom_point(
-      data = soil_df2,
-      aes(x = x, y = y, color = source),
-      size = 0.6
-    ) +
-    scale_color_manual(values = c(LAB = "red", RF = "blue")) +
-    coord_equal() +
-    labs(
-      title = paste0(round(100 * p), "% spectro"),
-      fill  = "SOC",
-      color = NULL
-    ) +
-    theme_minimal() +
-    theme(
-      axis.title = element_blank(),
-      axis.text  = element_blank(),
-      axis.ticks = element_blank(),
-      panel.grid = element_blank()
+  for (fold in seq_len(nfolds)) {
+    train <- data[fold_id != fold, ]
+    test <- data[fold_id == fold, ]
+    mod <- ranger(
+      formula = form,
+      data = train,
+      case.weights = train$weight,
+      replace = FALSE,
+      sample.fraction = 0.632,
+      seed = seed
     )
-  
-  diff_plots[[i]] <- ggplot() +
-    geom_raster(data = df_diff, aes(x = x, y = y, fill = value)) +
-    coord_equal() +
-    labs(
-      title = paste0("Difference ", round(100 * p), "%"),
-      fill  = "Diff"
-    ) +
-    theme_minimal() +
-    theme(
-      axis.title = element_blank(),
-      axis.text  = element_blank(),
-      axis.ticks = element_blank(),
-      panel.grid = element_blank()
-    )
-}
-
-# -----------------------------------------------------------
-# Define common colour scales across all panels
-# -----------------------------------------------------------
-
-map_range  <- range(unlist(map_vals),  na.rm = TRUE)
-diff_range <- range(unlist(diff_vals), na.rm = TRUE)
-diff_lim   <- max(abs(diff_range))
-
-for (i in seq_along(props)) {
-  
-  map_plots[[i]] <- map_plots[[i]] +
-    scale_fill_viridis_c(limits = map_range)
-  
-  diff_plots[[i]] <- diff_plots[[i]] +
-    scale_fill_gradient2(
-      limits   = c(-diff_lim, diff_lim),
-      midpoint = 0
-    )
-}
-
-# -----------------------------------------------------------
-# Arrange final figure layout
-# -----------------------------------------------------------
-
-row1 <- ggarrange(
-  plotlist = map_plots,
-  ncol = 4, nrow = 1,
-  common.legend = TRUE,
-  legend = "top"
-)
-
-row2 <- ggarrange(
-  plotlist = diff_plots,
-  ncol = 4, nrow = 1,
-  common.legend = TRUE,
-  legend = "bottom"
-)
-
-final_fig <- ggarrange(row1, row2, ncol = 1, nrow = 2)
-final_fig
-```
-
-
-### Testing different ratios of spectroscopic and laboratory data
-
-The influence of spectroscopic information on DSM can be further explored by systematically varying the proportion of spectroscopically inferred observations used during model calibration. Such a sensitivity analysis provides insight into how increasing reliance on spectroscopy may affect both the spatial pattern of predictions and the overall predictive performance of the model.
-
-In this exercise, several scenarios are evaluated, ranging from situations where only a small fraction of the calibration dataset is derived from spectroscopy to cases where spectroscopic observations constitute a substantial component of the available information.
-For each scenario, a weighted DSM model is fitted using uncertainty-based case weights, and spatial prediction maps are generated.
-
-Difference maps relative to the laboratory-only baseline allow visual inspection of how predicted SOC distributions evolve as the balance between laboratory and spectroscopic data changes.
-
-```{r,fig-sensitivity-metrics, echo=FALSE, message=FALSE, warning=FALSE, include=TRUE, fig.cap="Sensitivity of weighted validation metrics to the proportion of spectroscopic observations. Points show individual repetitions, lines show the mean across repetitions, and ribbons represent one standard deviation."}
-# -----------------------------------------------------------
-# Sensitivity analysis: effect of increasing the proportion
-# of spectroscopic observations on weighted model performance
-# -----------------------------------------------------------
-
-library(ranger)
-library(ggplot2)
-library(ggpubr)
-
-set.seed(123)
-
-# Number of observations and cross-validation settings
-n <- nrow(soil_df)
-k <- 10
-n_rep <- 25
-
-# Proportions of spectroscopic observations to test
-perc_vec <- seq(1, 99, by = 5)
-
-# Model formula
-form <- as.formula(
-  paste("SOC_mix ~", paste(cov_names, collapse = " + "))
-)
-
-# Storage table for all repetitions and proportions
-results <- data.frame()
-
-# -----------------------------------------------------------
-# Loop over spectroscopic data proportions
-# -----------------------------------------------------------
-
-for (perc in perc_vec) {
-  
-  # Repeat each proportion several times
-  # to account for randomness in the selected spectroscopic points
-  for (rep in 1:n_rep) {
-    
-    # Randomly select the proportion of observations replaced
-    # by spectroscopic SOC predictions
-    idx_rf <- sample(seq_len(n), size = round((perc / 100) * n))
-    
-    # Create mixed SOC response
-    soil_df$SOC_mix <- soil_df$SOC
-    soil_df$SOC_mix[idx_rf] <- soil_df$SOC_predRF_0_30[idx_rf]
-    
-    # Assign the corresponding uncertainty-based weights
-    soil_df$w_mix <- soil_df$w_LAB_raw
-    soil_df$w_mix[idx_rf] <- soil_df$w_RF_raw[idx_rf]
-    
-    # Optional source indicator
-    soil_df$source <- "LAB"
-    soil_df$source[idx_rf] <- "RF"
-    
-    # Keep only complete and valid observations
-    vars_needed <- c("SOC_mix", "w_mix", cov_names)
-    
-    soil_df2 <- soil_df[
-      complete.cases(soil_df[, vars_needed]) &
-        is.finite(soil_df$w_mix) &
-        soil_df$w_mix > 0,
-    ]
-    
-    # -----------------------------------------------------------
-    # Create 10-fold cross-validation splits
-    # -----------------------------------------------------------
-    
-    fold_id <- sample(rep(1:k, length.out = nrow(soil_df2)))
-    cv_pred <- rep(NA_real_, nrow(soil_df2))
-    
-    # -----------------------------------------------------------
-    # Run 10-fold cross-validation
-    # -----------------------------------------------------------
-    
-    for (fold in 1:k) {
-      
-      train_data <- soil_df2[fold_id != fold, ]
-      test_data  <- soil_df2[fold_id == fold, ]
-      
-      mod_cv <- ranger(
-        formula = form,
-        data = train_data,
-        case.weights = train_data$w_mix,
-        num.trees = 50,
-        importance = "none",
-        verbose = FALSE
-      )
-      
-      cv_pred[fold_id == fold] <- predict(mod_cv, data = test_data)$predictions
-    }
-    
-    # -----------------------------------------------------------
-    # Compute weighted validation metrics for this repetition
-    # -----------------------------------------------------------
-    
-    cv_results <- data.frame(
-      obs  = soil_df2$SOC_mix,
-      pred = cv_pred,
-      w    = soil_df2$w_mix
-    )
-    
-    results <- rbind(
-      results,
-      data.frame(
-        perc_spectro = perc,
-        repetition   = rep,
-        wME   = wME(cv_results$obs, cv_results$pred, cv_results$w),
-        wRMSE = wRMSE(cv_results$obs, cv_results$pred, cv_results$w),
-        wNSE  = wNSE(cv_results$obs, cv_results$pred, cv_results$w)
-      )
-    )
+    cv_pred[fold_id == fold] <- predict(mod, data = test)$predictions
   }
+  
+  data.frame(
+    obs = data[[response]],
+    pred = cv_pred,
+    weight = data$weight
+  )
 }
 
-# -----------------------------------------------------------
-# Summarise results across repetitions
-# -----------------------------------------------------------
-
-sum_mean <- aggregate(
-  cbind(wME, wRMSE, wNSE) ~ perc_spectro,
-  data = results,
-  FUN = mean
-)
-
-sum_sd <- aggregate(
-  cbind(wME, wRMSE, wNSE) ~ perc_spectro,
-  data = results,
-  FUN = sd
-)
-
-results_plot <- merge(
-  sum_mean,
-  sum_sd,
-  by = "perc_spectro",
-  suffixes = c("_mean", "_sd")
-)
-
-# -----------------------------------------------------------
-# Plot weighted performance metrics
-# Points show individual repetitions
-# Line shows the mean across repetitions
-# Ribbon shows ± 1 standard deviation
-# -----------------------------------------------------------
-
-p1 <- ggplot() +
-  geom_point(
-    data = results,
-    aes(x = perc_spectro, y = wME),
-    alpha = 0.5,
-    size = 1
-  ) +
-  geom_ribbon(
-    data = results_plot,
-    aes(
-      x = perc_spectro,
-      ymin = wME_mean - wME_sd,
-      ymax = wME_mean + wME_sd
-    ),
-    alpha = 0.2
-  ) +
-  geom_line(
-    data = results_plot,
-    aes(x = perc_spectro, y = wME_mean),
-    linewidth = 0.8
-  ) +
-  labs(
-    x = "% spectro data",
-    y = "wME"
-  ) +
-  theme_minimal()
-
-p2 <- ggplot() +
-  geom_point(
-    data = results,
-    aes(x = perc_spectro, y = wRMSE),
-    alpha = 0.5,
-    size = 1
-  ) +
-  geom_ribbon(
-    data = results_plot,
-    aes(
-      x = perc_spectro,
-      ymin = wRMSE_mean - wRMSE_sd,
-      ymax = wRMSE_mean + wRMSE_sd
-    ),
-    alpha = 0.2
-  ) +
-  geom_line(
-    data = results_plot,
-    aes(x = perc_spectro, y = wRMSE_mean),
-    linewidth = 0.8
-  ) +
-  labs(
-    x = "% spectro data",
-    y = "wRMSE"
-  ) +
-  theme_minimal()
-
-p3 <- ggplot() +
-  geom_point(
-    data = results,
-    aes(x = perc_spectro, y = wNSE),
-    alpha = 0.5,
-    size = 1
-  ) +
-  geom_ribbon(
-    data = results_plot,
-    aes(
-      x = perc_spectro,
-      ymin = wNSE_mean - wNSE_sd,
-      ymax = wNSE_mean + wNSE_sd
-    ),
-    alpha = 0.2
-  ) +
-  geom_line(
-    data = results_plot,
-    aes(x = perc_spectro, y = wNSE_mean),
-    linewidth = 0.8
-  ) +
-  labs(
-    x = "% spectro data",
-    y = "wNSE"
-  ) +
-  theme_minimal()
-
-# Final combined figure
-perf_fig <- ggarrange(p1, p2, p3, ncol = 1, nrow = 3)
-perf_fig
-
+cv_ref <- run_cv(soil_df_ref, response = "SOC_0_30", predictors = cov_names)
+cv_aug <- run_cv(soil_df_aug, response = "SOC_0_30", predictors = cov_names)
 ```
 
+The weighted performance metrics are computed for each model and assembled into a comparison table:
 
-# Summary 
-In this practical exercise we demonstrated how soil spectroscopic information can be integrated into a digital soil mapping workflow. Mid-infrared spectral data were first preprocessed and used to build a calibration model that provided, for each soil sample, both a predicted SOC value and a sample-specific estimate of prediction uncertainty. These spectroscopic predictions were then harmonised to a standard depth interval and combined with laboratory observations. Laboratory analytical uncertainty was also approximated so that both data sources could be treated consistently.
+```{r val-metrics, message=FALSE, warning=FALSE, eval=TRUE}
+compute_metrics <- function(cv) {
+  data.frame(
+    wME = round(wME(cv$obs,   cv$pred, cv$weight), 3),
+    wRMSE = round(wRMSE(cv$obs, cv$pred, cv$weight), 3),
+    wNSE = round(wNSE(cv$obs,  cv$pred, cv$weight), 3)
+  )
+}
 
-A key step of the workflow was the use of uncertainty-based case weights during spatial model training. By assigning weights proportional to the inverse of observation variance, laboratory data and spectroscopic predictions contributed to model calibration according to their relative reliability. Model validation was also performed using weighted performance metrics, ensuring that predictive skill was evaluated in a way that reflects heterogeneous data quality. Spatial prediction maps illustrated how supplementing laboratory data with spectroscopy can modify spatial patterns and potentially improve prediction stability, depending on the proportion and uncertainty of the additional data.
+metrics <- rbind(
+  data.frame(Model = "Reference (lab only)",  compute_metrics(cv_ref)),
+  data.frame(Model = "Augmented (lab + DRS)", compute_metrics(cv_aug))
+)
 
-Although the example focused on SOC mapping with quantile regression forests, the same principles can be applied to other soil properties and modelling approaches. Only minor adaptations are required, such as changing the calibration model, the spatial prediction algorithm, or the method used to propagate uncertainty. More broadly, the workflow is a practical framework for integrating emerging proximal sensing data sources into DSM while maintaining a transparent treatment of data quality and prediction uncertainty.
+metrics
+```
+
+## Additional activities for further exploration
+
+### What is the optimal number of samples for DRS model calibration?
+
+Two fundamental questions arise in any DRS-augmented DSM workflow (and even in just any scenario where DRS is to be applied for the first time): how many samples are needed to calibrate a reliable spectroscopic model, and which samples should be selected? In the practical exercise above, 20% of the available samples were arbitrarily designated as the calibration set. That is pragmatic choice to simulate a cost-efficient scenario, but not one derived from a principled analysis of the data.
+
+A key advantage of DRS is that spectral measurements are rapid and inexpensive. A large number of soil samples can therefore be scanned before any conventional laboratory analysis is committed to. This creates a practical opportunity: spectral information from the full sample set can be used to decide which samples are most informative for calibration, and only those samples need to be sent for conventional analysis. The calibration set selection problem can thus be framed entirely in terms of the spectra, without prior knowledge of the response variable. This strategy relies on the assumption that soil DRS spectra contain sufficient information about the underlying soil variability to support the selection of representative calibration samples.
+
+@ramirez2014sampling proposed a data-driven approach to identify both the optimal calibration set size and the most representative sampling algorithm. The core idea is to compare the statistical distribution of the candidate calibration set against the distribution of the full sample population in the principal component space of the spectra. The mean squared distance (MSD) between kernel density estimates of the two distributions is used as a measure of representativeness:
+
+$$\text{msd} = \frac{1}{k} \sum_{j=1}^{k} \int_a^b \left( P_p(x_j) - P_s(x_j \in cs) \right)^2 dx_j$$
+
+where $P_p(x_j)$ is the density of the $j$th principal component in the full population, $P_s(x_j \in cs)$ is the density in the calibration subset, and $k$ is the number of retained components. As the calibration set size increases, the MSD decreases and eventually stabilises (the point of stabilisation indicates the minimum number of samples needed to adequately represent the spectral population). This approach requires no reference measurements and can be applied directly to the scanned spectra before any laboratory analysis is carried out.
+
+The workflow for identifiying the optimal calibratin set size is illustrated in \@ref(fig:fig-msd-workflow). 
+
+```{r fig-msd-workflow, echo=FALSE, message=FALSE, warning=FALSE, out.width="50%", eval=TRUE, fig.cap="Workflow for identifying the optimal calibration set size using the mean squared distance between spectral density estimates."}
+library(DiagrammeR)
+library(DiagrammeRsvg)
+library(rsvg)
+
+g <- grViz("
+digraph msd_workflow {
+
+ graph [layout = dot, rankdir = TB, nodesep = 0.3, ranksep = 0.2,
+ bgcolor = '#FFFFFF']
+
+ node [shape = box,
+ style = 'rounded,filled',
+ penwidth = 1.5,
+ fontname = 'Helvetica Neue',
+ fontsize = 10,
+ margin = 0.2]
+
+ edge [arrowsize = 0.7,
+ penwidth = 1.2,
+ color = '#B0B8C1']
+
+ spectra [label = 'Processed MIR spectra\n(full dataset)',
+ fillcolor = '#F2DDD9', color = '#C1614A', fontcolor = '#5C2518']
+ pca [label = 'PCA\n(10 components, scaled scores)',
+ fillcolor = '#F2DDD9', color = '#C1614A', fontcolor = '#5C2518']
+ kde_full [label = 'KDE of full population\n(fixed bandwidth per PC)',
+ fillcolor = '#E2DDED', color = '#7B6D9E', fontcolor = '#312650']
+ loop [label = 'For each set size k\n(repeated 10 times)',
+ fillcolor = '#E2DDED', color = '#7B6D9E', fontcolor = '#312650']
+ sample [label = 'k-means sampling\n(profile-completed)',
+ fillcolor = '#E2DDED', color = '#7B6D9E', fontcolor = '#312650']
+ kde_sub [label = 'KDE of calibration subset\n(same bandwidth and grid)',
+ fillcolor = '#E2DDED', color = '#7B6D9E', fontcolor = '#312650']
+ msd [label = 'MSD between subset\nand full-population KDEs',
+ fillcolor = '#E2DDED', color = '#7B6D9E', fontcolor = '#312650']
+ plot2 [label = 'Plot: MSD vs\ncalibration set size',
+ fillcolor = '#D8E8DF', color = '#4E8A6A', fontcolor = '#1A3D2A']
+ optimal [label = 'Optimal calibration\nset size',
+ fillcolor = '#D8E8DF', color = '#4E8A6A', fontcolor = '#1A3D2A']
+
+ spectra -> pca
+ pca -> kde_full
+ pca -> loop
+ loop -> sample
+ sample -> kde_sub
+ kde_sub -> msd
+ kde_full -> msd
+ msd -> plot2
+ plot2 -> optimal
+}
+")
+
+out_png <- "images/module4/fig_msd_workflow.png"
+tmp_svg <- tempfile(fileext = ".svg")
+export_svg(g) |> writeLines(tmp_svg)
+rsvg_png(tmp_svg, out_png, width = 1400)
+knitr::include_graphics(out_png)
+```
+
+In the following exercise, this workflow is applied to the Kansas MIR dataset to evaluate how different calibration set sizes affect model performance when the selection is based only on spectral information. Environmental covariates, such as those used in the DSM exercise, could also be considered in addition to the DRS spectra.
+
+
+#### Step 1: Principal component analysis of the processed spectra
+
+PCA is computed once on the full dataset and the scores are scaled by their standard deviations so that all components contribute equally to the MSD computation.
+
+```{r msd-pca, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+library(prospectr)
+library(ggplot2)
+
+pca_out <- prcomp(dat$spc_processed, center = TRUE, scale. = FALSE)
+scores_raw <- pca_out$x[, 1:10]
+
+# Scale each PC by its standard deviation
+scores_sd <- apply(scores_raw, 2, sd)
+scores  <- sweep(scores_raw, 2, scores_sd, "/")
+```
+
+#### Step 2: Kernel density estimates for the full population
+
+A KDE is computed for each of the 10 PCs using the full dataset. The bandwidth and grid endpoints are fixed here and reused for all subset comparisons, ensuring that differences in MSD reflect differences in the underlying distributions rather than differences in smoothing.
+
+```{r msd-kde-full, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+n_grid   <- 512
+kde_full <- vector("list", ncol(scores))
+
+for (j in seq_len(ncol(scores))) {
+  kde_full[[j]] <- density(
+    scores[, j],
+    bw = "nrd0",
+    n = n_grid,
+    from = min(scores[, j]),
+    to = max(scores[, j])
+  )
+}
+```
+
+#### Step 3: MSD across calibration set sizes
+
+For each candidate set size, $k$-means sampling is applied to the PC scores. The selected samples are then profile-completed (all horizons from the profiles of the selected samples are included) to avoid splitting profiles between calibration and prediction sets. The MSD is computed across all 10 PCs and averaged. The procedure is repeated 10 times per set size to account for the stochastic nature of $k$-means initialisation.
+
+```{r msd-loop, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+# Candidate calibration set sizes to evaluate (number of k-means centres)
+set_sizes <- seq(10, 200, by = 10)
+
+# Number of repetitions per set size to account for k-means stochasticity
+repetitions <- 10
+
+# Matrix to store MSD values: rows = set sizes, columns = repetitions
+msd_matrix <- matrix(NA, nrow = length(set_sizes), ncol = repetitions)
+
+# KDE of PC1 for each set size (first repetition only, used for plotting)
+kde_subsets_pc1 <- vector("list", length(set_sizes))
+
+# Average number of horizon samples after profile completion, per set size
+n_samples_vec <- numeric(length(set_sizes))
+
+for (i in seq_along(set_sizes)) {
+  # Store sample counts across repetitions to compute the average
+  n_samp_rep <- numeric(repetitions)
+  
+  for (r in seq_len(repetitions)) {
+    # Different seed per repetition and set size for independent realisations
+    set.seed(r * i)
+    # k-means sampling in PC score space
+    kms_i <- prospectr::naes(
+      scores,
+      k = set_sizes[i],
+      iter.max = 1000
+    )
+    
+    # Profile-complete the selection: include all horizons from the profiles
+    # of the selected samples to avoid splitting profiles across sets
+    idx_i <- which(dat$ProfID %in% unique(dat$ProfID[kms_i$model]))
+    n_samp_rep[r] <- length(idx_i)
+    
+    # Compute MSD for each PC separately, then average across components
+    # The same bandwidth and grid as the full-population KDE are used
+    # so that differences in MSD reflect distributional differences only
+    msd_pcs <- numeric(ncol(scores))
+    for (j in seq_len(ncol(scores))) {
+      kde_j <- density(
+        scores[idx_i, j],
+        bw = kde_full[[j]]$bw,
+        n = n_grid,
+        from = min(scores[, j]),
+        to = max(scores[, j])
+      )
+      msd_pcs[j] <- mean((kde_j$y - kde_full[[j]]$y)^2)
+    }
+    # Average MSD across all 10 PCs for this repetition and set size
+    msd_matrix[i, r] <- mean(msd_pcs)
+    
+    # Store PC1 KDE for the first repetition only (used in the density plot)
+    if (r == 1) {
+      kde_subsets_pc1[[i]] <- density(
+        scores[idx_i, 1],
+        bw = kde_full[[1]]$bw,
+        n = n_grid,
+        from = min(scores[, 1]),
+        to = max(scores[, 1])
+      )
+    }
+  }
+  # Average number of samples across repetitions for the dual x-axis labels
+  n_samples_vec[i] <- round(mean(n_samp_rep))
+}
+
+# Summarise MSD across repetitions: mean and SD per set size
+msd_mean <- rowMeans(msd_matrix)
+msd_sd <- apply(msd_matrix, 1, sd)
+```
+
+#### Step 4: Visualising distributional convergence
+
+Figure @ref(fig:msd-plot-density) illustrates the convergence of the calibration subset distribution toward the full population distribution, shown here for the first principal component as a representative example. The MSD curve in Figure @ref(fig:msd-plot-curve) integrates this comparison across all 10 retained components, each contributing equally to the average since the scores are scaled to unit variance.
+
+```{r msd-plot-density, message=FALSE, warning=FALSE, eval=TRUE, fig.cap="Empirical distributions of the first principal component of the processed MIR spectra. The solid black line shows the full population; semi-transparent blue lines show calibration subsets of increasing size."}
+plot(
+  kde_full[[1]]$x, kde_full[[1]]$y,
+  type = "l", lwd = 2, col = "black",
+  xlab = "PC 1 (scaled)", ylab = "Density"
+)
+
+for (i in seq_along(set_sizes)) {
+  lines(
+    kde_subsets_pc1[[i]]$x,
+    kde_subsets_pc1[[i]]$y,
+    col = rgb(0.20, 0.45, 0.70, 0.25),
+    lwd = 1
+  )
+}
+
+lines(kde_full[[1]]$x, kde_full[[1]]$y, lwd = 2, col = "black")
+
+legend(
+  "topleft",
+  legend = c("Full set", "Calibration subsets"),
+  col = c("black", rgb(0.20, 0.45, 0.70, 0.6)),
+  lwd = c(2, 1),
+  bty = "n"
+)
+```
+
+#### Step 5: Identifying the optimal calibration set size
+
+Figure \@ref(fig:msd-plot-curve) shows the MSD as a function of calibration set size. The ribbon represents ±1 standard deviation across repetitions. The point at which the curve flattens is the proposed optimal calibration set size, beyond that point, increasing the number of samples produces negligible improvement in spectral representativeness.
+
+The MSD curve declines steeply up to approximately 50–60 profiles (~330–390 samples), after which the rate of decrease slows substantially. This suggests that around 50–60 profiles captures the main spectral variability of the population, with further additions producing diminishing returns.
+
+The 85 profiles, corresponding to 564 samples, used in the mapping exercise are located beyond the apparent inflection point of the MSD curve. This indicates that the selected calibration set size is likely sufficient to capture the main spectral variability of the dataset. A smaller calibration set of approximately 60 profiles could also be justified, whereas fewer than 40–50 profiles would fall within the steep region of the curve, where spectral representativeness is still increasing substantially.
+
+```{r msd-plot-curve, message=FALSE, warning=FALSE, eval=TRUE, fig.cap="Mean squared distance between the spectral density estimates of calibration subsets and the full population, as a function of calibration set size. The ribbon shows one standard deviation across repetitions. The bottom axis shows the approximate number of horizon samples; the top axis shows the corresponding number of soil profiles."}
+# Extended margins to accommodate both axes and rotated labels
+par(mar = c(7, 5, 6, 2))
+
+# Base plot with sample counts on bottom x axis
+plot(
+  x = set_sizes,
+  y = msd_mean,
+  type = "n",
+  xlab = "",
+  ylab = "Mean squared distance between density estimates",
+  xaxt = "n",
+  ylim = range(c(msd_mean - msd_sd, msd_mean + msd_sd))
+)
+
+# uncertainty band (±1 SD)
+polygon(
+  x = c(set_sizes, rev(set_sizes)),
+  y = c(msd_mean - msd_sd, rev(msd_mean + msd_sd)),
+  col = adjustcolor("#4E84A8", alpha.f = 0.25),
+  border = NA
+)
+
+# Mean MSD line
+lines(set_sizes, msd_mean, col = "#4E84A8", lwd = 1.5)
+
+# Bottom axis: approximate number of samples (rotated labels)
+axis(
+  side = 1,
+  at = set_sizes,
+  labels = n_samples_vec,
+  las = 2,
+  cex.axis = 0.8
+)
+mtext(
+  "Number of samples in calibration set",
+  side = 1, line = 5.5, cex = 0.9
+)
+
+# Top axis: number of profiles
+axis(
+  side = 3,
+  at = set_sizes,
+  labels = set_sizes,
+  las = 2,
+  cex.axis = 0.8
+)
+mtext(
+  "Number of profiles in calibration set",
+  side = 3, line = 4.5, cex = 0.9
+)
+
+grid(lty = 1, col = rgb(0.8, 0.8, 0.8, 0.5))
+```
+
+### Additional exercises for independent exploration
+
+The exercises below suggest directions for independent investigation. Each is self-contained and can be attempted in any order.
+
+- Try different spectral preprocessing combinations (difficulty: low). The workflow used a Savitzky–Golay first derivative followed by SNV. Other combinations — smoothing only, SNV without derivative, multiplicative scatter correction — may perform better or worse depending on the dataset. Apply alternative preprocessing sequences and compare DRS model RMSE and final SOC map accuracy.
+
+- Vary the calibration set size (difficulty: low). The mapping exercise used 85 profiles. Based on the MSD analysis, a smaller set of around 60 profiles may be sufficient. Try different calibration set sizes and examine how the choice affects DRS model performance and the spatial patterns in the predicted SOC maps.
+
+- Map the principal components of the MIR spectra (difficulty: medium). Rather than predicting SOC directly, the scores of the first few principal components of the spectra can be mapped spatially using the same DSM workflow. Each PC score map captures a distinct axis of spectral variation that reflects underlying soil compositional gradients [@viscarra2011soil]. These maps can also be used as additional environmental covariates alongside the standard terrain and climate layers when predicting SOC.
+
+- Use alternative calibration models that provide uncertainty estimates (difficulty: medium). The quantile regression forest used here is one option. Gaussian process regression, Bayesian regularised neural networks, and conformal prediction wrappers for any regression model are alternatives that also produce sample-level uncertainty estimates. Compare their prediction intervals against those of the quantile regression forest.
+
+- Build a model from a larger external spectral library (difficulty: medium–high). Use a large open-access soil spectral library such as the one described by @safanelli2025open to calibrate a DRS model without any Kansas samples, then apply it to predict SOC for the full Kansas dataset. Compare the resulting predictions and uncertainty estimates against those of the locally calibrated model. This tests model transferability and the practical value of large-scale spectral libraries for operational soil mapping.
+
+## Summary 
+
+This practical exercise demonstrated how DRS-derived soil property estimates can be incorporated into a DSM workflow while explicitly accounting for observation-level uncertainty. MIR spectra from the Kansas dataset were first resampled, preprocessed, and used to calibrate a quantile regression forest model for SOC prediction. The calibration subset was selected from the spectral space and then completed at the soil-profile level to avoid information leakage between calibration and prediction samples.
+
+The DRS model produced, for each non-calibration sample, both a predicted SOC value and an associated prediction standard deviation. These predictions were combined with the laboratory SOC measurements from the calibration samples to assemble an augmented SOC dataset. Laboratory observations were assigned a constant analytical uncertainty, while DRS-derived observations retained the uncertainty estimated from the quantile regression forest. This allowed both data sources to be represented within a common uncertainty framework.
+
+SOC values and uncertainties were then harmonized to the 0–30 cm depth interval using depth-weighted averaging. The resulting reference dataset contained only laboratory measurements, whereas the augmented dataset combined laboratory measurements with DRS-based predictions. The empirical distributions of SOC in both datasets were similar after depth harmonization, indicating that the DRS predictions preserved the main distributional characteristics of the laboratory data.
+
+In the DSM step, uncertainty estimates were converted into inverse-variance weights. Observations with lower uncertainty were given greater influence during model fitting, while observations with higher uncertainty contributed less. This weighting strategy ensured that DRS-derived predictions supplemented the laboratory dataset without being treated as equally reliable. Separate random forest models were then fitted using the reference dataset and the DRS-augmented dataset, and the resulting SOC maps were compared spatially.
+
+The comparison between the baseline and augmented SOC maps illustrates how adding DRS-derived observations can modify spatial predictions by increasing the number of available soil observations. The difference map highlights the areas where the inclusion of spectroscopic predictions had the largest influence on the mapped SOC patterns. The validation step further compared the two modelling strategies using weighted performance metrics, so that model assessment reflected the uncertainty associated with each observation.
+
+Overall, the exercise shows that DRS can be used not only to increase the number of SOC observations available for DSM, but also to do so in a way that preserves information about data quality. The approach is therefore more transparent than simply merging laboratory measurements and spectroscopic predictions as if they were equivalent observations. Although the example focused on SOC and MIR spectroscopy, the same principles can be extended to other soil properties, spectral regions, sensing technologies, and spatial modelling algorithms.
+

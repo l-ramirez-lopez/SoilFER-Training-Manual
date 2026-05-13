@@ -290,7 +290,7 @@ The second stage involves selecting SSUs using Covariate Space Coverage Sampling
 If all SSUs within a target PSU are exhausted, missing SSUs must be selected from the designated PSU replacement. The designated PSU replacements were selected with the same spatial variability as their PSU targets.
 
 ```{r ssu-detail, echo=FALSE, fig.cap="Single primary sampling unit displaying secondary sampling units (a), and a zoomed-in view of a secondary sampling unit with tertiary sampling units (b).", out.width='100%'}
-knitr::include_graphics("images/module2/fig_6_ssu_detail.png")
+knitr::include_graphics("images/module2/Fig_6_ssu_detail.png")
 ```
 
 **Stage 3: Tertiary Sampling Units (TSUs)**

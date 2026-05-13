@@ -3,3 +3,21 @@
 .RData
 .Ruserdata
 .DS_Store
+
+/*.log
+/*.nlo
+/*.idx
+
+~$*
+
+*_cache/
+
+/*_files/
+
+*.rds
+*.RData
+*.csv
+*.xlsx
+*.xls
+
+/SoilFER\ Integrated\ soil\ information\ for\ decision-making.Rmd

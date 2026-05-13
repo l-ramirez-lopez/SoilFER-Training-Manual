@@ -4,7 +4,7 @@ title:  |
   <img src="images/new_frontcover.png" style="top:0px;height:100px;" align="right" />
 subtitle: "Guided R tutorials covering the soil information and data lifecycle, from soil sampling design and mapping to data-driven decision-making."
 
-author: "Angelini, M.E., Rodriguez Lado, L., Mendes, W. S., Ribeiro, E., Luotto, I."
+author: "Angelini, M.E., Rodriguez Lado, L., Mendes, W. S., Ribeiro, E., Luotto, I., Wadoux, A. M.J.-C, Ramirez-Lopez, L"
 site: bookdown::bookdown_site
 
 output:

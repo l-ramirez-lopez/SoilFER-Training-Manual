@@ -567,7 +567,7 @@ div.csl-indent {
 </div>
 <div id="making-spectroscopic-data-ready-for-inclusion-in-dsm" class="section level2 hasAnchor" number="6.2">
 <h2><span class="header-section-number">6.2</span> Making spectroscopic data ready for inclusion in DSM<a href="part-ii-practical-application.html#making-spectroscopic-data-ready-for-inclusion-in-dsm" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this section we prepare the spectroscopic data so that it can be used as input in a digital soil mapping. The requirement is that the spectroscopic modelling step should provide, for each soil sample, both a prediction of the target soil property and an estimate of prediction uncertainty. This follows the approach introduced in the Soil Spectroscopy Training Material (<span class="citation">(<a href="#ref-Wadoux2025FAO"><strong>Wadoux2025FAO?</strong></a>)</span> Section 4.3.3), where uncertainty is quantified at the sample level.</p>
+<p>In this section we prepare the spectroscopic data so that it can be used as input in a digital soil mapping. The requirement is that the spectroscopic modelling step should provide, for each soil sample, both a prediction of the target soil property and an estimate of prediction uncertainty. This follows the approach introduced in the Soil Spectroscopy Training Material (<span class="citation">Wadoux <em>et al.</em> (<a href="#ref-Wadoux2025FAO">2025</a>)</span> Section 4.3.3), where uncertainty is quantified at the sample level.</p>
 <p>For DSM applications, these outputs can be treated in a similar way to laboratory observations. However, unlike laboratory data, spectroscopic predictions are associated with an explicit model-based uncertainty. This uncertainty information can later be used in data integration and spatial modelling steps.</p>
 <p>In the following subsections we demonstrate how to (i) import and visualise the spectral data, (ii) apply basic spectral preprocessing, (iii) build a spectroscopic prediction model with uncertainty, (iv) define laboratory measurement uncertainty, and (v) harmonise soil property predictions and uncertainties to a standard depth interval.</p>
 <div id="load-and-plot-the-spectrscopic-data" class="section level3 hasAnchor" number="6.2.1">
@@ -693,7 +693,7 @@ div.csl-indent {
 <h3><span class="header-section-number">6.2.3</span> Spectroscopic modelling with uncertainty<a href="part-ii-practical-application.html#spectroscopic-modelling-with-uncertainty" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The next step is to build a model that predicts SOC from the preprocessed spectra. Here we use a random forest approach, called quantile regression forest. The same model type will then be used for the DSM. This model allows uncertainty to be estimated from the distribution of model predictions.</p>
 <p>To obtain a realistic assessment of model performance, cross-validation is done at the soil profile level. This avoids using horizons from the same profile in both training and testing subsets. For each validation fold, the model is trained on a subset of profiles and used to predict SOC for the remaining profiles.</p>
-<p>Prediction uncertainty is quantified by the model using the conditional distribution of the predictions. This has been extensively described for spectroscopic data in <span class="citation">(<a href="#ref-wadoux2025uncertainty"><strong>wadoux2025uncertainty?</strong></a>)</span>. From this model distribution, a mean predicted value, a prediction variance, and a prediction standard deviation are calculated for each soil sample. These quantities represent the required outputs of the spectroscopic modelling step for DSM.</p>
+<p>Prediction uncertainty is quantified by the model using the conditional distribution of the predictions. This has been extensively described for spectroscopic data in <span class="citation">Wadoux and Ramirez-Lopez (<a href="#ref-wadoux2025uncertainty">2025</a>)</span>. From this model distribution, a mean predicted value, a prediction variance, and a prediction standard deviation are calculated for each soil sample. These quantities represent the required outputs of the spectroscopic modelling step for DSM.</p>
 <p>Model performance can be first visualised by plotting predicted versus measured SOC values in a scatterplot. Validation statistics can be obtained from the function `ranger`` internal structure, where a R<span class="math inline">\(^2\)</span> is reported from a cross-validation. Error bars in the scatterplot representing the prediction standard deviation, they illustrate the level of confidence associated with each prediction.</p>
 <div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="part-ii-practical-application.html#cb265-1" tabindex="-1"></a><span class="co"># -----------------------------------------------------------</span></span>
 <span id="cb265-2"><a href="part-ii-practical-application.html#cb265-2" tabindex="-1"></a><span class="co"># Quantile Random Forest with 10-fold cross-validation</span></span>
@@ -1253,6 +1253,15 @@ Simple functions can be defined to compute these metrics from vectors of observa
 For each scenario, a weighted DSM model is fitted using uncertainty-based case weights, and spatial prediction maps are generated.</p>
 <p>Difference maps relative to the laboratory-only baseline allow visual inspection of how predicted SOC distributions evolve as the balance between laboratory and spectroscopic data changes.</p>
 </div>
+</div>
+</div>
+<h3>References<a href="references-4.html#references-4" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body" entry-spacing="0">
+<div id="ref-wadoux2025uncertainty" class="csl-entry">
+<strong>Wadoux, A.M.-C. &amp; Ramirez-Lopez, L.</strong> 2025. Uncertainty of predictions in absorption spectroscopy: Modelling with quantile regression forest. <em>Chemometrics and Intelligent Laboratory Systems</em>, 265: 105473.
+</div>
+<div id="ref-Wadoux2025FAO" class="csl-entry">
+<strong>Wadoux, A.M.J.-C., Ramirez-Lopez, L., Ge, Y., Barra, I. &amp; Peng, Y.</strong> 2025. <em>A course on applied data analytics for soil analysis with infrared spectroscopy – soil spectroscopy training manual 2</em>. Rome, Italy, Food; Agriculture Organization of the United Nations (FAO).
 </div>
 </div>
             </section>
