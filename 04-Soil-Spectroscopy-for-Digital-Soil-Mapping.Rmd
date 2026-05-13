@@ -941,7 +941,7 @@ soil_pts_ref <- vect(
   crs = "EPSG:4326"
 )
 soil_pts_ref <- project(soil_pts_ref, covs)
-soil_pts_ref <- cbind(soil_pts_ref, extract(covs, soil_pts_ref)[, -1])
+soil_pts_ref <- cbind(soil_pts_ref, terra::extract(covs, soil_pts_ref)[, -1])
 
 # Augmented dataset (laboratory + DRS-based predictions)
 soil_pts_aug <- vect(
@@ -950,7 +950,7 @@ soil_pts_aug <- vect(
   crs = "EPSG:4326"
 )
 soil_pts_aug <- project(soil_pts_aug, covs)
-soil_pts_aug <- cbind(soil_pts_aug, extract(covs, soil_pts_aug)[, -1])
+soil_pts_aug <- cbind(soil_pts_aug, terra::extract(covs, soil_pts_aug)[, -1])
 ```
 
 ```{r}
