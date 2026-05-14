@@ -1077,7 +1077,7 @@ plot(
   diff_map,
   main   = "Difference (augmented - baseline)",
   col    = rev(hcl.colors(100, "RdBu")),
-  range = c(-1, 1)
+  range = c(-1.5, 1.5)
 )
 ```
 
