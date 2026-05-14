@@ -567,7 +567,7 @@ dat_cal$SOC_sdRF <- SOC_sdRF
 
 Figure \@ref(fig:fig-val-plot) shows the validation plot of predicted SOC values against laboratory reference measurements. Error bars represent the prediction standard deviation for each sample, providing a visual representation of the uncertainty associated with each prediction. 
 
-```{r fig-val-plot, echo=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
+```{r echo=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
 xy_lims <- range(dat_cal$SOC_predRF, dat_cal$SOC)
 # Validation plot
 plot(
@@ -597,7 +597,7 @@ abline(0, 1, col = col_ref, lwd = 1.5, lty = 2)
 grid(col = rgb(0.8, 0.8, 0.8, 0.6), lty = 1)
 ```
 
-```{r fig:fig-val-plot, echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE,  fig.cap="Validation plot of predicted SOC values against laboratory reference measurements. Error bars represent the prediction standard deviation for each sample. The dashed line indicates the 1:1 relationship, which represents perfect agreement between predictions and measurements."}
+```{r fig-val-plot, echo=FALSE, message=FALSE, warning=FALSE, eval=TRUE,  fig.cap="Validation plot of predicted SOC values against laboratory reference measurements. Error bars represent the prediction standard deviation for each sample. The dashed line indicates the 1:1 relationship, which represents perfect agreement between predictions and measurements."}
 col_errbar <- rgb(0.20, 0.45, 0.70, 0.35) # steel blue, low alpha
 col_points <- rgb(0.15, 0.15, 0.15, 0.75) # near-black
 col_ref <- rgb(0.50, 0.50, 0.50, 0.90) # mid grey
