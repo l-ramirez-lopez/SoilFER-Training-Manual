@@ -567,7 +567,7 @@ dat_cal$SOC_sdRF <- SOC_sdRF
 
 Figure \@ref(fig:fig-val-plot) shows the validation plot of predicted SOC values against laboratory reference measurements. Error bars represent the prediction standard deviation for each sample, providing a visual representation of the uncertainty associated with each prediction. 
 
-```{r echo=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
+```{r fig-val-plot, echo=TRUE, message=FALSE, warning=FALSE, eval=FALSE}
 xy_lims <- range(dat_cal$SOC_predRF, dat_cal$SOC)
 # Validation plot
 plot(
@@ -902,8 +902,9 @@ Note that the depth harmonisation step propagates horizon-level uncertainties th
 ```{r eval=TRUE}
 # Based on Stevens et al. (2013), SEL ≈ 2 g C kg-1 for mineral soils
 soc_ref_0_30_xy$SOC_sd_0_30 <- 0.15
-soc_aug_0_30_xy$SOC_sd_0_30[!is.na(soc_aug_0_30_xy$SOC_0_30) & 
-  soc_aug_0_30_xy$ProfID %in% dat_augmented$ProfID[kms_samples]] <- 0.15
+soc_aug_0_30_xy$SOC_sd_0_30[
+  soc_aug_0_30_xy$ProfID %in% unique(dat$ProfID[kms_samples])
+] <- 0.15
 ```
 
 
@@ -1070,7 +1071,14 @@ plot(soc_map_aug, main = "SOC map (DRS-augmented dataset)", range = c(0, 4))
 The difference between the augmented and baseline SOC maps can be visualized to identify areas where the inclusion of DRS-based predictions has a notable impact on the spatial predictions. This is done by simply subtracting the baseline map from the augmented map:
 
 ```{r}
-plot(soc_map_aug - soc_map_ref, main = "Difference (augmented - baseline)")
+diff_map <- soc_map_aug - soc_map_ref
+
+plot(
+  diff_map,
+  main   = "Difference (augmented - baseline)",
+  col    = rev(hcl.colors(100, "RdBu")),
+  range = c(-1, 1)
+)
 ```
 
 Figure \@ref(fig:fig-dsm-ref-aug) presents the three maps side by side for direct comparison. The left panel shows the baseline SOC predictions based on laboratory observations only, the middle panel shows the SOC predictions from the DRS-augmented model, and the right panel shows the difference between the two (augmented minus baseline). All maps use the same color scale to facilitate visual comparison.
@@ -1100,8 +1108,6 @@ map_theme <- theme_void() +
     plot.margin = margin(0, 0, 0, 0)
   )
 
-diff_lim <- max(abs(df_diff$SOC), na.rm = TRUE)
-
 p_ref <- ggplot(df_ref, aes(x, y, fill = SOC)) +
   geom_raster() +
   scale_fill_viridis_c(limits = c(0, 4), name = "SOC (%)") +
@@ -1119,7 +1125,7 @@ p_diff <- ggplot(df_diff, aes(x, y, fill = SOC)) +
     mid = "white",
     high = "#d6604d",
     midpoint = 0,
-    limits = c(-diff_lim, diff_lim),
+    limits = c(-1.5, 1.5),
     name = "Difference (%)"
   ) +
   coord_equal() + map_theme + ggtitle("Difference (augmented - baseline)")
@@ -1506,13 +1512,441 @@ mtext(
 grid(lty = 1, col = rgb(0.8, 0.8, 0.8, 0.5))
 ```
 
-### Additional exercises for independent exploration
+### How does the number of DRS calibration samples affect DSM accuracy?
+
+The influence of DRS-derived information on DSM can be explored by systematically varying the number of samples used to calibrate the DRS model. Such a sensitivity analysis provides insight into how the size of the DRS calibration set affects both the spatial pattern of DSM predictions and the overall predictive performance of the final map.
+
+In this exercise, several calibration scenarios are evaluated, ranging from small calibration sets, where only a limited number of samples have laboratory reference measurements, to larger calibration sets that provide broader coverage of the spectral variability in the study area. For each scenario, a DRS model is calibrated using the selected laboratory-measured samples and then used to predict SOC for the remaining scanned samples. These DRS-derived predictions are combined with the available laboratory observations to create an augmented dataset for DSM.
+
+For each calibration set size, a weighted DSM model is fitted using uncertainty-based case weights. Laboratory observations and DRS-derived predictions therefore contribute to model calibration according to their estimated reliability. Spatial prediction maps can then be generated and compared with the baseline map derived from laboratory observations only. These comparisons help identify changes in spatial patterns, prediction smoothness, local variability, and map accuracy as the number of DRS calibration samples increases.
+
+#### Create the DRS calibration subsets
+
+Here, we use an increasing number of profiles selected for calibration \{20, 50, 85, 140, 200, and 300\}  spanning a range from highly sparse to nearly complete coverage of the available spectral variability. 
+
+```{r drs4dsm-sampling, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+n_profiles <- c(20, 50, 85, 140, 200, 300)
+
+# For each calibration set size, select profiles using k-means sampling
+# and store the indices of the calibration and prediction samples
+cal_indices <- vector("list", length(n_profiles))
+names(cal_indices) <- as.character(n_profiles)
+
+for (i in seq_along(n_profiles)) {
+  cat("\nSelecting", n_profiles[i], "profiles\n")
+  set.seed(201909)
+  kms_i <- prospectr::naes(
+    dat$spc_processed,
+    k = n_profiles[i],
+    pc = 10,
+    iter.max = 1000
+  )
+  # Profile-complete the selection
+  cal_idx <- which(dat$ProfID %in% unique(dat$ProfID[kms_i$model]))
+  cal_indices[[i]] <- cal_idx
+  cat(" Calibration samples:", length(cal_idx), "\n")
+}
+```
+
+#### Calibrate DRS models and predict SOC for non-calibration samples 
+
+A quantile regression forest is calibrated on the selected samples and applied to predict SOC and its associated prediction standard deviation for all remaining samples:
+
+```{r drs4dsm-predictions, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+# Storage for DRS predictions across calibration set sizes
+drs_preds <- vector("list", length(n_profiles))
+names(drs_preds) <- as.character(n_profiles)
+
+for (i in seq_along(n_profiles)) {
+  cat("\nFitting DRS model for", n_profiles[i], "profiles\n")
+  cal_idx <- cal_indices[[i]]
+  pred_idx <- setdiff(seq_len(nrow(dat)), cal_idx)
+  
+  # Fit quantile regression forest on calibration samples
+  drs_model_i <- ranger(
+    x = dat$spc_processed[cal_idx, ],
+    y = dat$SOC[cal_idx],
+    quantreg = TRUE,
+    num.trees = 3500,
+    sample.fraction = 1,
+    replace = TRUE,
+    splitrule = "maxstat",
+    min.node.size = 10,
+    seed = 201909
+  )
+  
+  # Predict SOC for non-calibration samples
+  preds_i <- predict(
+    drs_model_i,
+    data = dat$spc_processed[pred_idx, ],
+    type = "quantiles",
+    what = function(x) sample(x, 100, replace = TRUE)
+  )$predictions
+  
+  # Store mean prediction and prediction standard deviation
+  drs_preds[[i]] <- data.frame(
+    row_idx = pred_idx,
+    SOC_predRF = rowMeans(preds_i),
+    SOC_sdRF = sqrt(rowVars(preds_i))
+  )
+  cat(" ", nrow(drs_preds[[i]]), "samples predicted\n")
+}
+```
+
+#### Assemble the augmented datasets
+
+For each scenario, laboratory SOC values are retained for the calibration profiles and DRS-based predictions are used for the remaining samples. Prediction standard deviations from the quantile regression forest are assigned as uncertainty for the DRS-derived observations, and a constant analytical uncertainty of 0.15% SOC is assigned to the laboratory observations.
+
+```{r drs4dsm-assemble, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+# Storage for augmented datasets
+aug_datasets <- vector("list", length(n_profiles))
+names(aug_datasets) <- as.character(n_profiles)
+my_col_names <- c(
+  "smp_id", 
+  "ProfID", 
+  "Long_Site.x", 
+  "Lat_Site.x",
+  "Top_depth_cm.x", 
+  "Bottom_depth_cm.x"
+)
+
+for (i in seq_along(n_profiles)) {
+  cal_idx <- cal_indices[[i]]
+  pred_idx <- drs_preds[[i]]$row_idx
+  
+  # Initialise augmented dataset with metadata columns only
+  aug_i <- as.data.frame(dat)[, my_col_names]
+  aug_i$SOC <- NA
+  aug_i$SOC_sd <- NA
+  
+  # Laboratory observations for calibration profiles
+  aug_i$SOC[cal_idx] <- dat$SOC[cal_idx]
+  # Assuming a constant standard deviation for lab measurements
+  aug_i$SOC_sd[cal_idx] <- 0.15   
+  
+  # DRS-based predictions for non-calibration samples
+  aug_i$SOC[pred_idx] <- drs_preds[[i]]$SOC_predRF
+  aug_i$SOC_sd[pred_idx] <- drs_preds[[i]]$SOC_sdRF
+  
+  aug_datasets[[i]] <- aug_i
+}
+```
+
+
+#### Separate a fixed set of profiles for spatial validation
+
+To enable a fair comparison of DSM accuracy across calibration set sizes, a fixed set of profiles with laboratory SOC measurements is held out before model fitting. These profiles are excluded from all augmented datasets and used only for final evaluation. Because the same validation set is used across all scenarios, the resulting accuracy metrics are directly comparable.
+
+This approach differs from the cross-validation used in the main workflow. There, cross-validation was applied separately to the reference and augmented datasets as an internal diagnostic (a reasonable consistency check for each model on its own training data). However, because the two datasets differ in composition (i.e. one contains only laboratory observations, while the other combines laboratory and DRS-derived observations with different weights), the resulting weighted metrics are not strictly comparable between the two models. For the sensitivity analysis presented here, where the goal is to compare DSM accuracy across five calibration scenarios, a single fixed held-out set evaluated with the same unweighted metrics is the only approach that ensures comparability.
+
+We can use `soil_df_ref` directly for this purpose, since it already contains depth-harmonized SOC values derived exclusively from laboratory measurements—the same dataset used to fit the baseline DSM model. We simply sample a subset of its profiles as the held-out validation set.
+
+
+```{r drs4dsm-hold-out, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+# Add ProfID to soil_df_ref to enable profile-level matching
+soil_df_ref$ProfID <- soc_ref_0_30_xy$SOC_0_30[!is.na(soc_ref_0_30_xy$SOC_0_30)]
+
+# Sample 50 profiles for held-out spatial validation
+# These profiles are never used in any calibration or augmented dataset
+set.seed(202409)
+val_profiles <- sample(unique(soil_df_ref$ProfID), size = 50)
+val_data <- soil_df_ref[soil_df_ref$ProfID %in% val_profiles, ]
+
+cat("Validation profiles:", length(val_profiles), "\n")
+cat(
+  "Remaining profiles available for DSM modelling:",
+  nrow(soil_df_ref) - nrow(val_data), "\n"
+)
+```
+
+
+#### Harmonise the DRS predictions to the 0–30 cm depth interval
+
+SOC values and uncertainties are aggregated to the 0–30 cm interval using the same depth-weighted approach applied in the main workflow. Laboratory uncertainty is reassigned at the profile level after harmonisation to avoid the variance-reduction artefact described earlier.
+
+```{r drs4dsm-harmonise, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+# Helper function: depth-weighted mean SOC for 0-30 cm
+# Returns NA for profiles not fully covering the interval
+depth_weighted_mean_0_30 <- function(p) {
+  h <- horizons(p)
+  w <- pmax(0, pmin(h$Bottom_depth_cm.x, 30) - pmax(h$Top_depth_cm.x, 0))
+  keep <- w > 0 & !is.na(h$SOC)
+  if (sum(w[keep]) < 30) 
+    return(NA)
+  sum(w[keep] * h$SOC[keep]) / sum(w[keep])
+}
+
+# Storage for depth-harmonised augmented datasets
+aug_0_30 <- vector("list", length(n_profiles))
+names(aug_0_30) <- as.character(n_profiles)
+
+for (i in seq_along(n_profiles)) {
+  cal_idx <- cal_indices[[i]]
+  aug_i <- aug_datasets[[i]]
+  depths(aug_i) <- ProfID ~ Top_depth_cm.x + Bottom_depth_cm.x
+  
+  # Depth-weighted mean SOC over 0-30 cm per profile
+  soc_mean_i <- profileApply(aug_i, depth_weighted_mean_0_30)
+  
+  # Depth-weighted propagation of SOC uncertainty over 0-30 cm
+  soc_sd_i <- horizons(aug_i) |>
+    as.data.frame() |>
+    group_by(ProfID) |>
+    summarise(
+      SOC_sd_0_30 = weighted_sd_0_30(Top_depth_cm.x, Bottom_depth_cm.x, SOC_sd),
+      .groups = "drop"
+    )
+  
+  # One set of coordinates per profile for spatial modelling  
+  coords_i <- as.data.frame(aug_i)[, c("ProfID", "Lat_Site.x", "Long_Site.x")]
+  coords_i <- coords_i[!duplicated(coords_i$ProfID), ]
+  
+  # Combine mean SOC, uncertainty, and coordinates into a profile-level table
+  soc_0_30_i <- soc_sd_i |>
+    mutate(SOC_0_30 = soc_mean_i) |>
+    select(ProfID, SOC_0_30, SOC_sd_0_30) |>
+    merge(coords_i, by = "ProfID", all.x = TRUE)
+  
+  # Reassign constant laboratory uncertainty at profile level to avoid
+  # the variance-reduction artefact from depth-weighted propagation
+  cal_profiles <- unique(dat$ProfID[cal_idx])
+  soc_0_30_i$SOC_sd_0_30[soc_0_30_i$ProfID %in% cal_profiles] <- 0.15
+  
+  # Remove held-out validation profiles from the augmented dataset
+  aug_0_30[[i]] <- soc_0_30_i[!soc_0_30_i$ProfID %in% val_profiles, ]
+}
+```
+
+
+#### Fit DSM models using the DRS-augmented datasets and compare the resulting SOC maps
+
+A weighted random forest DSM model is fitted for each augmented dataset using inverse-variance case weights, following the same procedure as in the main workflow. The resulting SOC maps are compared visually with the baseline laboratory-only map to identify how spatial predictions change as the calibration set size increases.
+
+```{r drs4dsm-dsm, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+# Storage for DSM models and predicted SOC maps
+dsm_models <- vector("list", length(n_profiles))
+soc_maps <- vector("list", length(n_profiles))
+names(dsm_models) <- as.character(n_profiles)
+names(soc_maps) <- as.character(n_profiles)
+
+my_formula <- as.formula(
+  paste("SOC_0_30 ~", paste(cov_names, collapse = " + "))
+)
+nms <- c("x", "y", "SOC_0_30", "SOC_sd_0_30", cov_names)
+for (i in seq_along(n_profiles)) {
+  if (i == 1) {
+      cat("\nThis may take a while... how about a break? \u2615\u2615\n")
+  } 
+  cat("\nFitting DSM model for", n_profiles[i], "profiles\n")
+  # Convert to spatial points and extract covariates
+  pts_i <- vect(
+    aug_0_30[[i]],
+    geom = c("Long_Site.x", "Lat_Site.x"),
+    crs = "EPSG:4326"
+  )
+  pts_i <- project(pts_i, covs)
+  pts_i <- cbind(pts_i, terra::extract(covs, pts_i)[, -1])
+  
+  # Prepare modelling table and compute inverse-variance weights
+  df_i <- as.data.frame(pts_i, geom = "XY")[ , nms]
+  df_i <- df_i[!is.na(df_i$SOC_0_30) & !is.na(df_i$SOC_sd_0_30), ]
+  df_i$weight <- 1 / df_i$SOC_sd_0_30^2
+  df_i$weight <- df_i$weight / max(df_i$weight, na.rm = TRUE)
+  
+  # Fit weighted random forest DSM model
+  dsm_models[[i]] <- ranger(
+    formula = my_formula,
+    data = df_i,
+    case.weights = df_i$weight,
+    replace = FALSE,
+    sample.fraction = 0.632,
+    num.trees = 500,
+    seed = 201909
+  )
+  # Predict SOC across the covariate raster stack
+  soc_maps[[i]] <- predict(covs, dsm_models[[i]], na.rm = TRUE)
+}
+```
+
+Now the resulting SOC maps can be visualised and compared with the baseline map derived from laboratory observations only. The difference maps between the augmented and baseline predictions can also be plotted to highlight areas where the inclusion of DRS-derived observations had the largest influence on the spatial patterns of predicted SOC. Figure \@ref(fig:fig-drs4dsm-visualise) shows the predicted SOC maps and their differences from the baseline for each calibration set size.
+
+```{r eval=FALSE}
+par(
+  mfrow = c(length(n_profiles), 2),
+  mar = c(1, 1, 1.5, 3),
+  oma = c(0, 0, 0, 0)
+)
+
+for (i in seq_along(n_profiles)) {
+  
+  n_cal_samples <- length(cal_indices[[i]])
+  
+  plot(
+    soc_maps[[i]],
+    main = paste0("DRS cal.: ", n_profiles[i], " profiles (", n_cal_samples, " samples)"),
+    range = c(0, 4)
+  )
+  plot(
+    soc_maps[[i]] - soc_map_ref,
+    main = paste0("Difference: ", n_profiles[i], " profiles (", n_cal_samples, " samples)"),
+    col = rev(hcl.colors(100, "RdBu")),
+    range = c(-1.5, 1.5)
+  )
+}
+
+par(mfrow = c(1, 1), mar = c(5, 4, 4, 2), oma = c(0, 0, 0, 0))
+```
+
+```{r fig-drs4dsm-visualise, message=FALSE, warning=FALSE, eval=TRUE, fig.cap="Comparison of SOC maps derived from laboratory-only observations and DRS-augmented datasets with varying calibration set sizes. The difference maps highlight areas where the inclusion of DRS-derived predictions had the largest influence on the spatial patterns of predicted SOC."}
+library(ggplot2)
+library(ggpubr)
+
+# Shared map theme
+map_theme <- theme_void() +
+  theme(
+    legend.position = "right",
+    legend.key.width = unit(1.0, "cm"),
+    legend.key.height = unit(0.3, "cm"),
+    legend.text = element_text(size = 7),
+    legend.title = element_text(size = 8),
+    plot.title = element_text(hjust = 0.5, size = 9),
+    plot.margin = margin(0, 0, 0, 0)
+  )
+
+# Build one row per calibration set size: SOC map (left) + difference map (right)
+plot_rows <- vector("list", length(n_profiles))
+
+for (i in seq_along(n_profiles)) {
+  
+  n_cal_samples <- length(cal_indices[[i]])
+  
+  # Convert rasters to data frames
+  df_aug_i <- as.data.frame(soc_maps[[i]], xy = TRUE, na.rm = TRUE)
+  df_diff_i <- as.data.frame(soc_maps[[i]] - soc_map_ref, xy = TRUE, na.rm = TRUE)
+  names(df_aug_i)[3] <- "SOC"
+  names(df_diff_i)[3] <- "SOC"
+  
+  # Left panel: augmented SOC map
+  p_aug_i <- ggplot(df_aug_i, aes(x, y, fill = SOC)) +
+    geom_raster() +
+    scale_fill_viridis_c(limits = c(0, 4), name = "SOC (%)") +
+    coord_equal() + map_theme +
+    ggtitle(paste0("DRS cal.: ", n_profiles[i], " profiles (", n_cal_samples, " samples)"))
+  
+  # Right panel: difference map (augmented minus baseline)
+  p_diff_i <- ggplot(df_diff_i, aes(x, y, fill = SOC)) +
+    geom_raster() +
+    scale_fill_gradient2(
+      low = "#2166ac",
+      mid = "white",
+      high = "#d6604d",
+      midpoint = 0,
+      limits = c(-1.5, 1.5),
+      name = "Difference (%)"
+    ) +
+    coord_equal() + map_theme +
+    ggtitle(paste0("Difference: ", n_profiles[i], " profiles (", n_cal_samples, " samples)"))
+  
+  # Combine into one row
+  plot_rows[[i]] <- ggarrange(
+    p_aug_i, p_diff_i,
+    ncol = 2, nrow = 1
+  )
+}
+
+# Stack all rows into a single figure
+ggarrange(
+  plotlist = plot_rows,
+  ncol = 1,
+  nrow = length(n_profiles)
+)
+```
+
+#### Evaluate DSM accuracy on the held-out validation profiles
+
+DSM accuracy is evaluated on the fixed set of held-out profiles defined earlier. Each fitted DSM model is applied to the validation locations and predictions are compared against the corresponding laboratory SOC values. Because the same 50 validation profiles are used across all calibration scenarios, the resulting metrics are directly comparable. Unweighted ME, RMSE, and NSE are computed, since all validation observations are laboratory measurements with the same constant analytical uncertainty, making weighting unnecessary.
+
+```{r drs4dsm-evaluate, message=FALSE, warning=FALSE, eval=TRUE, results='hide'}
+# Evaluate each DSM model on the held-out validation profiles
+dsm_metrics <- data.frame()
+
+for (i in seq_along(n_profiles)) {
+  # Predict SOC at validation locations using the fitted DSM model
+  preds_val <- predict(dsm_models[[i]], data = val_data)$predictions
+  
+  obs <- val_data$SOC_0_30
+  resid <- preds_val - obs
+  
+  me <- mean(resid, na.rm = TRUE)
+  rmse <- sqrt(mean(resid^2, na.rm = TRUE))
+  nse <- 1 - sum(resid^2, na.rm = TRUE) /
+    sum((obs - mean(obs, na.rm = TRUE))^2, na.rm = TRUE)
+  
+  dsm_metrics <- rbind(
+    dsm_metrics,
+    data.frame(
+      n_profiles = n_profiles[i],
+      n_samples = length(cal_indices[[i]]),
+      ME = round(me, 3),
+      RMSE = round(rmse, 3),
+      NSE = round(nse, 3)
+    )
+  )
+}
+
+dsm_metrics
+```
+
+Figure \@ref(fig:fig-drs4dsm-plot-metrics) shows the RMSE of the DSM predictions on the held-out validation profiles as a function of the number of samples used to calibrate the DRS model. The bottom x-axis shows the number of calibration samples, while the top x-axis shows the corresponding number of calibration profiles. This plot illustrates how DSM accuracy changes as more DRS-derived observations are included in the augmented dataset, providing insight into the trade-off between calibration effort and mapping performance.
+
+```{r fig-drs4dsm-plot-metrics, message=FALSE, warning=FALSE, eval=TRUE, fig.cap="DSM performance metrics (RMSE) on the held-out validation profiles as a function of the number of samples used to calibrate the DRS model. The bottom x-axis shows the number of calibration samples; the top x-axis shows the corresponding number of calibration profiles."}
+par(mar = c(7, 5, 6, 2))
+
+plot(
+ x = dsm_metrics$n_samples,
+ y = dsm_metrics$RMSE,
+ type = "b",
+ pch = 16,
+ col = "#4E84A8",
+ lwd = 1.5,
+ xlab = "",
+ ylab = "RMSE (% SOC)",
+ xaxt = "n",
+ ylim = range(dsm_metrics$RMSE) * c(0.9, 1.1)
+)
+
+grid(lty = 1, col = rgb(0.8, 0.8, 0.8, 0.5))
+
+# Bottom axis: number of calibration samples
+axis(
+ side = 1,
+ at = dsm_metrics$n_samples,
+ labels = dsm_metrics$n_samples,
+ las = 2,
+ cex.axis = 0.8
+)
+mtext("Number of samples in calibration set", side = 1, line = 5.5, cex = 0.9)
+
+# Top axis: number of calibration profiles
+axis(
+ side = 3,
+ at = dsm_metrics$n_samples,
+ labels = dsm_metrics$n_profiles,
+ las = 2,
+ cex.axis = 0.8
+)
+mtext("Number of profiles in calibration set", side = 3, line = 4.5, cex = 0.9)
+
+par(mar = c(5, 4, 4, 2))
+```
+
+
+
+## Additional exercises for independent exploration
 
 The exercises below suggest directions for independent investigation. Each is self-contained and can be attempted in any order.
 
-- Try different spectral preprocessing combinations (difficulty: low). The workflow used a Savitzky–Golay first derivative followed by SNV. Other combinations — smoothing only, SNV without derivative, multiplicative scatter correction — may perform better or worse depending on the dataset. Apply alternative preprocessing sequences and compare DRS model RMSE and final SOC map accuracy.
-
-- Vary the calibration set size (difficulty: low). The mapping exercise used 85 profiles. Based on the MSD analysis, a smaller set of around 60 profiles may be sufficient. Try different calibration set sizes and examine how the choice affects DRS model performance and the spatial patterns in the predicted SOC maps.
+- Try different spectral preprocessing combinations (difficulty: low). The workflow used a Savitzky–Golay first derivative followed by SNV. Other combinations (smoothing only, SNV without derivative, multiplicative scatter correction) may perform better or worse depending on the dataset. Apply alternative preprocessing sequences and compare DRS model RMSE and final SOC map accuracy.
 
 - Map the principal components of the MIR spectra (difficulty: medium). Rather than predicting SOC directly, the scores of the first few principal components of the spectra can be mapped spatially using the same DSM workflow. Each PC score map captures a distinct axis of spectral variation that reflects underlying soil compositional gradients [@viscarra2011soil]. These maps can also be used as additional environmental covariates alongside the standard terrain and climate layers when predicting SOC.
 
